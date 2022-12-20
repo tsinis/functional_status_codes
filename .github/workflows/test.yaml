@@ -1,0 +1,35 @@
+name: tests
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "lib/**"
+      - "test/**"
+      - "example/**"
+      - "pubspec.yaml"
+      - ".github/workflows/test.yaml"
+
+jobs:
+  test:
+    name: 🧪 Test
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
+    timeout-minutes: 10
+    steps:
+      - name: Checks-out repository
+        uses: actions/checkout@v3
+
+      # - name: TODO
+
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
+        with:
+          min_coverage: 92
+          exclude: "**/*.g.dart **/*.gen.dart **/*.freezed.dart"
+
+      - name: Upload Code Coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info

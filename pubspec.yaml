@@ -4,11 +4,9 @@ version: 1.0.0
 # homepage: https://www.example.com
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
-
-# dependencies:
-#   path: ^1.8.0
+  sdk: '>=2.18.0 <4.0.0'
 
 dev_dependencies:
-  lints: ^2.0.0
-  test: ^1.16.0
+  dart_code_metrics: ^5.3.0 # Flutter Favorite
+  lints: ^2.0.1 # From Google
+  test: ^1.22.0 # From Google

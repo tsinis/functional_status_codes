@@ -1,0 +1,43 @@
+name: analyze
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "lib/**"
+      - "test/**"
+      - "example/**"
+      - "pubspec.yaml"
+      - ".github/workflows/analyze.yaml"
+
+jobs:
+  analysis:
+    name: 🕵️ Analyze
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
+    timeout-minutes: 10
+    steps:
+      - name: Checks-out repository
+        uses: actions/checkout@v3
+
+      - name: Check spelling
+        uses: check-spelling/check-spelling@v0.0.21
+        with:
+          config: .github/workflows/actions_settings/check-spelling
+          check_extra_dictionaries: ""
+          extra_dictionaries: cspell:html/html.txt
+            cspell:filetypes/filetypes.txt
+
+      # - name: TODO
+
+      - name: Dart Code Metrics
+        uses: dart-code-checker/dart-code-metrics-action@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          folders: "lib, test, example"
+          pull_request_comment: true
+          check_unused_files: true
+          fatal_performance: true
+          fatal_warnings: true
+          fatal_style: true
