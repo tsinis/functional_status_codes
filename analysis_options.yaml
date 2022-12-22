@@ -31,7 +31,6 @@ analyzer:
 
     # Warning
     empty_catches: warning
-    no_logic_in_create_state: warning
     prefer_relative_imports: warning
 
     # Error
@@ -84,34 +83,25 @@ dart_code_metrics:
           - lib/**/constants.dart
           - integration_test/**
 
-    - always-remove-listener: true
     - arguments-ordering: true
     - avoid-banned-imports: true
-    - avoid-border-all: true
     - avoid-cascade-after-if-null: true
     - avoid-collection-methods-with-unrelated-types: true
     - avoid-double-slash-imports: true
     - avoid-duplicate-exports: true
     - avoid-dynamic: true
-    - avoid-expanded-as-spacer: true
     - avoid-global-state: true
     - avoid-missing-enum-constant-in-map: true
     - avoid-non-ascii-symbols: true
     - avoid-non-null-assertion: true
-    - avoid-returning-widgets: true
-    - avoid-shrink-wrap-in-lists: true
     - avoid-throw-in-catch-block: true
     - avoid-unnecessary-conditionals: true
-    - avoid-unnecessary-setstate: true
     - avoid-unnecessary-type-assertions: true
     - avoid-unnecessary-type-casts: true
     - avoid-unrelated-type-assertions: true
     - avoid-unused-parameters: true
-    - avoid-wrapping-in-padding: true
     - ban-name: true
     - binary-expression-operand-order: true
-    - check-for-equals-in-render-object-setters: true
-    - consistent-update-render-object: true
     - double-literal-format: true
     - format-comment: true
     - list-all-equatable-fields: true
@@ -124,38 +114,60 @@ dart_code_metrics:
     - prefer-async-await: true
     - prefer-commenting-analyzer-ignores: true
     - prefer-conditional-expressions: true
-    - prefer-const-border-radius: true
-    - prefer-correct-edge-insets-constructor: true
     - prefer-correct-test-file-name: true
     - prefer-correct-type-name: true
     - prefer-enums-by-name: true
-    - prefer-extracting-callbacks: true
     - prefer-first: true
     - prefer-immediate-return: true
-    - prefer-intl-name: true
     - prefer-iterable-of: true
     - prefer-last: true
     - prefer-match-file-name: true
     - prefer-moving-to-variable: true
-    - prefer-single-widget-per-file: true
     - prefer-trailing-comma: true
-    - prefer-using-list-view: true
-    - provide-correct-intl-args: true
     - tag-name: true
+
+    # Disabled (Flutter or Intl related):
+    - always-remove-listener: false
+    - avoid-border-all: false
+    - avoid-expanded-as-spacer: false
+    - avoid-returning-widgets: false
+    - avoid-shrink-wrap-in-lists: false
+    - avoid-unnecessary-setstate: false
+    - avoid-wrapping-in-padding: false
+    - check-for-equals-in-render-object-setters: false
+    - consistent-update-render-object: false
+    - prefer-const-border-radius: false
+    - prefer-correct-edge-insets-constructor: false
+    - prefer-extracting-callbacks: false
+    - prefer-intl-name: false
+    - prefer-single-widget-per-file: false
+    - prefer-using-list-view: false
+    - provide-correct-intl-args: false
 
 linter:
   rules:
-    # Disabled
-    always_use_package_imports: false # against prefer_relative_imports
-    diagnostic_describe_all_properties: false # for Flutter Team only
-    flutter_style_todos: false # for Flutter Team only
-    prefer_double_quotes: false # against prefer_single_quotes
-    prefer_final_parameters: false # against avoid_final_parameters
-    unnecessary_final: false # against prefer_final_locals
-    always_specify_types: false # against omit_local_variable_types
+    # Disabled:
+    always_specify_types: false # Conflicts with: omit_local_variable_types.
+    always_use_package_imports: false # Conflicts with: prefer_relative_imports.
+    prefer_double_quotes: false # Conflicts with: prefer_single_quotes.
+    prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
+    unnecessary_final: false # Conflicts with: prefer_final_locals.
+    # Flutter related:
+    avoid_unnecessary_containers: false
+    avoid_web_libraries_in_flutter: false
+    flutter_style_todos: false # For Flutter Team only.
+    no_logic_in_create_state: false
+    sized_box_for_whitespace: false
+    sized_box_shrink_expand: false
+    sort_child_properties_last: false
+    use_build_context_synchronously: false
+    use_decorated_box: false
+    use_full_hex_values_for_flutter_colors: false
+    use_key_in_widget_constructors: false
 
     # Enabled
     always_put_control_body_on_new_line: true
+    library_private_types_in_public_api: true
     always_put_required_named_parameters_first: true
     avoid_annotating_with_dynamic: true
     avoid_bool_literals_in_conditional_expressions: true
@@ -173,10 +185,8 @@ linter:
     avoid_single_cascade_in_expression_statements: true
     avoid_slow_async_io: true
     avoid_types_on_closure_parameters: true
-    avoid_unnecessary_containers: true
     avoid_unused_constructor_parameters: true
     avoid_void_async: true
-    avoid_web_libraries_in_flutter: true
     await_only_futures: true
     cancel_subscriptions: true
     cascade_invocations: true
@@ -184,6 +194,7 @@ linter:
     comment_references: true
     control_flow_in_finally: true
     depend_on_referenced_packages: true
+    diagnostic_describe_all_properties: true
     empty_statements: true
     iterable_contains_unrelated_type: true
     join_return_with_assignment: true
@@ -193,7 +204,6 @@ linter:
     literal_only_boolean_expressions: true
     missing_whitespace_between_adjacent_strings: true
     no_adjacent_strings_in_list: true
-    no_logic_in_create_state: true
     no_runtimeType_toString: true
     omit_local_variable_types: true
     only_throw_errors: true
@@ -220,9 +230,7 @@ linter:
     prefer_typing_uninitialized_variables: true
     prefer_void_to_null: true
     provide_deprecation_message: true
-    public_member_api_docs: true
-    sized_box_for_whitespace: true
-    sort_child_properties_last: true
+    public_member_api_docs: false # TODO! Set to true before publishing! <--
     sort_constructors_first: true
     sort_pub_dependencies: true
     sort_unnamed_constructors_first: true
@@ -237,7 +245,6 @@ linter:
     unnecessary_string_escapes: true
     unnecessary_string_interpolations: true
     unsafe_html: true
-    use_full_hex_values_for_flutter_colors: true
     use_raw_strings: true
     use_string_buffers: true
     valid_regexps: true
@@ -286,7 +293,6 @@ linter:
     unnecessary_this: true
     unrelated_type_equality_checks: true
     use_function_type_syntax_for_parameters: true
-    use_key_in_widget_constructors: true
     use_rethrow_when_possible: true
 
     # Effective Dart 1.2.0
@@ -337,7 +343,6 @@ linter:
     unnecessary_constructor_name: true
     unnecessary_null_checks: true
     unnecessary_nullable_for_final_variable_declarations: true
-    use_build_context_synchronously: true
     use_if_null_to_convert_nulls_to_bools: true
     use_is_even_rather_than_modulo: true
     use_named_constants: true
@@ -351,12 +356,10 @@ linter:
     no_leading_underscores_for_library_prefixes: true
     no_leading_underscores_for_local_identifiers: true
     secure_pubspec_urls: true
-    sized_box_shrink_expand: true
     unnecessary_late: true
     unnecessary_null_aware_operator_on_extension_on_nullable: true
     unnecessary_to_list_in_spreads: true
     unreachable_from_main: true
-    use_decorated_box: true
     use_late_for_private_fields_and_variables: true
     use_string_in_part_of_directives: true
 
