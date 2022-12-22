@@ -10,8 +10,11 @@ void main() => group('NumStatusCodeExtension', () {
         StatusCode.badRequest400,
         StatusCode.internalServerError500,
       };
+      const elseValue = -1;
+      final testValue = basicCodes.first.code;
       final globalWrongCases = [
         null,
+        elseValue,
         -1.0,
         0.0,
         0,
@@ -197,6 +200,16 @@ void main() => group('NumStatusCodeExtension', () {
           );
         }
 
+        test(
+          'should return $double value of status code if provided as $double',
+          () {
+            final doubleCode = testValue.toDouble();
+            final result = mapCode(doubleCode);
+            expect(result, doubleCode);
+            expect(result, isA<double>());
+          },
+        );
+
         for (final status in basicCodes) {
           test(
             'should return $int value of ${status.code} status code',
@@ -207,5 +220,151 @@ void main() => group('NumStatusCodeExtension', () {
             },
           );
         }
+      });
+
+      group('maybeMapStatusCode', () {
+        num maybeMapCode(num? number) => number.maybeMapStatusCode(
+              isInformational: (value) => value,
+              isSuccess: (value) => value,
+              isRedirection: (value) => value,
+              isClientError: (value) => value,
+              isServerError: (value) => value,
+              orElse: () => elseValue,
+            );
+
+        for (final number in globalWrongCases) {
+          test(
+            'should throw orElse value for $number',
+            () => expect(maybeMapCode(number), elseValue),
+          );
+        }
+
+        test(
+          'should return proper value for $testValue status code',
+          () => expect(
+            testValue.maybeMapStatusCode(
+              isStatusCode: (value) => value,
+              orElse: () => null,
+            ),
+            testValue,
+          ),
+        );
+
+        test(
+          'should return $double value of status code if provided as $double',
+          () {
+            final doubleCode = testValue.toDouble();
+            final result = maybeMapCode(doubleCode);
+            expect(result, doubleCode);
+            expect(result, isA<double>());
+          },
+        );
+
+        for (final status in basicCodes) {
+          test(
+            'should return $int value of ${status.code} status code',
+            () {
+              final result = maybeMapCode(status.code);
+              expect(result, status.code);
+              expect(result, isA<int>());
+            },
+          );
+        }
+      });
+
+      group('maybeWhenStatusCode', () {
+        int maybeWhenCode(num? number) => number.maybeWhenStatusCode(
+              isInformational: () => StatusCode.continue100.code,
+              isSuccess: () => StatusCode.ok200.code,
+              isRedirection: () => StatusCode.multipleChoices300.code,
+              isClientError: () => StatusCode.badRequest400.code,
+              isServerError: () => StatusCode.internalServerError500.code,
+              orElse: () => elseValue,
+            );
+
+        for (final number in globalWrongCases) {
+          test(
+            'should return orElse value for $number',
+            () => expect(maybeWhenCode(number), elseValue),
+          );
+        }
+
+        for (final status in basicCodes) {
+          test(
+            'should return proper value for ${status.code} status code',
+            () => expect(maybeWhenCode(status.code), status.code),
+          );
+        }
+
+        test(
+          'should return proper value for $testValue status code',
+          () => expect(
+            testValue.maybeWhenStatusCode(
+              isStatusCode: () => testValue,
+              orElse: () => null,
+            ),
+            testValue,
+          ),
+        );
+      });
+
+      group('whenStatusCode', () {
+        int whenWhenCode(num? number) => number.whenStatusCode(
+              isInformational: () => StatusCode.continue100.code,
+              isSuccess: () => StatusCode.ok200.code,
+              isRedirection: () => StatusCode.multipleChoices300.code,
+              isClientError: () => StatusCode.badRequest400.code,
+              isServerError: () => StatusCode.internalServerError500.code,
+            );
+
+        for (final number in globalWrongCases) {
+          test(
+            'should throw $FormatException for $number',
+            () => expect(
+              () => whenWhenCode(number),
+              throwsA(const TypeMatcher<AssertionError>()),
+            ),
+          );
+        }
+
+        for (final status in basicCodes) {
+          test(
+            'should return proper value for ${status.code} status code',
+            () => expect(whenWhenCode(status.code), status.code),
+          );
+        }
+      });
+
+      group('whenStatusCodeOrNull', () {
+        int? maybeWhenCodeOrNull(num? number) => number.whenStatusCodeOrNull(
+              isInformational: () => StatusCode.continue100.code,
+              isSuccess: () => StatusCode.ok200.code,
+              isRedirection: () => StatusCode.multipleChoices300.code,
+              isClientError: () => StatusCode.badRequest400.code,
+              isServerError: () => StatusCode.internalServerError500.code,
+              orElse: () => elseValue,
+            );
+
+        for (final number in globalWrongCases) {
+          test(
+            'should return orElse value for $number',
+            () => expect(maybeWhenCodeOrNull(number), elseValue),
+          );
+        }
+
+        for (final status in basicCodes) {
+          test(
+            'should return proper value for ${status.code} status code',
+            () => expect(maybeWhenCodeOrNull(status.code), status.code),
+          );
+        }
+
+        test(
+          'should return proper value for $testValue status code',
+          () => expect(
+            testValue.whenStatusCodeOrNull(isStatusCode: () => testValue),
+            testValue,
+          ),
+        );
       });
     });
