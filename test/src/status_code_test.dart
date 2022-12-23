@@ -4,7 +4,7 @@ import 'package:functional_status_codes/functional_status_codes.dart';
 import 'package:test/test.dart';
 
 void main() => group('$StatusCode', () {
-      final maxCode = StatusCode.networkConnectTimeoutError599.code + 1;
+      final maxCode = StatusCode.networkConnectTimeoutErrorHttp599.code + 1;
       final randomInt = maxCode + Random().nextInt(999 - maxCode);
       group('maybeFromCode', () {
         test(
@@ -57,12 +57,12 @@ void main() => group('$StatusCode', () {
         );
 
         test(
-          'should return null from full 404 text',
+          'should return null from full 200 text',
           () => expect(
             StatusCode.tryParse(
-              '${StatusCode.notFound404.reason}:${StatusCode.notFound404.code}',
+              '${StatusCode.okHttp200.reason}:${StatusCode.okHttp200.code}',
             ),
-            StatusCode.notFound404,
+            StatusCode.okHttp200,
           ),
         );
 

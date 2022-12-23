@@ -11,24 +11,24 @@ extension NumStatusCodeExtension<T extends num> on T? {
       _maybeThisInt <= StatusCode.values.last.code;
 
   bool get isInformational =>
-      _maybeThisInt >= StatusCode.continue100.code &&
-      _maybeThisInt < StatusCode.ok200.code;
+      _maybeThisInt >= StatusCode.continueHttp100.code &&
+      _maybeThisInt < StatusCode.okHttp200.code;
 
   bool get isSuccess =>
-      _maybeThisInt >= StatusCode.ok200.code &&
-      _maybeThisInt < StatusCode.multipleChoices300.code;
+      _maybeThisInt >= StatusCode.okHttp200.code &&
+      _maybeThisInt < StatusCode.multipleChoicesHttp300.code;
 
   bool get isRedirection =>
-      _maybeThisInt >= StatusCode.multipleChoices300.code &&
-      _maybeThisInt < StatusCode.badRequest400.code;
+      _maybeThisInt >= StatusCode.multipleChoicesHttp300.code &&
+      _maybeThisInt < StatusCode.badRequestHttp400.code;
 
   bool get isClientError =>
-      _maybeThisInt >= StatusCode.badRequest400.code &&
-      _maybeThisInt < StatusCode.internalServerError500.code;
+      _maybeThisInt >= StatusCode.badRequestHttp400.code &&
+      _maybeThisInt < StatusCode.internalServerErrorHttp500.code;
 
   bool get isServerError =>
-      _maybeThisInt >= StatusCode.internalServerError500.code &&
-      _maybeThisInt <= StatusCode.networkConnectTimeoutError599.code;
+      _maybeThisInt >= StatusCode.internalServerErrorHttp500.code &&
+      _maybeThisInt <= StatusCode.networkConnectTimeoutErrorHttp599.code;
 
   StatusCode? toRegisteredStatusCode() => StatusCode.maybeFromCode(this);
 

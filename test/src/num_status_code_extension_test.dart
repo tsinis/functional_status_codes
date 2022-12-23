@@ -1,14 +1,13 @@
 import 'package:functional_status_codes/functional_status_codes.dart';
-import 'package:functional_status_codes/src/num_status_code_extension.dart';
 import 'package:test/test.dart';
 
 void main() => group('NumStatusCodeExtension', () {
       const basicCodes = {
-        StatusCode.continue100,
-        StatusCode.ok200,
-        StatusCode.multipleChoices300,
-        StatusCode.badRequest400,
-        StatusCode.internalServerError500,
+        StatusCode.continueHttp100,
+        StatusCode.okHttp200,
+        StatusCode.multipleChoicesHttp300,
+        StatusCode.badRequestHttp400,
+        StatusCode.internalServerErrorHttp500,
       };
       const elseValue = -1;
       final testValue = basicCodes.first.code;
@@ -25,10 +24,10 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('isStatusCode', () {
         final codeErrorTrueCases = {
-          StatusCode.continue100.code,
-          StatusCode.continue100.code + 1,
-          StatusCode.networkConnectTimeoutError599.code - 1,
-          StatusCode.networkConnectTimeoutError599.code,
+          StatusCode.continueHttp100.code,
+          StatusCode.continueHttp100.code + 1,
+          StatusCode.networkConnectTimeoutErrorHttp599.code - 1,
+          StatusCode.networkConnectTimeoutErrorHttp599.code,
         };
 
         for (final number in globalWrongCases) {
@@ -48,14 +47,14 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('isInformational', () {
         final infoTrueCases = {
-          StatusCode.continue100.code,
-          StatusCode.continue100.code + 1,
-          StatusCode.ok200.code - 1,
+          StatusCode.continueHttp100.code,
+          StatusCode.continueHttp100.code + 1,
+          StatusCode.okHttp200.code - 1,
         };
 
         final infoFalseCases = {
-          StatusCode.continue100.code - 1,
-          StatusCode.ok200.code,
+          StatusCode.continueHttp100.code - 1,
+          StatusCode.okHttp200.code,
         };
 
         for (final number in [...globalWrongCases, ...infoFalseCases]) {
@@ -75,14 +74,14 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('isSuccess', () {
         final successTrueCases = {
-          StatusCode.ok200.code,
-          StatusCode.ok200.code + 1,
-          StatusCode.multipleChoices300.code - 1,
+          StatusCode.okHttp200.code,
+          StatusCode.okHttp200.code + 1,
+          StatusCode.multipleChoicesHttp300.code - 1,
         };
 
         final successFalseCases = {
-          StatusCode.ok200.code - 1,
-          StatusCode.multipleChoices300.code,
+          StatusCode.okHttp200.code - 1,
+          StatusCode.multipleChoicesHttp300.code,
         };
 
         for (final number in [...globalWrongCases, ...successFalseCases]) {
@@ -102,14 +101,14 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('isRedirection', () {
         final redirectionTrueCases = {
-          StatusCode.multipleChoices300.code,
-          StatusCode.multipleChoices300.code + 1,
-          StatusCode.badRequest400.code - 1,
+          StatusCode.multipleChoicesHttp300.code,
+          StatusCode.multipleChoicesHttp300.code + 1,
+          StatusCode.badRequestHttp400.code - 1,
         };
 
         final redirectionFalseCases = {
-          StatusCode.multipleChoices300.code - 1,
-          StatusCode.badRequest400.code,
+          StatusCode.multipleChoicesHttp300.code - 1,
+          StatusCode.badRequestHttp400.code,
         };
 
         for (final number in [...globalWrongCases, ...redirectionFalseCases]) {
@@ -129,14 +128,14 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('isClientError', () {
         final clientErrorTrueCases = {
-          StatusCode.badRequest400.code,
-          StatusCode.badRequest400.code + 1,
-          StatusCode.nginxClientClosedRequest499.code,
+          StatusCode.badRequestHttp400.code,
+          StatusCode.badRequestHttp400.code + 1,
+          StatusCode.nginxClientClosedRequestHttp499.code,
         };
 
         final clientErrorFalseCases = {
-          StatusCode.badRequest400.code - 1,
-          StatusCode.internalServerError500.code,
+          StatusCode.badRequestHttp400.code - 1,
+          StatusCode.internalServerErrorHttp500.code,
         };
 
         for (final number in [...globalWrongCases, ...clientErrorFalseCases]) {
@@ -156,14 +155,14 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('isServerError', () {
         final serverErrorTrueCases = {
-          StatusCode.internalServerError500.code,
-          StatusCode.internalServerError500.code + 1,
-          StatusCode.networkConnectTimeoutError599.code,
+          StatusCode.internalServerErrorHttp500.code,
+          StatusCode.internalServerErrorHttp500.code + 1,
+          StatusCode.networkConnectTimeoutErrorHttp599.code,
         };
 
         final serverErrorFalseCases = {
-          StatusCode.nginxClientClosedRequest499.code,
-          StatusCode.networkConnectTimeoutError599.code + 1,
+          StatusCode.nginxClientClosedRequestHttp499.code,
+          StatusCode.networkConnectTimeoutErrorHttp599.code + 1,
         };
 
         for (final number in [...globalWrongCases, ...serverErrorFalseCases]) {
@@ -295,11 +294,11 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('maybeWhenStatusCode', () {
         int maybeWhenCode(num? number) => number.maybeWhenStatusCode(
-              isInformational: () => StatusCode.continue100.code,
-              isSuccess: () => StatusCode.ok200.code,
-              isRedirection: () => StatusCode.multipleChoices300.code,
-              isClientError: () => StatusCode.badRequest400.code,
-              isServerError: () => StatusCode.internalServerError500.code,
+              isInformational: () => StatusCode.continueHttp100.code,
+              isSuccess: () => StatusCode.okHttp200.code,
+              isRedirection: () => StatusCode.multipleChoicesHttp300.code,
+              isClientError: () => StatusCode.badRequestHttp400.code,
+              isServerError: () => StatusCode.internalServerErrorHttp500.code,
               orElse: () => elseValue,
             );
 
@@ -331,11 +330,11 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('whenStatusCode', () {
         int whenWhenCode(num? number) => number.whenStatusCode(
-              isInformational: () => StatusCode.continue100.code,
-              isSuccess: () => StatusCode.ok200.code,
-              isRedirection: () => StatusCode.multipleChoices300.code,
-              isClientError: () => StatusCode.badRequest400.code,
-              isServerError: () => StatusCode.internalServerError500.code,
+              isInformational: () => StatusCode.continueHttp100.code,
+              isSuccess: () => StatusCode.okHttp200.code,
+              isRedirection: () => StatusCode.multipleChoicesHttp300.code,
+              isClientError: () => StatusCode.badRequestHttp400.code,
+              isServerError: () => StatusCode.internalServerErrorHttp500.code,
             );
 
         for (final number in globalWrongCases) {
@@ -358,11 +357,11 @@ void main() => group('NumStatusCodeExtension', () {
 
       group('whenStatusCodeOrNull', () {
         int? maybeWhenCodeOrNull(num? number) => number.whenStatusCodeOrNull(
-              isInformational: () => StatusCode.continue100.code,
-              isSuccess: () => StatusCode.ok200.code,
-              isRedirection: () => StatusCode.multipleChoices300.code,
-              isClientError: () => StatusCode.badRequest400.code,
-              isServerError: () => StatusCode.internalServerError500.code,
+              isInformational: () => StatusCode.continueHttp100.code,
+              isSuccess: () => StatusCode.okHttp200.code,
+              isRedirection: () => StatusCode.multipleChoicesHttp300.code,
+              isClientError: () => StatusCode.badRequestHttp400.code,
+              isServerError: () => StatusCode.internalServerErrorHttp500.code,
               orElse: () => elseValue,
             );
 

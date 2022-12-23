@@ -95,7 +95,6 @@ dart_code_metrics:
     - avoid-unnecessary-type-assertions: true
     - avoid-unnecessary-type-casts: true
     - avoid-unrelated-type-assertions: true
-    - avoid-unused-parameters: true
     - ban-name: true
     - binary-expression-operand-order: true
     - double-literal-format: true

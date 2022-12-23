@@ -18,25 +18,33 @@ Future<int?> main(List<String> arguments, [http.Client? client]) async {
         final registeredCode = response.statusCode.toRegisteredStatusCode();
 
         return registeredCode?.maybeMap(
-          ok200: (code) {
-            final jsonResponse =
-                convert.jsonDecode(response.body) as Map<String, dynamic>;
-            final itemCount = jsonResponse['totalItems'] as int?;
-            print('Number of books about http: $itemCount.');
+              createdHttp201: (status) {
+                print(
+                  'Response has registered success status but not 200 code',
+                );
 
-            return itemCount;
-          },
-          orElse: () {
-            print('Response returned success status code but not 200');
+                return status.code;
+              },
+              okHttp200: (_) {
+                final jsonResponse =
+                    convert.jsonDecode(response.body) as Map<String, dynamic>;
+                final itemCount = jsonResponse['totalItems'] as int?;
+                print('Number of books about http: $itemCount.');
 
-            return null;
-          },
-        );
+                return itemCount;
+              },
+              orElse: () {
+                print('Response has success status but not 200 code');
+
+                return response.statusCode;
+              },
+            ) ??
+            response.statusCode;
       },
       orElse: () {
         print('Request failed with status: ${response.statusCode}.');
 
-        return null;
+        return response.statusCode;
       },
     );
   }
