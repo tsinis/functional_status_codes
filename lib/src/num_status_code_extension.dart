@@ -1,37 +1,131 @@
 // ignore_for_file: long-parameter-list
 import '../functional_status_codes.dart';
 
+/// Extension on `num?` types to provide additional functionality for working
+/// with HTTP status codes.
 extension NumStatusCodeExtension<T extends num> on T? {
   static const _outSideOfRangeMessage = 'Value is outside of 100-599 range';
 
+  /// Converts the value to an integer if it exists, or returns `0` if it is
+  /// `null`.
   int get _maybeThisInt => this?.toInt() ?? 0;
 
+  /// Returns `true` if the value is within the range of valid HTTP status codes
+  /// (100-599), `false` otherwise.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(200.isStatusCode); // true
+  /// print(599.0.isStatusCode); // true
+  /// print(600.isStatusCode); // false
+  /// ```
   bool get isStatusCode =>
       _maybeThisInt >= StatusCode.values.first.code &&
       _maybeThisInt <= StatusCode.values.last.code;
 
+  /// Returns `true` if the value is within the range of informational HTTP
+  /// status codes (100-199), `false` otherwise.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(100.isInformational); // true
+  /// print(200.isInformational); // false
+  /// ```
   bool get isInformational =>
       _maybeThisInt >= StatusCode.continueHttp100.code &&
       _maybeThisInt < StatusCode.okHttp200.code;
 
+  /// Returns `true` if the value is within the range of successful HTTP status
+  /// codes (200-299), `false` otherwise.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(200.isSuccess); // true
+  /// print(300.isSuccess); // false
+  /// ```
   bool get isSuccess =>
       _maybeThisInt >= StatusCode.okHttp200.code &&
       _maybeThisInt < StatusCode.multipleChoicesHttp300.code;
 
+  /// Returns `true` if the value is within the range of redirection HTTP status
+  /// codes (300-399), `false` otherwise.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(300.isRedirection); // true
+  /// print(400.isRedirection); // false
+  /// ```
   bool get isRedirection =>
       _maybeThisInt >= StatusCode.multipleChoicesHttp300.code &&
       _maybeThisInt < StatusCode.badRequestHttp400.code;
 
+  /// Returns `true` if the value is within the range of client error HTTP
+  /// status codes (400-499), `false` otherwise.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(400.isClientError); // true
+  /// print(500.isClientError); // false
+  /// ```
   bool get isClientError =>
       _maybeThisInt >= StatusCode.badRequestHttp400.code &&
       _maybeThisInt < StatusCode.internalServerErrorHttp500.code;
 
+  /// Returns `true` if the value is within the range of server error HTTP
+  /// status codes (500-599), `false` otherwise.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(500.isServerError); // true
+  /// print(600.isServerError); // false
+  /// ```
   bool get isServerError =>
       _maybeThisInt >= StatusCode.internalServerErrorHttp500.code &&
       _maybeThisInt <= StatusCode.networkConnectTimeoutErrorHttp599.code;
 
+  /// Converts the `num?` value to a `StatusCode` if it exists within the range
+  /// of valid HTTP status codes (100-599), or returns `null` if it is outside
+  /// of that range or `null`.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(200.toRegisteredStatusCode()); // StatusCode(200, reason: "OK")
+  /// print(299.toRegisteredStatusCode()); // null
+  /// print(600.toRegisteredStatusCode()); // null
+  /// ```
   StatusCode? toRegisteredStatusCode() => StatusCode.maybeFromCode(this);
 
+  /// Maps the value to a new value based on its classification as an HTTP
+  /// status code.
+  ///
+  /// If the value is `null`, a `FormatException` is thrown. Also if the value
+  /// is not within the range of valid HTTP status codes (100-599), a
+  /// `FormatException` is thrown.
+  ///
+  /// If the value is within the range of informational HTTP status codes
+  /// (100-199), the `isInformational` function is called and its result is
+  /// returned. If the value is within the range of successful HTTP status codes
+  /// (200-299), the `isSuccess` function is called and its result is returned.
+  ///
+  /// Example:
+  /// ```dart
+  ///   final statusCode = 200;
+  ///   final mappedStatus = statusCode.mapStatusCode(
+  ///     isInformational: (code) => '$code is an Informational status',
+  ///     isSuccess: (code) => '$code is a Success status',
+  ///     isRedirection: (code) => '$code is a Redirection status',
+  ///     isClientError: (code) => '$code is a Client Error status',
+  ///     isServerError: (code) => '$code is a Server Error status',
+  ///   );
+  ///   print(mappedStatus); // '200 is a Success status'
+  /// ```
   R mapStatusCode<R>({
     required R Function(T isInformational) isInformational,
     required R Function(T isSuccess) isSuccess,
@@ -66,6 +160,23 @@ extension NumStatusCodeExtension<T extends num> on T? {
     throw FormatException(_outSideOfRangeMessage, thisValue);
   }
 
+  /// If the `num?` value is a valid HTTP status code, maps it to a result using
+  /// the provided functions. If the value is not a valid HTTP status code,
+  /// returns the result of calling `orElse`.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// 200.maybeMapStatusCode(
+  ///   orElse: () => 'unknown',
+  ///   isSuccess: (code) => 'success',
+  /// ); // Returns 'success'
+  ///
+  /// 600.maybeMapStatusCode(
+  ///   orElse: () => 'unknown',
+  ///   isSuccess: (code) => 'success',
+  /// ); // Returns 'unknown'
+  /// ```
   R maybeMapStatusCode<R>({
     required R Function() orElse,
     R Function(T isStatusCode)? isStatusCode,
@@ -96,6 +207,24 @@ extension NumStatusCodeExtension<T extends num> on T? {
     }
   }
 
+  /// If the value of `num?` is a valid HTTP status code, calls the
+  /// corresponding function for the category of it (informational, success,
+  /// redirection, client error, or server error). If the value is not a valid
+  /// HTTP status code, returns the result of calling `orElse`.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// 200.maybeWhenStatusCode(
+  ///   orElse: () => 'unknown',
+  ///   isSuccess: () => 'success',
+  /// ); // Returns 'success'
+  ///
+  /// 600.maybeWhenStatusCode(
+  ///   orElse: () => 'unknown',
+  ///   isSuccess: () => 'success',
+  /// ); // Returns 'unknown'
+  /// ```
   R maybeWhenStatusCode<R>({
     required R Function() orElse,
     R Function()? isStatusCode,
@@ -122,6 +251,25 @@ extension NumStatusCodeExtension<T extends num> on T? {
     }
   }
 
+  /// If the value of `num?` is a valid HTTP status code, calls the
+  /// corresponding function for the category of it (informational, success,
+  /// redirection, client error, or server error).
+  ///
+  /// If the value is not a valid HTTP status code, throws a [FormatException]
+  /// with the message 'Value is outside of 100-599 range'.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// 200.whenStatusCode(
+  ///   isSuccess: () => 'success',
+  ///   isClientError: () => 'client error',
+  /// ); // Returns 'success'
+  ///
+  /// 600.whenStatusCode(
+  ///   isSuccess: () => 'success',
+  ///   isClientError: () => 'client error',
+  /// ); // Throws FormatException
   R whenStatusCode<R>({
     required R Function() isInformational,
     required R Function() isSuccess,
@@ -152,6 +300,27 @@ extension NumStatusCodeExtension<T extends num> on T? {
     throw FormatException(_outSideOfRangeMessage, this);
   }
 
+  /// Evaluates the provided functions based on the HTTP status code represented
+  /// by `num?` value. If the provided value is `null`, `orElse` will be called.
+  /// If the provided value is not an HTTP status code, or the corresponding
+  /// function is not provided, the method will return `null`.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// final statusCode = 404;
+  /// final statusCodeOrNull = null;
+  ///
+  /// statusCode.whenStatusCodeOrNull(
+  ///   isStatusCode: () => 'This is an HTTP status code',
+  ///   orElse: () => 'This is not an HTTP status code',
+  /// ); // Returns: 'This is an HTTP status code'
+  ///
+  /// statusCodeOrNull.whenStatusCodeOrNull(
+  ///   isStatusCode: () => 'This is an HTTP status code',
+  ///   orElse: () => 'This is not an HTTP status code',
+  /// ); // Returns: 'This is not an HTTP status code'
+  /// ```
   R? whenStatusCodeOrNull<R>({
     R Function()? isStatusCode,
     R Function()? isInformational,

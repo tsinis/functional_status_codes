@@ -423,8 +423,10 @@ enum StatusCode {
   /// in front of the proxy.
   networkConnectTimeoutErrorHttp599(599, 'Network Connect Timeout Error');
 
+  /// Dart [enum] for easier handling of all IANA registered HTTP Status codes.
   const StatusCode(this.code, this.reason);
 
+  /// The IANA registered HTTP Status code.
   final int code;
 
   /// Status code corresponding Reason Phrase.
@@ -433,6 +435,17 @@ enum StatusCode {
   @override
   String toString() => 'StatusCode($code, reason: "$reason")';
 
+  /// Returns the [StatusCode] enum value for the given status code, if it
+  /// exists. Otherwise, returns `null`.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// var status = StatusCode.maybeFromCode(200);
+  /// print(status); // Output: StatusCode(200, reason: "OK")
+  /// status = StatusCode.maybeFromCode(600);
+  /// print(status); // Output: null
+  /// ```
   static StatusCode? maybeFromCode(num? statusCode) {
     if (statusCode != null) {
       final intStatusCode = statusCode.toInt();
@@ -446,6 +459,17 @@ enum StatusCode {
     return null;
   }
 
+  /// Tries to parse the given `String?` and return the corresponding
+  /// [StatusCode] enum value, if it exists. Otherwise, returns `null`.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// var status = StatusCode.tryParse("HTTP/1.1 200 OK");
+  /// print(status); // Output: StatusCode(200, reason: "OK")
+  /// status = StatusCode.tryParse("HTTP/1.1 OK");
+  /// print(status); // Output: null
+  /// ```
   static StatusCode? tryParse(String? statusCode) {
     if (statusCode == null) {
       return null;
