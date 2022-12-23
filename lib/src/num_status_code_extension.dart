@@ -270,6 +270,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   ///   isSuccess: () => 'success',
   ///   isClientError: () => 'client error',
   /// ); // Throws FormatException
+  /// ```
   R whenStatusCode<R>({
     required R Function() isInformational,
     required R Function() isSuccess,

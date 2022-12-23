@@ -2,7 +2,7 @@ This pure Dart and and dependency-free package provides functionality for workin
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+![Comparison](doc/comparison.png)
 
 * Extends `num` types with helper functional methods (when, map, maybeWhen, etc.) for handling HTTP status codes.
 * Provides `StatusCode` enum for easy handling of all [IANA registered HTTP status codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xml) (also in functional style).
