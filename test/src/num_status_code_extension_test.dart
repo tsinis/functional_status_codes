@@ -181,6 +181,27 @@ void main() => group('NumStatusCodeExtension', () {
         }
       });
 
+      group('toRegisteredStatusCode', () {
+        for (final number in globalWrongCases) {
+          test(
+            'should return null for $number',
+            () => expect(number.toRegisteredStatusCode(), isNull),
+          );
+        }
+
+        test(
+          'should return null for unregistered status code',
+          () => expect(144.toRegisteredStatusCode(), isNull),
+        );
+
+        for (final status in basicCodes) {
+          test(
+            'should return proper status code enum from $status',
+            () => expect(status.code.toRegisteredStatusCode(), status),
+          );
+        }
+      });
+
       group('mapStatusCode', () {
         num mapCode(num? number) => number.mapStatusCode(
               isInformational: (value) => value,

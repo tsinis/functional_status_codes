@@ -30,6 +30,8 @@ extension NumStatusCodeExtension<T extends num> on T? {
       _maybeThisInt >= StatusCode.internalServerError500.code &&
       _maybeThisInt <= StatusCode.networkConnectTimeoutError599.code;
 
+  StatusCode? toRegisteredStatusCode() => StatusCode.maybeFromCode(this);
+
   R mapStatusCode<R>({
     required R Function(T isInformational) isInformational,
     required R Function(T isSuccess) isSuccess,
