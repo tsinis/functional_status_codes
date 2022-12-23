@@ -2,119 +2,275 @@
 
 part of 'status_code.dart';
 
+/// Functional style extensions on [StatusCode]
 extension StatusCodeX on StatusCode {
+  /// Determines whether this StatusCode corresponds to an HTTP 100 status.
   bool get isContinueHttp100 => this == StatusCode.continueHttp100;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 101 status.
   bool get isSwitchingProtocolsHttp101 =>
       this == StatusCode.switchingProtocolsHttp101;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 102 status.
   bool get isProcessingHttp102 => this == StatusCode.processingHttp102;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 103 status.
   bool get isEarlyHintsHttp103 => this == StatusCode.earlyHintsHttp103;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 200 status.
   bool get isOkHttp200 => this == StatusCode.okHttp200;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 201 status.
   bool get isCreatedHttp201 => this == StatusCode.createdHttp201;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 202 status.
   bool get isAcceptedHttp202 => this == StatusCode.acceptedHttp202;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 203 status.
   bool get isNonAuthoritativeInformationHttp203 =>
       this == StatusCode.nonAuthoritativeInformationHttp203;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 204 status.
   bool get isNoContentHttp204 => this == StatusCode.noContentHttp204;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 205 status.
   bool get isResetContentHttp205 => this == StatusCode.resetContentHttp205;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 206 status.
   bool get isPartialContentHttp206 => this == StatusCode.partialContentHttp206;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 207 status.
   bool get isMultiStatusHttp207 => this == StatusCode.multiStatusHttp207;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 208 status.
   bool get isAlreadyReportedHttp208 =>
       this == StatusCode.alreadyReportedHttp208;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 226 status.
   bool get isImUsedHttp226 => this == StatusCode.imUsedHttp226;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 300 status.
   bool get isMultipleChoicesHttp300 =>
       this == StatusCode.multipleChoicesHttp300;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 301 status.
   bool get isMovedPermanentlyHttp301 =>
       this == StatusCode.movedPermanentlyHttp301;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 302 Found.
   bool get isFoundHttp302 => this == StatusCode.foundHttp302;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 303 status.
   bool get isSeeOtherHttp303 => this == StatusCode.seeOtherHttp303;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 304 status.
   bool get isNotModifiedHttp304 => this == StatusCode.notModifiedHttp304;
+
+  /// Determines whether this StatusCode corresponds to an HTTP status.
   bool get isUseProxyHttp305 => this == StatusCode.useProxyHttp305;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 307 status.
   bool get isTemporaryRedirectHttp307 =>
       this == StatusCode.temporaryRedirectHttp307;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 308 status.
   bool get isPermanentRedirectHttp308 =>
       this == StatusCode.permanentRedirectHttp308;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 400 status.
   bool get isBadRequestHttp400 => this == StatusCode.badRequestHttp400;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 401 status.
   bool get isUnauthorizedHttp401 => this == StatusCode.unauthorizedHttp401;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 402 status.
   bool get isPaymentRequiredHttp402 =>
       this == StatusCode.paymentRequiredHttp402;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 403 status.
   bool get isForbiddenHttp403 => this == StatusCode.forbiddenHttp403;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 404 status.
   bool get isNotFoundHttp404 => this == StatusCode.notFoundHttp404;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 405 status.
   bool get isMethodNotAllowedHttp405 =>
       this == StatusCode.methodNotAllowedHttp405;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 406 status.
   bool get isNotAcceptableHttp406 => this == StatusCode.notAcceptableHttp406;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 407 status.
   bool get isProxyAuthenticationRequiredHttp407 =>
       this == StatusCode.proxyAuthenticationRequiredHttp407;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 408 status.
   bool get isRequestTimeoutHttp408 => this == StatusCode.requestTimeoutHttp408;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 409 status.
   bool get isConflictHttp409 => this == StatusCode.conflictHttp409;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 410 status.
   bool get isGoneHttp410 => this == StatusCode.goneHttp410;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 411 status.
   bool get isLengthRequiredHttp411 => this == StatusCode.lengthRequiredHttp411;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 412 status.
   bool get isPreconditionFailedHttp412 =>
       this == StatusCode.preconditionFailedHttp412;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 413 status.
   bool get isPayloadTooLargeHttp413 =>
       this == StatusCode.payloadTooLargeHttp413;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 414 status.
   bool get isUriTooLongHttp414 => this == StatusCode.uriTooLongHttp414;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 415 status.
   bool get isUnsupportedMediaTypeHttp415 =>
       this == StatusCode.unsupportedMediaTypeHttp415;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 416 status.
   bool get isRangeNotSatisfiableHttp416 =>
       this == StatusCode.rangeNotSatisfiableHttp416;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 417 status.
   bool get isExpectationFailedHttp417 =>
       this == StatusCode.expectationFailedHttp417;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 418 status.
   bool get isImATeapotHttp418 => this == StatusCode.imATeapotHttp418;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 421 status.
   bool get isMisdirectedRequestHttp421 =>
       this == StatusCode.misdirectedRequestHttp421;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 422 status.
   bool get isUnprocessableEntityHttp422 =>
       this == StatusCode.unprocessableEntityHttp422;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 423 status.
   bool get isLockedHttp423 => this == StatusCode.lockedHttp423;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 424 status.
   bool get isFailedDependencyHttp424 =>
       this == StatusCode.failedDependencyHttp424;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 425 status.
   bool get isTooEarlyHttp425 => this == StatusCode.tooEarlyHttp425;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 426 status.
   bool get isUpgradeRequiredHttp426 =>
       this == StatusCode.upgradeRequiredHttp426;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 428 status.
   bool get isPreconditionRequiredHttp428 =>
       this == StatusCode.preconditionRequiredHttp428;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 429 status.
   bool get isTooManyRequestsHttp429 =>
       this == StatusCode.tooManyRequestsHttp429;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 431 status.
   bool get isRequestHeaderFieldsTooLargeHttp431 =>
       this == StatusCode.requestHeaderFieldsTooLargeHttp431;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 440 status.
   bool get isIisLoginTimeoutHttp440 =>
       this == StatusCode.iisLoginTimeoutHttp440;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 444 status.
   bool get isNginxNoResponseHttp444 =>
       this == StatusCode.nginxNoResponseHttp444;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 449 status.
   bool get isIisRetryWithHttp449 => this == StatusCode.iisRetryWithHttp449;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 450 status.
   bool get isBlockedByWindowsParentalControlsHttp450 =>
       this == StatusCode.blockedByWindowsParentalControlsHttp450;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 451 status.
   bool get isUnavailableForLegalReasonsHttp451 =>
       this == StatusCode.unavailableForLegalReasonsHttp451;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 495 status.
   bool get isNginxSSLCertificateErrorHttp495 =>
       this == StatusCode.nginxSSLCertificateErrorHttp495;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 496 status.
   bool get isNginxSSLCertificateRequiredHttp496 =>
       this == StatusCode.nginxSSLCertificateRequiredHttp496;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 497 status.
   bool get isNginxHTTPToHTTPSHttp497 =>
       this == StatusCode.nginxHTTPToHTTPSHttp497;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 498 status.
   bool get isTokenExpiredHttp498 => this == StatusCode.tokenExpiredHttp498;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 499 status.
   bool get isNginxClientClosedRequestHttp499 =>
       this == StatusCode.nginxClientClosedRequestHttp499;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 500 status.
   bool get isInternalServerErrorHttp500 =>
       this == StatusCode.internalServerErrorHttp500;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 501 status.
   bool get isNotImplementedHttp501 => this == StatusCode.notImplementedHttp501;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 502 status.
   bool get isBadGatewayHttp502 => this == StatusCode.badGatewayHttp502;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 503 status.
   bool get isServiceUnavailableHttp503 =>
       this == StatusCode.serviceUnavailableHttp503;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 504 status.
   bool get isGatewayTimeoutHttp504 => this == StatusCode.gatewayTimeoutHttp504;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 505 status.
   bool get isHttpVersionNotSupportedHttp505 =>
       this == StatusCode.httpVersionNotSupportedHttp505;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 506 status.
   bool get isVariantAlsoNegotiatesHttp506 =>
       this == StatusCode.variantAlsoNegotiatesHttp506;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 507 status.
   bool get isInsufficientStorageHttp507 =>
       this == StatusCode.insufficientStorageHttp507;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 508 status.
   bool get isLoopDetectedHttp508 => this == StatusCode.loopDetectedHttp508;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 509 status.
   bool get isBandwidthLimitExceededHttp509 =>
       this == StatusCode.bandwidthLimitExceededHttp509;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 510 status.
   bool get isOtExtendedHttp510 => this == StatusCode.otExtendedHttp510;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 511 status.
   bool get isNetworkAuthenticationRequiredHttp511 =>
       this == StatusCode.networkAuthenticationRequiredHttp511;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 530 status.
   bool get isSiteIsFrozenHttp530 => this == StatusCode.siteIsFrozenHttp530;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 599 status.
   bool get isNetworkConnectTimeoutErrorHttp599 =>
       this == StatusCode.networkConnectTimeoutErrorHttp599;
+
+  /// Maps the current [StatusCode] object to a value of result type by calling
+  /// the corresponding callback function.
+  ///
+  /// Example:
+  /// ```dart
+  /// statusCode.map(okHttp200: () => 'Success', ...);
+  /// ```
   R map<R>({
     required R Function(StatusCode continueHttp100) continueHttp100,
     required R Function(StatusCode switchingProtocolsHttp101)
@@ -381,7 +537,22 @@ extension StatusCodeX on StatusCode {
     }
   }
 
+  /// Maps the status code to a value of return type using the provided
+  /// functions. If the status code has no corresponding function, returns
+  /// calls [orElse].
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// final statusCode = StatusCode.okHttp200;
+  /// final value = statusCode.maybeMap(
+  ///  okHttp200: (status) => 'OK',
+  ///  orElse: () => 'Not OK',
+  /// );
+  /// print(value); // Output: 'OK'
+  /// ```
   R maybeMap<R>({
+    required R Function() orElse,
     R Function(StatusCode continueHttp100)? continueHttp100,
     R Function(StatusCode switchingProtocolsHttp101)? switchingProtocolsHttp101,
     R Function(StatusCode processingHttp102)? processingHttp102,
@@ -475,7 +646,6 @@ extension StatusCodeX on StatusCode {
     R Function(StatusCode siteIsFrozenHttp530)? siteIsFrozenHttp530,
     R Function(StatusCode networkConnectTimeoutErrorHttp599)?
         networkConnectTimeoutErrorHttp599,
-    required R Function() orElse,
   }) {
     if (this == StatusCode.continueHttp100 && continueHttp100 != null) {
       return continueHttp100(this);
@@ -691,7 +861,22 @@ extension StatusCodeX on StatusCode {
     }
   }
 
+  /// Returns the result of calling the appropriate callback based on the status
+  /// code. If no matching callback is provided, returns the result of calling
+  /// `orElse`.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// final statusCode = StatusCode.okHttp200;
+  /// final result = statusCode.maybeWhen(
+  ///   okHttp200: () => 'Success!',
+  ///   orElse: () => 'Error',
+  /// );
+  /// print(result); // Output: 'Success!'
+  /// ```
   R maybeWhen<R>({
+    required R Function() orElse,
     R Function()? continueHttp100,
     R Function()? switchingProtocolsHttp101,
     R Function()? processingHttp102,
@@ -766,7 +951,6 @@ extension StatusCodeX on StatusCode {
     R Function()? networkAuthenticationRequiredHttp511,
     R Function()? siteIsFrozenHttp530,
     R Function()? networkConnectTimeoutErrorHttp599,
-    required R Function() orElse,
   }) {
     if (this == StatusCode.continueHttp100 && continueHttp100 != null) {
       return continueHttp100();
@@ -982,6 +1166,25 @@ extension StatusCodeX on StatusCode {
     }
   }
 
+  /// A function that returns a result of it type, depending on the [StatusCode]
+  /// value.
+  ///
+  /// The `when` method takes a series of required functions as arguments, each
+  /// corresponding to a particular [StatusCode] value. If the [StatusCode]
+  /// value of status code matches the [StatusCode] value of one of the function
+  /// arguments, the corresponding function will be executed and its result
+  /// returned.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// final statusCode = StatusCode.okHttp200;
+  /// final response = statusCode.when(
+  ///   okHttp200: () => 'Success',
+  ///   badRequestHttp400: () => 'Bad request',
+  /// );
+  /// print(response); // prints 'Success'
+  /// ```
   R when<R>({
     required R Function() continueHttp100,
     required R Function() switchingProtocolsHttp101,
@@ -1210,6 +1413,19 @@ extension StatusCodeX on StatusCode {
     }
   }
 
+  /// Calls the function associated with the current [StatusCode] value and
+  /// returns its result. If there is no corresponding function, returns `null`.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// final statusCode = StatusCode.okHttp200;
+  /// final result = statusCode.whenOrNull(
+  ///   okHttp200: () => 'Success',
+  ///   orElse: () => null,
+  /// );
+  /// print(result); // prints 'Success'
+  /// ```
   R? whenOrNull<R>({
     R Function()? continueHttp100,
     R Function()? switchingProtocolsHttp101,
