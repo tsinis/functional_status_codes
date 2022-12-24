@@ -108,9 +108,8 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// Maps the value to a new value based on its classification as an HTTP
   /// status code.
   ///
-  /// If the value is `null`, a `FormatException` is thrown. Also if the value
-  /// is not within the range of valid HTTP status codes (100-599), a
-  /// `FormatException` is thrown.
+  /// If the value is `null`, or if the value is not within the range of valid
+  /// HTTP status codes (100-599), a `FormatException` is thrown.
   ///
   /// If the value is within the range of informational HTTP status codes
   /// (100-199), the `isInformational` function is called and its result is
