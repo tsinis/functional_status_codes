@@ -1,8 +1,9 @@
-import 'package:functional_status_codes_example/functional_status_codes_example.dart'
-    as example;
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';
+
+// ignore: avoid_relative_lib_imports, to separate packages.
+import '../lib/functional_status_codes_example.dart' as example;
 
 void main() {
   group('http example', () {
