@@ -3,7 +3,7 @@ name: analyze
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - "lib/**"
       - "test/**"
@@ -16,7 +16,7 @@ jobs:
     name: 🕵️ Analyze
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - name: Checks-out repository
         uses: actions/checkout@v3
@@ -29,7 +29,17 @@ jobs:
           extra_dictionaries: cspell:html/html.txt
             cspell:filetypes/filetypes.txt
 
-      # - name: TODO
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        run: dart pub get
+
+      - name: Format
+        run: dart format --set-exit-if-changed .
+
+      - name: Analyze
+        run: dart analyze --fatal-infos --fatal-warnings .
 
       - name: Dart Code Metrics
         uses: dart-code-checker/dart-code-metrics-action@v3

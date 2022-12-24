@@ -3,7 +3,7 @@ name: tests
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - "lib/**"
       - "test/**"
@@ -21,13 +21,22 @@ jobs:
       - name: Checks-out repository
         uses: actions/checkout@v3
 
-      # - name: TODO
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        run: dart pub get
+
+      - name: Run Tests
+        run: |
+          dart pub global activate coverage 1.2.0
+          dart test --coverage=coverage && dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib
 
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
         with:
-          min_coverage: 92
-          exclude: "**/*.g.dart **/*.gen.dart **/*.freezed.dart"
+          min_coverage: 90
+          exclude: "**/*.g.dart"
 
       - name: Upload Code Coverage
         uses: codecov/codecov-action@v3

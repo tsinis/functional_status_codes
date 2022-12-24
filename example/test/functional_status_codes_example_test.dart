@@ -1,4 +1,5 @@
-import 'package:functional_status_codes_example/example.dart' as example;
+import 'package:functional_status_codes_example/functional_status_codes_example.dart'
+    as example;
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';

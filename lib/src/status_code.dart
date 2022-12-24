@@ -1,6 +1,9 @@
+// Copyright (c) 2022, Roman Cinis. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+
 part 'status_code.g.dart';
 
-/// Dart [enum] for easier handling of all IANA registered HTTP Status codes.
+/// Dart `enum` for easier handling of all IANA registered HTTP Status codes.
 enum StatusCode {
   // --- Informational 1xx. ---
 
@@ -423,7 +426,7 @@ enum StatusCode {
   /// in front of the proxy.
   networkConnectTimeoutErrorHttp599(599, 'Network Connect Timeout Error');
 
-  /// Dart [enum] for easier handling of all IANA registered HTTP Status codes.
+  /// Dart `enum` for easier handling of all IANA registered HTTP Status codes.
   const StatusCode(this.code, this.reason);
 
   /// The IANA registered HTTP Status code.

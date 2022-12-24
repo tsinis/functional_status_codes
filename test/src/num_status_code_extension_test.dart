@@ -1,4 +1,5 @@
-import 'package:functional_status_codes/functional_status_codes.dart';
+import 'package:functional_status_codes/src/num_status_code_extension.dart';
+import 'package:functional_status_codes/src/status_code.dart';
 import 'package:test/test.dart';
 
 void main() => group('NumStatusCodeExtension', () {
