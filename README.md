@@ -2,10 +2,16 @@
 [![Tests](https://github.com/tsinis/functional_status_codes/actions/workflows/test.yaml/badge.svg)](https://github.com/tsinis/functional_status_codes/actions/workflows/test.yaml)
 [![CodeFactor](https://www.codefactor.io/repository/github/tsinis/functional_status_codes/badge)](https://www.codefactor.io/repository/github/tsinis/functional_status_codes)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Package publisher](https://img.shields.io/pub/publisher/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes/publisher)
+[![Pub package](https://img.shields.io/pub/v/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes)
 
 This pure Dart and and dependency-free package provides functionality for working with HTTP status codes in a functional programming style.
 
 ## Features
+
+<p>
+  <img src="https://github.com/tsinis/functional_status_codes/raw/main/doc/comparison.png" alt="Comparsion"/>
+</p>
 
 ![Comparison](doc/comparison.png)
 
