@@ -3,7 +3,7 @@ description: A modified http package example with use of functional_status_codes
 publish_to: none
 
 environment:
-  sdk: '>=2.17.0 <4.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
   functional_status_codes:

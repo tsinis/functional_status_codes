@@ -2,7 +2,6 @@
 [![Tests](https://github.com/tsinis/functional_status_codes/actions/workflows/test.yaml/badge.svg)](https://github.com/tsinis/functional_status_codes/actions/workflows/test.yaml)
 [![CodeFactor](https://www.codefactor.io/repository/github/tsinis/functional_status_codes/badge)](https://www.codefactor.io/repository/github/tsinis/functional_status_codes)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Package publisher](https://img.shields.io/pub/publisher/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes/publisher)
 [![Pub package](https://img.shields.io/pub/v/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes)
 
 This pure Dart and and dependency-free package provides functionality for working with HTTP status codes in a functional programming style.
@@ -12,8 +11,6 @@ This pure Dart and and dependency-free package provides functionality for workin
 <p>
   <img src="https://github.com/tsinis/functional_status_codes/raw/main/doc/comparison.png" alt="Comparsion"/>
 </p>
-
-![Comparison](doc/comparison.png)
 
 * Extends `num` types with helper functional methods (when, map, maybeWhen, etc.) for handling HTTP status codes.
 * Provides `StatusCode` enum for easy handling of all [IANA registered HTTP status codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xml) (also in functional style).
@@ -25,7 +22,7 @@ To use this package, add `functional_status_codes` as a dependency in your `pubs
 
 ```yaml
 dependencies:
-  functional_status_codes: ^1.0.1
+  functional_status_codes: ^1.0.2
 ```
 
 Then import the package in your Dart code:
