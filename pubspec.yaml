@@ -1,6 +1,6 @@
 name: functional_status_codes
 description: This package offers a functional approach to handling HTTP status codes.
-version: 1.0.0
+version: 1.0.1
 maintainer: Roman Cinis
 repository: https://github.com/tsinis/functional_status_codes
 issue_tracker: https://github.com/tsinis/functional_status_codes/issues

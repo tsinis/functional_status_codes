@@ -25,7 +25,7 @@ To use this package, add `functional_status_codes` as a dependency in your `pubs
 
 ```yaml
 dependencies:
-  functional_status_codes: ^1.0.0
+  functional_status_codes: ^1.0.1
 ```
 
 Then import the package in your Dart code:
