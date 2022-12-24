@@ -1,12 +1,12 @@
 name: functional_status_codes
 description: This package offers a functional approach to handling HTTP status codes.
-version: 1.0.0
+version: 1.0.1
 maintainer: Roman Cinis
 repository: https://github.com/tsinis/functional_status_codes
 issue_tracker: https://github.com/tsinis/functional_status_codes/issues
 
 environment:
-  sdk: '>=2.17.0 <4.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 
 dev_dependencies:
   build_runner: ^2.3.3 # From Google
