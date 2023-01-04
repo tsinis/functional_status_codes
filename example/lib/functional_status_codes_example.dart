@@ -4,8 +4,8 @@ import 'package:functional_status_codes/functional_status_codes.dart';
 import 'package:http/http.dart' as http;
 
 Future<int?> main(List<String> arguments, [http.Client? client]) async {
-  // This example uses the Google Books API to search for books about http.
-  // https://developers.google.com/books/docs/overview
+  /// This example uses the Google Books API to search for books about http:
+  /// https://developers.google.com/books/docs/overview
   final url =
       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
 

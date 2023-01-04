@@ -9,7 +9,7 @@ This pure Dart and and dependency-free package provides functionality for workin
 ## Features
 
 <p>
-  <img src="https://github.com/tsinis/functional_status_codes/raw/main/doc/comparison.png" alt="Comparsion"/>
+  <img src="https://github.com/tsinis/functional_status_codes/raw/main/doc/comparison.png" alt="Comparison"/>
 </p>
 
 * Extends `num` types with helper functional methods (when, map, maybeWhen, etc.) for handling HTTP status codes.
@@ -36,14 +36,15 @@ import 'package:functional_status_codes/functional_status_codes.dart';
 Use your favorite HTTP client libraries such as `http` or `dio` and take advantage of this package's functional API to easily handle HTTP status codes in your Dart project.
 
 ```dart
-final statusCode = response.statusCode; // 200, int status code of response.
-final isSuccess = statusCode.maybeMapStatusCode(
-  isSuccess: (_) => _parseResponse(response.body),
-  isClientError: (code) => _handleError(code),
-  isServerError: (code) => _handleError(code),
-  orElse: () => _handleUnknowResponse(response),
-);
-print(isSuccess); // Output: true
+final statusCode = response.statusCode; // int status code of response.
+if (!response.statusCode.isStatusCode) return null; // Checks if statusCode >=100 & <600.
+  final registeredCode = response.statusCode.toRegisteredStatusCode();
+  // Handle any type of registered status codes via functional `whenOrNull` method:
+  return registeredCode?.whenOrNull(
+    okHttp200: () => _parseResponse(response.body),
+    badRequestHttp400: () => _showError(),
+    orElse: () => _handleUnknownResponse(response),
+  );
 ```
 
 ## Additional information
