@@ -1290,7 +1290,9 @@ extension StatusCodeFunctional on StatusCode {
   }
 
   /// Calls the function associated with the current [StatusCode] value and
-  /// returns its result. If there is no corresponding function, returns `null`.
+  /// returns its result. If no matching callback is provided, returns the
+  /// result of calling `orElse`. If there is no corresponding `orElse` provided
+  /// returns `null`.
   ///
   /// Example:
   ///
@@ -1298,7 +1300,7 @@ extension StatusCodeFunctional on StatusCode {
   /// final statusCode = StatusCode.okHttp200;
   /// final result = statusCode.whenOrNull(
   ///   okHttp200: () => 'Success',
-  ///   orElse: () => null,
+  ///   orElse: () => 'Other',
   /// );
   /// print(result); // prints 'Success'
   /// ```
