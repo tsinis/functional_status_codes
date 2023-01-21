@@ -2,8 +2,8 @@
 
 part of 'status_code.dart';
 
-/// Functional style extensions on [StatusCode]
-extension StatusCodeX on StatusCode {
+/// Functional style extensions on [StatusCode].
+extension StatusCodeFunctional on StatusCode {
   /// Determines whether this StatusCode corresponds to an HTTP 100 status.
   bool get isContinueHttp100 => this == StatusCode.continueHttp100;
 
@@ -269,7 +269,7 @@ extension StatusCodeX on StatusCode {
   ///
   /// Example:
   /// ```dart
-  /// statusCode.map(okHttp200: () => 'Success', ...);
+  /// statusCode.map(okHttp200: (_) => 'Success', ...);
   /// ```
   R map<R>({
     required R Function(StatusCode continueHttp100) continueHttp100,
@@ -647,217 +647,155 @@ extension StatusCodeX on StatusCode {
     R Function(StatusCode networkConnectTimeoutErrorHttp599)?
         networkConnectTimeoutErrorHttp599,
   }) {
-    if (this == StatusCode.continueHttp100 && continueHttp100 != null) {
-      return continueHttp100(this);
-    } else if (this == StatusCode.switchingProtocolsHttp101 &&
-        switchingProtocolsHttp101 != null) {
-      return switchingProtocolsHttp101(this);
-    } else if (this == StatusCode.processingHttp102 &&
-        processingHttp102 != null) {
-      return processingHttp102(this);
-    } else if (this == StatusCode.earlyHintsHttp103 &&
-        earlyHintsHttp103 != null) {
-      return earlyHintsHttp103(this);
-    } else if (this == StatusCode.okHttp200 && okHttp200 != null) {
-      return okHttp200(this);
-    } else if (this == StatusCode.createdHttp201 && createdHttp201 != null) {
-      return createdHttp201(this);
-    } else if (this == StatusCode.acceptedHttp202 && acceptedHttp202 != null) {
-      return acceptedHttp202(this);
-    } else if (this == StatusCode.nonAuthoritativeInformationHttp203 &&
-        nonAuthoritativeInformationHttp203 != null) {
-      return nonAuthoritativeInformationHttp203(this);
-    } else if (this == StatusCode.noContentHttp204 &&
-        noContentHttp204 != null) {
-      return noContentHttp204(this);
-    } else if (this == StatusCode.resetContentHttp205 &&
-        resetContentHttp205 != null) {
-      return resetContentHttp205(this);
-    } else if (this == StatusCode.partialContentHttp206 &&
-        partialContentHttp206 != null) {
-      return partialContentHttp206(this);
-    } else if (this == StatusCode.multiStatusHttp207 &&
-        multiStatusHttp207 != null) {
-      return multiStatusHttp207(this);
-    } else if (this == StatusCode.alreadyReportedHttp208 &&
-        alreadyReportedHttp208 != null) {
-      return alreadyReportedHttp208(this);
-    } else if (this == StatusCode.imUsedHttp226 && imUsedHttp226 != null) {
-      return imUsedHttp226(this);
-    } else if (this == StatusCode.multipleChoicesHttp300 &&
-        multipleChoicesHttp300 != null) {
-      return multipleChoicesHttp300(this);
-    } else if (this == StatusCode.movedPermanentlyHttp301 &&
-        movedPermanentlyHttp301 != null) {
-      return movedPermanentlyHttp301(this);
-    } else if (this == StatusCode.foundHttp302 && foundHttp302 != null) {
-      return foundHttp302(this);
-    } else if (this == StatusCode.seeOtherHttp303 && seeOtherHttp303 != null) {
-      return seeOtherHttp303(this);
-    } else if (this == StatusCode.notModifiedHttp304 &&
-        notModifiedHttp304 != null) {
-      return notModifiedHttp304(this);
-    } else if (this == StatusCode.useProxyHttp305 && useProxyHttp305 != null) {
-      return useProxyHttp305(this);
-    } else if (this == StatusCode.temporaryRedirectHttp307 &&
-        temporaryRedirectHttp307 != null) {
-      return temporaryRedirectHttp307(this);
-    } else if (this == StatusCode.permanentRedirectHttp308 &&
-        permanentRedirectHttp308 != null) {
-      return permanentRedirectHttp308(this);
-    } else if (this == StatusCode.badRequestHttp400 &&
-        badRequestHttp400 != null) {
-      return badRequestHttp400(this);
-    } else if (this == StatusCode.unauthorizedHttp401 &&
-        unauthorizedHttp401 != null) {
-      return unauthorizedHttp401(this);
-    } else if (this == StatusCode.paymentRequiredHttp402 &&
-        paymentRequiredHttp402 != null) {
-      return paymentRequiredHttp402(this);
-    } else if (this == StatusCode.forbiddenHttp403 &&
-        forbiddenHttp403 != null) {
-      return forbiddenHttp403(this);
-    } else if (this == StatusCode.notFoundHttp404 && notFoundHttp404 != null) {
-      return notFoundHttp404(this);
-    } else if (this == StatusCode.methodNotAllowedHttp405 &&
-        methodNotAllowedHttp405 != null) {
-      return methodNotAllowedHttp405(this);
-    } else if (this == StatusCode.notAcceptableHttp406 &&
-        notAcceptableHttp406 != null) {
-      return notAcceptableHttp406(this);
-    } else if (this == StatusCode.proxyAuthenticationRequiredHttp407 &&
-        proxyAuthenticationRequiredHttp407 != null) {
-      return proxyAuthenticationRequiredHttp407(this);
-    } else if (this == StatusCode.requestTimeoutHttp408 &&
-        requestTimeoutHttp408 != null) {
-      return requestTimeoutHttp408(this);
-    } else if (this == StatusCode.conflictHttp409 && conflictHttp409 != null) {
-      return conflictHttp409(this);
-    } else if (this == StatusCode.goneHttp410 && goneHttp410 != null) {
-      return goneHttp410(this);
-    } else if (this == StatusCode.lengthRequiredHttp411 &&
-        lengthRequiredHttp411 != null) {
-      return lengthRequiredHttp411(this);
-    } else if (this == StatusCode.preconditionFailedHttp412 &&
-        preconditionFailedHttp412 != null) {
-      return preconditionFailedHttp412(this);
-    } else if (this == StatusCode.payloadTooLargeHttp413 &&
-        payloadTooLargeHttp413 != null) {
-      return payloadTooLargeHttp413(this);
-    } else if (this == StatusCode.uriTooLongHttp414 &&
-        uriTooLongHttp414 != null) {
-      return uriTooLongHttp414(this);
-    } else if (this == StatusCode.unsupportedMediaTypeHttp415 &&
-        unsupportedMediaTypeHttp415 != null) {
-      return unsupportedMediaTypeHttp415(this);
-    } else if (this == StatusCode.rangeNotSatisfiableHttp416 &&
-        rangeNotSatisfiableHttp416 != null) {
-      return rangeNotSatisfiableHttp416(this);
-    } else if (this == StatusCode.expectationFailedHttp417 &&
-        expectationFailedHttp417 != null) {
-      return expectationFailedHttp417(this);
-    } else if (this == StatusCode.imATeapotHttp418 &&
-        imATeapotHttp418 != null) {
-      return imATeapotHttp418(this);
-    } else if (this == StatusCode.misdirectedRequestHttp421 &&
-        misdirectedRequestHttp421 != null) {
-      return misdirectedRequestHttp421(this);
-    } else if (this == StatusCode.unprocessableEntityHttp422 &&
-        unprocessableEntityHttp422 != null) {
-      return unprocessableEntityHttp422(this);
-    } else if (this == StatusCode.lockedHttp423 && lockedHttp423 != null) {
-      return lockedHttp423(this);
-    } else if (this == StatusCode.failedDependencyHttp424 &&
-        failedDependencyHttp424 != null) {
-      return failedDependencyHttp424(this);
-    } else if (this == StatusCode.tooEarlyHttp425 && tooEarlyHttp425 != null) {
-      return tooEarlyHttp425(this);
-    } else if (this == StatusCode.upgradeRequiredHttp426 &&
-        upgradeRequiredHttp426 != null) {
-      return upgradeRequiredHttp426(this);
-    } else if (this == StatusCode.preconditionRequiredHttp428 &&
-        preconditionRequiredHttp428 != null) {
-      return preconditionRequiredHttp428(this);
-    } else if (this == StatusCode.tooManyRequestsHttp429 &&
-        tooManyRequestsHttp429 != null) {
-      return tooManyRequestsHttp429(this);
-    } else if (this == StatusCode.requestHeaderFieldsTooLargeHttp431 &&
-        requestHeaderFieldsTooLargeHttp431 != null) {
-      return requestHeaderFieldsTooLargeHttp431(this);
-    } else if (this == StatusCode.iisLoginTimeoutHttp440 &&
-        iisLoginTimeoutHttp440 != null) {
-      return iisLoginTimeoutHttp440(this);
-    } else if (this == StatusCode.nginxNoResponseHttp444 &&
-        nginxNoResponseHttp444 != null) {
-      return nginxNoResponseHttp444(this);
-    } else if (this == StatusCode.iisRetryWithHttp449 &&
-        iisRetryWithHttp449 != null) {
-      return iisRetryWithHttp449(this);
-    } else if (this == StatusCode.blockedByWindowsParentalControlsHttp450 &&
-        blockedByWindowsParentalControlsHttp450 != null) {
-      return blockedByWindowsParentalControlsHttp450(this);
-    } else if (this == StatusCode.unavailableForLegalReasonsHttp451 &&
-        unavailableForLegalReasonsHttp451 != null) {
-      return unavailableForLegalReasonsHttp451(this);
-    } else if (this == StatusCode.nginxSSLCertificateErrorHttp495 &&
-        nginxSSLCertificateErrorHttp495 != null) {
-      return nginxSSLCertificateErrorHttp495(this);
-    } else if (this == StatusCode.nginxSSLCertificateRequiredHttp496 &&
-        nginxSSLCertificateRequiredHttp496 != null) {
-      return nginxSSLCertificateRequiredHttp496(this);
-    } else if (this == StatusCode.nginxHTTPToHTTPSHttp497 &&
-        nginxHTTPToHTTPSHttp497 != null) {
-      return nginxHTTPToHTTPSHttp497(this);
-    } else if (this == StatusCode.tokenExpiredHttp498 &&
-        tokenExpiredHttp498 != null) {
-      return tokenExpiredHttp498(this);
-    } else if (this == StatusCode.nginxClientClosedRequestHttp499 &&
-        nginxClientClosedRequestHttp499 != null) {
-      return nginxClientClosedRequestHttp499(this);
-    } else if (this == StatusCode.internalServerErrorHttp500 &&
-        internalServerErrorHttp500 != null) {
-      return internalServerErrorHttp500(this);
-    } else if (this == StatusCode.notImplementedHttp501 &&
-        notImplementedHttp501 != null) {
-      return notImplementedHttp501(this);
-    } else if (this == StatusCode.badGatewayHttp502 &&
-        badGatewayHttp502 != null) {
-      return badGatewayHttp502(this);
-    } else if (this == StatusCode.serviceUnavailableHttp503 &&
-        serviceUnavailableHttp503 != null) {
-      return serviceUnavailableHttp503(this);
-    } else if (this == StatusCode.gatewayTimeoutHttp504 &&
-        gatewayTimeoutHttp504 != null) {
-      return gatewayTimeoutHttp504(this);
-    } else if (this == StatusCode.httpVersionNotSupportedHttp505 &&
-        httpVersionNotSupportedHttp505 != null) {
-      return httpVersionNotSupportedHttp505(this);
-    } else if (this == StatusCode.variantAlsoNegotiatesHttp506 &&
-        variantAlsoNegotiatesHttp506 != null) {
-      return variantAlsoNegotiatesHttp506(this);
-    } else if (this == StatusCode.insufficientStorageHttp507 &&
-        insufficientStorageHttp507 != null) {
-      return insufficientStorageHttp507(this);
-    } else if (this == StatusCode.loopDetectedHttp508 &&
-        loopDetectedHttp508 != null) {
-      return loopDetectedHttp508(this);
-    } else if (this == StatusCode.bandwidthLimitExceededHttp509 &&
-        bandwidthLimitExceededHttp509 != null) {
-      return bandwidthLimitExceededHttp509(this);
-    } else if (this == StatusCode.otExtendedHttp510 &&
-        otExtendedHttp510 != null) {
-      return otExtendedHttp510(this);
-    } else if (this == StatusCode.networkAuthenticationRequiredHttp511 &&
-        networkAuthenticationRequiredHttp511 != null) {
-      return networkAuthenticationRequiredHttp511(this);
-    } else if (this == StatusCode.siteIsFrozenHttp530 &&
-        siteIsFrozenHttp530 != null) {
-      return siteIsFrozenHttp530(this);
-    } else if (this == StatusCode.networkConnectTimeoutErrorHttp599 &&
-        networkConnectTimeoutErrorHttp599 != null) {
-      return networkConnectTimeoutErrorHttp599(this);
-    } else {
-      return orElse();
+    switch (this) {
+      case StatusCode.continueHttp100:
+        return continueHttp100?.call(this) ?? orElse();
+      case StatusCode.switchingProtocolsHttp101:
+        return switchingProtocolsHttp101?.call(this) ?? orElse();
+      case StatusCode.processingHttp102:
+        return processingHttp102?.call(this) ?? orElse();
+      case StatusCode.earlyHintsHttp103:
+        return earlyHintsHttp103?.call(this) ?? orElse();
+      case StatusCode.okHttp200:
+        return okHttp200?.call(this) ?? orElse();
+      case StatusCode.createdHttp201:
+        return createdHttp201?.call(this) ?? orElse();
+      case StatusCode.acceptedHttp202:
+        return acceptedHttp202?.call(this) ?? orElse();
+      case StatusCode.nonAuthoritativeInformationHttp203:
+        return nonAuthoritativeInformationHttp203?.call(this) ?? orElse();
+      case StatusCode.noContentHttp204:
+        return noContentHttp204?.call(this) ?? orElse();
+      case StatusCode.resetContentHttp205:
+        return resetContentHttp205?.call(this) ?? orElse();
+      case StatusCode.partialContentHttp206:
+        return partialContentHttp206?.call(this) ?? orElse();
+      case StatusCode.multiStatusHttp207:
+        return multiStatusHttp207?.call(this) ?? orElse();
+      case StatusCode.alreadyReportedHttp208:
+        return alreadyReportedHttp208?.call(this) ?? orElse();
+      case StatusCode.imUsedHttp226:
+        return imUsedHttp226?.call(this) ?? orElse();
+      case StatusCode.multipleChoicesHttp300:
+        return multipleChoicesHttp300?.call(this) ?? orElse();
+      case StatusCode.movedPermanentlyHttp301:
+        return movedPermanentlyHttp301?.call(this) ?? orElse();
+      case StatusCode.foundHttp302:
+        return foundHttp302?.call(this) ?? orElse();
+      case StatusCode.seeOtherHttp303:
+        return seeOtherHttp303?.call(this) ?? orElse();
+      case StatusCode.notModifiedHttp304:
+        return notModifiedHttp304?.call(this) ?? orElse();
+      case StatusCode.useProxyHttp305:
+        return useProxyHttp305?.call(this) ?? orElse();
+      case StatusCode.temporaryRedirectHttp307:
+        return temporaryRedirectHttp307?.call(this) ?? orElse();
+      case StatusCode.permanentRedirectHttp308:
+        return permanentRedirectHttp308?.call(this) ?? orElse();
+      case StatusCode.badRequestHttp400:
+        return badRequestHttp400?.call(this) ?? orElse();
+      case StatusCode.unauthorizedHttp401:
+        return unauthorizedHttp401?.call(this) ?? orElse();
+      case StatusCode.paymentRequiredHttp402:
+        return paymentRequiredHttp402?.call(this) ?? orElse();
+      case StatusCode.forbiddenHttp403:
+        return forbiddenHttp403?.call(this) ?? orElse();
+      case StatusCode.notFoundHttp404:
+        return notFoundHttp404?.call(this) ?? orElse();
+      case StatusCode.methodNotAllowedHttp405:
+        return methodNotAllowedHttp405?.call(this) ?? orElse();
+      case StatusCode.notAcceptableHttp406:
+        return notAcceptableHttp406?.call(this) ?? orElse();
+      case StatusCode.proxyAuthenticationRequiredHttp407:
+        return proxyAuthenticationRequiredHttp407?.call(this) ?? orElse();
+      case StatusCode.requestTimeoutHttp408:
+        return requestTimeoutHttp408?.call(this) ?? orElse();
+      case StatusCode.conflictHttp409:
+        return conflictHttp409?.call(this) ?? orElse();
+      case StatusCode.goneHttp410:
+        return goneHttp410?.call(this) ?? orElse();
+      case StatusCode.lengthRequiredHttp411:
+        return lengthRequiredHttp411?.call(this) ?? orElse();
+      case StatusCode.preconditionFailedHttp412:
+        return preconditionFailedHttp412?.call(this) ?? orElse();
+      case StatusCode.payloadTooLargeHttp413:
+        return payloadTooLargeHttp413?.call(this) ?? orElse();
+      case StatusCode.uriTooLongHttp414:
+        return uriTooLongHttp414?.call(this) ?? orElse();
+      case StatusCode.unsupportedMediaTypeHttp415:
+        return unsupportedMediaTypeHttp415?.call(this) ?? orElse();
+      case StatusCode.rangeNotSatisfiableHttp416:
+        return rangeNotSatisfiableHttp416?.call(this) ?? orElse();
+      case StatusCode.expectationFailedHttp417:
+        return expectationFailedHttp417?.call(this) ?? orElse();
+      case StatusCode.imATeapotHttp418:
+        return imATeapotHttp418?.call(this) ?? orElse();
+      case StatusCode.misdirectedRequestHttp421:
+        return misdirectedRequestHttp421?.call(this) ?? orElse();
+      case StatusCode.unprocessableEntityHttp422:
+        return unprocessableEntityHttp422?.call(this) ?? orElse();
+      case StatusCode.lockedHttp423:
+        return lockedHttp423?.call(this) ?? orElse();
+      case StatusCode.failedDependencyHttp424:
+        return failedDependencyHttp424?.call(this) ?? orElse();
+      case StatusCode.tooEarlyHttp425:
+        return tooEarlyHttp425?.call(this) ?? orElse();
+      case StatusCode.upgradeRequiredHttp426:
+        return upgradeRequiredHttp426?.call(this) ?? orElse();
+      case StatusCode.preconditionRequiredHttp428:
+        return preconditionRequiredHttp428?.call(this) ?? orElse();
+      case StatusCode.tooManyRequestsHttp429:
+        return tooManyRequestsHttp429?.call(this) ?? orElse();
+      case StatusCode.requestHeaderFieldsTooLargeHttp431:
+        return requestHeaderFieldsTooLargeHttp431?.call(this) ?? orElse();
+      case StatusCode.iisLoginTimeoutHttp440:
+        return iisLoginTimeoutHttp440?.call(this) ?? orElse();
+      case StatusCode.nginxNoResponseHttp444:
+        return nginxNoResponseHttp444?.call(this) ?? orElse();
+      case StatusCode.iisRetryWithHttp449:
+        return iisRetryWithHttp449?.call(this) ?? orElse();
+      case StatusCode.blockedByWindowsParentalControlsHttp450:
+        return blockedByWindowsParentalControlsHttp450?.call(this) ?? orElse();
+      case StatusCode.unavailableForLegalReasonsHttp451:
+        return unavailableForLegalReasonsHttp451?.call(this) ?? orElse();
+      case StatusCode.nginxSSLCertificateErrorHttp495:
+        return nginxSSLCertificateErrorHttp495?.call(this) ?? orElse();
+      case StatusCode.nginxSSLCertificateRequiredHttp496:
+        return nginxSSLCertificateRequiredHttp496?.call(this) ?? orElse();
+      case StatusCode.nginxHTTPToHTTPSHttp497:
+        return nginxHTTPToHTTPSHttp497?.call(this) ?? orElse();
+      case StatusCode.tokenExpiredHttp498:
+        return tokenExpiredHttp498?.call(this) ?? orElse();
+      case StatusCode.nginxClientClosedRequestHttp499:
+        return nginxClientClosedRequestHttp499?.call(this) ?? orElse();
+      case StatusCode.internalServerErrorHttp500:
+        return internalServerErrorHttp500?.call(this) ?? orElse();
+      case StatusCode.notImplementedHttp501:
+        return notImplementedHttp501?.call(this) ?? orElse();
+      case StatusCode.badGatewayHttp502:
+        return badGatewayHttp502?.call(this) ?? orElse();
+      case StatusCode.serviceUnavailableHttp503:
+        return serviceUnavailableHttp503?.call(this) ?? orElse();
+      case StatusCode.gatewayTimeoutHttp504:
+        return gatewayTimeoutHttp504?.call(this) ?? orElse();
+      case StatusCode.httpVersionNotSupportedHttp505:
+        return httpVersionNotSupportedHttp505?.call(this) ?? orElse();
+      case StatusCode.variantAlsoNegotiatesHttp506:
+        return variantAlsoNegotiatesHttp506?.call(this) ?? orElse();
+      case StatusCode.insufficientStorageHttp507:
+        return insufficientStorageHttp507?.call(this) ?? orElse();
+      case StatusCode.loopDetectedHttp508:
+        return loopDetectedHttp508?.call(this) ?? orElse();
+      case StatusCode.bandwidthLimitExceededHttp509:
+        return bandwidthLimitExceededHttp509?.call(this) ?? orElse();
+      case StatusCode.otExtendedHttp510:
+        return otExtendedHttp510?.call(this) ?? orElse();
+      case StatusCode.networkAuthenticationRequiredHttp511:
+        return networkAuthenticationRequiredHttp511?.call(this) ?? orElse();
+      case StatusCode.siteIsFrozenHttp530:
+        return siteIsFrozenHttp530?.call(this) ?? orElse();
+      case StatusCode.networkConnectTimeoutErrorHttp599:
+        return networkConnectTimeoutErrorHttp599?.call(this) ?? orElse();
     }
   }
 
@@ -952,217 +890,155 @@ extension StatusCodeX on StatusCode {
     R Function()? siteIsFrozenHttp530,
     R Function()? networkConnectTimeoutErrorHttp599,
   }) {
-    if (this == StatusCode.continueHttp100 && continueHttp100 != null) {
-      return continueHttp100();
-    } else if (this == StatusCode.switchingProtocolsHttp101 &&
-        switchingProtocolsHttp101 != null) {
-      return switchingProtocolsHttp101();
-    } else if (this == StatusCode.processingHttp102 &&
-        processingHttp102 != null) {
-      return processingHttp102();
-    } else if (this == StatusCode.earlyHintsHttp103 &&
-        earlyHintsHttp103 != null) {
-      return earlyHintsHttp103();
-    } else if (this == StatusCode.okHttp200 && okHttp200 != null) {
-      return okHttp200();
-    } else if (this == StatusCode.createdHttp201 && createdHttp201 != null) {
-      return createdHttp201();
-    } else if (this == StatusCode.acceptedHttp202 && acceptedHttp202 != null) {
-      return acceptedHttp202();
-    } else if (this == StatusCode.nonAuthoritativeInformationHttp203 &&
-        nonAuthoritativeInformationHttp203 != null) {
-      return nonAuthoritativeInformationHttp203();
-    } else if (this == StatusCode.noContentHttp204 &&
-        noContentHttp204 != null) {
-      return noContentHttp204();
-    } else if (this == StatusCode.resetContentHttp205 &&
-        resetContentHttp205 != null) {
-      return resetContentHttp205();
-    } else if (this == StatusCode.partialContentHttp206 &&
-        partialContentHttp206 != null) {
-      return partialContentHttp206();
-    } else if (this == StatusCode.multiStatusHttp207 &&
-        multiStatusHttp207 != null) {
-      return multiStatusHttp207();
-    } else if (this == StatusCode.alreadyReportedHttp208 &&
-        alreadyReportedHttp208 != null) {
-      return alreadyReportedHttp208();
-    } else if (this == StatusCode.imUsedHttp226 && imUsedHttp226 != null) {
-      return imUsedHttp226();
-    } else if (this == StatusCode.multipleChoicesHttp300 &&
-        multipleChoicesHttp300 != null) {
-      return multipleChoicesHttp300();
-    } else if (this == StatusCode.movedPermanentlyHttp301 &&
-        movedPermanentlyHttp301 != null) {
-      return movedPermanentlyHttp301();
-    } else if (this == StatusCode.foundHttp302 && foundHttp302 != null) {
-      return foundHttp302();
-    } else if (this == StatusCode.seeOtherHttp303 && seeOtherHttp303 != null) {
-      return seeOtherHttp303();
-    } else if (this == StatusCode.notModifiedHttp304 &&
-        notModifiedHttp304 != null) {
-      return notModifiedHttp304();
-    } else if (this == StatusCode.useProxyHttp305 && useProxyHttp305 != null) {
-      return useProxyHttp305();
-    } else if (this == StatusCode.temporaryRedirectHttp307 &&
-        temporaryRedirectHttp307 != null) {
-      return temporaryRedirectHttp307();
-    } else if (this == StatusCode.permanentRedirectHttp308 &&
-        permanentRedirectHttp308 != null) {
-      return permanentRedirectHttp308();
-    } else if (this == StatusCode.badRequestHttp400 &&
-        badRequestHttp400 != null) {
-      return badRequestHttp400();
-    } else if (this == StatusCode.unauthorizedHttp401 &&
-        unauthorizedHttp401 != null) {
-      return unauthorizedHttp401();
-    } else if (this == StatusCode.paymentRequiredHttp402 &&
-        paymentRequiredHttp402 != null) {
-      return paymentRequiredHttp402();
-    } else if (this == StatusCode.forbiddenHttp403 &&
-        forbiddenHttp403 != null) {
-      return forbiddenHttp403();
-    } else if (this == StatusCode.notFoundHttp404 && notFoundHttp404 != null) {
-      return notFoundHttp404();
-    } else if (this == StatusCode.methodNotAllowedHttp405 &&
-        methodNotAllowedHttp405 != null) {
-      return methodNotAllowedHttp405();
-    } else if (this == StatusCode.notAcceptableHttp406 &&
-        notAcceptableHttp406 != null) {
-      return notAcceptableHttp406();
-    } else if (this == StatusCode.proxyAuthenticationRequiredHttp407 &&
-        proxyAuthenticationRequiredHttp407 != null) {
-      return proxyAuthenticationRequiredHttp407();
-    } else if (this == StatusCode.requestTimeoutHttp408 &&
-        requestTimeoutHttp408 != null) {
-      return requestTimeoutHttp408();
-    } else if (this == StatusCode.conflictHttp409 && conflictHttp409 != null) {
-      return conflictHttp409();
-    } else if (this == StatusCode.goneHttp410 && goneHttp410 != null) {
-      return goneHttp410();
-    } else if (this == StatusCode.lengthRequiredHttp411 &&
-        lengthRequiredHttp411 != null) {
-      return lengthRequiredHttp411();
-    } else if (this == StatusCode.preconditionFailedHttp412 &&
-        preconditionFailedHttp412 != null) {
-      return preconditionFailedHttp412();
-    } else if (this == StatusCode.payloadTooLargeHttp413 &&
-        payloadTooLargeHttp413 != null) {
-      return payloadTooLargeHttp413();
-    } else if (this == StatusCode.uriTooLongHttp414 &&
-        uriTooLongHttp414 != null) {
-      return uriTooLongHttp414();
-    } else if (this == StatusCode.unsupportedMediaTypeHttp415 &&
-        unsupportedMediaTypeHttp415 != null) {
-      return unsupportedMediaTypeHttp415();
-    } else if (this == StatusCode.rangeNotSatisfiableHttp416 &&
-        rangeNotSatisfiableHttp416 != null) {
-      return rangeNotSatisfiableHttp416();
-    } else if (this == StatusCode.expectationFailedHttp417 &&
-        expectationFailedHttp417 != null) {
-      return expectationFailedHttp417();
-    } else if (this == StatusCode.imATeapotHttp418 &&
-        imATeapotHttp418 != null) {
-      return imATeapotHttp418();
-    } else if (this == StatusCode.misdirectedRequestHttp421 &&
-        misdirectedRequestHttp421 != null) {
-      return misdirectedRequestHttp421();
-    } else if (this == StatusCode.unprocessableEntityHttp422 &&
-        unprocessableEntityHttp422 != null) {
-      return unprocessableEntityHttp422();
-    } else if (this == StatusCode.lockedHttp423 && lockedHttp423 != null) {
-      return lockedHttp423();
-    } else if (this == StatusCode.failedDependencyHttp424 &&
-        failedDependencyHttp424 != null) {
-      return failedDependencyHttp424();
-    } else if (this == StatusCode.tooEarlyHttp425 && tooEarlyHttp425 != null) {
-      return tooEarlyHttp425();
-    } else if (this == StatusCode.upgradeRequiredHttp426 &&
-        upgradeRequiredHttp426 != null) {
-      return upgradeRequiredHttp426();
-    } else if (this == StatusCode.preconditionRequiredHttp428 &&
-        preconditionRequiredHttp428 != null) {
-      return preconditionRequiredHttp428();
-    } else if (this == StatusCode.tooManyRequestsHttp429 &&
-        tooManyRequestsHttp429 != null) {
-      return tooManyRequestsHttp429();
-    } else if (this == StatusCode.requestHeaderFieldsTooLargeHttp431 &&
-        requestHeaderFieldsTooLargeHttp431 != null) {
-      return requestHeaderFieldsTooLargeHttp431();
-    } else if (this == StatusCode.iisLoginTimeoutHttp440 &&
-        iisLoginTimeoutHttp440 != null) {
-      return iisLoginTimeoutHttp440();
-    } else if (this == StatusCode.nginxNoResponseHttp444 &&
-        nginxNoResponseHttp444 != null) {
-      return nginxNoResponseHttp444();
-    } else if (this == StatusCode.iisRetryWithHttp449 &&
-        iisRetryWithHttp449 != null) {
-      return iisRetryWithHttp449();
-    } else if (this == StatusCode.blockedByWindowsParentalControlsHttp450 &&
-        blockedByWindowsParentalControlsHttp450 != null) {
-      return blockedByWindowsParentalControlsHttp450();
-    } else if (this == StatusCode.unavailableForLegalReasonsHttp451 &&
-        unavailableForLegalReasonsHttp451 != null) {
-      return unavailableForLegalReasonsHttp451();
-    } else if (this == StatusCode.nginxSSLCertificateErrorHttp495 &&
-        nginxSSLCertificateErrorHttp495 != null) {
-      return nginxSSLCertificateErrorHttp495();
-    } else if (this == StatusCode.nginxSSLCertificateRequiredHttp496 &&
-        nginxSSLCertificateRequiredHttp496 != null) {
-      return nginxSSLCertificateRequiredHttp496();
-    } else if (this == StatusCode.nginxHTTPToHTTPSHttp497 &&
-        nginxHTTPToHTTPSHttp497 != null) {
-      return nginxHTTPToHTTPSHttp497();
-    } else if (this == StatusCode.tokenExpiredHttp498 &&
-        tokenExpiredHttp498 != null) {
-      return tokenExpiredHttp498();
-    } else if (this == StatusCode.nginxClientClosedRequestHttp499 &&
-        nginxClientClosedRequestHttp499 != null) {
-      return nginxClientClosedRequestHttp499();
-    } else if (this == StatusCode.internalServerErrorHttp500 &&
-        internalServerErrorHttp500 != null) {
-      return internalServerErrorHttp500();
-    } else if (this == StatusCode.notImplementedHttp501 &&
-        notImplementedHttp501 != null) {
-      return notImplementedHttp501();
-    } else if (this == StatusCode.badGatewayHttp502 &&
-        badGatewayHttp502 != null) {
-      return badGatewayHttp502();
-    } else if (this == StatusCode.serviceUnavailableHttp503 &&
-        serviceUnavailableHttp503 != null) {
-      return serviceUnavailableHttp503();
-    } else if (this == StatusCode.gatewayTimeoutHttp504 &&
-        gatewayTimeoutHttp504 != null) {
-      return gatewayTimeoutHttp504();
-    } else if (this == StatusCode.httpVersionNotSupportedHttp505 &&
-        httpVersionNotSupportedHttp505 != null) {
-      return httpVersionNotSupportedHttp505();
-    } else if (this == StatusCode.variantAlsoNegotiatesHttp506 &&
-        variantAlsoNegotiatesHttp506 != null) {
-      return variantAlsoNegotiatesHttp506();
-    } else if (this == StatusCode.insufficientStorageHttp507 &&
-        insufficientStorageHttp507 != null) {
-      return insufficientStorageHttp507();
-    } else if (this == StatusCode.loopDetectedHttp508 &&
-        loopDetectedHttp508 != null) {
-      return loopDetectedHttp508();
-    } else if (this == StatusCode.bandwidthLimitExceededHttp509 &&
-        bandwidthLimitExceededHttp509 != null) {
-      return bandwidthLimitExceededHttp509();
-    } else if (this == StatusCode.otExtendedHttp510 &&
-        otExtendedHttp510 != null) {
-      return otExtendedHttp510();
-    } else if (this == StatusCode.networkAuthenticationRequiredHttp511 &&
-        networkAuthenticationRequiredHttp511 != null) {
-      return networkAuthenticationRequiredHttp511();
-    } else if (this == StatusCode.siteIsFrozenHttp530 &&
-        siteIsFrozenHttp530 != null) {
-      return siteIsFrozenHttp530();
-    } else if (this == StatusCode.networkConnectTimeoutErrorHttp599 &&
-        networkConnectTimeoutErrorHttp599 != null) {
-      return networkConnectTimeoutErrorHttp599();
-    } else {
-      return orElse();
+    switch (this) {
+      case StatusCode.continueHttp100:
+        return continueHttp100?.call() ?? orElse();
+      case StatusCode.switchingProtocolsHttp101:
+        return switchingProtocolsHttp101?.call() ?? orElse();
+      case StatusCode.processingHttp102:
+        return processingHttp102?.call() ?? orElse();
+      case StatusCode.earlyHintsHttp103:
+        return earlyHintsHttp103?.call() ?? orElse();
+      case StatusCode.okHttp200:
+        return okHttp200?.call() ?? orElse();
+      case StatusCode.createdHttp201:
+        return createdHttp201?.call() ?? orElse();
+      case StatusCode.acceptedHttp202:
+        return acceptedHttp202?.call() ?? orElse();
+      case StatusCode.nonAuthoritativeInformationHttp203:
+        return nonAuthoritativeInformationHttp203?.call() ?? orElse();
+      case StatusCode.noContentHttp204:
+        return noContentHttp204?.call() ?? orElse();
+      case StatusCode.resetContentHttp205:
+        return resetContentHttp205?.call() ?? orElse();
+      case StatusCode.partialContentHttp206:
+        return partialContentHttp206?.call() ?? orElse();
+      case StatusCode.multiStatusHttp207:
+        return multiStatusHttp207?.call() ?? orElse();
+      case StatusCode.alreadyReportedHttp208:
+        return alreadyReportedHttp208?.call() ?? orElse();
+      case StatusCode.imUsedHttp226:
+        return imUsedHttp226?.call() ?? orElse();
+      case StatusCode.multipleChoicesHttp300:
+        return multipleChoicesHttp300?.call() ?? orElse();
+      case StatusCode.movedPermanentlyHttp301:
+        return movedPermanentlyHttp301?.call() ?? orElse();
+      case StatusCode.foundHttp302:
+        return foundHttp302?.call() ?? orElse();
+      case StatusCode.seeOtherHttp303:
+        return seeOtherHttp303?.call() ?? orElse();
+      case StatusCode.notModifiedHttp304:
+        return notModifiedHttp304?.call() ?? orElse();
+      case StatusCode.useProxyHttp305:
+        return useProxyHttp305?.call() ?? orElse();
+      case StatusCode.temporaryRedirectHttp307:
+        return temporaryRedirectHttp307?.call() ?? orElse();
+      case StatusCode.permanentRedirectHttp308:
+        return permanentRedirectHttp308?.call() ?? orElse();
+      case StatusCode.badRequestHttp400:
+        return badRequestHttp400?.call() ?? orElse();
+      case StatusCode.unauthorizedHttp401:
+        return unauthorizedHttp401?.call() ?? orElse();
+      case StatusCode.paymentRequiredHttp402:
+        return paymentRequiredHttp402?.call() ?? orElse();
+      case StatusCode.forbiddenHttp403:
+        return forbiddenHttp403?.call() ?? orElse();
+      case StatusCode.notFoundHttp404:
+        return notFoundHttp404?.call() ?? orElse();
+      case StatusCode.methodNotAllowedHttp405:
+        return methodNotAllowedHttp405?.call() ?? orElse();
+      case StatusCode.notAcceptableHttp406:
+        return notAcceptableHttp406?.call() ?? orElse();
+      case StatusCode.proxyAuthenticationRequiredHttp407:
+        return proxyAuthenticationRequiredHttp407?.call() ?? orElse();
+      case StatusCode.requestTimeoutHttp408:
+        return requestTimeoutHttp408?.call() ?? orElse();
+      case StatusCode.conflictHttp409:
+        return conflictHttp409?.call() ?? orElse();
+      case StatusCode.goneHttp410:
+        return goneHttp410?.call() ?? orElse();
+      case StatusCode.lengthRequiredHttp411:
+        return lengthRequiredHttp411?.call() ?? orElse();
+      case StatusCode.preconditionFailedHttp412:
+        return preconditionFailedHttp412?.call() ?? orElse();
+      case StatusCode.payloadTooLargeHttp413:
+        return payloadTooLargeHttp413?.call() ?? orElse();
+      case StatusCode.uriTooLongHttp414:
+        return uriTooLongHttp414?.call() ?? orElse();
+      case StatusCode.unsupportedMediaTypeHttp415:
+        return unsupportedMediaTypeHttp415?.call() ?? orElse();
+      case StatusCode.rangeNotSatisfiableHttp416:
+        return rangeNotSatisfiableHttp416?.call() ?? orElse();
+      case StatusCode.expectationFailedHttp417:
+        return expectationFailedHttp417?.call() ?? orElse();
+      case StatusCode.imATeapotHttp418:
+        return imATeapotHttp418?.call() ?? orElse();
+      case StatusCode.misdirectedRequestHttp421:
+        return misdirectedRequestHttp421?.call() ?? orElse();
+      case StatusCode.unprocessableEntityHttp422:
+        return unprocessableEntityHttp422?.call() ?? orElse();
+      case StatusCode.lockedHttp423:
+        return lockedHttp423?.call() ?? orElse();
+      case StatusCode.failedDependencyHttp424:
+        return failedDependencyHttp424?.call() ?? orElse();
+      case StatusCode.tooEarlyHttp425:
+        return tooEarlyHttp425?.call() ?? orElse();
+      case StatusCode.upgradeRequiredHttp426:
+        return upgradeRequiredHttp426?.call() ?? orElse();
+      case StatusCode.preconditionRequiredHttp428:
+        return preconditionRequiredHttp428?.call() ?? orElse();
+      case StatusCode.tooManyRequestsHttp429:
+        return tooManyRequestsHttp429?.call() ?? orElse();
+      case StatusCode.requestHeaderFieldsTooLargeHttp431:
+        return requestHeaderFieldsTooLargeHttp431?.call() ?? orElse();
+      case StatusCode.iisLoginTimeoutHttp440:
+        return iisLoginTimeoutHttp440?.call() ?? orElse();
+      case StatusCode.nginxNoResponseHttp444:
+        return nginxNoResponseHttp444?.call() ?? orElse();
+      case StatusCode.iisRetryWithHttp449:
+        return iisRetryWithHttp449?.call() ?? orElse();
+      case StatusCode.blockedByWindowsParentalControlsHttp450:
+        return blockedByWindowsParentalControlsHttp450?.call() ?? orElse();
+      case StatusCode.unavailableForLegalReasonsHttp451:
+        return unavailableForLegalReasonsHttp451?.call() ?? orElse();
+      case StatusCode.nginxSSLCertificateErrorHttp495:
+        return nginxSSLCertificateErrorHttp495?.call() ?? orElse();
+      case StatusCode.nginxSSLCertificateRequiredHttp496:
+        return nginxSSLCertificateRequiredHttp496?.call() ?? orElse();
+      case StatusCode.nginxHTTPToHTTPSHttp497:
+        return nginxHTTPToHTTPSHttp497?.call() ?? orElse();
+      case StatusCode.tokenExpiredHttp498:
+        return tokenExpiredHttp498?.call() ?? orElse();
+      case StatusCode.nginxClientClosedRequestHttp499:
+        return nginxClientClosedRequestHttp499?.call() ?? orElse();
+      case StatusCode.internalServerErrorHttp500:
+        return internalServerErrorHttp500?.call() ?? orElse();
+      case StatusCode.notImplementedHttp501:
+        return notImplementedHttp501?.call() ?? orElse();
+      case StatusCode.badGatewayHttp502:
+        return badGatewayHttp502?.call() ?? orElse();
+      case StatusCode.serviceUnavailableHttp503:
+        return serviceUnavailableHttp503?.call() ?? orElse();
+      case StatusCode.gatewayTimeoutHttp504:
+        return gatewayTimeoutHttp504?.call() ?? orElse();
+      case StatusCode.httpVersionNotSupportedHttp505:
+        return httpVersionNotSupportedHttp505?.call() ?? orElse();
+      case StatusCode.variantAlsoNegotiatesHttp506:
+        return variantAlsoNegotiatesHttp506?.call() ?? orElse();
+      case StatusCode.insufficientStorageHttp507:
+        return insufficientStorageHttp507?.call() ?? orElse();
+      case StatusCode.loopDetectedHttp508:
+        return loopDetectedHttp508?.call() ?? orElse();
+      case StatusCode.bandwidthLimitExceededHttp509:
+        return bandwidthLimitExceededHttp509?.call() ?? orElse();
+      case StatusCode.otExtendedHttp510:
+        return otExtendedHttp510?.call() ?? orElse();
+      case StatusCode.networkAuthenticationRequiredHttp511:
+        return networkAuthenticationRequiredHttp511?.call() ?? orElse();
+      case StatusCode.siteIsFrozenHttp530:
+        return siteIsFrozenHttp530?.call() ?? orElse();
+      case StatusCode.networkConnectTimeoutErrorHttp599:
+        return networkConnectTimeoutErrorHttp599?.call() ?? orElse();
     }
   }
 
@@ -1503,217 +1379,156 @@ extension StatusCodeX on StatusCode {
     R Function()? networkConnectTimeoutErrorHttp599,
     R Function()? orElse,
   }) {
-    if (this == StatusCode.continueHttp100 && continueHttp100 != null) {
-      return continueHttp100();
-    } else if (this == StatusCode.switchingProtocolsHttp101 &&
-        switchingProtocolsHttp101 != null) {
-      return switchingProtocolsHttp101();
-    } else if (this == StatusCode.processingHttp102 &&
-        processingHttp102 != null) {
-      return processingHttp102();
-    } else if (this == StatusCode.earlyHintsHttp103 &&
-        earlyHintsHttp103 != null) {
-      return earlyHintsHttp103();
-    } else if (this == StatusCode.okHttp200 && okHttp200 != null) {
-      return okHttp200();
-    } else if (this == StatusCode.createdHttp201 && createdHttp201 != null) {
-      return createdHttp201();
-    } else if (this == StatusCode.acceptedHttp202 && acceptedHttp202 != null) {
-      return acceptedHttp202();
-    } else if (this == StatusCode.nonAuthoritativeInformationHttp203 &&
-        nonAuthoritativeInformationHttp203 != null) {
-      return nonAuthoritativeInformationHttp203();
-    } else if (this == StatusCode.noContentHttp204 &&
-        noContentHttp204 != null) {
-      return noContentHttp204();
-    } else if (this == StatusCode.resetContentHttp205 &&
-        resetContentHttp205 != null) {
-      return resetContentHttp205();
-    } else if (this == StatusCode.partialContentHttp206 &&
-        partialContentHttp206 != null) {
-      return partialContentHttp206();
-    } else if (this == StatusCode.multiStatusHttp207 &&
-        multiStatusHttp207 != null) {
-      return multiStatusHttp207();
-    } else if (this == StatusCode.alreadyReportedHttp208 &&
-        alreadyReportedHttp208 != null) {
-      return alreadyReportedHttp208();
-    } else if (this == StatusCode.imUsedHttp226 && imUsedHttp226 != null) {
-      return imUsedHttp226();
-    } else if (this == StatusCode.multipleChoicesHttp300 &&
-        multipleChoicesHttp300 != null) {
-      return multipleChoicesHttp300();
-    } else if (this == StatusCode.movedPermanentlyHttp301 &&
-        movedPermanentlyHttp301 != null) {
-      return movedPermanentlyHttp301();
-    } else if (this == StatusCode.foundHttp302 && foundHttp302 != null) {
-      return foundHttp302();
-    } else if (this == StatusCode.seeOtherHttp303 && seeOtherHttp303 != null) {
-      return seeOtherHttp303();
-    } else if (this == StatusCode.notModifiedHttp304 &&
-        notModifiedHttp304 != null) {
-      return notModifiedHttp304();
-    } else if (this == StatusCode.useProxyHttp305 && useProxyHttp305 != null) {
-      return useProxyHttp305();
-    } else if (this == StatusCode.temporaryRedirectHttp307 &&
-        temporaryRedirectHttp307 != null) {
-      return temporaryRedirectHttp307();
-    } else if (this == StatusCode.permanentRedirectHttp308 &&
-        permanentRedirectHttp308 != null) {
-      return permanentRedirectHttp308();
-    } else if (this == StatusCode.badRequestHttp400 &&
-        badRequestHttp400 != null) {
-      return badRequestHttp400();
-    } else if (this == StatusCode.unauthorizedHttp401 &&
-        unauthorizedHttp401 != null) {
-      return unauthorizedHttp401();
-    } else if (this == StatusCode.paymentRequiredHttp402 &&
-        paymentRequiredHttp402 != null) {
-      return paymentRequiredHttp402();
-    } else if (this == StatusCode.forbiddenHttp403 &&
-        forbiddenHttp403 != null) {
-      return forbiddenHttp403();
-    } else if (this == StatusCode.notFoundHttp404 && notFoundHttp404 != null) {
-      return notFoundHttp404();
-    } else if (this == StatusCode.methodNotAllowedHttp405 &&
-        methodNotAllowedHttp405 != null) {
-      return methodNotAllowedHttp405();
-    } else if (this == StatusCode.notAcceptableHttp406 &&
-        notAcceptableHttp406 != null) {
-      return notAcceptableHttp406();
-    } else if (this == StatusCode.proxyAuthenticationRequiredHttp407 &&
-        proxyAuthenticationRequiredHttp407 != null) {
-      return proxyAuthenticationRequiredHttp407();
-    } else if (this == StatusCode.requestTimeoutHttp408 &&
-        requestTimeoutHttp408 != null) {
-      return requestTimeoutHttp408();
-    } else if (this == StatusCode.conflictHttp409 && conflictHttp409 != null) {
-      return conflictHttp409();
-    } else if (this == StatusCode.goneHttp410 && goneHttp410 != null) {
-      return goneHttp410();
-    } else if (this == StatusCode.lengthRequiredHttp411 &&
-        lengthRequiredHttp411 != null) {
-      return lengthRequiredHttp411();
-    } else if (this == StatusCode.preconditionFailedHttp412 &&
-        preconditionFailedHttp412 != null) {
-      return preconditionFailedHttp412();
-    } else if (this == StatusCode.payloadTooLargeHttp413 &&
-        payloadTooLargeHttp413 != null) {
-      return payloadTooLargeHttp413();
-    } else if (this == StatusCode.uriTooLongHttp414 &&
-        uriTooLongHttp414 != null) {
-      return uriTooLongHttp414();
-    } else if (this == StatusCode.unsupportedMediaTypeHttp415 &&
-        unsupportedMediaTypeHttp415 != null) {
-      return unsupportedMediaTypeHttp415();
-    } else if (this == StatusCode.rangeNotSatisfiableHttp416 &&
-        rangeNotSatisfiableHttp416 != null) {
-      return rangeNotSatisfiableHttp416();
-    } else if (this == StatusCode.expectationFailedHttp417 &&
-        expectationFailedHttp417 != null) {
-      return expectationFailedHttp417();
-    } else if (this == StatusCode.imATeapotHttp418 &&
-        imATeapotHttp418 != null) {
-      return imATeapotHttp418();
-    } else if (this == StatusCode.misdirectedRequestHttp421 &&
-        misdirectedRequestHttp421 != null) {
-      return misdirectedRequestHttp421();
-    } else if (this == StatusCode.unprocessableEntityHttp422 &&
-        unprocessableEntityHttp422 != null) {
-      return unprocessableEntityHttp422();
-    } else if (this == StatusCode.lockedHttp423 && lockedHttp423 != null) {
-      return lockedHttp423();
-    } else if (this == StatusCode.failedDependencyHttp424 &&
-        failedDependencyHttp424 != null) {
-      return failedDependencyHttp424();
-    } else if (this == StatusCode.tooEarlyHttp425 && tooEarlyHttp425 != null) {
-      return tooEarlyHttp425();
-    } else if (this == StatusCode.upgradeRequiredHttp426 &&
-        upgradeRequiredHttp426 != null) {
-      return upgradeRequiredHttp426();
-    } else if (this == StatusCode.preconditionRequiredHttp428 &&
-        preconditionRequiredHttp428 != null) {
-      return preconditionRequiredHttp428();
-    } else if (this == StatusCode.tooManyRequestsHttp429 &&
-        tooManyRequestsHttp429 != null) {
-      return tooManyRequestsHttp429();
-    } else if (this == StatusCode.requestHeaderFieldsTooLargeHttp431 &&
-        requestHeaderFieldsTooLargeHttp431 != null) {
-      return requestHeaderFieldsTooLargeHttp431();
-    } else if (this == StatusCode.iisLoginTimeoutHttp440 &&
-        iisLoginTimeoutHttp440 != null) {
-      return iisLoginTimeoutHttp440();
-    } else if (this == StatusCode.nginxNoResponseHttp444 &&
-        nginxNoResponseHttp444 != null) {
-      return nginxNoResponseHttp444();
-    } else if (this == StatusCode.iisRetryWithHttp449 &&
-        iisRetryWithHttp449 != null) {
-      return iisRetryWithHttp449();
-    } else if (this == StatusCode.blockedByWindowsParentalControlsHttp450 &&
-        blockedByWindowsParentalControlsHttp450 != null) {
-      return blockedByWindowsParentalControlsHttp450();
-    } else if (this == StatusCode.unavailableForLegalReasonsHttp451 &&
-        unavailableForLegalReasonsHttp451 != null) {
-      return unavailableForLegalReasonsHttp451();
-    } else if (this == StatusCode.nginxSSLCertificateErrorHttp495 &&
-        nginxSSLCertificateErrorHttp495 != null) {
-      return nginxSSLCertificateErrorHttp495();
-    } else if (this == StatusCode.nginxSSLCertificateRequiredHttp496 &&
-        nginxSSLCertificateRequiredHttp496 != null) {
-      return nginxSSLCertificateRequiredHttp496();
-    } else if (this == StatusCode.nginxHTTPToHTTPSHttp497 &&
-        nginxHTTPToHTTPSHttp497 != null) {
-      return nginxHTTPToHTTPSHttp497();
-    } else if (this == StatusCode.tokenExpiredHttp498 &&
-        tokenExpiredHttp498 != null) {
-      return tokenExpiredHttp498();
-    } else if (this == StatusCode.nginxClientClosedRequestHttp499 &&
-        nginxClientClosedRequestHttp499 != null) {
-      return nginxClientClosedRequestHttp499();
-    } else if (this == StatusCode.internalServerErrorHttp500 &&
-        internalServerErrorHttp500 != null) {
-      return internalServerErrorHttp500();
-    } else if (this == StatusCode.notImplementedHttp501 &&
-        notImplementedHttp501 != null) {
-      return notImplementedHttp501();
-    } else if (this == StatusCode.badGatewayHttp502 &&
-        badGatewayHttp502 != null) {
-      return badGatewayHttp502();
-    } else if (this == StatusCode.serviceUnavailableHttp503 &&
-        serviceUnavailableHttp503 != null) {
-      return serviceUnavailableHttp503();
-    } else if (this == StatusCode.gatewayTimeoutHttp504 &&
-        gatewayTimeoutHttp504 != null) {
-      return gatewayTimeoutHttp504();
-    } else if (this == StatusCode.httpVersionNotSupportedHttp505 &&
-        httpVersionNotSupportedHttp505 != null) {
-      return httpVersionNotSupportedHttp505();
-    } else if (this == StatusCode.variantAlsoNegotiatesHttp506 &&
-        variantAlsoNegotiatesHttp506 != null) {
-      return variantAlsoNegotiatesHttp506();
-    } else if (this == StatusCode.insufficientStorageHttp507 &&
-        insufficientStorageHttp507 != null) {
-      return insufficientStorageHttp507();
-    } else if (this == StatusCode.loopDetectedHttp508 &&
-        loopDetectedHttp508 != null) {
-      return loopDetectedHttp508();
-    } else if (this == StatusCode.bandwidthLimitExceededHttp509 &&
-        bandwidthLimitExceededHttp509 != null) {
-      return bandwidthLimitExceededHttp509();
-    } else if (this == StatusCode.otExtendedHttp510 &&
-        otExtendedHttp510 != null) {
-      return otExtendedHttp510();
-    } else if (this == StatusCode.networkAuthenticationRequiredHttp511 &&
-        networkAuthenticationRequiredHttp511 != null) {
-      return networkAuthenticationRequiredHttp511();
-    } else if (this == StatusCode.siteIsFrozenHttp530 &&
-        siteIsFrozenHttp530 != null) {
-      return siteIsFrozenHttp530();
-    } else if (this == StatusCode.networkConnectTimeoutErrorHttp599 &&
-        networkConnectTimeoutErrorHttp599 != null) {
-      return networkConnectTimeoutErrorHttp599();
-    } else {
-      return orElse?.call();
+    switch (this) {
+      case StatusCode.continueHttp100:
+        return continueHttp100?.call() ?? orElse?.call();
+      case StatusCode.switchingProtocolsHttp101:
+        return switchingProtocolsHttp101?.call() ?? orElse?.call();
+      case StatusCode.processingHttp102:
+        return processingHttp102?.call() ?? orElse?.call();
+      case StatusCode.earlyHintsHttp103:
+        return earlyHintsHttp103?.call() ?? orElse?.call();
+      case StatusCode.okHttp200:
+        return okHttp200?.call() ?? orElse?.call();
+      case StatusCode.createdHttp201:
+        return createdHttp201?.call() ?? orElse?.call();
+      case StatusCode.acceptedHttp202:
+        return acceptedHttp202?.call() ?? orElse?.call();
+      case StatusCode.nonAuthoritativeInformationHttp203:
+        return nonAuthoritativeInformationHttp203?.call() ?? orElse?.call();
+      case StatusCode.noContentHttp204:
+        return noContentHttp204?.call() ?? orElse?.call();
+      case StatusCode.resetContentHttp205:
+        return resetContentHttp205?.call() ?? orElse?.call();
+      case StatusCode.partialContentHttp206:
+        return partialContentHttp206?.call() ?? orElse?.call();
+      case StatusCode.multiStatusHttp207:
+        return multiStatusHttp207?.call() ?? orElse?.call();
+      case StatusCode.alreadyReportedHttp208:
+        return alreadyReportedHttp208?.call() ?? orElse?.call();
+      case StatusCode.imUsedHttp226:
+        return imUsedHttp226?.call() ?? orElse?.call();
+      case StatusCode.multipleChoicesHttp300:
+        return multipleChoicesHttp300?.call() ?? orElse?.call();
+      case StatusCode.movedPermanentlyHttp301:
+        return movedPermanentlyHttp301?.call() ?? orElse?.call();
+      case StatusCode.foundHttp302:
+        return foundHttp302?.call() ?? orElse?.call();
+      case StatusCode.seeOtherHttp303:
+        return seeOtherHttp303?.call() ?? orElse?.call();
+      case StatusCode.notModifiedHttp304:
+        return notModifiedHttp304?.call() ?? orElse?.call();
+      case StatusCode.useProxyHttp305:
+        return useProxyHttp305?.call() ?? orElse?.call();
+      case StatusCode.temporaryRedirectHttp307:
+        return temporaryRedirectHttp307?.call() ?? orElse?.call();
+      case StatusCode.permanentRedirectHttp308:
+        return permanentRedirectHttp308?.call() ?? orElse?.call();
+      case StatusCode.badRequestHttp400:
+        return badRequestHttp400?.call() ?? orElse?.call();
+      case StatusCode.unauthorizedHttp401:
+        return unauthorizedHttp401?.call() ?? orElse?.call();
+      case StatusCode.paymentRequiredHttp402:
+        return paymentRequiredHttp402?.call() ?? orElse?.call();
+      case StatusCode.forbiddenHttp403:
+        return forbiddenHttp403?.call() ?? orElse?.call();
+      case StatusCode.notFoundHttp404:
+        return notFoundHttp404?.call() ?? orElse?.call();
+      case StatusCode.methodNotAllowedHttp405:
+        return methodNotAllowedHttp405?.call() ?? orElse?.call();
+      case StatusCode.notAcceptableHttp406:
+        return notAcceptableHttp406?.call() ?? orElse?.call();
+      case StatusCode.proxyAuthenticationRequiredHttp407:
+        return proxyAuthenticationRequiredHttp407?.call() ?? orElse?.call();
+      case StatusCode.requestTimeoutHttp408:
+        return requestTimeoutHttp408?.call() ?? orElse?.call();
+      case StatusCode.conflictHttp409:
+        return conflictHttp409?.call() ?? orElse?.call();
+      case StatusCode.goneHttp410:
+        return goneHttp410?.call() ?? orElse?.call();
+      case StatusCode.lengthRequiredHttp411:
+        return lengthRequiredHttp411?.call() ?? orElse?.call();
+      case StatusCode.preconditionFailedHttp412:
+        return preconditionFailedHttp412?.call() ?? orElse?.call();
+      case StatusCode.payloadTooLargeHttp413:
+        return payloadTooLargeHttp413?.call() ?? orElse?.call();
+      case StatusCode.uriTooLongHttp414:
+        return uriTooLongHttp414?.call() ?? orElse?.call();
+      case StatusCode.unsupportedMediaTypeHttp415:
+        return unsupportedMediaTypeHttp415?.call() ?? orElse?.call();
+      case StatusCode.rangeNotSatisfiableHttp416:
+        return rangeNotSatisfiableHttp416?.call() ?? orElse?.call();
+      case StatusCode.expectationFailedHttp417:
+        return expectationFailedHttp417?.call() ?? orElse?.call();
+      case StatusCode.imATeapotHttp418:
+        return imATeapotHttp418?.call() ?? orElse?.call();
+      case StatusCode.misdirectedRequestHttp421:
+        return misdirectedRequestHttp421?.call() ?? orElse?.call();
+      case StatusCode.unprocessableEntityHttp422:
+        return unprocessableEntityHttp422?.call() ?? orElse?.call();
+      case StatusCode.lockedHttp423:
+        return lockedHttp423?.call() ?? orElse?.call();
+      case StatusCode.failedDependencyHttp424:
+        return failedDependencyHttp424?.call() ?? orElse?.call();
+      case StatusCode.tooEarlyHttp425:
+        return tooEarlyHttp425?.call() ?? orElse?.call();
+      case StatusCode.upgradeRequiredHttp426:
+        return upgradeRequiredHttp426?.call() ?? orElse?.call();
+      case StatusCode.preconditionRequiredHttp428:
+        return preconditionRequiredHttp428?.call() ?? orElse?.call();
+      case StatusCode.tooManyRequestsHttp429:
+        return tooManyRequestsHttp429?.call() ?? orElse?.call();
+      case StatusCode.requestHeaderFieldsTooLargeHttp431:
+        return requestHeaderFieldsTooLargeHttp431?.call() ?? orElse?.call();
+      case StatusCode.iisLoginTimeoutHttp440:
+        return iisLoginTimeoutHttp440?.call() ?? orElse?.call();
+      case StatusCode.nginxNoResponseHttp444:
+        return nginxNoResponseHttp444?.call() ?? orElse?.call();
+      case StatusCode.iisRetryWithHttp449:
+        return iisRetryWithHttp449?.call() ?? orElse?.call();
+      case StatusCode.blockedByWindowsParentalControlsHttp450:
+        return blockedByWindowsParentalControlsHttp450?.call() ??
+            orElse?.call();
+      case StatusCode.unavailableForLegalReasonsHttp451:
+        return unavailableForLegalReasonsHttp451?.call() ?? orElse?.call();
+      case StatusCode.nginxSSLCertificateErrorHttp495:
+        return nginxSSLCertificateErrorHttp495?.call() ?? orElse?.call();
+      case StatusCode.nginxSSLCertificateRequiredHttp496:
+        return nginxSSLCertificateRequiredHttp496?.call() ?? orElse?.call();
+      case StatusCode.nginxHTTPToHTTPSHttp497:
+        return nginxHTTPToHTTPSHttp497?.call() ?? orElse?.call();
+      case StatusCode.tokenExpiredHttp498:
+        return tokenExpiredHttp498?.call() ?? orElse?.call();
+      case StatusCode.nginxClientClosedRequestHttp499:
+        return nginxClientClosedRequestHttp499?.call() ?? orElse?.call();
+      case StatusCode.internalServerErrorHttp500:
+        return internalServerErrorHttp500?.call() ?? orElse?.call();
+      case StatusCode.notImplementedHttp501:
+        return notImplementedHttp501?.call() ?? orElse?.call();
+      case StatusCode.badGatewayHttp502:
+        return badGatewayHttp502?.call() ?? orElse?.call();
+      case StatusCode.serviceUnavailableHttp503:
+        return serviceUnavailableHttp503?.call() ?? orElse?.call();
+      case StatusCode.gatewayTimeoutHttp504:
+        return gatewayTimeoutHttp504?.call() ?? orElse?.call();
+      case StatusCode.httpVersionNotSupportedHttp505:
+        return httpVersionNotSupportedHttp505?.call() ?? orElse?.call();
+      case StatusCode.variantAlsoNegotiatesHttp506:
+        return variantAlsoNegotiatesHttp506?.call() ?? orElse?.call();
+      case StatusCode.insufficientStorageHttp507:
+        return insufficientStorageHttp507?.call() ?? orElse?.call();
+      case StatusCode.loopDetectedHttp508:
+        return loopDetectedHttp508?.call() ?? orElse?.call();
+      case StatusCode.bandwidthLimitExceededHttp509:
+        return bandwidthLimitExceededHttp509?.call() ?? orElse?.call();
+      case StatusCode.otExtendedHttp510:
+        return otExtendedHttp510?.call() ?? orElse?.call();
+      case StatusCode.networkAuthenticationRequiredHttp511:
+        return networkAuthenticationRequiredHttp511?.call() ?? orElse?.call();
+      case StatusCode.siteIsFrozenHttp530:
+        return siteIsFrozenHttp530?.call() ?? orElse?.call();
+      case StatusCode.networkConnectTimeoutErrorHttp599:
+        return networkConnectTimeoutErrorHttp599?.call() ?? orElse?.call();
     }
   }
 }
