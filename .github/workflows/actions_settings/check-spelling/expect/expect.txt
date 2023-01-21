@@ -7,6 +7,7 @@ HTTPTo
 Hockenberry
 README
 SSL
+URLs
 Vjo
 Vkx
 arcgis
@@ -17,6 +18,7 @@ cpanel
 dartdoc
 dio
 enum
+enums
 github
 google
 googleapis
@@ -28,12 +30,13 @@ msdn
 nginx
 opensource
 pubspec
+refactor
+refactoring
 rfc
 src
 tsinis
 unprocessable
 uri
-URLs
 webpage
 wiki
 wikipedia
