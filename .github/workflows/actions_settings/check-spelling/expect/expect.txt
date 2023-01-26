@@ -33,6 +33,7 @@ pubspec
 refactor
 refactoring
 rfc
+screenshot
 src
 tsinis
 unprocessable

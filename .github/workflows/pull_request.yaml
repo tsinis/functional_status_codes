@@ -2,10 +2,9 @@ name: pull_requests
 
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - edited
+    branches:
+      - main
+
 
 permissions:
   pull-requests: write

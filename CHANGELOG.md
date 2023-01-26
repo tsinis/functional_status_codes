@@ -1,3 +1,7 @@
+## 1.0.4
+
+- docs: added screenshot to pub.dev, no code changes.
+
 ## 1.0.3
 
 - refactor: small refactoring in generated functional enums extensions and dependencies update.
