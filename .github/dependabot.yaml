@@ -6,8 +6,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    assignees:
-      - "dependabot"
     reviewers:
       - "tsinis"
     commit-message:
@@ -19,8 +17,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    assignees:
-      - "dependabot"
     reviewers:
       - "tsinis"
     commit-message:
@@ -31,8 +27,6 @@ updates:
     directory: "example/"
     schedule:
       interval: "weekly"
-    assignees:
-      - "dependabot"
     reviewers:
       - "tsinis"
     commit-message:
