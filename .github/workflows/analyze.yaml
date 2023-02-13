@@ -39,11 +39,29 @@ jobs:
       - name: Install Dependencies
         run: dart pub get
 
-      - name: Format
-        run: dart format --set-exit-if-changed .
+      - name: Analyze Code
+        uses: ValentinVignal/action-dart-analyze@v0.15
+        with:
+          fail-on: 'format'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Analyze
-        run: dart analyze --fatal-infos --fatal-warnings .
+      - name: Calculate PANA Score
+        uses: axel-op/dart-package-analyzer@v3
+        id: analysis
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Pub Score
+        env:
+          TOTAL: ${{ steps.analysis.outputs.total }}
+          TOTAL_MAX: ${{ steps.analysis.outputs.total_max }}
+        run: |
+          PERCENTAGE=$(( $TOTAL * 100 / $TOTAL_MAX ))
+          if (( $PERCENTAGE < 92 ))
+          then
+          echo Score too low!
+          exit 1
+          fi
 
       - name: Dart Code Metrics
         uses: dart-code-checker/dart-code-metrics-action@v3
