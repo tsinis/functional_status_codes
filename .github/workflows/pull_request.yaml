@@ -27,16 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
-      - name: Author Assign
-        uses: toshimaru/auto-author-assign@v1.6.2
+      - name: Add Reviewer and Author Assign
+        uses: kentaro-m/auto-assign-action@v1.2.4
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Add Reviewer
-        uses: madrapps/add-reviewers@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          reviewers: github.event.repository.owner.login
+          configuration-path: '.github/workflows/actions_settings/auto-assign.yaml'
 
   pr-title:
     name: 📰 Check PR Title
