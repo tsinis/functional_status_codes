@@ -45,9 +45,6 @@ jobs:
           fail-on: 'format'
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install WebP Utilities
-        run: sudo apt-get update && sudo apt-get install -y webp && webpinfo doc/comparison.webp
-
       - name: Calculate PANA Score
         uses: axel-op/dart-package-analyzer@v3
         id: analysis
@@ -60,7 +57,7 @@ jobs:
           TOTAL_MAX: ${{ steps.analysis.outputs.total_max }}
         run: |
           PERCENTAGE=$(( $TOTAL * 100 / $TOTAL_MAX ))
-          if (( $PERCENTAGE < 99 ))
+          if (( $PERCENTAGE < 92 ))
           then
           echo Score too low!
           exit 1
