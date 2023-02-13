@@ -46,7 +46,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install WebP Utilities
-        run: sudo apt-get install -y webp
+        run: sudo apt-get update && sudo apt-get install -y webp
 
       - name: Calculate PANA Score
         uses: axel-op/dart-package-analyzer@v3
