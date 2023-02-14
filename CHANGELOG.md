@@ -1,3 +1,8 @@
+## 1.0.5
+
+- docs: changed screenshot to webp format.
+- ci(github): added automatic pub.dev publishing workflow.
+
 ## 1.0.4
 
 - docs: added screenshot to pub.dev, no code changes.
