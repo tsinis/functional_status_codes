@@ -1,0 +1,48 @@
+name: publish
+
+on:
+  push:
+    tags:
+    - '[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  check-version:
+    name: Check version
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checks-out repository
+        uses: actions/checkout@v3
+
+      - name: Get tag
+        id: get_tag
+        run: echo TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
+
+      - name: Read pubspec.yaml version
+        uses: KJ002/read-yaml@1.6
+        id: pubspec
+        with:
+          file: "pubspec.yaml"
+          key-path: '["version"]'
+
+      - name: Delete tag if version is not same as tag
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        if: steps.pubspec.outputs.data != env.TAG
+        with:
+          tag_name: env.TAG
+          delete_release: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cancel workflow if tag is not same as version
+        uses: andymckay/cancel-action@0.3
+        if: steps.pubspec.outputs.data != env.TAG
+
+      - name: Say Goodbye :)
+        run: echo "Ready to publish, goodbye!"
+
+  publish:
+    name: Publish to pub.dev
+    needs: check-version
+    if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
