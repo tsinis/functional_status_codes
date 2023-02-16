@@ -24,7 +24,7 @@ jobs:
       - name: Link Checker
         uses: lycheeverse/lychee-action@v1.5.4
         with:
-          args: --verbose --no-progress './**/*.md' './**/*.html'
+          args: --verbose --no-progress './**/*.md' './**/*.html' './**/*.dart'
           format: markdown
           jobSummary: true
           fail: true

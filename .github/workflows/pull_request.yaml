@@ -44,13 +44,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   auto-approve:
-    name: 🎟️ Approve Dependabot and repository Author
+    name: 🎟️ Approve Dependabot and repository owner
     runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
-      - name: Approve Dependabot
+      - name: Approve Dependabot and owner
         uses: hmarr/auto-approve-action@v3
-        if: github.actor == 'dependabot[bot]' || github.actor == github.event.repository.owner.login
+        if: github.actor == 'dependabot[bot]' || github.actor == 'tsinis'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
