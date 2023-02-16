@@ -15,8 +15,21 @@ on:
 jobs:
   publish-dry-run:
     name: Publish dry run
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     if: github.ref_type == 'branch'
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    steps:
+      - name: Checks-out repository
+        uses: actions/checkout@v3
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        run: dart pub get
+
+      - name: Publish - dry run
+        run: dart pub publish --dry-run
 
   check-version:
     name: Check version
@@ -63,5 +76,5 @@ jobs:
   publish:
     name: Publish to pub.dev
     needs: check-version
-    if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' && github.ref_type == 'tag' }}
+    if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
