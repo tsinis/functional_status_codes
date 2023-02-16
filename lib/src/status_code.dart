@@ -275,7 +275,7 @@ enum StatusCode {
   ///
   /// **Category**: Internet Information Services
   ///
-  /// Reference: [Error message when you try to log on to Exchange 2007 by using Outlook Web Access: "440 Login Timeout"](http://support.microsoft.com/kb/941201/en-us)
+  /// Reference: [Error message when you try to log on to Exchange 2007 by using Outlook Web Access: "440 Login Timeout"](https://learn.microsoft.com/en-us/previous-versions/troubleshoot/dynamics/crm/incoming-status-failure-the-remote-server-returned-an-error-440-login-timeout)
   iisLoginTimeoutHttp440(440, 'IIS Login Timeout'),
 
   /// nginx No Response: 444
@@ -338,7 +338,7 @@ enum StatusCode {
   ///
   /// Returned by [ArcGIS for Server](https://en.wikipedia.org/wiki/ArcGIS_Server). A code of 498 indicates an expired or otherwise invalid token.
   ///
-  /// Reference: [Using token-based authentication](http://help.arcgis.com/en/arcgisserver/10.0/apis/soap/index.htm#Using_token_authentication.htm)
+  /// Reference: [Using token-based authentication](https://doc.arcgis.com/en/survey123/desktop/create-surveys/troubleshootcreatesurveys.htm)
   tokenExpiredHttp498(498, 'Token Expired'),
 
   /// nginx Client Closed Request: 499

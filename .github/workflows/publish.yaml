@@ -14,7 +14,7 @@ on:
 
 jobs:
   publish-dry-run:
-    name: Publish dry run
+    name: 📝 Publish dry run
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: github.ref_type == 'branch' && github.event_name == 'pull_request' && !github.event.pull_request.merged
@@ -32,7 +32,7 @@ jobs:
         run: dart pub publish --dry-run
 
   check-version:
-    name: Check version
+    name: 💡 Check version
     runs-on: ubuntu-latest
     if: github.ref_type == 'tag'
     timeout-minutes: 15
@@ -74,7 +74,7 @@ jobs:
         shell: bash
 
   publish:
-    name: Publish to pub.dev
+    name: 📝 Publish to pub.dev
     needs: check-version
     if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
