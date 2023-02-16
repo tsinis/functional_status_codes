@@ -1,3 +1,7 @@
+## 1.0.6
+
+- docs: fixed contribution guidelines reference link.
+
 ## 1.0.5
 
 - docs: changed screenshot to webp format.

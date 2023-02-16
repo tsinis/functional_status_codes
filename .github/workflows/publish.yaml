@@ -1,16 +1,40 @@
 name: publish
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "CHANGELOG.md"
   push:
     branches:
       - main
     tags:
-    - '[0-9]+.[0-9]+.[0-9]+*'
+    - '[1-9]+.[0-9]+.[0-9]+*'
 
 jobs:
+  publish-dry-run:
+    name: Publish dry run
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.ref_type == 'branch'
+    steps:
+      - name: Checks-out repository
+        uses: actions/checkout@v3
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        run: dart pub get
+
+      - name: Publish - dry run
+        run: dart pub publish --dry-run
+
   check-version:
     name: Check version
     runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
     timeout-minutes: 15
     steps:
       - name: Checks-out repository
