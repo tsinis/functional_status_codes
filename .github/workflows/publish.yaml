@@ -14,11 +14,11 @@ on:
 
 jobs:
   publish-dry-run:
-    name: Publish to pub.dev
+    name: Publish dry run
     if: github.ref_type == 'branch'
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
 
-  check-version-and-publish:
+  check-version:
     name: Check version
     runs-on: ubuntu-latest
     if: github.ref_type == 'tag'
@@ -60,6 +60,8 @@ jobs:
         run: sleep 10s
         shell: bash
 
-      - name: Publish to pub.dev
-        if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
-        uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+  publish:
+    name: Publish to pub.dev
+    needs: check-version
+    if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
