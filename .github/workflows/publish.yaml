@@ -1,16 +1,27 @@
 name: publish
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "CHANGELOG.md"
   push:
     branches:
       - main
     tags:
-    - '[0-9]+.[0-9]+.[0-9]+*'
+    - '[1-9]+.[0-9]+.[0-9]+*'
 
 jobs:
-  check-version:
+  publish-dry-run:
+    name: Publish to pub.dev
+    if: github.ref_type == 'branch'
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+
+  check-version-and-publish:
     name: Check version
     runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
     timeout-minutes: 15
     steps:
       - name: Checks-out repository
@@ -49,8 +60,6 @@ jobs:
         run: sleep 10s
         shell: bash
 
-  publish:
-    name: Publish to pub.dev
-    needs: check-version
-    if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+      - name: Publish to pub.dev
+        if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
+        uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
