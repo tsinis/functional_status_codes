@@ -250,12 +250,12 @@ void main() => group('NumStatusCodeExtension', () {
               isRedirection: (value) => value,
               isClientError: (value) => value,
               isServerError: (value) => value,
-              orElse: () => elseValue,
+              orElse: (_) => elseValue,
             );
 
         for (final number in globalWrongCases) {
           test(
-            'should throw orElse value for $number',
+            'should return orElse value for $number',
             () => expect(maybeMapCode(number), elseValue),
           );
         }
@@ -265,7 +265,7 @@ void main() => group('NumStatusCodeExtension', () {
           () => expect(
             testValue.maybeMapStatusCode(
               isStatusCode: (value) => value,
-              orElse: () => null,
+              orElse: (value) => value,
             ),
             testValue,
           ),

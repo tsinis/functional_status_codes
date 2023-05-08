@@ -1,3 +1,72 @@
+## 1.1.0
+
+Contains **breaking changes** in `maybeMapStatusCode` method on `num`. Please follow migration guide below.
+
+- refactor!: orElse parameter in maybeMapStatusCode now returns input value in order to handle this unregistered status code.
+
+- docs: updated documentation of breaking update.
+- docs: added topics to pubspec.yaml.
+- chore: updated SDK upper-bound to 4.0.0.
+- refactor: replaced deprecated fields in analysis_options.yaml with new ones.
+
+Since `maybeMapStatusCode` now returns input value, you will have to adjust your existing code, for example:
+
+Replace from:
+
+```dart
+...
+final statusCode = response.statusCode;
+...
+statusCode.maybeMapStatusCode(
+    orElse: () => handleUnregisteredStatusCode(statusCode),
+    isSuccess: handleSuccessStatusCode,
+    ...
+);
+...
+```
+
+Use this instead:
+
+```dart
+...
+final statusCode = response.statusCode;
+...
+statusCode.maybeMapStatusCode(
+    orElse: handleUnregisteredStatusCode,
+    isSuccess: handleSuccessStatusCode,
+    ...
+);
+...
+```
+
+Or if you are using tear-off syntax, replace:
+
+```dart
+...
+final statusCode = response.statusCode;
+...
+statusCode.maybeMapStatusCode(
+    orElse: handleUnregisteredStatusCode,
+    isSuccess: handleSuccessStatusCode,
+    ...
+);
+...
+```
+
+With this instead:
+
+```dart
+...
+final statusCode = response.statusCode;
+...
+statusCode.maybeMapStatusCode(
+    orElse: (_) => handleUnregisteredStatusCode(),
+    isSuccess: handleSuccessStatusCode,
+    ...
+);
+...
+```
+
 ## 1.0.6
 
 - docs: fixed contribution guidelines reference link.

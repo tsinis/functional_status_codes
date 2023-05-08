@@ -170,17 +170,17 @@ extension NumStatusCodeExtension<T extends num> on T? {
   ///
   /// ```dart
   /// 200.maybeMapStatusCode(
-  ///   orElse: () => 'unknown',
+  ///   orElse: (value) => 'unregistered code: $value',
   ///   isSuccess: (code) => 'success',
   /// ); // Returns 'success'
   ///
   /// 600.maybeMapStatusCode(
-  ///   orElse: () => 'unknown',
+  ///   orElse: (value) => 'unregistered code: $value',
   ///   isSuccess: (code) => 'success',
-  /// ); // Returns 'unknown'
+  /// ); // Returns 'unregistered code: 600'
   /// ```
   R maybeMapStatusCode<R>({
-    required R Function() orElse,
+    required R Function(T? number) orElse,
     R Function(T isStatusCode)? isStatusCode,
     R Function(T isInformational)? isInformational,
     R Function(T isSuccess)? isSuccess,
@@ -190,7 +190,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   }) {
     final thisValue = this;
     if (thisValue == null) {
-      return orElse();
+      return orElse(thisValue);
     }
     if (thisValue.isStatusCode && isStatusCode != null) {
       return isStatusCode(thisValue);
@@ -205,7 +205,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
     } else if (thisValue.isServerError && isServerError != null) {
       return isServerError(thisValue);
     } else {
-      return orElse();
+      return orElse(thisValue);
     }
   }
 
