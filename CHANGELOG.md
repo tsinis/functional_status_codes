@@ -9,7 +9,7 @@ Contains **breaking changes** in `maybeMapStatusCode` method on `num`. Please fo
 - chore: updated sdk upper-bound to 4.0.0.
 - refactor: replaced deprecated fields in analysis_options.yaml with new ones.
 
-Since `maybeMapStatusCode` is now returns input value, you will have to adjust your existing code, for example:
+Since `maybeMapStatusCode` now returns input value, you will have to adjust your existing code, for example:
 
 Replace from:
 
