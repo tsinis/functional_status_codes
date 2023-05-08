@@ -6,7 +6,7 @@ Contains **breaking changes** in `maybeMapStatusCode` method on `num`. Please fo
 
 - docs: updated documentation of breaking update.
 - docs: added topics to pubspec.yaml.
-- chore: updated sdk upper-bound to 4.0.0.
+- chore: updated SDK upper-bound to 4.0.0.
 - refactor: replaced deprecated fields in analysis_options.yaml with new ones.
 
 Since `maybeMapStatusCode` now returns input value, you will have to adjust your existing code, for example:
