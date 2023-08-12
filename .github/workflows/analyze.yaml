@@ -29,7 +29,7 @@ jobs:
           jobSummary: true
           fail: true
 
-      - name: Check spelling
+      - name: Check the spelling
         uses: check-spelling/check-spelling@v0.0.21
         with:
           config: .github/workflows/actions_settings/check-spelling
@@ -72,12 +72,4 @@ jobs:
           fi
 
       - name: Dart Code Metrics
-        uses: dart-code-checker/dart-code-metrics-action@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          folders: "lib, test, example"
-          pull_request_comment: true
-          check_unused_files: true
-          fatal_performance: true
-          fatal_warnings: true
-          fatal_style: true
+        run: dart run dart_code_metrics:metrics --disable-sunset-warning --fatal-style --fatal-performance --fatal-warnings --reporter=github lib test example
