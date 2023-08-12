@@ -76,5 +76,7 @@ jobs:
   publish:
     name: 📝 Publish to pub.dev
     needs: check-version
+    permissions:
+      id-token: write
     if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
