@@ -1,3 +1,9 @@
+## 1.2.0
+
+NEW FEATURE: added two new methods for a `Map` like equivalent of `when` and `whenOrNull` methods - `whenConst` and `whenConstOrNull`. Should be only used with a constant values (i.e. final, const).
+
+- feat: added when const and when const or null methods
+
 ## 1.1.0
 
 Contains **breaking changes** in `maybeMapStatusCode` method on `num`. Please follow migration guide below.

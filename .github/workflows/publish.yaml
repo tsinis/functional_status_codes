@@ -62,8 +62,7 @@ jobs:
         with:
           tag_name: ${{ env.TAG }}
           delete_release: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cancel workflow if tag is not same as version
         uses: andymckay/cancel-action@0.3
