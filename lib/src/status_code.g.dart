@@ -1042,7 +1042,7 @@ extension StatusCodeFunctional on StatusCode {
     }
   }
 
-  /// A function that returns a result of it type, depending on the [StatusCode]
+  /// A method that returns a result of it type, depending on the [StatusCode]
   /// value.
   ///
   /// The `when` method takes a series of required functions as arguments, each
@@ -1531,6 +1531,493 @@ extension StatusCodeFunctional on StatusCode {
         return siteIsFrozenHttp530?.call() ?? orElse?.call();
       case StatusCode.networkConnectTimeoutErrorHttp599:
         return networkConnectTimeoutErrorHttp599?.call() ?? orElse?.call();
+    }
+  }
+}
+
+/// A [Map] like functional style extensions on [StatusCode].
+extension StatusCodeConstFunctional on StatusCode {
+  /// A [Map] like equivalent of `when` method. Should be only used with a
+  /// constant values (i.e. final, const).
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// const statusCode = StatusCode.okHttp200;
+  /// final response = statusCode.whenConst(
+  ///   okHttp200: 'Success',
+  ///   ...
+  ///   badRequestHttp400: 'Bad request',
+  ///   ...
+  /// );
+  /// print(response); // prints 'Success'
+  /// ```
+  R whenConst<R>({
+    required R continueHttp100,
+    required R switchingProtocolsHttp101,
+    required R processingHttp102,
+    required R earlyHintsHttp103,
+    required R okHttp200,
+    required R createdHttp201,
+    required R acceptedHttp202,
+    required R nonAuthoritativeInformationHttp203,
+    required R noContentHttp204,
+    required R resetContentHttp205,
+    required R partialContentHttp206,
+    required R multiStatusHttp207,
+    required R alreadyReportedHttp208,
+    required R imUsedHttp226,
+    required R multipleChoicesHttp300,
+    required R movedPermanentlyHttp301,
+    required R foundHttp302,
+    required R seeOtherHttp303,
+    required R notModifiedHttp304,
+    required R useProxyHttp305,
+    required R temporaryRedirectHttp307,
+    required R permanentRedirectHttp308,
+    required R badRequestHttp400,
+    required R unauthorizedHttp401,
+    required R paymentRequiredHttp402,
+    required R forbiddenHttp403,
+    required R notFoundHttp404,
+    required R methodNotAllowedHttp405,
+    required R notAcceptableHttp406,
+    required R proxyAuthenticationRequiredHttp407,
+    required R requestTimeoutHttp408,
+    required R conflictHttp409,
+    required R goneHttp410,
+    required R lengthRequiredHttp411,
+    required R preconditionFailedHttp412,
+    required R payloadTooLargeHttp413,
+    required R uriTooLongHttp414,
+    required R unsupportedMediaTypeHttp415,
+    required R rangeNotSatisfiableHttp416,
+    required R expectationFailedHttp417,
+    required R imATeapotHttp418,
+    required R misdirectedRequestHttp421,
+    required R unprocessableEntityHttp422,
+    required R lockedHttp423,
+    required R failedDependencyHttp424,
+    required R tooEarlyHttp425,
+    required R upgradeRequiredHttp426,
+    required R preconditionRequiredHttp428,
+    required R tooManyRequestsHttp429,
+    required R requestHeaderFieldsTooLargeHttp431,
+    required R iisLoginTimeoutHttp440,
+    required R nginxNoResponseHttp444,
+    required R iisRetryWithHttp449,
+    required R blockedByWindowsParentalControlsHttp450,
+    required R unavailableForLegalReasonsHttp451,
+    required R nginxSSLCertificateErrorHttp495,
+    required R nginxSSLCertificateRequiredHttp496,
+    required R nginxHTTPToHTTPSHttp497,
+    required R tokenExpiredHttp498,
+    required R nginxClientClosedRequestHttp499,
+    required R internalServerErrorHttp500,
+    required R notImplementedHttp501,
+    required R badGatewayHttp502,
+    required R serviceUnavailableHttp503,
+    required R gatewayTimeoutHttp504,
+    required R httpVersionNotSupportedHttp505,
+    required R variantAlsoNegotiatesHttp506,
+    required R insufficientStorageHttp507,
+    required R loopDetectedHttp508,
+    required R bandwidthLimitExceededHttp509,
+    required R otExtendedHttp510,
+    required R networkAuthenticationRequiredHttp511,
+    required R siteIsFrozenHttp530,
+    required R networkConnectTimeoutErrorHttp599,
+  }) {
+    switch (this) {
+      case StatusCode.continueHttp100:
+        return continueHttp100;
+      case StatusCode.switchingProtocolsHttp101:
+        return switchingProtocolsHttp101;
+      case StatusCode.processingHttp102:
+        return processingHttp102;
+      case StatusCode.earlyHintsHttp103:
+        return earlyHintsHttp103;
+      case StatusCode.okHttp200:
+        return okHttp200;
+      case StatusCode.createdHttp201:
+        return createdHttp201;
+      case StatusCode.acceptedHttp202:
+        return acceptedHttp202;
+      case StatusCode.nonAuthoritativeInformationHttp203:
+        return nonAuthoritativeInformationHttp203;
+      case StatusCode.noContentHttp204:
+        return noContentHttp204;
+      case StatusCode.resetContentHttp205:
+        return resetContentHttp205;
+      case StatusCode.partialContentHttp206:
+        return partialContentHttp206;
+      case StatusCode.multiStatusHttp207:
+        return multiStatusHttp207;
+      case StatusCode.alreadyReportedHttp208:
+        return alreadyReportedHttp208;
+      case StatusCode.imUsedHttp226:
+        return imUsedHttp226;
+      case StatusCode.multipleChoicesHttp300:
+        return multipleChoicesHttp300;
+      case StatusCode.movedPermanentlyHttp301:
+        return movedPermanentlyHttp301;
+      case StatusCode.foundHttp302:
+        return foundHttp302;
+      case StatusCode.seeOtherHttp303:
+        return seeOtherHttp303;
+      case StatusCode.notModifiedHttp304:
+        return notModifiedHttp304;
+      case StatusCode.useProxyHttp305:
+        return useProxyHttp305;
+      case StatusCode.temporaryRedirectHttp307:
+        return temporaryRedirectHttp307;
+      case StatusCode.permanentRedirectHttp308:
+        return permanentRedirectHttp308;
+      case StatusCode.badRequestHttp400:
+        return badRequestHttp400;
+      case StatusCode.unauthorizedHttp401:
+        return unauthorizedHttp401;
+      case StatusCode.paymentRequiredHttp402:
+        return paymentRequiredHttp402;
+      case StatusCode.forbiddenHttp403:
+        return forbiddenHttp403;
+      case StatusCode.notFoundHttp404:
+        return notFoundHttp404;
+      case StatusCode.methodNotAllowedHttp405:
+        return methodNotAllowedHttp405;
+      case StatusCode.notAcceptableHttp406:
+        return notAcceptableHttp406;
+      case StatusCode.proxyAuthenticationRequiredHttp407:
+        return proxyAuthenticationRequiredHttp407;
+      case StatusCode.requestTimeoutHttp408:
+        return requestTimeoutHttp408;
+      case StatusCode.conflictHttp409:
+        return conflictHttp409;
+      case StatusCode.goneHttp410:
+        return goneHttp410;
+      case StatusCode.lengthRequiredHttp411:
+        return lengthRequiredHttp411;
+      case StatusCode.preconditionFailedHttp412:
+        return preconditionFailedHttp412;
+      case StatusCode.payloadTooLargeHttp413:
+        return payloadTooLargeHttp413;
+      case StatusCode.uriTooLongHttp414:
+        return uriTooLongHttp414;
+      case StatusCode.unsupportedMediaTypeHttp415:
+        return unsupportedMediaTypeHttp415;
+      case StatusCode.rangeNotSatisfiableHttp416:
+        return rangeNotSatisfiableHttp416;
+      case StatusCode.expectationFailedHttp417:
+        return expectationFailedHttp417;
+      case StatusCode.imATeapotHttp418:
+        return imATeapotHttp418;
+      case StatusCode.misdirectedRequestHttp421:
+        return misdirectedRequestHttp421;
+      case StatusCode.unprocessableEntityHttp422:
+        return unprocessableEntityHttp422;
+      case StatusCode.lockedHttp423:
+        return lockedHttp423;
+      case StatusCode.failedDependencyHttp424:
+        return failedDependencyHttp424;
+      case StatusCode.tooEarlyHttp425:
+        return tooEarlyHttp425;
+      case StatusCode.upgradeRequiredHttp426:
+        return upgradeRequiredHttp426;
+      case StatusCode.preconditionRequiredHttp428:
+        return preconditionRequiredHttp428;
+      case StatusCode.tooManyRequestsHttp429:
+        return tooManyRequestsHttp429;
+      case StatusCode.requestHeaderFieldsTooLargeHttp431:
+        return requestHeaderFieldsTooLargeHttp431;
+      case StatusCode.iisLoginTimeoutHttp440:
+        return iisLoginTimeoutHttp440;
+      case StatusCode.nginxNoResponseHttp444:
+        return nginxNoResponseHttp444;
+      case StatusCode.iisRetryWithHttp449:
+        return iisRetryWithHttp449;
+      case StatusCode.blockedByWindowsParentalControlsHttp450:
+        return blockedByWindowsParentalControlsHttp450;
+      case StatusCode.unavailableForLegalReasonsHttp451:
+        return unavailableForLegalReasonsHttp451;
+      case StatusCode.nginxSSLCertificateErrorHttp495:
+        return nginxSSLCertificateErrorHttp495;
+      case StatusCode.nginxSSLCertificateRequiredHttp496:
+        return nginxSSLCertificateRequiredHttp496;
+      case StatusCode.nginxHTTPToHTTPSHttp497:
+        return nginxHTTPToHTTPSHttp497;
+      case StatusCode.tokenExpiredHttp498:
+        return tokenExpiredHttp498;
+      case StatusCode.nginxClientClosedRequestHttp499:
+        return nginxClientClosedRequestHttp499;
+      case StatusCode.internalServerErrorHttp500:
+        return internalServerErrorHttp500;
+      case StatusCode.notImplementedHttp501:
+        return notImplementedHttp501;
+      case StatusCode.badGatewayHttp502:
+        return badGatewayHttp502;
+      case StatusCode.serviceUnavailableHttp503:
+        return serviceUnavailableHttp503;
+      case StatusCode.gatewayTimeoutHttp504:
+        return gatewayTimeoutHttp504;
+      case StatusCode.httpVersionNotSupportedHttp505:
+        return httpVersionNotSupportedHttp505;
+      case StatusCode.variantAlsoNegotiatesHttp506:
+        return variantAlsoNegotiatesHttp506;
+      case StatusCode.insufficientStorageHttp507:
+        return insufficientStorageHttp507;
+      case StatusCode.loopDetectedHttp508:
+        return loopDetectedHttp508;
+      case StatusCode.bandwidthLimitExceededHttp509:
+        return bandwidthLimitExceededHttp509;
+      case StatusCode.otExtendedHttp510:
+        return otExtendedHttp510;
+      case StatusCode.networkAuthenticationRequiredHttp511:
+        return networkAuthenticationRequiredHttp511;
+      case StatusCode.siteIsFrozenHttp530:
+        return siteIsFrozenHttp530;
+      case StatusCode.networkConnectTimeoutErrorHttp599:
+        return networkConnectTimeoutErrorHttp599;
+    }
+  }
+
+  /// A [Map] like equivalent of `whenOrNull` method. Should be only used with a
+  /// constant values (i.e. final, const).
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// const statusCode = StatusCode.okHttp200;
+  /// final response = statusCode.whenConstOrNull(
+  ///   okHttp200: 'Success',
+  ///   badRequestHttp400: 'Bad request',
+  /// );
+  /// print(response); // prints 'Success'
+  /// ```
+  R? whenConstOrNull<R>({
+    R? continueHttp100,
+    R? switchingProtocolsHttp101,
+    R? processingHttp102,
+    R? earlyHintsHttp103,
+    R? okHttp200,
+    R? createdHttp201,
+    R? acceptedHttp202,
+    R? nonAuthoritativeInformationHttp203,
+    R? noContentHttp204,
+    R? resetContentHttp205,
+    R? partialContentHttp206,
+    R? multiStatusHttp207,
+    R? alreadyReportedHttp208,
+    R? imUsedHttp226,
+    R? multipleChoicesHttp300,
+    R? movedPermanentlyHttp301,
+    R? foundHttp302,
+    R? seeOtherHttp303,
+    R? notModifiedHttp304,
+    R? useProxyHttp305,
+    R? temporaryRedirectHttp307,
+    R? permanentRedirectHttp308,
+    R? badRequestHttp400,
+    R? unauthorizedHttp401,
+    R? paymentRequiredHttp402,
+    R? forbiddenHttp403,
+    R? notFoundHttp404,
+    R? methodNotAllowedHttp405,
+    R? notAcceptableHttp406,
+    R? proxyAuthenticationRequiredHttp407,
+    R? requestTimeoutHttp408,
+    R? conflictHttp409,
+    R? goneHttp410,
+    R? lengthRequiredHttp411,
+    R? preconditionFailedHttp412,
+    R? payloadTooLargeHttp413,
+    R? uriTooLongHttp414,
+    R? unsupportedMediaTypeHttp415,
+    R? rangeNotSatisfiableHttp416,
+    R? expectationFailedHttp417,
+    R? imATeapotHttp418,
+    R? misdirectedRequestHttp421,
+    R? unprocessableEntityHttp422,
+    R? lockedHttp423,
+    R? failedDependencyHttp424,
+    R? tooEarlyHttp425,
+    R? upgradeRequiredHttp426,
+    R? preconditionRequiredHttp428,
+    R? tooManyRequestsHttp429,
+    R? requestHeaderFieldsTooLargeHttp431,
+    R? iisLoginTimeoutHttp440,
+    R? nginxNoResponseHttp444,
+    R? iisRetryWithHttp449,
+    R? blockedByWindowsParentalControlsHttp450,
+    R? unavailableForLegalReasonsHttp451,
+    R? nginxSSLCertificateErrorHttp495,
+    R? nginxSSLCertificateRequiredHttp496,
+    R? nginxHTTPToHTTPSHttp497,
+    R? tokenExpiredHttp498,
+    R? nginxClientClosedRequestHttp499,
+    R? internalServerErrorHttp500,
+    R? notImplementedHttp501,
+    R? badGatewayHttp502,
+    R? serviceUnavailableHttp503,
+    R? gatewayTimeoutHttp504,
+    R? httpVersionNotSupportedHttp505,
+    R? variantAlsoNegotiatesHttp506,
+    R? insufficientStorageHttp507,
+    R? loopDetectedHttp508,
+    R? bandwidthLimitExceededHttp509,
+    R? otExtendedHttp510,
+    R? networkAuthenticationRequiredHttp511,
+    R? siteIsFrozenHttp530,
+    R? networkConnectTimeoutErrorHttp599,
+  }) {
+    switch (this) {
+      case StatusCode.continueHttp100:
+        return continueHttp100;
+      case StatusCode.switchingProtocolsHttp101:
+        return switchingProtocolsHttp101;
+      case StatusCode.processingHttp102:
+        return processingHttp102;
+      case StatusCode.earlyHintsHttp103:
+        return earlyHintsHttp103;
+      case StatusCode.okHttp200:
+        return okHttp200;
+      case StatusCode.createdHttp201:
+        return createdHttp201;
+      case StatusCode.acceptedHttp202:
+        return acceptedHttp202;
+      case StatusCode.nonAuthoritativeInformationHttp203:
+        return nonAuthoritativeInformationHttp203;
+      case StatusCode.noContentHttp204:
+        return noContentHttp204;
+      case StatusCode.resetContentHttp205:
+        return resetContentHttp205;
+      case StatusCode.partialContentHttp206:
+        return partialContentHttp206;
+      case StatusCode.multiStatusHttp207:
+        return multiStatusHttp207;
+      case StatusCode.alreadyReportedHttp208:
+        return alreadyReportedHttp208;
+      case StatusCode.imUsedHttp226:
+        return imUsedHttp226;
+      case StatusCode.multipleChoicesHttp300:
+        return multipleChoicesHttp300;
+      case StatusCode.movedPermanentlyHttp301:
+        return movedPermanentlyHttp301;
+      case StatusCode.foundHttp302:
+        return foundHttp302;
+      case StatusCode.seeOtherHttp303:
+        return seeOtherHttp303;
+      case StatusCode.notModifiedHttp304:
+        return notModifiedHttp304;
+      case StatusCode.useProxyHttp305:
+        return useProxyHttp305;
+      case StatusCode.temporaryRedirectHttp307:
+        return temporaryRedirectHttp307;
+      case StatusCode.permanentRedirectHttp308:
+        return permanentRedirectHttp308;
+      case StatusCode.badRequestHttp400:
+        return badRequestHttp400;
+      case StatusCode.unauthorizedHttp401:
+        return unauthorizedHttp401;
+      case StatusCode.paymentRequiredHttp402:
+        return paymentRequiredHttp402;
+      case StatusCode.forbiddenHttp403:
+        return forbiddenHttp403;
+      case StatusCode.notFoundHttp404:
+        return notFoundHttp404;
+      case StatusCode.methodNotAllowedHttp405:
+        return methodNotAllowedHttp405;
+      case StatusCode.notAcceptableHttp406:
+        return notAcceptableHttp406;
+      case StatusCode.proxyAuthenticationRequiredHttp407:
+        return proxyAuthenticationRequiredHttp407;
+      case StatusCode.requestTimeoutHttp408:
+        return requestTimeoutHttp408;
+      case StatusCode.conflictHttp409:
+        return conflictHttp409;
+      case StatusCode.goneHttp410:
+        return goneHttp410;
+      case StatusCode.lengthRequiredHttp411:
+        return lengthRequiredHttp411;
+      case StatusCode.preconditionFailedHttp412:
+        return preconditionFailedHttp412;
+      case StatusCode.payloadTooLargeHttp413:
+        return payloadTooLargeHttp413;
+      case StatusCode.uriTooLongHttp414:
+        return uriTooLongHttp414;
+      case StatusCode.unsupportedMediaTypeHttp415:
+        return unsupportedMediaTypeHttp415;
+      case StatusCode.rangeNotSatisfiableHttp416:
+        return rangeNotSatisfiableHttp416;
+      case StatusCode.expectationFailedHttp417:
+        return expectationFailedHttp417;
+      case StatusCode.imATeapotHttp418:
+        return imATeapotHttp418;
+      case StatusCode.misdirectedRequestHttp421:
+        return misdirectedRequestHttp421;
+      case StatusCode.unprocessableEntityHttp422:
+        return unprocessableEntityHttp422;
+      case StatusCode.lockedHttp423:
+        return lockedHttp423;
+      case StatusCode.failedDependencyHttp424:
+        return failedDependencyHttp424;
+      case StatusCode.tooEarlyHttp425:
+        return tooEarlyHttp425;
+      case StatusCode.upgradeRequiredHttp426:
+        return upgradeRequiredHttp426;
+      case StatusCode.preconditionRequiredHttp428:
+        return preconditionRequiredHttp428;
+      case StatusCode.tooManyRequestsHttp429:
+        return tooManyRequestsHttp429;
+      case StatusCode.requestHeaderFieldsTooLargeHttp431:
+        return requestHeaderFieldsTooLargeHttp431;
+      case StatusCode.iisLoginTimeoutHttp440:
+        return iisLoginTimeoutHttp440;
+      case StatusCode.nginxNoResponseHttp444:
+        return nginxNoResponseHttp444;
+      case StatusCode.iisRetryWithHttp449:
+        return iisRetryWithHttp449;
+      case StatusCode.blockedByWindowsParentalControlsHttp450:
+        return blockedByWindowsParentalControlsHttp450;
+      case StatusCode.unavailableForLegalReasonsHttp451:
+        return unavailableForLegalReasonsHttp451;
+      case StatusCode.nginxSSLCertificateErrorHttp495:
+        return nginxSSLCertificateErrorHttp495;
+      case StatusCode.nginxSSLCertificateRequiredHttp496:
+        return nginxSSLCertificateRequiredHttp496;
+      case StatusCode.nginxHTTPToHTTPSHttp497:
+        return nginxHTTPToHTTPSHttp497;
+      case StatusCode.tokenExpiredHttp498:
+        return tokenExpiredHttp498;
+      case StatusCode.nginxClientClosedRequestHttp499:
+        return nginxClientClosedRequestHttp499;
+      case StatusCode.internalServerErrorHttp500:
+        return internalServerErrorHttp500;
+      case StatusCode.notImplementedHttp501:
+        return notImplementedHttp501;
+      case StatusCode.badGatewayHttp502:
+        return badGatewayHttp502;
+      case StatusCode.serviceUnavailableHttp503:
+        return serviceUnavailableHttp503;
+      case StatusCode.gatewayTimeoutHttp504:
+        return gatewayTimeoutHttp504;
+      case StatusCode.httpVersionNotSupportedHttp505:
+        return httpVersionNotSupportedHttp505;
+      case StatusCode.variantAlsoNegotiatesHttp506:
+        return variantAlsoNegotiatesHttp506;
+      case StatusCode.insufficientStorageHttp507:
+        return insufficientStorageHttp507;
+      case StatusCode.loopDetectedHttp508:
+        return loopDetectedHttp508;
+      case StatusCode.bandwidthLimitExceededHttp509:
+        return bandwidthLimitExceededHttp509;
+      case StatusCode.otExtendedHttp510:
+        return otExtendedHttp510;
+      case StatusCode.networkAuthenticationRequiredHttp511:
+        return networkAuthenticationRequiredHttp511;
+      case StatusCode.siteIsFrozenHttp530:
+        return siteIsFrozenHttp530;
+      case StatusCode.networkConnectTimeoutErrorHttp599:
+        return networkConnectTimeoutErrorHttp599;
     }
   }
 }

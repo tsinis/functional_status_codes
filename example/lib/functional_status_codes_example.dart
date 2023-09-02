@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, avoid-unused-parameters
+
 import 'dart:convert' as convert;
 
 import 'package:functional_status_codes/functional_status_codes.dart';

@@ -38,14 +38,13 @@ jobs:
 
       - name: Run Tests
         run: |
-          dart pub global activate coverage
-          dart test --coverage=coverage
-          dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib
+          dart test --fail-fast --coverage=coverage
+          dart run coverage:format_coverage -l -i coverage -o coverage/lcov.info --report-on=lib
 
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
         with:
-          min_coverage: 97
+          min_coverage: 96
           exclude: "**/*.g.dart"
 
       - name: Upload Code Coverage

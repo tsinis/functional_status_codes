@@ -52,6 +52,11 @@ jobs:
         with:
           fail-on: 'format'
           token: ${{ secrets.GITHUB_TOKEN }}
+          format: true
+
+      - name: Publish - dry run
+        if: ${{ github.event_name == 'pull_request' }}
+        run: dart pub publish --dry-run
 
       - name: Calculate PANA Score
         uses: axel-op/dart-package-analyzer@v3
