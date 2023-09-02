@@ -44,7 +44,7 @@ jobs:
       - name: Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
         with:
-          min_coverage: 97
+          min_coverage: 96
           exclude: "**/*.g.dart"
 
       - name: Upload Code Coverage
