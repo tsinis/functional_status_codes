@@ -1,3 +1,7 @@
+## 1.2.1
+
+- fix(docs): remove hardcoded reference to version in readme
+
 ## 1.2.0
 
 NEW FEATURE: added two new methods for a `Map` like equivalent of `when` and `whenOrNull` methods - `whenConst` and `whenConstOrNull`. Should be only used with a constant values (i.e. final, const).
