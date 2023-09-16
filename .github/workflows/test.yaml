@@ -48,7 +48,7 @@ jobs:
           exclude: "**/*.g.dart"
 
       - name: Upload Code Coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v4.0.0-beta.2
         with:
           file: ./coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
