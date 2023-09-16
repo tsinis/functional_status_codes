@@ -426,10 +426,241 @@ enum StatusCode {
   /// This status code is not specified in any RFCs, but is used by some HTTP
   /// proxies to signal a network connect timeout behind the proxy to a client
   /// in front of the proxy.
-  networkConnectTimeoutErrorHttp599(599, 'Network Connect Timeout Error');
+  networkConnectTimeoutErrorHttp599(599, 'Network Connect Timeout Error'),
+
+  // --- Unofficial HTTP status codes ---
+  // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes
+
+  /// Unofficial status code. This is fine (Apache HTTP Server): 218
+  ///
+  /// Used by Apache servers. A catch-all error condition allowing the passage
+  /// of message bodies through the server when the ProxyErrorOverride setting
+  /// is enabled. It is displayed in this situation instead of a 4xx or 5xx
+  /// error message.
+  thisIsFineHttp218(
+    218,
+    'This is fine (Apache HTTP Server)',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Page Expired (Laravel Framework): 419
+  ///
+  /// Used by the Laravel Framework when a CSRF Token is missing or expired.
+  pageExpiredHttp419(
+    419,
+    'Page Expired (Laravel Framework)',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Method Failure (Spring Framework): 420
+  ///
+  /// A deprecated response used by the Spring Framework when a method has
+  /// failed.
+  methodFailureHttp420(
+    420,
+    'Method Failure (Spring Framework)',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Enhance Your Calm (Twitter): 420
+  ///
+  /// Returned by version 1 of the Twitter Search and Trends API when the client
+  /// is being rate limited; versions 1.1 and later use the 429 Too Many
+  /// Requests response code instead. The phrase "Enhance your calm" comes from
+  /// the 1993 movie Demolition Man, and its association with this number is
+  /// likely a reference to cannabis.
+  enhanceYourCalmHttp420(420, 'Enhance Your Calm (Twitter)', isOfficial: false),
+
+  /// Unofficial status code. Request Header Fields Too Large (Shopify): 430
+  ///
+  /// Used by Shopify, instead of the 429 Too Many Requests response code, when
+  /// too many URLs are requested within a certain time frame.
+  requestHeaderFieldsTooLargeHttp430(
+    430,
+    'Request Header Fields Too Large (Shopify)',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Invalid Token (Esri): 498
+  ///
+  /// Returned by ArcGIS for Server. Code 498 indicates an expired or otherwise
+  /// invalid token.
+  invalidTokenHttp498(498, 'Invalid Token (Esri)', isOfficial: false),
+
+  /// Unofficial status code. Token Required (Esri): 499
+  ///
+  /// Returned by ArcGIS for Server. Code 499 indicates that a token is required
+  /// but was not submitted.
+  tokenRequiredHttp499(499, 'Token Required (Esri)', isOfficial: false),
+
+  /// Unofficial status code. Site is overloaded: 529
+  ///
+  /// Used by Qualys in the SSLLabs server testing API to signal that the site
+  /// can't process the request.
+  siteIsOverloadedHttp529(529, 'Site is overloaded', isOfficial: false),
+
+  /// Unofficial status code. Site is overloaded: 530
+  ///
+  /// Used by the Pantheon Systems web platform to indicate a site that has been
+  /// frozen due to inactivity.
+  siteIsFrozenHttp529(530, 'Site is frozen', isOfficial: false),
+
+  /// Unofficial status code. Network Connect Timeout Error: 598
+  ///
+  /// Used by some HTTP proxies to signal a network read timeout behind the
+  /// proxy to a client in front of the proxy.
+  networkReadTimeoutErrorHttp598(
+    598,
+    'Network read timeout error (Informal convention)',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. No Response: 444
+  ///
+  /// Used internally to instruct the server to return no information to the
+  /// client and close the connection immediately.
+  noResponseHttp444(444, 'No Response', isOfficial: false),
+
+  /// Unofficial status code. Request Header Too Large: 494
+  ///
+  /// The client sent too large of a request or too long of a header line.
+  requestHeaderTooLargeHttp494(
+    494,
+    'Request Header Too Large',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. SSL Certificate Error: 495
+  ///
+  /// An expansion of the 400 Bad Request response code, used when the client
+  /// has provided an invalid client certificate.
+  sslCertificateErrorHttp495(495, 'SSL Certificate Error', isOfficial: false),
+
+  /// Unofficial status code. SSL Certificate Required: 496
+  ///
+  /// An expansion of the 400 Bad Request response code, used when a client
+  /// certificate is required but not provided.
+  sslCertificateRequiredHttp496(
+    496,
+    'SSL Certificate Required',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. HTTP Request Sent to HTTPS Port: 497
+  ///
+  /// An expansion of the 400 Bad Request response code, used when the client
+  /// has made an HTTP request to a port listening for HTTPS requests.
+  httpRequestSentToHttpsPortHttp497(
+    497,
+    'HTTP Request Sent to HTTPS Port',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Client Closed Request: 499
+  ///
+  /// Used when the client has closed the request before the server could send a
+  /// response.
+  clientClosedRequestHttp499(499, 'Client Closed Request', isOfficial: false),
+
+  /// Unofficial status code. Web Server Returned an Unknown Error: 520
+  ///
+  /// The origin server returned an empty, unknown, or unexpected response to
+  /// Cloudflare.
+  webServerReturnedUnknownErrorHttp520(
+    520,
+    'Web Server Returned an Unknown Error',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Web Server Is Down: 521
+  ///
+  /// The origin server refused connections from Cloudflare. Security solutions
+  /// at the origin may be blocking legitimate connections from certain
+  /// Cloudflare IP addresses.
+  webServerIsDownHttp521(521, 'Web Server Is Down', isOfficial: false),
+
+  /// Unofficial status code. Connection Timed Out: 522
+  ///
+  /// Cloudflare timed out contacting the origin server.
+  connectionTimedOutHttp522(522, 'Connection Timed Out', isOfficial: false),
+
+  /// Unofficial status code. Origin Is Unreachable: 523
+  ///
+  /// Cloudflare could not reach the origin server; for example, if the DNS
+  /// records for the origin server are incorrect or missing.
+  originIsUnreachableHttp523(523, 'Origin Is Unreachable', isOfficial: false),
+
+  /// Unofficial status code. A Timeout Occurred: 524
+  ///
+  /// Cloudflare was able to complete a TCP connection to the origin server, but
+  /// did not receive a timely HTTP response.
+  aTimeoutOccurredHttp524(524, 'A Timeout Occurred', isOfficial: false),
+
+  /// Unofficial status code. SSL Handshake Failed: 525
+  ///
+  /// Cloudflare could not negotiate a SSL/TLS handshake with the origin server.
+  sslHandshakeFailedHttp525(525, 'SSL Handshake Failed', isOfficial: false),
+
+  /// Unofficial status code. Invalid SSL Certificate: 526
+  ///
+  /// Cloudflare could not validate the SSL certificate on the origin web
+  /// server.
+  invalidSslCertificateHttp526(
+    526,
+    'Invalid SSL Certificate',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Railgun Error: 527
+  ///
+  /// Error 527 indicates an interrupted connection between Cloudflare and the
+  /// origin server's Railgun server.
+  railgunErrorHttp527(527, 'Railgun Error', isOfficial: false),
+
+  /// Unofficial status code. Client Closed Connection: 460
+  ///
+  /// The client closed the connection with the load balancer before the idle
+  /// timeout period elapsed. Typically occurs when the client timeout is sooner
+  /// than the Elastic Load Balancer's timeout.
+  clientClosedConnectionHttp460(
+    460,
+    'Client Closed Connection',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Too Many IP Addresses: 463
+  ///
+  /// The load balancer received an X-Forwarded-For request header with more
+  /// than 30 IP addresses.
+  tooManyIpAddressesHttp463(463, 'Too Many IP Addresses', isOfficial: false),
+
+  /// Unofficial status code. Incompatible Protocol Versions: 464
+  ///
+  /// There are incompatible protocol versions between the client and the origin
+  /// server.
+  incompatibleProtocolVersionsHttp464(
+    464,
+    'Incompatible Protocol Versions',
+    isOfficial: false,
+  ),
+
+  /// Unofficial status code. Unauthorized: 561
+  ///
+  /// An error around authentication returned by a server registered with a load
+  /// balancer. You configured a listener rule to
+
+  /// Unauthorized (AWS Elastic Load Balancing): 561
+  ///
+  /// Used by AWS Elastic Load Balancing when authentication has failed or
+  /// credentials are missing.
+  unauthorizedHttp561(
+    561,
+    'Unauthorized (AWS Elastic Load Balancing)',
+    isOfficial: false,
+  );
 
   /// Dart `enum` for easier handling of all IANA registered HTTP Status codes.
-  const StatusCode(this.code, this.reason);
+  const StatusCode(this.code, this.reason, {this.isOfficial = true});
 
   /// The IANA registered HTTP Status code.
   final int code;
@@ -437,8 +668,18 @@ enum StatusCode {
   /// Status code corresponding Reason Phrase.
   final String reason;
 
+  /// Specifies whether the HTTP status code is an official IANA registered
+  /// code.
+  ///
+  /// By default, a status code is considered official if it is registered with
+  /// the IANA. However, in some cases, custom or unofficial status codes may be
+  /// used. This boolean indicates whether the status code is an official IANA
+  /// code or not.
+  final bool isOfficial;
+
   @override
-  String toString() => 'StatusCode($code, reason: "$reason")';
+  String toString() =>
+      'StatusCode($code, reason: "$reason", isOfficial: $isOfficial)';
 
   /// Returns the [StatusCode] enum value for the given status code, if it
   /// exists. Otherwise, returns `null`.
