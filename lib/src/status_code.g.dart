@@ -264,6 +264,109 @@ extension StatusCodeFunctional on StatusCode {
   bool get isNetworkConnectTimeoutErrorHttp599 =>
       this == StatusCode.networkConnectTimeoutErrorHttp599;
 
+  /// Determines whether this StatusCode corresponds to an HTTP 218 status.
+  bool get isThisIsFineHttp218 => this == StatusCode.thisIsFineHttp218;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 419 status.
+  bool get isPageExpiredHttp419 => this == StatusCode.pageExpiredHttp419;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 420 status.
+  bool get isMethodFailureHttp420 => this == StatusCode.methodFailureHttp420;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 420 status.
+  bool get isEnhanceYourCalmHttp420 =>
+      this == StatusCode.enhanceYourCalmHttp420;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 430 status.
+  bool get isRequestHeaderFieldsTooLargeHttp430 =>
+      this == StatusCode.requestHeaderFieldsTooLargeHttp430;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 498 status.
+  bool get isInvalidTokenHttp498 => this == StatusCode.invalidTokenHttp498;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 499 status.
+  bool get isTokenRequiredHttp499 => this == StatusCode.tokenRequiredHttp499;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 529 status.
+  bool get isSiteIsOverloadedHttp529 =>
+      this == StatusCode.siteIsOverloadedHttp529;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 529 status.
+  bool get isSiteIsFrozenHttp529 => this == StatusCode.siteIsFrozenHttp529;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 598 status.
+  bool get isNetworkReadTimeoutErrorHttp598 =>
+      this == StatusCode.networkReadTimeoutErrorHttp598;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 444 status.
+  bool get isNoResponseHttp444 => this == StatusCode.noResponseHttp444;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 494 status.
+  bool get isRequestHeaderTooLargeHttp494 =>
+      this == StatusCode.requestHeaderTooLargeHttp494;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 495 status.
+  bool get isSslCertificateErrorHttp495 =>
+      this == StatusCode.sslCertificateErrorHttp495;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 496 status.
+  bool get isSslCertificateRequiredHttp496 =>
+      this == StatusCode.sslCertificateRequiredHttp496;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 497 status.
+  bool get isHttpRequestSentToHttpsPortHttp497 =>
+      this == StatusCode.httpRequestSentToHttpsPortHttp497;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 499 status.
+  bool get isClientClosedRequestHttp499 =>
+      this == StatusCode.clientClosedRequestHttp499;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 520 status.
+  bool get isWebServerReturnedUnknownErrorHttp520 =>
+      this == StatusCode.webServerReturnedUnknownErrorHttp520;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 521 status.
+  bool get isWebServerIsDownHttp521 =>
+      this == StatusCode.webServerIsDownHttp521;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 522 status.
+  bool get isConnectionTimedOutHttp522 =>
+      this == StatusCode.connectionTimedOutHttp522;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 523 status.
+  bool get isOriginIsUnreachableHttp523 =>
+      this == StatusCode.originIsUnreachableHttp523;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 524 status.
+  bool get isATimeoutOccurredHttp524 =>
+      this == StatusCode.aTimeoutOccurredHttp524;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 525 status.
+  bool get isSslHandshakeFailedHttp525 =>
+      this == StatusCode.sslHandshakeFailedHttp525;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 526 status.
+  bool get isInvalidSslCertificateHttp526 =>
+      this == StatusCode.invalidSslCertificateHttp526;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 527 status.
+  bool get isRailgunErrorHttp527 => this == StatusCode.railgunErrorHttp527;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 460 status.
+  bool get isClientClosedConnectionHttp460 =>
+      this == StatusCode.clientClosedConnectionHttp460;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 463 status.
+  bool get isTooManyIpAddressesHttp463 =>
+      this == StatusCode.tooManyIpAddressesHttp463;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 464 status.
+  bool get isIncompatibleProtocolVersionsHttp464 =>
+      this == StatusCode.incompatibleProtocolVersionsHttp464;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 561 status.
+  bool get isUnauthorizedHttp561 => this == StatusCode.unauthorizedHttp561;
+
   /// Maps the current [StatusCode] object to a value of result type by calling
   /// the corresponding callback function.
   ///
@@ -384,6 +487,54 @@ extension StatusCodeFunctional on StatusCode {
     required R Function(StatusCode siteIsFrozenHttp530) siteIsFrozenHttp530,
     required R Function(StatusCode networkConnectTimeoutErrorHttp599)
         networkConnectTimeoutErrorHttp599,
+    // Unofficial status codes:
+    required R Function(StatusCode thisIsFineHttp218) thisIsFineHttp218,
+    required R Function(StatusCode pageExpiredHttp419) pageExpiredHttp419,
+    required R Function(StatusCode methodFailureHttp420) methodFailureHttp420,
+    required R Function(StatusCode enhanceYourCalmHttp420)
+        enhanceYourCalmHttp420,
+    required R Function(StatusCode requestHeaderFieldsTooLargeHttp430)
+        requestHeaderFieldsTooLargeHttp430,
+    required R Function(StatusCode invalidTokenHttp498) invalidTokenHttp498,
+    required R Function(StatusCode tokenRequiredHttp499) tokenRequiredHttp499,
+    required R Function(StatusCode siteIsOverloadedHttp529)
+        siteIsOverloadedHttp529,
+    required R Function(StatusCode siteIsFrozenHttp529) siteIsFrozenHttp529,
+    required R Function(StatusCode networkReadTimeoutErrorHttp598)
+        networkReadTimeoutErrorHttp598,
+    required R Function(StatusCode noResponseHttp444) noResponseHttp444,
+    required R Function(StatusCode requestHeaderTooLargeHttp494)
+        requestHeaderTooLargeHttp494,
+    required R Function(StatusCode sslCertificateErrorHttp495)
+        sslCertificateErrorHttp495,
+    required R Function(StatusCode sslCertificateRequiredHttp496)
+        sslCertificateRequiredHttp496,
+    required R Function(StatusCode httpRequestSentToHttpsPortHttp497)
+        httpRequestSentToHttpsPortHttp497,
+    required R Function(StatusCode clientClosedRequestHttp499)
+        clientClosedRequestHttp499,
+    required R Function(StatusCode webServerReturnedUnknownErrorHttp520)
+        webServerReturnedUnknownErrorHttp520,
+    required R Function(StatusCode webServerIsDownHttp521)
+        webServerIsDownHttp521,
+    required R Function(StatusCode connectionTimedOutHttp522)
+        connectionTimedOutHttp522,
+    required R Function(StatusCode originIsUnreachableHttp523)
+        originIsUnreachableHttp523,
+    required R Function(StatusCode aTimeoutOccurredHttp524)
+        aTimeoutOccurredHttp524,
+    required R Function(StatusCode sslHandshakeFailedHttp525)
+        sslHandshakeFailedHttp525,
+    required R Function(StatusCode invalidSslCertificateHttp526)
+        invalidSslCertificateHttp526,
+    required R Function(StatusCode railgunErrorHttp527) railgunErrorHttp527,
+    required R Function(StatusCode clientClosedConnectionHttp460)
+        clientClosedConnectionHttp460,
+    required R Function(StatusCode tooManyIpAddressesHttp463)
+        tooManyIpAddressesHttp463,
+    required R Function(StatusCode incompatibleProtocolVersionsHttp464)
+        incompatibleProtocolVersionsHttp464,
+    required R Function(StatusCode unauthorizedHttp561) unauthorizedHttp561,
   }) {
     switch (this) {
       case StatusCode.continueHttp100:
@@ -534,6 +685,62 @@ extension StatusCodeFunctional on StatusCode {
         return siteIsFrozenHttp530(this);
       case StatusCode.networkConnectTimeoutErrorHttp599:
         return networkConnectTimeoutErrorHttp599(this);
+      case StatusCode.thisIsFineHttp218:
+        return thisIsFineHttp218(this);
+      case StatusCode.pageExpiredHttp419:
+        return pageExpiredHttp419(this);
+      case StatusCode.methodFailureHttp420:
+        return methodFailureHttp420(this);
+      case StatusCode.enhanceYourCalmHttp420:
+        return enhanceYourCalmHttp420(this);
+      case StatusCode.requestHeaderFieldsTooLargeHttp430:
+        return requestHeaderFieldsTooLargeHttp430(this);
+      case StatusCode.invalidTokenHttp498:
+        return invalidTokenHttp498(this);
+      case StatusCode.tokenRequiredHttp499:
+        return tokenRequiredHttp499(this);
+      case StatusCode.siteIsOverloadedHttp529:
+        return siteIsOverloadedHttp529(this);
+      case StatusCode.siteIsFrozenHttp529:
+        return siteIsFrozenHttp529(this);
+      case StatusCode.networkReadTimeoutErrorHttp598:
+        return networkReadTimeoutErrorHttp598(this);
+      case StatusCode.noResponseHttp444:
+        return noResponseHttp444(this);
+      case StatusCode.requestHeaderTooLargeHttp494:
+        return requestHeaderTooLargeHttp494(this);
+      case StatusCode.sslCertificateErrorHttp495:
+        return sslCertificateErrorHttp495(this);
+      case StatusCode.sslCertificateRequiredHttp496:
+        return sslCertificateRequiredHttp496(this);
+      case StatusCode.httpRequestSentToHttpsPortHttp497:
+        return httpRequestSentToHttpsPortHttp497(this);
+      case StatusCode.clientClosedRequestHttp499:
+        return clientClosedRequestHttp499(this);
+      case StatusCode.webServerReturnedUnknownErrorHttp520:
+        return webServerReturnedUnknownErrorHttp520(this);
+      case StatusCode.webServerIsDownHttp521:
+        return webServerIsDownHttp521(this);
+      case StatusCode.connectionTimedOutHttp522:
+        return connectionTimedOutHttp522(this);
+      case StatusCode.originIsUnreachableHttp523:
+        return originIsUnreachableHttp523(this);
+      case StatusCode.aTimeoutOccurredHttp524:
+        return aTimeoutOccurredHttp524(this);
+      case StatusCode.sslHandshakeFailedHttp525:
+        return sslHandshakeFailedHttp525(this);
+      case StatusCode.invalidSslCertificateHttp526:
+        return invalidSslCertificateHttp526(this);
+      case StatusCode.railgunErrorHttp527:
+        return railgunErrorHttp527(this);
+      case StatusCode.clientClosedConnectionHttp460:
+        return clientClosedConnectionHttp460(this);
+      case StatusCode.tooManyIpAddressesHttp463:
+        return tooManyIpAddressesHttp463(this);
+      case StatusCode.incompatibleProtocolVersionsHttp464:
+        return incompatibleProtocolVersionsHttp464(this);
+      case StatusCode.unauthorizedHttp561:
+        return unauthorizedHttp561(this);
     }
   }
 
@@ -646,6 +853,47 @@ extension StatusCodeFunctional on StatusCode {
     R Function(StatusCode siteIsFrozenHttp530)? siteIsFrozenHttp530,
     R Function(StatusCode networkConnectTimeoutErrorHttp599)?
         networkConnectTimeoutErrorHttp599,
+    // Unofficial status codes:
+    R Function(StatusCode thisIsFineHttp218)? thisIsFineHttp218,
+    R Function(StatusCode pageExpiredHttp419)? pageExpiredHttp419,
+    R Function(StatusCode methodFailureHttp420)? methodFailureHttp420,
+    R Function(StatusCode enhanceYourCalmHttp420)? enhanceYourCalmHttp420,
+    R Function(StatusCode requestHeaderFieldsTooLargeHttp430)?
+        requestHeaderFieldsTooLargeHttp430,
+    R Function(StatusCode invalidTokenHttp498)? invalidTokenHttp498,
+    R Function(StatusCode tokenRequiredHttp499)? tokenRequiredHttp499,
+    R Function(StatusCode siteIsOverloadedHttp529)? siteIsOverloadedHttp529,
+    R Function(StatusCode siteIsFrozenHttp529)? siteIsFrozenHttp529,
+    R Function(StatusCode networkReadTimeoutErrorHttp598)?
+        networkReadTimeoutErrorHttp598,
+    R Function(StatusCode noResponseHttp444)? noResponseHttp444,
+    R Function(StatusCode requestHeaderTooLargeHttp494)?
+        requestHeaderTooLargeHttp494,
+    R Function(StatusCode sslCertificateErrorHttp495)?
+        sslCertificateErrorHttp495,
+    R Function(StatusCode sslCertificateRequiredHttp496)?
+        sslCertificateRequiredHttp496,
+    R Function(StatusCode httpRequestSentToHttpsPortHttp497)?
+        httpRequestSentToHttpsPortHttp497,
+    R Function(StatusCode clientClosedRequestHttp499)?
+        clientClosedRequestHttp499,
+    R Function(StatusCode webServerReturnedUnknownErrorHttp520)?
+        webServerReturnedUnknownErrorHttp520,
+    R Function(StatusCode webServerIsDownHttp521)? webServerIsDownHttp521,
+    R Function(StatusCode connectionTimedOutHttp522)? connectionTimedOutHttp522,
+    R Function(StatusCode originIsUnreachableHttp523)?
+        originIsUnreachableHttp523,
+    R Function(StatusCode aTimeoutOccurredHttp524)? aTimeoutOccurredHttp524,
+    R Function(StatusCode sslHandshakeFailedHttp525)? sslHandshakeFailedHttp525,
+    R Function(StatusCode invalidSslCertificateHttp526)?
+        invalidSslCertificateHttp526,
+    R Function(StatusCode railgunErrorHttp527)? railgunErrorHttp527,
+    R Function(StatusCode clientClosedConnectionHttp460)?
+        clientClosedConnectionHttp460,
+    R Function(StatusCode tooManyIpAddressesHttp463)? tooManyIpAddressesHttp463,
+    R Function(StatusCode incompatibleProtocolVersionsHttp464)?
+        incompatibleProtocolVersionsHttp464,
+    R Function(StatusCode unauthorizedHttp561)? unauthorizedHttp561,
   }) {
     switch (this) {
       case StatusCode.continueHttp100:
@@ -796,6 +1044,62 @@ extension StatusCodeFunctional on StatusCode {
         return siteIsFrozenHttp530?.call(this) ?? orElse();
       case StatusCode.networkConnectTimeoutErrorHttp599:
         return networkConnectTimeoutErrorHttp599?.call(this) ?? orElse();
+      case StatusCode.thisIsFineHttp218:
+        return thisIsFineHttp218?.call(this) ?? orElse();
+      case StatusCode.pageExpiredHttp419:
+        return pageExpiredHttp419?.call(this) ?? orElse();
+      case StatusCode.methodFailureHttp420:
+        return methodFailureHttp420?.call(this) ?? orElse();
+      case StatusCode.enhanceYourCalmHttp420:
+        return enhanceYourCalmHttp420?.call(this) ?? orElse();
+      case StatusCode.requestHeaderFieldsTooLargeHttp430:
+        return requestHeaderFieldsTooLargeHttp430?.call(this) ?? orElse();
+      case StatusCode.invalidTokenHttp498:
+        return invalidTokenHttp498?.call(this) ?? orElse();
+      case StatusCode.tokenRequiredHttp499:
+        return tokenRequiredHttp499?.call(this) ?? orElse();
+      case StatusCode.siteIsOverloadedHttp529:
+        return siteIsOverloadedHttp529?.call(this) ?? orElse();
+      case StatusCode.siteIsFrozenHttp529:
+        return siteIsFrozenHttp529?.call(this) ?? orElse();
+      case StatusCode.networkReadTimeoutErrorHttp598:
+        return networkReadTimeoutErrorHttp598?.call(this) ?? orElse();
+      case StatusCode.noResponseHttp444:
+        return noResponseHttp444?.call(this) ?? orElse();
+      case StatusCode.requestHeaderTooLargeHttp494:
+        return requestHeaderTooLargeHttp494?.call(this) ?? orElse();
+      case StatusCode.sslCertificateErrorHttp495:
+        return sslCertificateErrorHttp495?.call(this) ?? orElse();
+      case StatusCode.sslCertificateRequiredHttp496:
+        return sslCertificateRequiredHttp496?.call(this) ?? orElse();
+      case StatusCode.httpRequestSentToHttpsPortHttp497:
+        return httpRequestSentToHttpsPortHttp497?.call(this) ?? orElse();
+      case StatusCode.clientClosedRequestHttp499:
+        return clientClosedRequestHttp499?.call(this) ?? orElse();
+      case StatusCode.webServerReturnedUnknownErrorHttp520:
+        return webServerReturnedUnknownErrorHttp520?.call(this) ?? orElse();
+      case StatusCode.webServerIsDownHttp521:
+        return webServerIsDownHttp521?.call(this) ?? orElse();
+      case StatusCode.connectionTimedOutHttp522:
+        return connectionTimedOutHttp522?.call(this) ?? orElse();
+      case StatusCode.originIsUnreachableHttp523:
+        return originIsUnreachableHttp523?.call(this) ?? orElse();
+      case StatusCode.aTimeoutOccurredHttp524:
+        return aTimeoutOccurredHttp524?.call(this) ?? orElse();
+      case StatusCode.sslHandshakeFailedHttp525:
+        return sslHandshakeFailedHttp525?.call(this) ?? orElse();
+      case StatusCode.invalidSslCertificateHttp526:
+        return invalidSslCertificateHttp526?.call(this) ?? orElse();
+      case StatusCode.railgunErrorHttp527:
+        return railgunErrorHttp527?.call(this) ?? orElse();
+      case StatusCode.clientClosedConnectionHttp460:
+        return clientClosedConnectionHttp460?.call(this) ?? orElse();
+      case StatusCode.tooManyIpAddressesHttp463:
+        return tooManyIpAddressesHttp463?.call(this) ?? orElse();
+      case StatusCode.incompatibleProtocolVersionsHttp464:
+        return incompatibleProtocolVersionsHttp464?.call(this) ?? orElse();
+      case StatusCode.unauthorizedHttp561:
+        return unauthorizedHttp561?.call(this) ?? orElse();
     }
   }
 
@@ -889,6 +1193,35 @@ extension StatusCodeFunctional on StatusCode {
     R Function()? networkAuthenticationRequiredHttp511,
     R Function()? siteIsFrozenHttp530,
     R Function()? networkConnectTimeoutErrorHttp599,
+    // Unofficial status codes:
+    R Function()? thisIsFineHttp218,
+    R Function()? pageExpiredHttp419,
+    R Function()? methodFailureHttp420,
+    R Function()? enhanceYourCalmHttp420,
+    R Function()? requestHeaderFieldsTooLargeHttp430,
+    R Function()? invalidTokenHttp498,
+    R Function()? tokenRequiredHttp499,
+    R Function()? siteIsOverloadedHttp529,
+    R Function()? siteIsFrozenHttp529,
+    R Function()? networkReadTimeoutErrorHttp598,
+    R Function()? noResponseHttp444,
+    R Function()? requestHeaderTooLargeHttp494,
+    R Function()? sslCertificateErrorHttp495,
+    R Function()? sslCertificateRequiredHttp496,
+    R Function()? httpRequestSentToHttpsPortHttp497,
+    R Function()? clientClosedRequestHttp499,
+    R Function()? webServerReturnedUnknownErrorHttp520,
+    R Function()? webServerIsDownHttp521,
+    R Function()? connectionTimedOutHttp522,
+    R Function()? originIsUnreachableHttp523,
+    R Function()? aTimeoutOccurredHttp524,
+    R Function()? sslHandshakeFailedHttp525,
+    R Function()? invalidSslCertificateHttp526,
+    R Function()? railgunErrorHttp527,
+    R Function()? clientClosedConnectionHttp460,
+    R Function()? tooManyIpAddressesHttp463,
+    R Function()? incompatibleProtocolVersionsHttp464,
+    R Function()? unauthorizedHttp561,
   }) {
     switch (this) {
       case StatusCode.continueHttp100:
@@ -1039,6 +1372,62 @@ extension StatusCodeFunctional on StatusCode {
         return siteIsFrozenHttp530?.call() ?? orElse();
       case StatusCode.networkConnectTimeoutErrorHttp599:
         return networkConnectTimeoutErrorHttp599?.call() ?? orElse();
+      case StatusCode.thisIsFineHttp218:
+        return thisIsFineHttp218?.call() ?? orElse();
+      case StatusCode.pageExpiredHttp419:
+        return pageExpiredHttp419?.call() ?? orElse();
+      case StatusCode.methodFailureHttp420:
+        return methodFailureHttp420?.call() ?? orElse();
+      case StatusCode.enhanceYourCalmHttp420:
+        return enhanceYourCalmHttp420?.call() ?? orElse();
+      case StatusCode.requestHeaderFieldsTooLargeHttp430:
+        return requestHeaderFieldsTooLargeHttp430?.call() ?? orElse();
+      case StatusCode.invalidTokenHttp498:
+        return invalidTokenHttp498?.call() ?? orElse();
+      case StatusCode.tokenRequiredHttp499:
+        return tokenRequiredHttp499?.call() ?? orElse();
+      case StatusCode.siteIsOverloadedHttp529:
+        return siteIsOverloadedHttp529?.call() ?? orElse();
+      case StatusCode.siteIsFrozenHttp529:
+        return siteIsFrozenHttp529?.call() ?? orElse();
+      case StatusCode.networkReadTimeoutErrorHttp598:
+        return networkReadTimeoutErrorHttp598?.call() ?? orElse();
+      case StatusCode.noResponseHttp444:
+        return noResponseHttp444?.call() ?? orElse();
+      case StatusCode.requestHeaderTooLargeHttp494:
+        return requestHeaderTooLargeHttp494?.call() ?? orElse();
+      case StatusCode.sslCertificateErrorHttp495:
+        return sslCertificateErrorHttp495?.call() ?? orElse();
+      case StatusCode.sslCertificateRequiredHttp496:
+        return sslCertificateRequiredHttp496?.call() ?? orElse();
+      case StatusCode.httpRequestSentToHttpsPortHttp497:
+        return httpRequestSentToHttpsPortHttp497?.call() ?? orElse();
+      case StatusCode.clientClosedRequestHttp499:
+        return clientClosedRequestHttp499?.call() ?? orElse();
+      case StatusCode.webServerReturnedUnknownErrorHttp520:
+        return webServerReturnedUnknownErrorHttp520?.call() ?? orElse();
+      case StatusCode.webServerIsDownHttp521:
+        return webServerIsDownHttp521?.call() ?? orElse();
+      case StatusCode.connectionTimedOutHttp522:
+        return connectionTimedOutHttp522?.call() ?? orElse();
+      case StatusCode.originIsUnreachableHttp523:
+        return originIsUnreachableHttp523?.call() ?? orElse();
+      case StatusCode.aTimeoutOccurredHttp524:
+        return aTimeoutOccurredHttp524?.call() ?? orElse();
+      case StatusCode.sslHandshakeFailedHttp525:
+        return sslHandshakeFailedHttp525?.call() ?? orElse();
+      case StatusCode.invalidSslCertificateHttp526:
+        return invalidSslCertificateHttp526?.call() ?? orElse();
+      case StatusCode.railgunErrorHttp527:
+        return railgunErrorHttp527?.call() ?? orElse();
+      case StatusCode.clientClosedConnectionHttp460:
+        return clientClosedConnectionHttp460?.call() ?? orElse();
+      case StatusCode.tooManyIpAddressesHttp463:
+        return tooManyIpAddressesHttp463?.call() ?? orElse();
+      case StatusCode.incompatibleProtocolVersionsHttp464:
+        return incompatibleProtocolVersionsHttp464?.call() ?? orElse();
+      case StatusCode.unauthorizedHttp561:
+        return unauthorizedHttp561?.call() ?? orElse();
     }
   }
 
@@ -1136,6 +1525,35 @@ extension StatusCodeFunctional on StatusCode {
     required R Function() networkAuthenticationRequiredHttp511,
     required R Function() siteIsFrozenHttp530,
     required R Function() networkConnectTimeoutErrorHttp599,
+    // Unofficial status codes:
+    required R Function() thisIsFineHttp218,
+    required R Function() pageExpiredHttp419,
+    required R Function() methodFailureHttp420,
+    required R Function() enhanceYourCalmHttp420,
+    required R Function() requestHeaderFieldsTooLargeHttp430,
+    required R Function() invalidTokenHttp498,
+    required R Function() tokenRequiredHttp499,
+    required R Function() siteIsOverloadedHttp529,
+    required R Function() siteIsFrozenHttp529,
+    required R Function() networkReadTimeoutErrorHttp598,
+    required R Function() noResponseHttp444,
+    required R Function() requestHeaderTooLargeHttp494,
+    required R Function() sslCertificateErrorHttp495,
+    required R Function() sslCertificateRequiredHttp496,
+    required R Function() httpRequestSentToHttpsPortHttp497,
+    required R Function() clientClosedRequestHttp499,
+    required R Function() webServerReturnedUnknownErrorHttp520,
+    required R Function() webServerIsDownHttp521,
+    required R Function() connectionTimedOutHttp522,
+    required R Function() originIsUnreachableHttp523,
+    required R Function() aTimeoutOccurredHttp524,
+    required R Function() sslHandshakeFailedHttp525,
+    required R Function() invalidSslCertificateHttp526,
+    required R Function() railgunErrorHttp527,
+    required R Function() clientClosedConnectionHttp460,
+    required R Function() tooManyIpAddressesHttp463,
+    required R Function() incompatibleProtocolVersionsHttp464,
+    required R Function() unauthorizedHttp561,
   }) {
     switch (this) {
       case StatusCode.continueHttp100:
@@ -1286,6 +1704,62 @@ extension StatusCodeFunctional on StatusCode {
         return siteIsFrozenHttp530();
       case StatusCode.networkConnectTimeoutErrorHttp599:
         return networkConnectTimeoutErrorHttp599();
+      case StatusCode.thisIsFineHttp218:
+        return thisIsFineHttp218();
+      case StatusCode.pageExpiredHttp419:
+        return pageExpiredHttp419();
+      case StatusCode.methodFailureHttp420:
+        return methodFailureHttp420();
+      case StatusCode.enhanceYourCalmHttp420:
+        return enhanceYourCalmHttp420();
+      case StatusCode.requestHeaderFieldsTooLargeHttp430:
+        return requestHeaderFieldsTooLargeHttp430();
+      case StatusCode.invalidTokenHttp498:
+        return invalidTokenHttp498();
+      case StatusCode.tokenRequiredHttp499:
+        return tokenRequiredHttp499();
+      case StatusCode.siteIsOverloadedHttp529:
+        return siteIsOverloadedHttp529();
+      case StatusCode.siteIsFrozenHttp529:
+        return siteIsFrozenHttp529();
+      case StatusCode.networkReadTimeoutErrorHttp598:
+        return networkReadTimeoutErrorHttp598();
+      case StatusCode.noResponseHttp444:
+        return noResponseHttp444();
+      case StatusCode.requestHeaderTooLargeHttp494:
+        return requestHeaderTooLargeHttp494();
+      case StatusCode.sslCertificateErrorHttp495:
+        return sslCertificateErrorHttp495();
+      case StatusCode.sslCertificateRequiredHttp496:
+        return sslCertificateRequiredHttp496();
+      case StatusCode.httpRequestSentToHttpsPortHttp497:
+        return httpRequestSentToHttpsPortHttp497();
+      case StatusCode.clientClosedRequestHttp499:
+        return clientClosedRequestHttp499();
+      case StatusCode.webServerReturnedUnknownErrorHttp520:
+        return webServerReturnedUnknownErrorHttp520();
+      case StatusCode.webServerIsDownHttp521:
+        return webServerIsDownHttp521();
+      case StatusCode.connectionTimedOutHttp522:
+        return connectionTimedOutHttp522();
+      case StatusCode.originIsUnreachableHttp523:
+        return originIsUnreachableHttp523();
+      case StatusCode.aTimeoutOccurredHttp524:
+        return aTimeoutOccurredHttp524();
+      case StatusCode.sslHandshakeFailedHttp525:
+        return sslHandshakeFailedHttp525();
+      case StatusCode.invalidSslCertificateHttp526:
+        return invalidSslCertificateHttp526();
+      case StatusCode.railgunErrorHttp527:
+        return railgunErrorHttp527();
+      case StatusCode.clientClosedConnectionHttp460:
+        return clientClosedConnectionHttp460();
+      case StatusCode.tooManyIpAddressesHttp463:
+        return tooManyIpAddressesHttp463();
+      case StatusCode.incompatibleProtocolVersionsHttp464:
+        return incompatibleProtocolVersionsHttp464();
+      case StatusCode.unauthorizedHttp561:
+        return unauthorizedHttp561();
     }
   }
 
@@ -1379,6 +1853,35 @@ extension StatusCodeFunctional on StatusCode {
     R Function()? networkAuthenticationRequiredHttp511,
     R Function()? siteIsFrozenHttp530,
     R Function()? networkConnectTimeoutErrorHttp599,
+    // Unofficial status codes:
+    R Function()? thisIsFineHttp218,
+    R Function()? pageExpiredHttp419,
+    R Function()? methodFailureHttp420,
+    R Function()? enhanceYourCalmHttp420,
+    R Function()? requestHeaderFieldsTooLargeHttp430,
+    R Function()? invalidTokenHttp498,
+    R Function()? tokenRequiredHttp499,
+    R Function()? siteIsOverloadedHttp529,
+    R Function()? siteIsFrozenHttp529,
+    R Function()? networkReadTimeoutErrorHttp598,
+    R Function()? noResponseHttp444,
+    R Function()? requestHeaderTooLargeHttp494,
+    R Function()? sslCertificateErrorHttp495,
+    R Function()? sslCertificateRequiredHttp496,
+    R Function()? httpRequestSentToHttpsPortHttp497,
+    R Function()? clientClosedRequestHttp499,
+    R Function()? webServerReturnedUnknownErrorHttp520,
+    R Function()? webServerIsDownHttp521,
+    R Function()? connectionTimedOutHttp522,
+    R Function()? originIsUnreachableHttp523,
+    R Function()? aTimeoutOccurredHttp524,
+    R Function()? sslHandshakeFailedHttp525,
+    R Function()? invalidSslCertificateHttp526,
+    R Function()? railgunErrorHttp527,
+    R Function()? clientClosedConnectionHttp460,
+    R Function()? tooManyIpAddressesHttp463,
+    R Function()? incompatibleProtocolVersionsHttp464,
+    R Function()? unauthorizedHttp561,
     R Function()? orElse,
   }) {
     switch (this) {
@@ -1531,6 +2034,62 @@ extension StatusCodeFunctional on StatusCode {
         return siteIsFrozenHttp530?.call() ?? orElse?.call();
       case StatusCode.networkConnectTimeoutErrorHttp599:
         return networkConnectTimeoutErrorHttp599?.call() ?? orElse?.call();
+      case StatusCode.thisIsFineHttp218:
+        return thisIsFineHttp218?.call() ?? orElse?.call();
+      case StatusCode.pageExpiredHttp419:
+        return pageExpiredHttp419?.call() ?? orElse?.call();
+      case StatusCode.methodFailureHttp420:
+        return methodFailureHttp420?.call() ?? orElse?.call();
+      case StatusCode.enhanceYourCalmHttp420:
+        return enhanceYourCalmHttp420?.call() ?? orElse?.call();
+      case StatusCode.requestHeaderFieldsTooLargeHttp430:
+        return requestHeaderFieldsTooLargeHttp430?.call() ?? orElse?.call();
+      case StatusCode.invalidTokenHttp498:
+        return invalidTokenHttp498?.call() ?? orElse?.call();
+      case StatusCode.tokenRequiredHttp499:
+        return tokenRequiredHttp499?.call() ?? orElse?.call();
+      case StatusCode.siteIsOverloadedHttp529:
+        return siteIsOverloadedHttp529?.call() ?? orElse?.call();
+      case StatusCode.siteIsFrozenHttp529:
+        return siteIsFrozenHttp529?.call() ?? orElse?.call();
+      case StatusCode.networkReadTimeoutErrorHttp598:
+        return networkReadTimeoutErrorHttp598?.call() ?? orElse?.call();
+      case StatusCode.noResponseHttp444:
+        return noResponseHttp444?.call() ?? orElse?.call();
+      case StatusCode.requestHeaderTooLargeHttp494:
+        return requestHeaderTooLargeHttp494?.call() ?? orElse?.call();
+      case StatusCode.sslCertificateErrorHttp495:
+        return sslCertificateErrorHttp495?.call() ?? orElse?.call();
+      case StatusCode.sslCertificateRequiredHttp496:
+        return sslCertificateRequiredHttp496?.call() ?? orElse?.call();
+      case StatusCode.httpRequestSentToHttpsPortHttp497:
+        return httpRequestSentToHttpsPortHttp497?.call() ?? orElse?.call();
+      case StatusCode.clientClosedRequestHttp499:
+        return clientClosedRequestHttp499?.call() ?? orElse?.call();
+      case StatusCode.webServerReturnedUnknownErrorHttp520:
+        return webServerReturnedUnknownErrorHttp520?.call() ?? orElse?.call();
+      case StatusCode.webServerIsDownHttp521:
+        return webServerIsDownHttp521?.call() ?? orElse?.call();
+      case StatusCode.connectionTimedOutHttp522:
+        return connectionTimedOutHttp522?.call() ?? orElse?.call();
+      case StatusCode.originIsUnreachableHttp523:
+        return originIsUnreachableHttp523?.call() ?? orElse?.call();
+      case StatusCode.aTimeoutOccurredHttp524:
+        return aTimeoutOccurredHttp524?.call() ?? orElse?.call();
+      case StatusCode.sslHandshakeFailedHttp525:
+        return sslHandshakeFailedHttp525?.call() ?? orElse?.call();
+      case StatusCode.invalidSslCertificateHttp526:
+        return invalidSslCertificateHttp526?.call() ?? orElse?.call();
+      case StatusCode.railgunErrorHttp527:
+        return railgunErrorHttp527?.call() ?? orElse?.call();
+      case StatusCode.clientClosedConnectionHttp460:
+        return clientClosedConnectionHttp460?.call() ?? orElse?.call();
+      case StatusCode.tooManyIpAddressesHttp463:
+        return tooManyIpAddressesHttp463?.call() ?? orElse?.call();
+      case StatusCode.incompatibleProtocolVersionsHttp464:
+        return incompatibleProtocolVersionsHttp464?.call() ?? orElse?.call();
+      case StatusCode.unauthorizedHttp561:
+        return unauthorizedHttp561?.call() ?? orElse?.call();
     }
   }
 }
@@ -1627,6 +2186,35 @@ extension StatusCodeConstFunctional on StatusCode {
     required R networkAuthenticationRequiredHttp511,
     required R siteIsFrozenHttp530,
     required R networkConnectTimeoutErrorHttp599,
+    // Unofficial status codes:
+    required R thisIsFineHttp218,
+    required R pageExpiredHttp419,
+    required R methodFailureHttp420,
+    required R enhanceYourCalmHttp420,
+    required R requestHeaderFieldsTooLargeHttp430,
+    required R invalidTokenHttp498,
+    required R tokenRequiredHttp499,
+    required R siteIsOverloadedHttp529,
+    required R siteIsFrozenHttp529,
+    required R networkReadTimeoutErrorHttp598,
+    required R noResponseHttp444,
+    required R requestHeaderTooLargeHttp494,
+    required R sslCertificateErrorHttp495,
+    required R sslCertificateRequiredHttp496,
+    required R httpRequestSentToHttpsPortHttp497,
+    required R clientClosedRequestHttp499,
+    required R webServerReturnedUnknownErrorHttp520,
+    required R webServerIsDownHttp521,
+    required R connectionTimedOutHttp522,
+    required R originIsUnreachableHttp523,
+    required R aTimeoutOccurredHttp524,
+    required R sslHandshakeFailedHttp525,
+    required R invalidSslCertificateHttp526,
+    required R railgunErrorHttp527,
+    required R clientClosedConnectionHttp460,
+    required R tooManyIpAddressesHttp463,
+    required R incompatibleProtocolVersionsHttp464,
+    required R unauthorizedHttp561,
   }) {
     switch (this) {
       case StatusCode.continueHttp100:
@@ -1777,6 +2365,62 @@ extension StatusCodeConstFunctional on StatusCode {
         return siteIsFrozenHttp530;
       case StatusCode.networkConnectTimeoutErrorHttp599:
         return networkConnectTimeoutErrorHttp599;
+      case StatusCode.thisIsFineHttp218:
+        return thisIsFineHttp218;
+      case StatusCode.pageExpiredHttp419:
+        return pageExpiredHttp419;
+      case StatusCode.methodFailureHttp420:
+        return methodFailureHttp420;
+      case StatusCode.enhanceYourCalmHttp420:
+        return enhanceYourCalmHttp420;
+      case StatusCode.requestHeaderFieldsTooLargeHttp430:
+        return requestHeaderFieldsTooLargeHttp430;
+      case StatusCode.invalidTokenHttp498:
+        return invalidTokenHttp498;
+      case StatusCode.tokenRequiredHttp499:
+        return tokenRequiredHttp499;
+      case StatusCode.siteIsOverloadedHttp529:
+        return siteIsOverloadedHttp529;
+      case StatusCode.siteIsFrozenHttp529:
+        return siteIsFrozenHttp529;
+      case StatusCode.networkReadTimeoutErrorHttp598:
+        return networkReadTimeoutErrorHttp598;
+      case StatusCode.noResponseHttp444:
+        return noResponseHttp444;
+      case StatusCode.requestHeaderTooLargeHttp494:
+        return requestHeaderTooLargeHttp494;
+      case StatusCode.sslCertificateErrorHttp495:
+        return sslCertificateErrorHttp495;
+      case StatusCode.sslCertificateRequiredHttp496:
+        return sslCertificateRequiredHttp496;
+      case StatusCode.httpRequestSentToHttpsPortHttp497:
+        return httpRequestSentToHttpsPortHttp497;
+      case StatusCode.clientClosedRequestHttp499:
+        return clientClosedRequestHttp499;
+      case StatusCode.webServerReturnedUnknownErrorHttp520:
+        return webServerReturnedUnknownErrorHttp520;
+      case StatusCode.webServerIsDownHttp521:
+        return webServerIsDownHttp521;
+      case StatusCode.connectionTimedOutHttp522:
+        return connectionTimedOutHttp522;
+      case StatusCode.originIsUnreachableHttp523:
+        return originIsUnreachableHttp523;
+      case StatusCode.aTimeoutOccurredHttp524:
+        return aTimeoutOccurredHttp524;
+      case StatusCode.sslHandshakeFailedHttp525:
+        return sslHandshakeFailedHttp525;
+      case StatusCode.invalidSslCertificateHttp526:
+        return invalidSslCertificateHttp526;
+      case StatusCode.railgunErrorHttp527:
+        return railgunErrorHttp527;
+      case StatusCode.clientClosedConnectionHttp460:
+        return clientClosedConnectionHttp460;
+      case StatusCode.tooManyIpAddressesHttp463:
+        return tooManyIpAddressesHttp463;
+      case StatusCode.incompatibleProtocolVersionsHttp464:
+        return incompatibleProtocolVersionsHttp464;
+      case StatusCode.unauthorizedHttp561:
+        return unauthorizedHttp561;
     }
   }
 
@@ -1868,6 +2512,35 @@ extension StatusCodeConstFunctional on StatusCode {
     R? networkAuthenticationRequiredHttp511,
     R? siteIsFrozenHttp530,
     R? networkConnectTimeoutErrorHttp599,
+    // Unofficial codes:
+    R? thisIsFineHttp218,
+    R? pageExpiredHttp419,
+    R? methodFailureHttp420,
+    R? enhanceYourCalmHttp420,
+    R? requestHeaderFieldsTooLargeHttp430,
+    R? invalidTokenHttp498,
+    R? tokenRequiredHttp499,
+    R? siteIsOverloadedHttp529,
+    R? siteIsFrozenHttp529,
+    R? networkReadTimeoutErrorHttp598,
+    R? noResponseHttp444,
+    R? requestHeaderTooLargeHttp494,
+    R? sslCertificateErrorHttp495,
+    R? sslCertificateRequiredHttp496,
+    R? httpRequestSentToHttpsPortHttp497,
+    R? clientClosedRequestHttp499,
+    R? webServerReturnedUnknownErrorHttp520,
+    R? webServerIsDownHttp521,
+    R? connectionTimedOutHttp522,
+    R? originIsUnreachableHttp523,
+    R? aTimeoutOccurredHttp524,
+    R? sslHandshakeFailedHttp525,
+    R? invalidSslCertificateHttp526,
+    R? railgunErrorHttp527,
+    R? clientClosedConnectionHttp460,
+    R? tooManyIpAddressesHttp463,
+    R? incompatibleProtocolVersionsHttp464,
+    R? unauthorizedHttp561,
   }) {
     switch (this) {
       case StatusCode.continueHttp100:
@@ -2018,6 +2691,62 @@ extension StatusCodeConstFunctional on StatusCode {
         return siteIsFrozenHttp530;
       case StatusCode.networkConnectTimeoutErrorHttp599:
         return networkConnectTimeoutErrorHttp599;
+      case StatusCode.thisIsFineHttp218:
+        return thisIsFineHttp218;
+      case StatusCode.pageExpiredHttp419:
+        return pageExpiredHttp419;
+      case StatusCode.methodFailureHttp420:
+        return methodFailureHttp420;
+      case StatusCode.enhanceYourCalmHttp420:
+        return enhanceYourCalmHttp420;
+      case StatusCode.requestHeaderFieldsTooLargeHttp430:
+        return requestHeaderFieldsTooLargeHttp430;
+      case StatusCode.invalidTokenHttp498:
+        return invalidTokenHttp498;
+      case StatusCode.tokenRequiredHttp499:
+        return tokenRequiredHttp499;
+      case StatusCode.siteIsOverloadedHttp529:
+        return siteIsOverloadedHttp529;
+      case StatusCode.siteIsFrozenHttp529:
+        return siteIsFrozenHttp529;
+      case StatusCode.networkReadTimeoutErrorHttp598:
+        return networkReadTimeoutErrorHttp598;
+      case StatusCode.noResponseHttp444:
+        return noResponseHttp444;
+      case StatusCode.requestHeaderTooLargeHttp494:
+        return requestHeaderTooLargeHttp494;
+      case StatusCode.sslCertificateErrorHttp495:
+        return sslCertificateErrorHttp495;
+      case StatusCode.sslCertificateRequiredHttp496:
+        return sslCertificateRequiredHttp496;
+      case StatusCode.httpRequestSentToHttpsPortHttp497:
+        return httpRequestSentToHttpsPortHttp497;
+      case StatusCode.clientClosedRequestHttp499:
+        return clientClosedRequestHttp499;
+      case StatusCode.webServerReturnedUnknownErrorHttp520:
+        return webServerReturnedUnknownErrorHttp520;
+      case StatusCode.webServerIsDownHttp521:
+        return webServerIsDownHttp521;
+      case StatusCode.connectionTimedOutHttp522:
+        return connectionTimedOutHttp522;
+      case StatusCode.originIsUnreachableHttp523:
+        return originIsUnreachableHttp523;
+      case StatusCode.aTimeoutOccurredHttp524:
+        return aTimeoutOccurredHttp524;
+      case StatusCode.sslHandshakeFailedHttp525:
+        return sslHandshakeFailedHttp525;
+      case StatusCode.invalidSslCertificateHttp526:
+        return invalidSslCertificateHttp526;
+      case StatusCode.railgunErrorHttp527:
+        return railgunErrorHttp527;
+      case StatusCode.clientClosedConnectionHttp460:
+        return clientClosedConnectionHttp460;
+      case StatusCode.tooManyIpAddressesHttp463:
+        return tooManyIpAddressesHttp463;
+      case StatusCode.incompatibleProtocolVersionsHttp464:
+        return incompatibleProtocolVersionsHttp464;
+      case StatusCode.unauthorizedHttp561:
+        return unauthorizedHttp561;
     }
   }
 }
