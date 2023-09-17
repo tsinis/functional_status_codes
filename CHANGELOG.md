@@ -1,3 +1,9 @@
+## 2.0.0
+
+NEW FEATURE: added 19 new common [unofficial status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes)
+
+- feat: added 19 common unofficial status codes
+
 ## 1.2.1
 
 - fix(docs): remove hardcoded reference to version in readme
