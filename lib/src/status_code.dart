@@ -421,13 +421,6 @@ enum StatusCode {
   /// web platform to indicate a site that has been frozen due to inactivity.
   siteIsFrozenHttp530(530, 'Site is frozen'),
 
-  /// Network Connect Timeout Error: 599
-  ///
-  /// This status code is not specified in any RFCs, but is used by some HTTP
-  /// proxies to signal a network connect timeout behind the proxy to a client
-  /// in front of the proxy.
-  networkConnectTimeoutErrorHttp599(599, 'Network Connect Timeout Error'),
-
   // --- Unofficial HTTP status codes ---
   // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes
 
@@ -452,23 +445,17 @@ enum StatusCode {
     isOfficial: false,
   ),
 
-  /// Unofficial status code. Method Failure (Spring Framework): 420
-  ///
-  /// A deprecated response used by the Spring Framework when a method has
-  /// failed.
-  methodFailureHttp420(
-    420,
-    'Method Failure (Spring Framework)',
-    isOfficial: false,
-  ),
-
   /// Unofficial status code. Enhance Your Calm (Twitter): 420
+  /// Deprecated: Method Failure (Spring Framework): 420
   ///
   /// Returned by version 1 of the Twitter Search and Trends API when the client
   /// is being rate limited; versions 1.1 and later use the 429 Too Many
   /// Requests response code instead. The phrase "Enhance your calm" comes from
   /// the 1993 movie Demolition Man, and its association with this number is
   /// likely a reference to cannabis.
+  ///
+  /// Also a deprecated response status code used by the Spring Framework when
+  /// a method has failed.
   enhanceYourCalmHttp420(420, 'Enhance Your Calm (Twitter)', isOfficial: false),
 
   /// Unofficial status code. Request Header Fields Too Large (Shopify): 430
@@ -481,29 +468,11 @@ enum StatusCode {
     isOfficial: false,
   ),
 
-  /// Unofficial status code. Invalid Token (Esri): 498
-  ///
-  /// Returned by ArcGIS for Server. Code 498 indicates an expired or otherwise
-  /// invalid token.
-  invalidTokenHttp498(498, 'Invalid Token (Esri)', isOfficial: false),
-
-  /// Unofficial status code. Token Required (Esri): 499
-  ///
-  /// Returned by ArcGIS for Server. Code 499 indicates that a token is required
-  /// but was not submitted.
-  tokenRequiredHttp499(499, 'Token Required (Esri)', isOfficial: false),
-
   /// Unofficial status code. Site is overloaded: 529
   ///
   /// Used by Qualys in the SSLLabs server testing API to signal that the site
   /// can't process the request.
   siteIsOverloadedHttp529(529, 'Site is overloaded', isOfficial: false),
-
-  /// Unofficial status code. Site is overloaded: 530
-  ///
-  /// Used by the Pantheon Systems web platform to indicate a site that has been
-  /// frozen due to inactivity.
-  siteIsFrozenHttp529(530, 'Site is frozen', isOfficial: false),
 
   /// Unofficial status code. Network Connect Timeout Error: 598
   ///
@@ -515,12 +484,6 @@ enum StatusCode {
     isOfficial: false,
   ),
 
-  /// Unofficial status code. No Response: 444
-  ///
-  /// Used internally to instruct the server to return no information to the
-  /// client and close the connection immediately.
-  noResponseHttp444(444, 'No Response', isOfficial: false),
-
   /// Unofficial status code. Request Header Too Large: 494
   ///
   /// The client sent too large of a request or too long of a header line.
@@ -529,38 +492,6 @@ enum StatusCode {
     'Request Header Too Large',
     isOfficial: false,
   ),
-
-  /// Unofficial status code. SSL Certificate Error: 495
-  ///
-  /// An expansion of the 400 Bad Request response code, used when the client
-  /// has provided an invalid client certificate.
-  sslCertificateErrorHttp495(495, 'SSL Certificate Error', isOfficial: false),
-
-  /// Unofficial status code. SSL Certificate Required: 496
-  ///
-  /// An expansion of the 400 Bad Request response code, used when a client
-  /// certificate is required but not provided.
-  sslCertificateRequiredHttp496(
-    496,
-    'SSL Certificate Required',
-    isOfficial: false,
-  ),
-
-  /// Unofficial status code. HTTP Request Sent to HTTPS Port: 497
-  ///
-  /// An expansion of the 400 Bad Request response code, used when the client
-  /// has made an HTTP request to a port listening for HTTPS requests.
-  httpRequestSentToHttpsPortHttp497(
-    497,
-    'HTTP Request Sent to HTTPS Port',
-    isOfficial: false,
-  ),
-
-  /// Unofficial status code. Client Closed Request: 499
-  ///
-  /// Used when the client has closed the request before the server could send a
-  /// response.
-  clientClosedRequestHttp499(499, 'Client Closed Request', isOfficial: false),
 
   /// Unofficial status code. Web Server Returned an Unknown Error: 520
   ///
@@ -657,7 +588,14 @@ enum StatusCode {
     561,
     'Unauthorized (AWS Elastic Load Balancing)',
     isOfficial: false,
-  );
+  ),
+
+  /// Official status code. Network Connect Timeout Error: 599
+  ///
+  /// This status code is not specified in any RFCs, but is used by some HTTP
+  /// proxies to signal a network connect timeout behind the proxy to a client
+  /// in front of the proxy.
+  networkConnectTimeoutErrorHttp599(599, 'Network Connect Timeout Error');
 
   /// Dart `enum` for easier handling of all IANA registered HTTP Status codes.
   const StatusCode(this.code, this.reason, {this.isOfficial = true});
@@ -696,9 +634,7 @@ enum StatusCode {
     if (statusCode != null) {
       final intStatusCode = statusCode.toInt();
       for (final status in values) {
-        if (status.code == intStatusCode) {
-          return status;
-        }
+        if (status.code == intStatusCode) return status;
       }
     }
 
@@ -722,6 +658,6 @@ enum StatusCode {
     }
     final maybeCode = RegExp(r'\d{3}').firstMatch(statusCode)?[0];
 
-    return maybeCode == null ? null : maybeFromCode(num.parse(maybeCode));
+    return maybeCode == null ? null : maybeFromCode(num.tryParse(maybeCode));
   }
 }
