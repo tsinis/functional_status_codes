@@ -1,4 +1,4 @@
-version: 1.2.1
+version: 2.0.0
 name: functional_status_codes
 description: This package offers a functional approach to handling HTTP status codes.
 maintainer: Roman Cinis

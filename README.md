@@ -8,8 +8,8 @@ This pure Dart and and dependency-free package provides functionality for workin
 
 ## Features
 
-* Extends `num` types with helper functional methods (when, map, maybeWhen, etc.) for handling HTTP status codes.
-* Provides `StatusCode` enum for easy handling of all [IANA registered HTTP status codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xml) (also in functional style).
+* Extends `num` types with helper functional methods (when, map, maybeWhen, etc.) and boolean getters for handling HTTP status codes.
+* Provides `StatusCode` enum for easy handling of all [IANA registered HTTP status codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xml) and some common [unofficial status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes) (also in functional style (when, map, maybeWhen, etc.)).
 * Provides methods for parsing HTTP status codes from `String` and `num` types, and much more.
 
 ## Getting started
@@ -39,6 +39,7 @@ if (!response.statusCode.isStatusCode) return null; // Checks if statusCode >=10
   return registeredCode?.whenOrNull(
     okHttp200: () => _parseResponse(response.body),
     badRequestHttp400: () => _showError(),
+    unauthorizedHttp561: () => _auth(), // Includes common unofficial codes too.
     orElse: () => _handleUnknownResponse(response),
   );
 ```

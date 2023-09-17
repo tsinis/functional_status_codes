@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checks-out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.0.0
 
       - name: Link Checker
         uses: lycheeverse/lychee-action@v1.8.0
@@ -42,7 +42,7 @@ jobs:
             cspell:filetypes/filetypes.txt
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
+        uses: dart-lang/setup-dart@v1.5.1
 
       - name: Install Dependencies
         run: dart pub get
