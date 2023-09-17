@@ -525,7 +525,7 @@ enum StatusCode {
   ///
   /// Cloudflare was able to complete a TCP connection to the origin server, but
   /// did not receive a timely HTTP response.
-  aTimeoutOccurredHttp524(524, 'A Timeout Occurred', isOfficial: false),
+  timeoutOccurredHttp524(524, 'A Timeout Occurred', isOfficial: false),
 
   /// Unofficial status code. SSL Handshake Failed: 525
   ///
@@ -536,7 +536,7 @@ enum StatusCode {
   ///
   /// Cloudflare could not validate the SSL certificate on the origin web
   /// server.
-  invalidSslCertificateHttp526(
+  invalidSSLCertificateHttp526(
     526,
     'Invalid SSL Certificate',
     isOfficial: false,

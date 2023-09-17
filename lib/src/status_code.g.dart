@@ -307,16 +307,16 @@ extension StatusCodeFunctional on StatusCode {
       this == StatusCode.originIsUnreachableHttp523;
 
   /// Determines whether this StatusCode corresponds to an HTTP 524 status.
-  bool get isATimeoutOccurredHttp524 =>
-      this == StatusCode.aTimeoutOccurredHttp524;
+  bool get isTimeoutOccurredHttp524 =>
+      this == StatusCode.timeoutOccurredHttp524;
 
   /// Determines whether this StatusCode corresponds to an HTTP 525 status.
   bool get isSslHandshakeFailedHttp525 =>
       this == StatusCode.sslHandshakeFailedHttp525;
 
   /// Determines whether this StatusCode corresponds to an HTTP 526 status.
-  bool get isInvalidSslCertificateHttp526 =>
-      this == StatusCode.invalidSslCertificateHttp526;
+  bool get isInvalidSSLCertificateHttp526 =>
+      this == StatusCode.invalidSSLCertificateHttp526;
 
   /// Determines whether this StatusCode corresponds to an HTTP 527 status.
   bool get isRailgunErrorHttp527 => this == StatusCode.railgunErrorHttp527;
@@ -477,12 +477,12 @@ extension StatusCodeFunctional on StatusCode {
         connectionTimedOutHttp522,
     required R Function(StatusCode originIsUnreachableHttp523)
         originIsUnreachableHttp523,
-    required R Function(StatusCode aTimeoutOccurredHttp524)
-        aTimeoutOccurredHttp524,
+    required R Function(StatusCode timeoutOccurredHttp524)
+        timeoutOccurredHttp524,
     required R Function(StatusCode sslHandshakeFailedHttp525)
         sslHandshakeFailedHttp525,
-    required R Function(StatusCode invalidSslCertificateHttp526)
-        invalidSslCertificateHttp526,
+    required R Function(StatusCode invalidSSLCertificateHttp526)
+        invalidSSLCertificateHttp526,
     required R Function(StatusCode railgunErrorHttp527) railgunErrorHttp527,
     required R Function(StatusCode clientClosedConnectionHttp460)
         clientClosedConnectionHttp460,
@@ -663,12 +663,12 @@ extension StatusCodeFunctional on StatusCode {
         return connectionTimedOutHttp522(this);
       case StatusCode.originIsUnreachableHttp523:
         return originIsUnreachableHttp523(this);
-      case StatusCode.aTimeoutOccurredHttp524:
-        return aTimeoutOccurredHttp524(this);
+      case StatusCode.timeoutOccurredHttp524:
+        return timeoutOccurredHttp524(this);
       case StatusCode.sslHandshakeFailedHttp525:
         return sslHandshakeFailedHttp525(this);
-      case StatusCode.invalidSslCertificateHttp526:
-        return invalidSslCertificateHttp526(this);
+      case StatusCode.invalidSSLCertificateHttp526:
+        return invalidSSLCertificateHttp526(this);
       case StatusCode.railgunErrorHttp527:
         return railgunErrorHttp527(this);
       case StatusCode.clientClosedConnectionHttp460:
@@ -808,10 +808,10 @@ extension StatusCodeFunctional on StatusCode {
     R Function(StatusCode connectionTimedOutHttp522)? connectionTimedOutHttp522,
     R Function(StatusCode originIsUnreachableHttp523)?
         originIsUnreachableHttp523,
-    R Function(StatusCode aTimeoutOccurredHttp524)? aTimeoutOccurredHttp524,
+    R Function(StatusCode timeoutOccurredHttp524)? timeoutOccurredHttp524,
     R Function(StatusCode sslHandshakeFailedHttp525)? sslHandshakeFailedHttp525,
-    R Function(StatusCode invalidSslCertificateHttp526)?
-        invalidSslCertificateHttp526,
+    R Function(StatusCode invalidSSLCertificateHttp526)?
+        invalidSSLCertificateHttp526,
     R Function(StatusCode railgunErrorHttp527)? railgunErrorHttp527,
     R Function(StatusCode clientClosedConnectionHttp460)?
         clientClosedConnectionHttp460,
@@ -991,12 +991,12 @@ extension StatusCodeFunctional on StatusCode {
         return connectionTimedOutHttp522?.call(this) ?? orElse();
       case StatusCode.originIsUnreachableHttp523:
         return originIsUnreachableHttp523?.call(this) ?? orElse();
-      case StatusCode.aTimeoutOccurredHttp524:
-        return aTimeoutOccurredHttp524?.call(this) ?? orElse();
+      case StatusCode.timeoutOccurredHttp524:
+        return timeoutOccurredHttp524?.call(this) ?? orElse();
       case StatusCode.sslHandshakeFailedHttp525:
         return sslHandshakeFailedHttp525?.call(this) ?? orElse();
-      case StatusCode.invalidSslCertificateHttp526:
-        return invalidSslCertificateHttp526?.call(this) ?? orElse();
+      case StatusCode.invalidSSLCertificateHttp526:
+        return invalidSSLCertificateHttp526?.call(this) ?? orElse();
       case StatusCode.railgunErrorHttp527:
         return railgunErrorHttp527?.call(this) ?? orElse();
       case StatusCode.clientClosedConnectionHttp460:
@@ -1112,9 +1112,9 @@ extension StatusCodeFunctional on StatusCode {
     R Function()? webServerIsDownHttp521,
     R Function()? connectionTimedOutHttp522,
     R Function()? originIsUnreachableHttp523,
-    R Function()? aTimeoutOccurredHttp524,
+    R Function()? timeoutOccurredHttp524,
     R Function()? sslHandshakeFailedHttp525,
-    R Function()? invalidSslCertificateHttp526,
+    R Function()? invalidSSLCertificateHttp526,
     R Function()? railgunErrorHttp527,
     R Function()? clientClosedConnectionHttp460,
     R Function()? tooManyIpAddressesHttp463,
@@ -1292,12 +1292,12 @@ extension StatusCodeFunctional on StatusCode {
         return connectionTimedOutHttp522?.call() ?? orElse();
       case StatusCode.originIsUnreachableHttp523:
         return originIsUnreachableHttp523?.call() ?? orElse();
-      case StatusCode.aTimeoutOccurredHttp524:
-        return aTimeoutOccurredHttp524?.call() ?? orElse();
+      case StatusCode.timeoutOccurredHttp524:
+        return timeoutOccurredHttp524?.call() ?? orElse();
       case StatusCode.sslHandshakeFailedHttp525:
         return sslHandshakeFailedHttp525?.call() ?? orElse();
-      case StatusCode.invalidSslCertificateHttp526:
-        return invalidSslCertificateHttp526?.call() ?? orElse();
+      case StatusCode.invalidSSLCertificateHttp526:
+        return invalidSSLCertificateHttp526?.call() ?? orElse();
       case StatusCode.railgunErrorHttp527:
         return railgunErrorHttp527?.call() ?? orElse();
       case StatusCode.clientClosedConnectionHttp460:
@@ -1417,9 +1417,9 @@ extension StatusCodeFunctional on StatusCode {
     required R Function() webServerIsDownHttp521,
     required R Function() connectionTimedOutHttp522,
     required R Function() originIsUnreachableHttp523,
-    required R Function() aTimeoutOccurredHttp524,
+    required R Function() timeoutOccurredHttp524,
     required R Function() sslHandshakeFailedHttp525,
-    required R Function() invalidSslCertificateHttp526,
+    required R Function() invalidSSLCertificateHttp526,
     required R Function() railgunErrorHttp527,
     required R Function() clientClosedConnectionHttp460,
     required R Function() tooManyIpAddressesHttp463,
@@ -1597,12 +1597,12 @@ extension StatusCodeFunctional on StatusCode {
         return connectionTimedOutHttp522();
       case StatusCode.originIsUnreachableHttp523:
         return originIsUnreachableHttp523();
-      case StatusCode.aTimeoutOccurredHttp524:
-        return aTimeoutOccurredHttp524();
+      case StatusCode.timeoutOccurredHttp524:
+        return timeoutOccurredHttp524();
       case StatusCode.sslHandshakeFailedHttp525:
         return sslHandshakeFailedHttp525();
-      case StatusCode.invalidSslCertificateHttp526:
-        return invalidSslCertificateHttp526();
+      case StatusCode.invalidSSLCertificateHttp526:
+        return invalidSSLCertificateHttp526();
       case StatusCode.railgunErrorHttp527:
         return railgunErrorHttp527();
       case StatusCode.clientClosedConnectionHttp460:
@@ -1718,9 +1718,9 @@ extension StatusCodeFunctional on StatusCode {
     R Function()? webServerIsDownHttp521,
     R Function()? connectionTimedOutHttp522,
     R Function()? originIsUnreachableHttp523,
-    R Function()? aTimeoutOccurredHttp524,
+    R Function()? timeoutOccurredHttp524,
     R Function()? sslHandshakeFailedHttp525,
-    R Function()? invalidSslCertificateHttp526,
+    R Function()? invalidSSLCertificateHttp526,
     R Function()? railgunErrorHttp527,
     R Function()? clientClosedConnectionHttp460,
     R Function()? tooManyIpAddressesHttp463,
@@ -1900,12 +1900,12 @@ extension StatusCodeFunctional on StatusCode {
         return connectionTimedOutHttp522?.call() ?? orElse?.call();
       case StatusCode.originIsUnreachableHttp523:
         return originIsUnreachableHttp523?.call() ?? orElse?.call();
-      case StatusCode.aTimeoutOccurredHttp524:
-        return aTimeoutOccurredHttp524?.call() ?? orElse?.call();
+      case StatusCode.timeoutOccurredHttp524:
+        return timeoutOccurredHttp524?.call() ?? orElse?.call();
       case StatusCode.sslHandshakeFailedHttp525:
         return sslHandshakeFailedHttp525?.call() ?? orElse?.call();
-      case StatusCode.invalidSslCertificateHttp526:
-        return invalidSslCertificateHttp526?.call() ?? orElse?.call();
+      case StatusCode.invalidSSLCertificateHttp526:
+        return invalidSSLCertificateHttp526?.call() ?? orElse?.call();
       case StatusCode.railgunErrorHttp527:
         return railgunErrorHttp527?.call() ?? orElse?.call();
       case StatusCode.clientClosedConnectionHttp460:
@@ -2024,9 +2024,9 @@ extension StatusCodeConstFunctional on StatusCode {
     required R webServerIsDownHttp521,
     required R connectionTimedOutHttp522,
     required R originIsUnreachableHttp523,
-    required R aTimeoutOccurredHttp524,
+    required R timeoutOccurredHttp524,
     required R sslHandshakeFailedHttp525,
-    required R invalidSslCertificateHttp526,
+    required R invalidSSLCertificateHttp526,
     required R railgunErrorHttp527,
     required R clientClosedConnectionHttp460,
     required R tooManyIpAddressesHttp463,
@@ -2204,12 +2204,12 @@ extension StatusCodeConstFunctional on StatusCode {
         return connectionTimedOutHttp522;
       case StatusCode.originIsUnreachableHttp523:
         return originIsUnreachableHttp523;
-      case StatusCode.aTimeoutOccurredHttp524:
-        return aTimeoutOccurredHttp524;
+      case StatusCode.timeoutOccurredHttp524:
+        return timeoutOccurredHttp524;
       case StatusCode.sslHandshakeFailedHttp525:
         return sslHandshakeFailedHttp525;
-      case StatusCode.invalidSslCertificateHttp526:
-        return invalidSslCertificateHttp526;
+      case StatusCode.invalidSSLCertificateHttp526:
+        return invalidSSLCertificateHttp526;
       case StatusCode.railgunErrorHttp527:
         return railgunErrorHttp527;
       case StatusCode.clientClosedConnectionHttp460:
@@ -2323,9 +2323,9 @@ extension StatusCodeConstFunctional on StatusCode {
     R? webServerIsDownHttp521,
     R? connectionTimedOutHttp522,
     R? originIsUnreachableHttp523,
-    R? aTimeoutOccurredHttp524,
+    R? timeoutOccurredHttp524,
     R? sslHandshakeFailedHttp525,
-    R? invalidSslCertificateHttp526,
+    R? invalidSSLCertificateHttp526,
     R? railgunErrorHttp527,
     R? clientClosedConnectionHttp460,
     R? tooManyIpAddressesHttp463,
@@ -2503,12 +2503,12 @@ extension StatusCodeConstFunctional on StatusCode {
         return connectionTimedOutHttp522;
       case StatusCode.originIsUnreachableHttp523:
         return originIsUnreachableHttp523;
-      case StatusCode.aTimeoutOccurredHttp524:
-        return aTimeoutOccurredHttp524;
+      case StatusCode.timeoutOccurredHttp524:
+        return timeoutOccurredHttp524;
       case StatusCode.sslHandshakeFailedHttp525:
         return sslHandshakeFailedHttp525;
-      case StatusCode.invalidSslCertificateHttp526:
-        return invalidSslCertificateHttp526;
+      case StatusCode.invalidSSLCertificateHttp526:
+        return invalidSSLCertificateHttp526;
       case StatusCode.railgunErrorHttp527:
         return railgunErrorHttp527;
       case StatusCode.clientClosedConnectionHttp460:
