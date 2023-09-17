@@ -28,10 +28,10 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checks-out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.0.0
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
+        uses: dart-lang/setup-dart@v1.5.1
 
       - name: Install Dependencies
         run: dart pub get
