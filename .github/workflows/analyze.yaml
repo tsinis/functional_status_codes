@@ -30,7 +30,7 @@ jobs:
           fail: true
 
       - name: Check the spelling
-        uses: check-spelling/check-spelling@v0.0.21
+        uses: check-spelling/check-spelling@v0.0.22
         with:
           config: .github/workflows/actions_settings/check-spelling
           check_file_names: 1
