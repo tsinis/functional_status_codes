@@ -1,3 +1,14 @@
+## 2.1.0
+
+NEW FEATURE: Added new methods: a `Map<num, Object?>` like equivalent of `whenStatusCode` + `whenStatusCodeOrNull` methods - `whenConstStatusCode` and `whenConstStatusCodeOrNull`. Should be only used with a constant values (i.e. final, const). And `mapToRegisteredStatusCode` + `maybeMapToRegisteredStatusCode` - alternatives for a `mapStatusCode` that are trying to return a `StatusCode` object instead of `num` for further mapping with a specific registered status code. `StatusCode` now also exposes `RegExp regExp` static getter and `static const pattern` for your needs, also `tryParse` method now allow any `Object?` inputs (not limited to `String?` only anymore).
+
+- feat: added whenConstStatusCode
+- feat: added whenConstStatusCodeOrNull
+- feat: added mapToRegisteredStatusCode
+- feat: added maybeMapToRegisteredStatusCode
+- refactor: status code enum now exposes reg-exp and it's pattern
+- refactor: status code try-parse method allow any nullable object inputs
+
 ## 2.0.0
 
 NEW FEATURE: added 19 new common [unofficial status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes)

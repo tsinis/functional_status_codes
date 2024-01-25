@@ -1,16 +1,16 @@
 name: functional_status_codes_example
-description: A modified http package example with use of functional_status_codes
+description: A simple one and modified http package example with use of functional_status_codes
 publish_to: none
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: ^2.17.0
 
 dependencies:
   functional_status_codes:
     path: ../
-  http: ^0.13.5 # From Google
+  http: 0.13.5 # From Google
 
 dev_dependencies:
-  dart_code_metrics: ^5.7.6 # Flutter Favorite
-  lints: ^2.1.1 # From Google
-  test: ^1.24.6 # From Google
+  dart_code_metrics: 5.7.6 # Flutter Favorite
+  lints: 2.1.1 # From Google
+  test: 1.24.6 # From Google

@@ -701,9 +701,9 @@ enum StatusCode {
   /// status = StatusCode.tryParse("HTTP/1.1 OK");
   /// print(status); // Output: null
   /// ```
-  static StatusCode? tryParse(String? statusCode) {
+  static StatusCode? tryParse(Object? statusCode) {
     if (statusCode == null) return null;
-    final maybeCode = regExp.firstMatch(statusCode)?[0];
+    final maybeCode = regExp.firstMatch(statusCode.toString())?[0];
 
     return maybeCode == null ? null : maybeFromCode(num.tryParse(maybeCode));
   }
