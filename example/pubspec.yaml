@@ -11,6 +11,6 @@ dependencies:
   http: 0.13.5 # From Google
 
 dev_dependencies:
-  dart_code_metrics: 5.7.6 # Flutter Favorite
-  lints: 2.1.1 # From Google
-  test: 1.24.6 # From Google
+  dart_code_metrics: any # Flutter Favorite
+  lints: any # From Google
+  test: any # From Google
