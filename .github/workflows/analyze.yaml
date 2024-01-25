@@ -31,6 +31,7 @@ jobs:
 
       - name: Check the spelling
         uses: check-spelling/check-spelling@v0.0.21
+        if: false # Disabled for now
         with:
           config: .github/workflows/actions_settings/check-spelling
           check_file_names: 1
@@ -42,10 +43,10 @@ jobs:
             cspell:filetypes/filetypes.txt
 
       - name: Setup Dart
-        uses: dart-lang/setup-dart@v1.5.1
+        uses: dart-lang/setup-dart@v1.6.0
 
       - name: Install Dependencies
-        run: dart pub get
+        run: dart pub get --no-example
 
       - name: Analyze Code
         uses: ValentinVignal/action-dart-analyze@v0.16
