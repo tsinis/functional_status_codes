@@ -44,16 +44,13 @@ Use your favorite HTTP client libraries such as `http` or `dio` and take advanta
   var registeredCode = 160.toRegisteredStatusCode(); // Is null.
   registeredCode = 200.toRegisteredStatusCode(); // Is StatusCode.okHttp200.
   // Handle any type of registered status codes via functional methods:
-  registeredCode?.whenOrNull(
+  return registeredCode?.whenOrNull(
     okHttp200: () => print('ok'),
     // Includes all official IAN codes.
     badRequestHttp400: () => print('oh no!'),
     // Includes common unofficial codes too.
     unauthorizedHttp561: () => print('refresh token'),
   );
-
-  /// And much more in the [num?] based extensions and [StatusCode] enum.
-  return StatusCode.tryParse(args.join())?.code;
 ```
 
 ## Getting started
