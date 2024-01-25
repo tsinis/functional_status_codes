@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Pub package](https://img.shields.io/pub/v/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes)
 
-This pure Dart and and dependency-free package provides functionality for working with HTTP status codes in a functional programming style.
+This pure Dart, fully tested and and dependency-free package provides functionality for working with HTTP status codes in a functional programming style.
 
 ## Features
 
