@@ -19,7 +19,7 @@ dev_dependencies:
   coverage: 1.6.3 # From Google
   dart_code_metrics: 4.19.1 # Flutter Favorite
   lints: 2.1.1 # From Google
-  pana: 0.21.32 # From Google
+  pana: 0.21.19 # From Google
   test: 1.21.4 # From Google
 
 screenshots:
