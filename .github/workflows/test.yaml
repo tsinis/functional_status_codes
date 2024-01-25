@@ -40,7 +40,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          dart test --fail-fast --coverage=coverage
+          dart test --coverage=coverage
           dart run coverage:format_coverage -l -i coverage -o coverage/lcov.info --report-on=lib
 
       - name: Check Code Coverage
