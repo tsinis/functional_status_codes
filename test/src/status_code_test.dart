@@ -76,6 +76,11 @@ void main() => group('$StatusCode', () {
           ),
         );
 
+        test(
+          'should parse all kind of $Object-s',
+          () => expect(StatusCode.tryParse(100), isNotNull),
+        );
+
         for (final status in StatusCode.values) {
           test(
             'should return $status from "${status.reason}: ${status.code}."',

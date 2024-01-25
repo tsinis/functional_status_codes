@@ -1,4 +1,4 @@
-// Copyright (c) 2023, Roman Cinis. All rights reserved. Use of this source code
+// Copyright (c) 2024, Roman Cinis. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: format-comment, because of trailing dot at the end of URLs.
@@ -615,6 +615,55 @@ enum StatusCode {
   /// code or not.
   final bool isOfficial;
 
+  /// A regular expression pattern that matches three consecutive digits.
+  ///
+  /// This pattern is commonly used to identify HTTP status codes within a
+  /// string. HTTP status codes are typically 3-digit integers ranging from 100
+  /// to 599. The pattern is defined by the regular expression `\d{3}`, where
+  /// `\d` stands for any digit, and `{3}` specifies exactly three occurrences
+  /// of the digit.
+  ///
+  /// Examples of matching strings:
+  /// - '200' for OK
+  /// - '404' for Not Found
+  /// - '500' for Internal Server Error
+  ///
+  /// Note that this pattern does not validate the range of the status code and
+  /// will match any three-digit number. Additional checks should be implemented
+  /// if validation of the status code's range is required.
+  ///
+  /// See also:
+  /// - [RegExp], the class used to work with regular expressions in Dart.
+  /// - [StatusCode], which contains standard HTTP status codes.
+  static const pattern = r'\d{3}';
+
+  /// A getter that returns a [RegExp] object configured with a pattern to match
+  /// three consecutive digits, typically representing an HTTP status code.
+  ///
+  /// The matching is unanchored, meaning that this regular expression can find
+  /// matches anywhere in the input string. This allows for the extraction of
+  /// status codes from within larger bodies of text.
+  ///
+  /// The [pattern] is defined by the regular expression `\d{3}`, which matches
+  /// any sequence of exactly three digits.
+  ///
+  /// Example usage:
+  /// ```
+  /// // Assuming `inputString` contains an HTTP status code.
+  /// String? statusCode = regExp.firstMatch(inputString)?.group(0);
+  /// // `statusCode` will contain the first sequence of three digits found in `inputString`.
+  /// ```
+  ///
+  /// Note: While the regular expression matches any three-digit number, it does
+  /// not ascertain that the number is a valid HTTP status code. For such
+  /// validation, the matched number should be further checked against known
+  /// HTTP status code ranges via the tools that this package provides.
+  ///
+  /// See also:
+  /// - [pattern], the raw regular expression string this getter utilizes.
+  /// - [StatusCode], which contains standard HTTP status codes.
+  static RegExp get regExp => RegExp(pattern, caseSensitive: false);
+
   @override
   String toString() =>
       'StatusCode($code, reason: "$reason", isOfficial: $isOfficial)';
@@ -652,11 +701,9 @@ enum StatusCode {
   /// status = StatusCode.tryParse("HTTP/1.1 OK");
   /// print(status); // Output: null
   /// ```
-  static StatusCode? tryParse(String? statusCode) {
-    if (statusCode == null) {
-      return null;
-    }
-    final maybeCode = RegExp(r'\d{3}').firstMatch(statusCode)?[0];
+  static StatusCode? tryParse(Object? statusCode) {
+    if (statusCode == null) return null;
+    final maybeCode = regExp.firstMatch(statusCode.toString())?[0];
 
     return maybeCode == null ? null : maybeFromCode(num.tryParse(maybeCode));
   }

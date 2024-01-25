@@ -1,11 +1,27 @@
+import 'package:functional_status_codes/functional_status_codes.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
 // ignore: avoid_relative_lib_imports, to separate packages.
-import '../lib/functional_status_codes_example.dart' as example;
+import '../lib/main.dart' as example;
 
 void main() {
+  group('simple example', () {
+    test(
+      'with no status code in args',
+      () async => expect(await example.main(['simple']), isNull),
+    );
+
+    test(
+      'with a status code in args',
+      () async => expect(
+        await example.main(['simple', StatusCode.values.first.toString()]),
+        StatusCode.values.first.code,
+      ),
+    );
+  });
+
   group('http example', () {
     test(
       'with real client',
