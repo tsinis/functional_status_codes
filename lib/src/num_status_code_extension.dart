@@ -1,14 +1,15 @@
-// Copyright (c) 2023, Roman Cinis. All rights reserved. Use of this source code
+// Copyright (c) 2024, Roman Cinis. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: long-parameter-list
 import '../functional_status_codes.dart';
 
-/// Extension on `num?` types to provide additional functionality for working
+// ignore: prefer-static-class, for every extension here.
+const _outSideOfRangeMessage = 'Value is outside of 100-599 range';
+
+/// Extension on `num?` types to provide additional functionality when working
 /// with HTTP status codes.
 extension NumStatusCodeExtension<T extends num> on T? {
-  static const _outSideOfRangeMessage = 'Value is outside of 100-599 range';
-
   /// Converts the value to an integer if it exists, or returns `0` if it is
   /// `null`.
   int get _maybeThisInt => this?.toInt() ?? 0;
@@ -112,9 +113,8 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// HTTP status codes (100-599), a `FormatException` is thrown.
   ///
   /// If the value is within the range of informational HTTP status codes
-  /// (100-199), the `isInformational` function is called and its result is
-  /// returned. If the value is within the range of successful HTTP status codes
-  /// (200-299), the `isSuccess` function is called and its result is returned.
+  /// (100-599), the function is called according to that status and its result
+  ///  is returned.
   ///
   /// Example:
   /// ```dart
@@ -143,22 +143,11 @@ extension NumStatusCodeExtension<T extends num> on T? {
     if (thisValue == null) {
       throw FormatException('Null value provided!', thisValue);
     }
-    if (thisValue.isInformational) {
-      return isInformational(thisValue);
-    }
-    if (thisValue.isSuccess) {
-      return isSuccess(thisValue);
-    }
-    if (thisValue.isRedirection) {
-      return isRedirection(thisValue);
-    }
-    if (thisValue.isClientError) {
-      return isClientError(thisValue);
-    }
-    if (thisValue.isServerError) {
-      return isServerError(thisValue);
-    }
-
+    if (thisValue.isInformational) return isInformational(thisValue);
+    if (thisValue.isSuccess) return isSuccess(thisValue);
+    if (thisValue.isRedirection) return isRedirection(thisValue);
+    if (thisValue.isClientError) return isClientError(thisValue);
+    if (thisValue.isServerError) return isServerError(thisValue);
     throw FormatException(_outSideOfRangeMessage, thisValue);
   }
 
@@ -189,9 +178,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
     R Function(T isServerError)? isServerError,
   }) {
     final thisValue = this;
-    if (thisValue == null) {
-      return orElse(thisValue);
-    }
+    if (thisValue == null) return orElse(thisValue);
     if (thisValue.isStatusCode && isStatusCode != null) {
       return isStatusCode(thisValue);
     } else if (thisValue.isInformational && isInformational != null) {
@@ -284,22 +271,11 @@ extension NumStatusCodeExtension<T extends num> on T? {
       isStatusCode,
       '$_outSideOfRangeMessage. Consider using maybeWhenStatusCode() instead',
     );
-    if (this.isInformational) {
-      return isInformational();
-    }
-    if (this.isSuccess) {
-      return isSuccess();
-    }
-    if (this.isRedirection) {
-      return isRedirection();
-    }
-    if (this.isClientError) {
-      return isClientError();
-    }
-    if (this.isServerError) {
-      return isServerError();
-    }
-
+    if (this.isInformational) return isInformational();
+    if (this.isSuccess) return isSuccess();
+    if (this.isRedirection) return isRedirection();
+    if (this.isClientError) return isClientError();
+    if (this.isServerError) return isServerError();
     throw FormatException(_outSideOfRangeMessage, this);
   }
 
@@ -347,6 +323,184 @@ extension NumStatusCodeExtension<T extends num> on T? {
       return isServerError();
     } else {
       return orElse?.call();
+    }
+  }
+}
+
+/// Extension on `num?` types to provide additional immutable functionality when
+/// working with HTTP status codes.
+extension NumStatusCodeConstExtension<T extends num> on T? {
+  /// A [Map<num, Object?>] like equivalent of `whenStatusCode` method.
+  /// Should be only used with a immutable values (for example `final` `const`).
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// const statusCode = 200;
+  /// final result = statusCode.whenConstStatusCode(
+  ///   okHttp200: 'Success',
+  ///   ...
+  ///   badRequestHttp400: 'Bad request',
+  /// );
+  /// print(result); // prints 'Success'
+  /// ```
+  R whenConstStatusCode<R>({
+    required R isInformational,
+    required R isSuccess,
+    required R isRedirection,
+    required R isClientError,
+    required R isServerError,
+  }) {
+    assert(
+      isStatusCode,
+      '''$_outSideOfRangeMessage. Consider using whenConstStatusCodeOrNull() instead''',
+    );
+    if (this.isInformational) return isInformational;
+    if (this.isSuccess) return isSuccess;
+    if (this.isRedirection) return isRedirection;
+    if (this.isClientError) return isClientError;
+    if (this.isServerError) return isServerError;
+    throw FormatException(_outSideOfRangeMessage, this);
+  }
+
+  /// A [Map<num, Object?>] like equivalent of `whenStatusCodeOrNull` method.
+  /// Should be only used with a immutable values (for example `final` `const`).
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// const statusCode = 200;
+  /// final result = statusCode.whenConstStatusCodeOrNull(
+  ///   okHttp200: 'Success',
+  ///   ...
+  ///   badRequestHttp400: 'Bad request',
+  /// );
+  /// print(result); // prints 'Success'
+  /// ```
+  R? whenConstStatusCodeOrNull<R>({
+    R? isStatusCode,
+    R? isInformational,
+    R? isSuccess,
+    R? isRedirection,
+    R? isClientError,
+    R? isServerError,
+    R? orElse,
+  }) {
+    if (this.isStatusCode && isStatusCode != null) {
+      return isStatusCode;
+    } else if (this.isInformational && isInformational != null) {
+      return isInformational;
+    } else if (this.isSuccess && isSuccess != null) {
+      return isSuccess;
+    } else if (this.isRedirection && isRedirection != null) {
+      return isRedirection;
+    } else if (this.isClientError && isClientError != null) {
+      return isClientError;
+    } else if (this.isServerError && isServerError != null) {
+      return isServerError;
+    } else {
+      return orElse;
+    }
+  }
+}
+
+/// Extension on `num?` types to provide additional immutable functionality when
+/// working with HTTP status codes.
+extension NumStatusCodeMapExtension<T extends num> on T? {
+  /// Maps the value to a new value based on its classification as an HTTP
+  /// status code.
+  ///
+  /// If the value is `null`, or if the value is not within the range of valid
+  /// HTTP status codes (100-599), a `FormatException` is thrown.
+  ///
+  /// If the value is within the range of informational HTTP status codes
+  /// (100-599), the function is called according to that registered status
+  /// and its result is returned.
+  ///
+  /// Example:
+  /// ```dart
+  ///   final statusCode = 200;
+  ///   final mappedStatus = statusCode.mapToRegisteredStatusCode(
+  ///     isInformational: (code) => '$code',
+  ///     isSuccess: (code) => '$code',
+  ///     isRedirection: (code) => '$code',
+  ///     isClientError: (code) => '$code',
+  ///     isServerError: (code) => '$code',
+  ///   );
+  ///   print(mappedStatus); //'StatusCode(200, reason: "OK", isOfficial: true)'
+  /// ```
+  R mapToRegisteredStatusCode<R>({
+    required R Function(StatusCode? informationalStatusCode) isInformational,
+    required R Function(StatusCode? successStatusCode) isSuccess,
+    required R Function(StatusCode? redirectionStatusCode) isRedirection,
+    required R Function(StatusCode? clientErrorStatusCode) isClientError,
+    required R Function(StatusCode? serverErrorStatusCode) isServerError,
+  }) {
+    assert(
+      isStatusCode,
+      '''$_outSideOfRangeMessage. Consider using maybeMapToRegisteredStatusCode() instead''',
+    );
+    final thisValue = this;
+    if (thisValue == null) {
+      throw FormatException('Null value provided!', thisValue);
+    }
+    final registeredStatusCode = thisValue.toRegisteredStatusCode();
+    if (thisValue.isInformational) return isInformational(registeredStatusCode);
+    if (thisValue.isSuccess) return isSuccess(registeredStatusCode);
+    if (thisValue.isRedirection) return isRedirection(registeredStatusCode);
+    if (thisValue.isClientError) return isClientError(registeredStatusCode);
+    if (thisValue.isServerError) return isServerError(registeredStatusCode);
+
+    throw FormatException(_outSideOfRangeMessage, thisValue);
+  }
+
+  /// If the `num?` value is a valid HTTP status code, maps it to a result using
+  /// the provided functions. If the value is not a valid HTTP status code,
+  /// returns the result of calling `orElse`.
+  ///
+  /// If the value is within the range of informational HTTP status codes
+  /// (100-599), the function is called according to that registered status
+  /// and its result is returned.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  ///   final statusCode = 200;
+  ///   final mappedStatus = statusCode.maybeMapToRegisteredStatusCode(
+  ///     isInformational: (code) => '$code',
+  ///     isSuccess: (code) => '$code',
+  ///     isRedirection: (code) => '$code',
+  ///     isClientError: (code) => '$code',
+  ///     orElse: (code, _) => '$code',
+  ///   );
+  ///   print(mappedStatus); //'StatusCode(200, reason: "OK", isOfficial: true)'
+  /// ```
+  R maybeMapToRegisteredStatusCode<R>({
+    required R Function(StatusCode? elseStatusCode, T? number) orElse,
+    R Function(StatusCode? statusCode)? isStatusCode,
+    R Function(StatusCode? informationalStatusCode)? isInformational,
+    R Function(StatusCode? successStatusCode)? isSuccess,
+    R Function(StatusCode? redirectionStatusCode)? isRedirection,
+    R Function(StatusCode? clientErrorStatusCode)? isClientError,
+    R Function(StatusCode? serverErrorStatusCode)? isServerError,
+  }) {
+    final thisValue = this;
+    final registeredStatusCode = thisValue.toRegisteredStatusCode();
+    if (thisValue == null) return orElse(registeredStatusCode, thisValue);
+    if (thisValue.isStatusCode && isStatusCode != null) {
+      return isStatusCode(registeredStatusCode);
+    } else if (thisValue.isInformational && isInformational != null) {
+      return isInformational(registeredStatusCode);
+    } else if (thisValue.isSuccess && isSuccess != null) {
+      return isSuccess(registeredStatusCode);
+    } else if (thisValue.isRedirection && isRedirection != null) {
+      return isRedirection(registeredStatusCode);
+    } else if (thisValue.isClientError && isClientError != null) {
+      return isClientError(registeredStatusCode);
+    } else if (thisValue.isServerError && isServerError != null) {
+      return isServerError(registeredStatusCode);
+    } else {
+      return orElse(registeredStatusCode, thisValue);
     }
   }
 }

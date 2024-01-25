@@ -10,6 +10,7 @@ void main() => group('NumStatusCodeExtension', () {
         StatusCode.badRequestHttp400,
         StatusCode.internalServerErrorHttp500,
       };
+
       const elseValue = -1;
       final testValue = basicCodes.first.code;
       final globalWrongCases = [
@@ -330,7 +331,7 @@ void main() => group('NumStatusCodeExtension', () {
       });
 
       group('whenStatusCode', () {
-        int whenWhenCode(num? number) => number.whenStatusCode(
+        int whenCode(num? number) => number.whenStatusCode(
               isInformational: () => StatusCode.continueHttp100.code,
               isSuccess: () => StatusCode.okHttp200.code,
               isRedirection: () => StatusCode.multipleChoicesHttp300.code,
@@ -342,7 +343,7 @@ void main() => group('NumStatusCodeExtension', () {
           test(
             'should throw $FormatException for $number',
             () => expect(
-              () => whenWhenCode(number),
+              () => whenCode(number),
               throwsA(const TypeMatcher<AssertionError>()),
             ),
           );
@@ -351,7 +352,7 @@ void main() => group('NumStatusCodeExtension', () {
         for (final status in basicCodes) {
           test(
             'should return proper value for ${status.code} status code',
-            () => expect(whenWhenCode(status.code), status.code),
+            () => expect(whenCode(status.code), status.code),
           );
         }
       });
@@ -387,5 +388,233 @@ void main() => group('NumStatusCodeExtension', () {
             testValue,
           ),
         );
+      });
+
+      group('whenConstStatusCodeOrNull', () {
+        int? whenConstCodeOrNull(num? numb) => numb.whenConstStatusCodeOrNull(
+              isInformational: StatusCode.continueHttp100.code,
+              isSuccess: StatusCode.okHttp200.code,
+              isRedirection: StatusCode.multipleChoicesHttp300.code,
+              isClientError: StatusCode.badRequestHttp400.code,
+              isServerError: StatusCode.internalServerErrorHttp500.code,
+              orElse: elseValue,
+            );
+
+        test(
+          'common test for null',
+          () => expect(200.whenConstStatusCodeOrNull<Object?>(), isNull),
+        );
+
+        test(
+          'common test for out of range',
+          () => expect(
+            1.whenConstStatusCodeOrNull(isStatusCode: false, orElse: true),
+            isTrue,
+          ),
+        );
+
+        test(
+          'common test for orElse',
+          () => expect(200.whenConstStatusCodeOrNull(orElse: true), isTrue),
+        );
+
+        test(
+          'common test for orElse and value',
+          () => expect(
+            200.whenConstStatusCodeOrNull(isSuccess: true, orElse: false),
+            isTrue,
+          ),
+        );
+
+        test(
+          'common test for orElse and isStatusCode',
+          () => expect(
+            200.whenConstStatusCodeOrNull(isStatusCode: true, orElse: false),
+            isTrue,
+          ),
+        );
+
+        for (final number in globalWrongCases) {
+          test(
+            'should return orElse value for $number',
+            () => expect(whenConstCodeOrNull(number), elseValue),
+          );
+        }
+
+        for (final status in basicCodes) {
+          test(
+            'should return proper value for ${status.code} status code',
+            () => expect(whenConstCodeOrNull(status.code), status.code),
+          );
+        }
+
+        test(
+          'should return proper value for $testValue status code',
+          () => expect(
+            testValue.whenConstStatusCodeOrNull(isStatusCode: testValue),
+            testValue,
+          ),
+        );
+      });
+
+      group('whenConstStatusCode', () {
+        int whenConstCode(num? number) => number.whenConstStatusCode(
+              isInformational: StatusCode.continueHttp100.code,
+              isSuccess: StatusCode.okHttp200.code,
+              isRedirection: StatusCode.multipleChoicesHttp300.code,
+              isClientError: StatusCode.badRequestHttp400.code,
+              isServerError: StatusCode.internalServerErrorHttp500.code,
+            );
+
+        for (final number in globalWrongCases) {
+          test(
+            'should throw $FormatException for $number',
+            () => expect(
+              () => whenConstCode(number),
+              throwsA(const TypeMatcher<AssertionError>()),
+            ),
+          );
+        }
+
+        for (final status in basicCodes) {
+          test(
+            'should return proper value for ${status.code} status code',
+            () => expect(whenConstCode(status.code), status.code),
+          );
+        }
+      });
+
+      group('mapToRegisteredStatusCode', () {
+        StatusCode? mapRegisteredCode(num? number) =>
+            number.mapToRegisteredStatusCode(
+              isInformational: (value) => value,
+              isSuccess: (value) => value,
+              isRedirection: (value) => value,
+              isClientError: (value) => value,
+              isServerError: (value) => value,
+            );
+
+        for (final number in globalWrongCases) {
+          test(
+            'should throw $FormatException for $number',
+            () => expect(
+              () => mapRegisteredCode(number),
+              throwsA(const TypeMatcher<AssertionError>()),
+            ),
+          );
+        }
+
+        test(
+          'should return $double value of status code if provided as $double',
+          () {
+            final doubleCode = testValue.toDouble();
+            final result = mapRegisteredCode(doubleCode);
+            expect(result, basicCodes.first);
+            expect(result, isA<StatusCode>());
+          },
+        );
+
+        for (final status in basicCodes) {
+          test(
+            'should return $int value of ${status.code} status code',
+            () {
+              final result = mapRegisteredCode(status.code);
+              expect(result, status);
+              expect(result, isA<StatusCode>());
+            },
+          );
+        }
+      });
+
+      group('maybeMapToRegisteredStatusCode', () {
+        StatusCode? maybeMapToRegisteredCode(num? numb) =>
+            numb.maybeMapToRegisteredStatusCode(
+              isInformational: (value) => value,
+              isSuccess: (value) => value,
+              isRedirection: (value) => value,
+              isClientError: (value) => value,
+              isServerError: (value) => value,
+              orElse: (value, _) => value,
+            );
+
+        test(
+          'common test for null',
+          () => expect(
+            200.maybeMapToRegisteredStatusCode(orElse: (_, __) => true),
+            isTrue,
+          ),
+        );
+
+        test(
+          'common test for out of range',
+          () => expect(
+            1.maybeMapToRegisteredStatusCode(
+              orElse: (_, __) => true,
+              isStatusCode: (_) => false,
+            ),
+            isTrue,
+          ),
+        );
+
+        test(
+          'common test for orElse and value',
+          () => expect(
+            200.maybeMapToRegisteredStatusCode(
+              orElse: (_, __) => false,
+              isSuccess: (_) => true,
+            ),
+            isTrue,
+          ),
+        );
+
+        test(
+          'common test for orElse and isStatusCode',
+          () => expect(
+            200.maybeMapToRegisteredStatusCode(
+              orElse: (_, __) => false,
+              isStatusCode: (_) => true,
+            ),
+            isTrue,
+          ),
+        );
+
+        for (final number in globalWrongCases) {
+          test(
+            'should return orElse value for $number',
+            () => expect(maybeMapToRegisteredCode(number), isNull),
+          );
+        }
+
+        test(
+          'should return proper value for $testValue status code',
+          () => expect(
+            testValue.maybeMapToRegisteredStatusCode(
+              isStatusCode: (value) => value,
+              orElse: (value, _) => value,
+            ),
+            basicCodes.first,
+          ),
+        );
+
+        test(
+          'should return $double value of status code if provided as $double',
+          () {
+            final doubleCode = testValue.toDouble();
+            final result = maybeMapToRegisteredCode(doubleCode);
+            expect(result, basicCodes.first);
+            expect(result, isA<StatusCode>());
+          },
+        );
+
+        for (final status in basicCodes) {
+          test(
+            'should return $int value of ${status.code} status code',
+            () {
+              final result = maybeMapToRegisteredCode(status.code);
+              expect(result, status);
+              expect(result, isA<StatusCode>());
+            },
+          );
+        }
       });
     });
