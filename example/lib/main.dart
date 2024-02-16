@@ -10,17 +10,17 @@ Future<int?> main(List<String> args, [http.Client? client]) =>
 
 /// Run with `dart run lib/main.dart --simple` command from the example folder.
 Future<int?> _simple(List<String> args) async {
-  /// Checks if status code is >=200 & <299.
+  /// Checks if status code is >=200 & <=299.
   print(105.isSuccess); // Prints false.
   print(200.isSuccess); // Prints true.
 
   /// Prints true in all those cases.
-  print(105.isInformational); // Prints true, when status code is >=100 & <199.
-  print(300.isRedirection); // Prints true, when status code is >=300 & <399.
-  print(404.isClientError); // Prints true, when status code is >=400 & <499.
-  print(501.isServerError); // Prints true, when status code is >=500 & <599.
+  print(105.isInformational); // Prints true, when status code is >=100 & <=199.
+  print(300.isRedirection); // Prints true, when status code is >=300 & <=399.
+  print(404.isClientError); // Prints true, when status code is >=400 & <=499.
+  print(501.isServerError); // Prints true, when status code is >=500 & <=599.
 
-  /// Checks if status code is >=100 & <600.
+  /// Checks if status code is >=100 & <=600.
   print(16.isStatusCode); // Prints false.
   print(160.isStatusCode); // Prints true.
 

@@ -1,3 +1,10 @@
+## 2.2.0
+
+This release provides extended README documentation with a link to Zapp playground where you can play with a package in a DartPad like environment.
+
+- docs: improve and provide zapp link in the readme
+- chore(deps): update ci dependencies
+
 ## 2.1.0
 
 NEW FEATURE: Added new methods: a `Map<num, Object?>` like equivalent of `whenStatusCode` + `whenStatusCodeOrNull` methods - `whenConstStatusCode` and `whenConstStatusCodeOrNull`. Should be only used with a constant values (i.e. final, const). And `mapToRegisteredStatusCode` + `maybeMapToRegisteredStatusCode` - alternatives for a `mapStatusCode` that are trying to return a `StatusCode` object instead of `num` for further mapping with a specific registered status code. `StatusCode` now also exposes `RegExp regExp` static getter and `static const pattern` for your needs, also `tryParse` method now allow any `Object?` inputs (not limited to `String?` only anymore).
