@@ -8,7 +8,7 @@ environment:
 dependencies:
   functional_status_codes:
     path: ../
-  http: 0.13.5 # From Google
+  http: any # From Google
 
 dev_dependencies:
   dart_code_metrics: any # Flutter Favorite
