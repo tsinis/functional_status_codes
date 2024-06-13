@@ -14,6 +14,55 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// `null`.
   int get _maybeThisInt => this?.toInt() ?? 0;
 
+  /// Checks if the numeric status code is within a specified range.
+  ///
+  /// This method allows you to specify a range (inclusive) and checks if the
+  /// numeric value of the status code falls within this range. By default, the
+  /// range is set to valid HTTP status codes (100-599).
+  ///
+  /// - `min`: The minimum value of the range. Defaults to 100.
+  /// - `max`: The maximum value of the range. Defaults to 599.
+  ///
+  /// Returns `true` if the status code is within the specified range,
+  /// `false` otherwise.
+  ///
+  /// Example:
+  /// ```dart
+  /// print(200.isStatusCodeWithinRange()); // true
+  /// print(600.isStatusCodeWithinRange()); // false
+  /// print(300.isStatusCodeWithinRange(min: 200, max: 400)); // true
+  /// ```
+  bool isStatusCodeWithinRange({int min = 100, int max = 599}) =>
+      _maybeThisInt >= min && _maybeThisInt <= max;
+
+  /// Checks if the status code is within a specified range defined by
+  /// `StatusCode` enum values.
+  ///
+  /// This method is similar to `isStatusCodeWithinRange` but uses `StatusCode`
+  /// enum values to define the range. It is useful when working with specific
+  /// HTTP status codes defined in the `StatusCode` enum.
+  ///
+  /// - `min`: The `StatusCode` representing the minimum value of the range.
+  ///   Defaults to `StatusCode.continueHttp100`.
+  /// - `max`: The `StatusCode` representing the maximum value of the range.
+  ///   Defaults to `StatusCode.networkConnectTimeoutErrorHttp599`.
+  ///
+  /// Returns `true` if the status code is within the specified range,
+  /// `false` otherwise.
+  ///
+  /// Example:
+  /// ```dart
+  /// print(200.isStatusWithinRange()); // true
+  /// print(600.isStatusWithinRange()); // false
+  /// print(150.isStatusWithinRange(min: StatusCode.continueHttp100,
+  /// max: StatusCode.switchingProtocolsHttp101)); // false
+  /// ```
+  bool isStatusWithinRange({
+    StatusCode min = StatusCode.continueHttp100,
+    StatusCode max = StatusCode.networkConnectTimeoutErrorHttp599,
+  }) =>
+      isStatusCodeWithinRange(min: min.code, max: max.code);
+
   /// Returns `true` if the value is within the range of valid HTTP status codes
   /// (100-599), `false` otherwise.
   ///
@@ -24,9 +73,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// print(599.0.isStatusCode); // true
   /// print(600.isStatusCode); // false
   /// ```
-  bool get isStatusCode =>
-      _maybeThisInt >= StatusCode.values.first.code &&
-      _maybeThisInt <= StatusCode.values.last.code;
+  bool get isStatusCode => isStatusWithinRange();
 
   /// Returns `true` if the value is within the range of informational HTTP
   /// status codes (100-199), `false` otherwise.
@@ -37,9 +84,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// print(100.isInformational); // true
   /// print(200.isInformational); // false
   /// ```
-  bool get isInformational =>
-      _maybeThisInt >= StatusCode.continueHttp100.code &&
-      _maybeThisInt < StatusCode.okHttp200.code;
+  bool get isInformational => isStatusCodeWithinRange(max: 199);
 
   /// Returns `true` if the value is within the range of successful HTTP status
   /// codes (200-299), `false` otherwise.
@@ -50,9 +95,10 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// print(200.isSuccess); // true
   /// print(300.isSuccess); // false
   /// ```
-  bool get isSuccess =>
-      _maybeThisInt >= StatusCode.okHttp200.code &&
-      _maybeThisInt < StatusCode.multipleChoicesHttp300.code;
+  bool get isSuccess => isStatusCodeWithinRange(
+        min: StatusCode.okHttp200.code,
+        max: StatusCode.multipleChoicesHttp300.code - 1,
+      );
 
   /// Returns `true` if the value is within the range of redirection HTTP status
   /// codes (300-399), `false` otherwise.
@@ -63,9 +109,10 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// print(300.isRedirection); // true
   /// print(400.isRedirection); // false
   /// ```
-  bool get isRedirection =>
-      _maybeThisInt >= StatusCode.multipleChoicesHttp300.code &&
-      _maybeThisInt < StatusCode.badRequestHttp400.code;
+  bool get isRedirection => isStatusCodeWithinRange(
+        min: StatusCode.multipleChoicesHttp300.code,
+        max: StatusCode.badRequestHttp400.code - 1,
+      );
 
   /// Returns `true` if the value is within the range of client error HTTP
   /// status codes (400-499), `false` otherwise.
@@ -76,9 +123,10 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// print(400.isClientError); // true
   /// print(500.isClientError); // false
   /// ```
-  bool get isClientError =>
-      _maybeThisInt >= StatusCode.badRequestHttp400.code &&
-      _maybeThisInt < StatusCode.internalServerErrorHttp500.code;
+  bool get isClientError => isStatusWithinRange(
+        min: StatusCode.badRequestHttp400,
+        max: StatusCode.nginxClientClosedRequestHttp499,
+      );
 
   /// Returns `true` if the value is within the range of server error HTTP
   /// status codes (500-599), `false` otherwise.
@@ -90,8 +138,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// print(600.isServerError); // false
   /// ```
   bool get isServerError =>
-      _maybeThisInt >= StatusCode.internalServerErrorHttp500.code &&
-      _maybeThisInt <= StatusCode.networkConnectTimeoutErrorHttp599.code;
+      isStatusWithinRange(min: StatusCode.internalServerErrorHttp500);
 
   /// Converts the `num?` value to a `StatusCode` if it exists within the range
   /// of valid HTTP status codes (100-599), or returns `null` if it is outside
