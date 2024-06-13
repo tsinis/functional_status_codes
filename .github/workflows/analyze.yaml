@@ -77,5 +77,8 @@ jobs:
           exit 1
           fi
 
+      - name: 🛂 Set up file system write permissions
+        run: sudo chown -R runner:runner $(pwd) && sudo chmod -R 777 $(pwd)
+
       - name: Dart Code Metrics
         run: dart run dart_code_metrics:metrics --disable-sunset-warning --fatal-style --fatal-performance --fatal-warnings --reporter=github lib test example
