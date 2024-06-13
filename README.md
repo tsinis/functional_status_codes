@@ -38,7 +38,16 @@ Use your favorite HTTP client libraries such as `http` or `dio` and take advanta
   print(404.isClientError); // Prints true, when status code is >=400 & <=499.
   print(501.isServerError); // Prints true, when status code is >=500 & <=599.
 
-  /// Checks if status code is >=100 & <=600.
+  /// Range checks with `num?` based codes.
+  print(140.isStatusCodeWithinRange(min: 101, max: 140)); // Prints true.
+  print(
+    104.isStatusWithinRange(
+      min: StatusCode.switchingProtocolsHttp101,
+      max: StatusCode.earlyHintsHttp103,
+    ),
+  ); // Prints false.
+
+  /// Checks if status code is >=100 & <=599.
   print(16.isStatusCode); // Prints false.
   print(160.isStatusCode); // Prints true.
 
