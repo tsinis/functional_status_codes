@@ -24,6 +24,49 @@ void main() => group('NumStatusCodeExtension', () {
         StatusCode.values.last.code + 1,
       ];
 
+      group('isStatusCodeWithinRange', () {
+        test('should return true for status code within default range', () {
+          expect(200.isStatusCodeWithinRange(), isTrue);
+          for (final status in basicCodes) {
+            expect(status.code.isStatusCodeWithinRange(), isTrue);
+          }
+        });
+
+        test('should return false for status code outside default range', () {
+          expect(150.isStatusCodeWithinRange(min: 200, max: 300), isFalse);
+          expect(350.isStatusCodeWithinRange(min: 200, max: 300), isFalse);
+          for (final statusCode in globalWrongCases) {
+            expect(statusCode.isStatusCodeWithinRange(), isFalse);
+          }
+        });
+
+        test('should handle custom ranges correctly', () {
+          expect(250.isStatusCodeWithinRange(min: 200, max: 300), isTrue);
+        });
+      });
+
+      group('isStatusWithinRange', () {
+        test('should return true for status code within range', () {
+          expect(150.isStatusWithinRange(max: StatusCode.okHttp200), isTrue);
+          for (final status in basicCodes) {
+            expect(status.code.isStatusWithinRange(), isTrue);
+          }
+        });
+
+        test('should return false for status code outside range', () {
+          expect(99.isStatusWithinRange(max: StatusCode.okHttp200), isFalse);
+          expect(201.isStatusWithinRange(max: StatusCode.okHttp200), isFalse);
+          for (final statusCode in globalWrongCases) {
+            expect(statusCode.isStatusWithinRange(), isFalse);
+          }
+        });
+
+        test('Edge cases - min and max of range', () {
+          expect(100.isStatusWithinRange(max: StatusCode.okHttp200), isTrue);
+          expect(200.isStatusWithinRange(max: StatusCode.okHttp200), isTrue);
+        });
+      });
+
       group('isStatusCode', () {
         final codeErrorTrueCases = {
           StatusCode.continueHttp100.code,

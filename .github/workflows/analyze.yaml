@@ -19,10 +19,10 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checks-out repository
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.6
 
       - name: Link Checker
-        uses: lycheeverse/lychee-action@v1.9.3
+        uses: lycheeverse/lychee-action@v1.10.0
         with:
           args: --verbose --no-progress './**/*.md' './**/*.html' './**/*.dart'
           format: markdown
@@ -76,6 +76,9 @@ jobs:
           echo Score too low!
           exit 1
           fi
+
+      - name: 🛂 Set up file system write permissions
+        run: sudo chown -R runner:runner $(pwd) && sudo chmod -R 777 $(pwd)
 
       - name: Dart Code Metrics
         run: dart run dart_code_metrics:metrics --disable-sunset-warning --fatal-style --fatal-performance --fatal-warnings --reporter=github lib test example
