@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checks-out repository
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.6
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1.6.0
@@ -50,7 +50,7 @@ jobs:
           exclude: "**/*.g.dart"
 
       - name: Upload Code Coverage
-        uses: codecov/codecov-action@v4.3.0
+        uses: codecov/codecov-action@v4.4.1
         with:
           file: ./coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}

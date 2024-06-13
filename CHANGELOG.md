@@ -1,3 +1,9 @@
+## 2.3.0
+
+NEW FEATURE: Added two new methods `isStatusCodeWithinRange` method to `num?` type, allowing for easy checking if a number falls within a specified range and `isStatusWithinRange` method, similar to the `isStatusCodeWithinRange` but leveraging the `StatusCode` enum to define range.
+
+- feat: add is-status(code)within-range methods
+
 ## 2.2.0
 
 This release provides extended README documentation with a link to Zapp playground where you can play with a package in a DartPad like environment.
