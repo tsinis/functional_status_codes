@@ -84,7 +84,8 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// print(100.isInformational); // true
   /// print(200.isInformational); // false
   /// ```
-  bool get isInformational => isStatusCodeWithinRange(max: 199);
+  bool get isInformational =>
+      isStatusCodeWithinRange(max: StatusCode.okHttp200.code - 1);
 
   /// Returns `true` if the value is within the range of successful HTTP status
   /// codes (200-299), `false` otherwise.
