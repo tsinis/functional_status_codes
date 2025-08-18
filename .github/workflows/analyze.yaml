@@ -19,10 +19,10 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checks-out repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
 
       - name: Link Checker
-        uses: lycheeverse/lychee-action@v2.4.0
+        uses: lycheeverse/lychee-action@v2.5.0
         with:
           args: --verbose --no-progress './**/*.md' './**/*.html' './**/*.dart'
           format: markdown
@@ -49,7 +49,7 @@ jobs:
         run: dart pub get --no-example
 
       - name: Analyze Code
-        uses: ValentinVignal/action-dart-analyze@v0.17
+        uses: ValentinVignal/action-dart-analyze@v1.1
         with:
           fail-on: 'format'
           token: ${{ secrets.GITHUB_TOKEN }}
