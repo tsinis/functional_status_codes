@@ -1,4 +1,5 @@
-// ignore_for_file: avoid_print, avoid-unused-parameters, prefer-static-class
+// ignore_for_file: avoid_print, avoid-unused-parameters, prefer-static-class,
+// ignore_for_file: prefer-extracting-function-callbacks
 
 import 'dart:convert' as convert;
 
@@ -9,6 +10,7 @@ Future<int?> main(List<String> args, [http.Client? client]) =>
     args.join().contains('simple') ? _simple(args) : _realClient(args, client);
 
 /// Run with `dart run lib/main.dart --simple` command from the example folder.
+// ignore: avoid-unnecessary-futures, just an example.
 Future<int?> _simple(List<String> args) async {
   /// Checks if status code is >=200 & <=299.
   print(105.isSuccess); // Prints false.
@@ -124,5 +126,5 @@ Future<int?> _realClient(List<String> arguments, [http.Client? client]) async {
   }
 
 // If the status code is not a valid HTTP status code, return null.
-  return null;
+  return null; // ignore: prefer-returning-conditional-expressions, it's example.
 }

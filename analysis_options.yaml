@@ -420,7 +420,7 @@ linter:
     omit_obvious_local_variable_types: false # Conflicts with: omit_local_variable_types and prefer-type-over-var.
     omit_obvious_property_types: false # Conflicts with: type_annotate_public_apis.
     prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
-    prefer_single_quotes: false # Conflicts with: prefer_double_quotes.
+    prefer_double_quotes: false # Conflicts with: prefer_single_quotes.
     specify_nonobvious_local_variable_types: false # Conflicts with: avoid-explicit-type-declaration.
     unnecessary_final: false # Conflicts with: prefer_final_locals.
     unnecessary_library_name: false # To prevent breaking changes for those who use this libs.
@@ -545,7 +545,7 @@ linter:
     prefer_const_literals_to_create_immutables: true
     prefer_constructors_over_static_methods: true
     prefer_contains: true
-    prefer_double_quotes: true
+    prefer_single_quotes: true
     prefer_equal_for_default_values: true
     prefer_expression_function_bodies: true
     prefer_final_fields: true
