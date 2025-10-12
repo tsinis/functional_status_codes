@@ -1,19 +1,7 @@
-include: package:lints/recommended.yaml
-
 analyzer:
   exclude:
-    # Web
-    - "web/**"
     # Build
     - "build/**"
-    # Generated code
-    # - "lib/**/*.g.dart"
-    # Assets
-    - "assets/**"
-    # Mocks for test
-    - "**/*.mocks.dart"
-    # Coverage
-    - "test/.test_coverage.dart"
 
   language:
     strict-casts: true
@@ -44,9 +32,14 @@ analyzer:
     - dart_code_metrics
 
 dart_code_metrics:
-  anti-patterns:
-    - long-method
-    - long-parameter-list
+  exclude:
+    dependencies:
+      - example/pubspec.yaml
+    metrics:
+      - "**/test/**"
+      - "**/example/**"
+  extends:
+    - package:dart_code_metrics_presets/dart_all.yaml
   metrics:
     cyclomatic-complexity: 24
     maximum-nesting-level: 5
@@ -54,16 +47,66 @@ dart_code_metrics:
     source-lines-of-code: 60
   metrics-exclude:
     - test/**
+    - example/**
   rules:
+    # Disabled:
+    - arguments-ordering: false # This will be a breaking change.
+    - avoid-adjacent-strings: false # It's not being used on one line strings.
+    - avoid-collection-mutating-methods: false # Mostly false positives.
+    - avoid-constant-conditions: false # A lot of false positives (e.g. outside of tests).
+    - avoid-continue: false # Just a matter of style.
+    - avoid-default-tostring: false # Doesn't make sense here.
+    - avoid-deprecated-usage: false # Using default deprecated_member_use_from_same_package.
+    - avoid-duplicate-collection-elements: false # They are being used on purpose.
+    - avoid-ignoring-return-values: false # Mostly, collection methods are ignored.
+    - avoid-inferrable-type-arguments: false # Against prefer-explicit-type-arguments.
+    - avoid-long-files: false # A lot of data and collections.
+    - avoid-nullable-interpolation: false # Doesn't work for toString() methods.
+    - avoid-unnecessary-nullable-fields: false # Fields could be nullable + has default values.
+    - avoid-unsafe-collection-methods: false # They are being used on purpose.
+    - enum-constants-ordering: false # This might be a breaking change.
+    - match-getter-setter-field-names: false # Most of those are just aliases.
+    - max-imports: false # Sadly not very suitable for the packages.
+    - no-empty-string: false # This will be a breaking change.
+    - no-equal-arguments: false # Not our use-case here.
+    - no-magic-number: false # Packages contain a lot of numbers.
+    - no-magic-string: false # Packages contain a lot of strings.
+    - parameters-ordering: false # This will be a breaking change.
+    - prefer-test-structure: false # Matter of style.
+    - prefer-boolean-prefixes: false # This will be a breaking change.
+    - prefer-correct-throws: false # No DCM annotations or Meta in Dart packages.
+    - prefer-explicit-parameter-names: false # This will be dev. defined.
+    - prefer-prefixed-global-constants: false # This will be a breaking change.
+    - prefer-test-matchers: false # Matter of style + introduces coupling in tests.
+    # Enabled:
+    - avoid-high-cyclomatic-complexity:
+        threshold: 40
+    - avoid-long-functions:
+        exclude:
+          - "**/**_test.dart"
+    - prefer-named-parameters:
+        max-number: 3
     - avoid-nested-conditional-expressions:
-      acceptable-level: 2
+        acceptable-level: 2
     - prefer-correct-identifier-length:
-        exceptions: ["i", "x", "sb"] # i for index, x for math operations, sb for StringBuffer.
+        # i for index, x/y for math operations, sb for StringBuffer, io for IO,
+        # bc for BuildContext, a and b are convenient for sorting, e for the element,
+        # k for key, v for value.
+        exceptions: ["a", "b", "e", "i", "k", "v", "x", "y", "io", "bc", "sb"]
+    - prefer-static-method:
+        ignore-public: true
+    - avoid-long-parameter-list:
+        ignore-optional: true
+    - prefer-typedefs-for-callbacks:
+        ignore-fields: true
+        ignore-parameters: true
+        ignore-type-arguments: false
+        ignore-return-types: false
+    - avoid-passing-self-as-argument:
+        exclude:
+          - test/**
     - avoid-top-level-members-in-tests:
         exclude:
-          - test/data/*.dart
-          - test/data/**/*.dart
-          - test/**/data.dart
           - lib/**
     - missing-test-assertion:
         include-assertions:
@@ -72,105 +115,325 @@ dart_code_metrics:
     - avoid-passing-async-when-sync-expected:
         exclude:
           - test/**
+    - avoid-returning-widgets:
+        allow-nullable: true
     - avoid-redundant-async:
         exclude:
           - test/**
     - prefer-static-class:
         exclude:
           - test/**
-          - lib/**/constants.dart
+    - member-ordering:
+        order:
+          - constructors
+          - public-fields
+          - private-fields
+    - format-comment:
+        ignored-patterns:
+          - ^coverage.*
+    - prefer-class-destructuring:
+        min-occurrences: 4
+    - prefer-single-declaration-per-file:
+        exclude:
+          - "**/test/**"
 
-    - arguments-ordering: true
-    - avoid-banned-imports: true
+    # Enabled:
+    - avoid-accessing-collections-by-constant-index: true
+    - avoid-accessing-other-classes-private-members: true
+    - avoid-assigning-to-static-field: true
+    - avoid-assignments-as-conditions: true
+    - avoid-async-call-in-sync-function: true
+    - avoid-banned-exports: true
+    - avoid-barrel-files: true
+    - avoid-bitwise-operators-with-booleans: true
+    - avoid-bottom-type-in-patterns: true
+    - avoid-bottom-type-in-records: true
     - avoid-cascade-after-if-null: true
+    - avoid-casting-to-extension-type: true
+    - avoid-collapsible-if: true
+    - avoid-collection-equality-checks: true
     - avoid-collection-methods-with-unrelated-types: true
+    - avoid-commented-out-code: true
+    - avoid-complex-arithmetic-expressions: true
+    - avoid-complex-loop-conditions: true
+    - avoid-conditions-with-boolean-literals: true
+    - avoid-constant-assert-conditions: true
+    - avoid-constant-switches: true
+    - avoid-contradictory-expressions: true
+    - avoid-declaring-call-method: true
     - avoid-double-slash-imports: true
+    - avoid-duplicate-cascades: true
+    - avoid-duplicate-constant-values: true
     - avoid-duplicate-exports: true
+    - avoid-duplicate-initializers: true
+    - avoid-duplicate-map-keys: true
+    - avoid-duplicate-mixins: true
+    - avoid-duplicate-named-imports: true
+    - avoid-duplicate-patterns: true
+    - avoid-duplicate-switch-case-conditions: true
+    - avoid-duplicate-test-assertions: true
     - avoid-dynamic: true
+    - avoid-empty-spread: true
+    - avoid-empty-test-groups: true
+    - avoid-enum-values-by-index: true
+    - avoid-equal-expressions: true
+    - avoid-excessive-expressions: true
+    - avoid-explicit-pattern-field-name: true
+    - avoid-explicit-type-declaration: true
+    - avoid-extensions-on-records: true
+    - avoid-function-type-in-records: true
+    - avoid-future-ignore: true
+    - avoid-future-tostring: true
+    - avoid-generics-shadowing: true
     - avoid-global-state: true
+    - avoid-identical-exception-handling-blocks: true
+    - avoid-if-with-many-branches: true
+    - avoid-implicitly-nullable-extension-types: true
+    - avoid-importing-entrypoint-exports: true
+    - avoid-incomplete-copy-with: true
+    - avoid-inconsistent-digit-separators: true
+    - avoid-incorrect-uri: true
+    - avoid-inverted-boolean-checks: true
+    - avoid-keywords-in-wildcard-pattern: true
+    - avoid-late-final-reassignment: true
+    - avoid-local-functions: true
+    - avoid-long-records: true
+    - avoid-map-keys-contains: true
+    - avoid-missed-calls: true
+    - avoid-missing-completer-stack-trace: true
     - avoid-missing-enum-constant-in-map: true
+    - avoid-missing-interpolation: true
+    - avoid-misused-set-literals: true
+    - avoid-misused-test-matchers: true
+    - avoid-misused-wildcard-pattern: true
+    - avoid-mixing-named-and-positional-fields: true
+    - avoid-multi-assignment: true
+    - avoid-mutating-parameters: true
+    - avoid-negated-conditions: true
+    - avoid-negations-in-equality-checks: true
+    - avoid-nested-assignments: true
+    - avoid-nested-extension-types: true
+    - avoid-nested-futures: true
+    - avoid-nested-records: true
+    - avoid-nested-streams-and-futures: true
+    - avoid-nested-switch-expressions: true
+    - avoid-nested-switches: true
+    - avoid-nested-try-statements: true
+    - avoid-never-passed-parameters: true
     - avoid-non-ascii-symbols: true
+    - avoid-non-empty-constructor-bodies: true
+    - avoid-non-final-exception-class-fields: true
     - avoid-non-null-assertion: true
+    - avoid-not-encodable-in-to-json: true
+    - avoid-nullable-parameters-with-default-values: true
+    - avoid-nullable-tostring: true
+    - avoid-one-field-records: true
+    - avoid-only-rethrow: true
+    - avoid-passing-default-values: true
+    - avoid-passing-self-as-argument: true
+    - avoid-positional-record-field-access: true
+    - avoid-recursive-calls: true
+    - avoid-recursive-tostring: true
+    - avoid-redundant-else: true
+    - avoid-redundant-positional-field-name: true
+    - avoid-redundant-pragma-inline: true
+    - avoid-referencing-discarded-variables: true
+    - avoid-referencing-subclasses: true
+    - avoid-renaming-representation-getters: true
+    - avoid-returning-cascades: true
+    - avoid-returning-void: true
+    - avoid-self-assignment: true
+    - avoid-self-compare: true
+    - avoid-shadowed-extension-methods: true
+    - avoid-shadowing: true
+    - avoid-similar-names: true
+    - avoid-single-field-destructuring: true
+    - avoid-slow-collection-methods: true
+    - avoid-stream-tostring: true
     - avoid-substring: true
+    - avoid-suspicious-global-references: true
+    - avoid-suspicious-super-overrides: true
     - avoid-throw-in-catch-block: true
+    - avoid-throw-objects-without-tostring: true
+    - avoid-top-level-members-in-tests: true
+    - avoid-type-casts: true
+    - avoid-type-casts: true
+    - avoid-unassigned-late-fields: true
+    - avoid-unassigned-stream-subscriptions: true
+    - avoid-uncaught-future-errors: true
+    - avoid-unconditional-break: true
+    - avoid-unknown-pragma: true
+    - avoid-unnecessary-block: true
+    - avoid-unnecessary-call: true
+    - avoid-unnecessary-compare-to: true
     - avoid-unnecessary-conditionals: true
+    - avoid-unnecessary-constructor: true
+    - avoid-unnecessary-continue: true
+    - avoid-unnecessary-digit-separators: true
+    - avoid-unnecessary-enum-arguments: true
+    - avoid-unnecessary-enum-prefix: true
+    - avoid-unnecessary-extends: true
+    - avoid-unnecessary-futures: true
+    - avoid-unnecessary-getter: true
+    - avoid-unnecessary-if: true
+    - avoid-unnecessary-late-fields: true
+    - avoid-unnecessary-length-check: true
+    - avoid-unnecessary-local-late: true
+    - avoid-unnecessary-local-variable: true
+    - avoid-unnecessary-negations: true
+    - avoid-unnecessary-null-aware-elements: true
+    - avoid-unnecessary-nullable-parameters: true
+    - avoid-unnecessary-nullable-return-type: true
+    - avoid-unnecessary-overrides: true
+    - avoid-unnecessary-patterns: true
+    - avoid-unnecessary-reassignment: true
+    - avoid-unnecessary-return: true
+    - avoid-unnecessary-statements: true
+    - avoid-unnecessary-super: true
     - avoid-unnecessary-type-assertions: true
     - avoid-unnecessary-type-casts: true
+    - avoid-unreachable-for-loop: true
     - avoid-unrelated-type-assertions: true
+    - avoid-unrelated-type-casts: true
+    - avoid-unremovable-callbacks-in-listeners: true
+    - avoid-unsafe-reduce: true
+    - avoid-unused-after-null-check: true
+    - avoid-unused-assignment: true
+    - avoid-unused-generics: true
+    - avoid-unused-instances: true
+    - avoid-unused-local-variable: true
     - avoid-unused-parameters: true
-    - ban-name: true
+    - avoid-weak-cryptographic-algorithms: true
+    - avoid-wildcard-cases-with-enums: true
+    - avoid-wildcard-cases-with-sealed-classes: true
     - binary-expression-operand-order: true
+    - dependencies-ordering: true
+    - dispose-class-fields: true
     - double-literal-format: true
-    - format-comment: true
-    - list-all-equatable-fields: true
-    - member-ordering: true
+    - function-always-returns-null: true
+    - function-always-returns-same-value: true
+    - handle-throwing-invocations: true
+    - map-keys-ordering: true
+    - match-base-class-default-value: true
+    - match-lib-folder-structure: true
+    - match-positional-field-names-on-assignment: true
+    - move-records-to-typedefs: true
+    - move-variable-closer-to-its-usage: true
+    - move-variable-outside-iteration: true
+    - newline-before-case: true
+    - newline-before-method: true
+    - newline-before-pubspec-entry: true
     - newline-before-return: true
     - no-boolean-literal-compare: true
     - no-empty-block: true
+    - no-equal-conditions: true
+    - no-equal-nested-conditions: true
+    - no-equal-switch-case: true
+    - no-equal-switch-expression-cases: true
     - no-equal-then-else: true
     - no-object-declaration: true
+    - pass-correct-accepted-type: true
+    - pattern-fields-ordering: true
+    - prefer-abstract-final-static-class: true
+    - prefer-add-all: true
+    - prefer-addition-subtraction-assignments: true
+    - prefer-any-or-every: true
+    - prefer-assigning-await-expressions: true
     - prefer-async-await: true
+    - prefer-both-inlining-annotations: true
+    - prefer-bytes-builder: true
     - prefer-commenting-analyzer-ignores: true
+    - prefer-commenting-future-delayed: true
+    - prefer-commenting-pubspec-ignores: true
+    - prefer-compound-assignment-operators: true
     - prefer-conditional-expressions: true
+    - prefer-contains: true
+    - prefer-correct-callback-field-name: true
+    - prefer-correct-error-name: true
+    - prefer-correct-for-loop-increment: true
+    - prefer-correct-future-return-type: true
+    - prefer-correct-handler-name: true
+    - prefer-correct-json-casts: true
+    - prefer-correct-setter-parameter-name: true
+    - prefer-correct-stream-return-type: true
+    - prefer-correct-switch-length: true
     - prefer-correct-test-file-name: true
+    - prefer-correct-topics: true
     - prefer-correct-type-name: true
+    - prefer-declaring-const-constructor: true
+    - prefer-digit-separators: true
+    - prefer-early-return: true
     - prefer-enums-by-name: true
+    - prefer-expect-later: true
+    - prefer-explicit-function-type: true
+    - prefer-explicit-type-arguments: true
+    - prefer-extracting-function-callbacks: true
     - prefer-first: true
+    - prefer-for-in: true
+    - prefer-getter-over-method: true
     - prefer-immediate-return: true
     - prefer-iterable-of: true
     - prefer-last: true
     - prefer-match-file-name: true
     - prefer-moving-to-variable: true
+    - prefer-named-boolean-parameters: true
+    - prefer-null-aware-elements: true
+    - prefer-null-aware-spread: true
+    - prefer-overriding-parent-equality: true
+    - prefer-parentheses-with-if-null: true
+    - prefer-private-extension-type-field: true
+    - prefer-public-exception-classes: true
+    - prefer-pushing-conditional-expressions: true
+    - prefer-redirecting-superclass-constructor: true
+    - prefer-return-await: true
+    - prefer-returning-condition: true
+    - prefer-returning-conditional-expressions: true
+    - prefer-simpler-boolean-expressions: true
+    - prefer-simpler-patterns-null-check: true
+    - prefer-specific-cases-first: true
+    - prefer-specifying-future-value-type: true
+    - prefer-switch-expression: true
+    - prefer-switch-with-enums: true
+    - prefer-switch-with-sealed-classes: true
     - prefer-trailing-comma: true
-    - tag-name: true
-
-    # Disabled (Flutter or Intl related):
-    - always-remove-listener: false
-    - avoid-border-all: false
-    - avoid-expanded-as-spacer: false
-    - avoid-returning-widgets: false
-    - avoid-shrink-wrap-in-lists: false
-    - avoid-unnecessary-setstate: false
-    - avoid-wrapping-in-padding: false
-    - check-for-equals-in-render-object-setters: false
-    - consistent-update-render-object: false
-    - prefer-const-border-radius: false
-    - prefer-correct-edge-insets-constructor: false
-    - prefer-extracting-callbacks: false
-    - prefer-intl-name: false
-    - prefer-single-widget-per-file: false
-    - prefer-using-list-view: false
-    - provide-correct-intl-args: false
-    - use-setstate-synchronously: false
+    - prefer-type-over-var: true
+    - prefer-unique-test-names: true
+    - prefer-unwrapping-future-or: true
+    - prefer-visible-for-testing-on-members: true
+    - prefer-wildcard-pattern: true
+    - pubspec-ordering: true
+    - record-fields-ordering: true
+    - unnecessary-trailing-comma: true
+    - use-existing-destructuring: true
+    - use-existing-variable: true
 
 linter:
   rules:
     # Disabled:
+    always_put_control_body_on_new_line: false # Makes code harder to read.
     always_specify_types: false # Conflicts with: omit_local_variable_types.
     always_use_package_imports: false # Conflicts with: prefer_relative_imports.
-    prefer_double_quotes: false # Conflicts with: prefer_single_quotes.
+    avoid_classes_with_only_static_members: false # Conflicts with: prefer-static-class
+    avoid_equals_and_hash_code_on_mutable_classes: false # We have no access to meta here.
+    flutter_style_todos: false # Not a Flutter team.
+    omit_local_variable_types: false # Conflicts with: prefer-type-over-var
+    omit_obvious_local_variable_types: false # Conflicts with: omit_local_variable_types and prefer-type-over-var.
+    omit_obvious_property_types: false # Conflicts with: type_annotate_public_apis.
     prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
+    prefer_single_quotes: false # Conflicts with: prefer_double_quotes.
+    specify_nonobvious_local_variable_types: false # Conflicts with: avoid-explicit-type-declaration.
     unnecessary_final: false # Conflicts with: prefer_final_locals.
-    # Flutter related:
-    avoid_unnecessary_containers: false
-    avoid_web_libraries_in_flutter: false
-    flutter_style_todos: false # For Flutter Team only.
-    no_logic_in_create_state: false
-    sized_box_for_whitespace: false
-    sized_box_shrink_expand: false
-    sort_child_properties_last: false
-    use_build_context_synchronously: false
-    use_decorated_box: false
-    use_full_hex_values_for_flutter_colors: false
-    use_key_in_widget_constructors: false
+    unnecessary_library_name: false # To prevent breaking changes for those who use this libs.
 
     # Enabled:
     always_declare_return_types: true
     always_put_required_named_parameters_first: true
     always_require_non_null_named_parameters: true
     annotate_overrides: true
+    annotate_redeclares: true
     avoid_annotating_with_dynamic: true
     avoid_bool_literals_in_conditional_expressions: true
+    avoid_catches_without_on_clauses: true
     avoid_catching_errors: true
     avoid_double_and_int_checks: true
     avoid_dynamic_calls: true
@@ -179,6 +442,7 @@ linter:
     avoid_field_initializers_in_const_classes: true
     avoid_final_parameters: true
     avoid_function_literals_in_foreach_calls: true
+    avoid_futureor_void: true
     avoid_implementing_value_types: true
     avoid_init_to_null: true
     avoid_js_rounded_ints: true
@@ -222,10 +486,10 @@ linter:
     depend_on_referenced_packages: true
     deprecated_consistency: true
     deprecated_member_use_from_same_package: true
-    diagnostic_describe_all_properties: true
     directives_ordering: true
     discarded_futures: true
     do_not_use_environment: true
+    document_ignores: true
     empty_catches: true
     empty_constructor_bodies: true
     empty_statements: true
@@ -238,6 +502,7 @@ linter:
     implicit_call_tearoffs: true
     implicit_reopen: true
     invalid_case_patterns: true
+    invalid_runtime_check_with_js_interop_types: true
     join_return_with_assignment: true
     leading_newlines_in_multiline_strings: true
     library_annotations: true
@@ -247,6 +512,7 @@ linter:
     lines_longer_than_80_chars: true
     literal_only_boolean_expressions: true
     matching_super_parameters: true
+    missing_code_block_language_in_doc_comment: true
     missing_whitespace_between_adjacent_strings: true
     no_adjacent_strings_in_list: true
     no_default_cases: true
@@ -261,7 +527,6 @@ linter:
     noop_primitive_operations: true
     null_check_on_nullable_type_parameter: true
     null_closures: true
-    omit_local_variable_types: true
     one_member_abstracts: true
     only_throw_errors: true
     overridden_fields: true
@@ -280,7 +545,8 @@ linter:
     prefer_const_literals_to_create_immutables: true
     prefer_constructors_over_static_methods: true
     prefer_contains: true
-    prefer_single_quotes: true
+    prefer_double_quotes: true
+    prefer_equal_for_default_values: true
     prefer_expression_function_bodies: true
     prefer_final_fields: true
     prefer_final_in_for_each: true
@@ -315,6 +581,9 @@ linter:
     sort_constructors_first: true
     sort_pub_dependencies: true
     sort_unnamed_constructors_first: true
+    specify_nonobvious_property_types: true
+    strict_top_level_inference: true
+    switch_on_type: true
     test_types_in_equals: true
     throw_in_finally: true
     tighten_type_of_initializing_formals: true
@@ -322,12 +591,15 @@ linter:
     type_init_formals: true
     type_literal_in_constant_pattern: true
     unawaited_futures: true
+    unintended_html_in_doc_comment: true
+    unnecessary_async: true
     unnecessary_await_in_return: true
     unnecessary_brace_in_string_interps: true
     unnecessary_breaks: true
     unnecessary_const: true
     unnecessary_constructor_name: true
     unnecessary_getters_setters: true
+    unnecessary_ignore: true
     unnecessary_lambdas: true
     unnecessary_late: true
     unnecessary_library_directive: true
@@ -345,15 +617,19 @@ linter:
     unnecessary_string_interpolations: true
     unnecessary_this: true
     unnecessary_to_list_in_spreads: true
+    unnecessary_unawaited: true
+    unnecessary_underscores: true
     unreachable_from_main: true
     unrelated_type_equality_checks: true
     unsafe_html: true
+    unsafe_variance: true
     use_enums: true
     use_function_type_syntax_for_parameters: true
     use_if_null_to_convert_nulls_to_bools: true
     use_is_even_rather_than_modulo: true
     use_late_for_private_fields_and_variables: true
     use_named_constants: true
+    use_null_aware_elements: true
     use_raw_strings: true
     use_rethrow_when_possible: true
     use_setters_to_change_properties: true
@@ -362,5 +638,6 @@ linter:
     use_super_parameters: true
     use_test_throws_matchers: true
     use_to_and_as_if_applicable: true
+    use_truncating_division: true
     valid_regexps: true
     void_checks: true
