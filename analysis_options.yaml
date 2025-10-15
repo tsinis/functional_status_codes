@@ -1,8 +1,4 @@
 analyzer:
-  exclude:
-    # Build
-    - "build/**"
-
   language:
     strict-casts: true
     strict-inference: true
@@ -93,8 +89,6 @@ dart_code_metrics:
         # bc for BuildContext, a and b are convenient for sorting, e for the element,
         # k for key, v for value.
         exceptions: ["a", "b", "e", "i", "k", "v", "x", "y", "io", "bc", "sb"]
-    - prefer-static-method:
-        ignore-public: true
     - avoid-long-parameter-list:
         ignore-optional: true
     - prefer-typedefs-for-callbacks:
@@ -230,7 +224,6 @@ dart_code_metrics:
     - avoid-one-field-records: true
     - avoid-only-rethrow: true
     - avoid-passing-default-values: true
-    - avoid-passing-self-as-argument: true
     - avoid-positional-record-field-access: true
     - avoid-recursive-calls: true
     - avoid-recursive-tostring: true
@@ -251,12 +244,9 @@ dart_code_metrics:
     - avoid-slow-collection-methods: true
     - avoid-stream-tostring: true
     - avoid-substring: true
-    - avoid-suspicious-global-references: true
     - avoid-suspicious-super-overrides: true
     - avoid-throw-in-catch-block: true
     - avoid-throw-objects-without-tostring: true
-    - avoid-top-level-members-in-tests: true
-    - avoid-type-casts: true
     - avoid-type-casts: true
     - avoid-unassigned-late-fields: true
     - avoid-unassigned-stream-subscriptions: true
@@ -307,7 +297,6 @@ dart_code_metrics:
     - avoid-wildcard-cases-with-enums: true
     - avoid-wildcard-cases-with-sealed-classes: true
     - binary-expression-operand-order: true
-    - dependencies-ordering: true
     - dispose-class-fields: true
     - double-literal-format: true
     - function-always-returns-null: true
@@ -322,7 +311,6 @@ dart_code_metrics:
     - move-variable-outside-iteration: true
     - newline-before-case: true
     - newline-before-method: true
-    - newline-before-pubspec-entry: true
     - newline-before-return: true
     - no-boolean-literal-compare: true
     - no-empty-block: true
@@ -344,7 +332,6 @@ dart_code_metrics:
     - prefer-bytes-builder: true
     - prefer-commenting-analyzer-ignores: true
     - prefer-commenting-future-delayed: true
-    - prefer-commenting-pubspec-ignores: true
     - prefer-compound-assignment-operators: true
     - prefer-conditional-expressions: true
     - prefer-contains: true
@@ -358,7 +345,6 @@ dart_code_metrics:
     - prefer-correct-stream-return-type: true
     - prefer-correct-switch-length: true
     - prefer-correct-test-file-name: true
-    - prefer-correct-topics: true
     - prefer-correct-type-name: true
     - prefer-declaring-const-constructor: true
     - prefer-digit-separators: true
@@ -392,6 +378,7 @@ dart_code_metrics:
     - prefer-simpler-patterns-null-check: true
     - prefer-specific-cases-first: true
     - prefer-specifying-future-value-type: true
+    - prefer-static-method: true
     - prefer-switch-expression: true
     - prefer-switch-with-enums: true
     - prefer-switch-with-sealed-classes: true
@@ -401,7 +388,6 @@ dart_code_metrics:
     - prefer-unwrapping-future-or: true
     - prefer-visible-for-testing-on-members: true
     - prefer-wildcard-pattern: true
-    - pubspec-ordering: true
     - record-fields-ordering: true
     - unnecessary-trailing-comma: true
     - use-existing-destructuring: true
