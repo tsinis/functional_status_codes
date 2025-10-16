@@ -1,0 +1,18 @@
+# Keywords/terms specific to the ISO (e.g. English names, codes, etc.).
+AWS
+CHANGELOG
+CSRF
+Cloudflare
+Laravel
+Qualys
+SDK
+Shopify
+TLS
+crm
+hardcoded
+railgun
+readme
+ssl
+troubleshootcreatesurveys
+webp
+workflow

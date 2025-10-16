@@ -18,67 +18,50 @@ jobs:
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     timeout-minutes: 5
     steps:
-      - name: Checks-out repository
+      - name: 📚 Git checkout
         uses: actions/checkout@v5.0.0
-
-      - name: Link Checker
-        uses: lycheeverse/lychee-action@v2.6.1
         with:
-          args: --verbose --no-progress './**/*.md' './**/*.html' './**/*.dart'
-          format: markdown
-          jobSummary: true
-          fail: true
+          fetch-depth: 0
+          persist-credentials: false
 
-      - name: Check the spelling
-        uses: check-spelling/check-spelling@v0.0.25
-        if: false # Disabled for now
+      - name: 🔗 Link checker
+        uses: tcort/github-action-markdown-link-check@v1.1.0
         with:
-          config: .github/workflows/actions_settings/check-spelling
-          check_file_names: 1
-          only_check_changed_files: 1
-          check_extra_dictionaries: ""
-          extra_dictionaries:
-            cspell:html/html.txt
-            cspell:dart/src/dart.txt
-            cspell:filetypes/filetypes.txt
+          base-branch: main
+          use-quiet-mode: "yes"
+          check-modified-files-only: "yes"
 
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1.6.0
+      - name: 🪄 Spell check
+        uses: streetsidesoftware/cspell-action@v7.2.0
+        with:
+          config: .github/workflows/config/spell-check/cspell.json
+          incremental_files_only: true
+          files: "**/*.{md,dart}"
 
-      - name: Install Dependencies
-        run: dart pub get --no-example
+      - name: 🎯 Setup Dart
+        uses: dart-lang/setup-dart@v1.7.1
 
-      - name: Analyze Code
+      - name: 📦 Install dependencies
+        run: dart pub upgrade
+
+      - name: 🕵️ Analyze code
         uses: ValentinVignal/action-dart-analyze@v1.1
+        if: ${{ github.event_name == 'pull_request' }}
         with:
-          fail-on: 'format'
+          fail-on: "format"
           token: ${{ secrets.GITHUB_TOKEN }}
           format: true
 
-      - name: Publish - dry run
+      - name: 🏜️ Publish - dry run
         if: ${{ github.event_name == 'pull_request' }}
         run: dart pub publish --dry-run
 
-      - name: Calculate PANA Score
-        uses: axel-op/dart-package-analyzer@v3
-        id: analysis
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check Pub Score
-        env:
-          TOTAL: ${{ steps.analysis.outputs.total }}
-          TOTAL_MAX: ${{ steps.analysis.outputs.total_max }}
+      - name: 🧮 Check PANA score
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
-          PERCENTAGE=$(( $TOTAL * 100 / $TOTAL_MAX ))
-          if (( $PERCENTAGE < 92 ))
-          then
-          echo Score too low!
-          exit 1
-          fi
-
-      - name: 🛂 Set up file system write permissions
-        run: sudo chown -R runner:runner $(pwd) && sudo chmod -R 777 $(pwd)
-
-      - name: Dart Code Metrics
-        run: dart run dart_code_metrics:metrics --disable-sunset-warning --fatal-style --fatal-performance --fatal-warnings --reporter=github lib test example
+          sudo apt-get install webp
+          PANA=$(dart run pana . --no-warning)
+          PANA_SCORE=$(echo $PANA | sed -n "s/.*Points: \([0-9]*\)\/\([0-9]*\)./\1\/\2/p")
+          echo "score: $PANA_SCORE"
+          IFS='/' read -ra SCORE_ARR <<< "$PANA_SCORE"; SCORE=${SCORE_ARR[0]}
+          if (( SCORE < 160 )); then echo "Minimum score of 160 was not met! Got $SCORE."; exit 1; fi

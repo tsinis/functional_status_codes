@@ -1,4 +1,4 @@
-name: tests
+name: test
 
 on:
   push:
@@ -27,30 +27,27 @@ jobs:
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     timeout-minutes: 10
     steps:
-      - name: Checks-out repository
+      - name: 📚 Checks-out repository
         uses: actions/checkout@v5.0.0
 
-      - name: Setup Dart
+      - name: 🎯 Setup Dart
         uses: dart-lang/setup-dart@v1.6.0
-        with:
-            sdk: '2.17.0'
 
-      - name: Install Dependencies
-        run: dart pub get
+      - name: 📦 Install Dependencies
+        run: dart pub upgrade
 
-      - name: Run Tests
+      - name: 🧪 Run Tests
         run: |
           dart test --coverage=coverage
           dart run coverage:format_coverage -l -i coverage -o coverage/lcov.info --report-on=lib
 
-      - name: Check Code Coverage
+      - name: 📊 Check Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v3.0.0
         with:
-          min_coverage: 95
-          exclude: "**/*.g.dart"
+          min_coverage: 99
 
-      - name: Upload Code Coverage
+      - name: 💯 Upload Code Coverage
         uses: codecov/codecov-action@v5.5.1
         with:
-          file: ./coverage/lcov.info
+          files: ./coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}

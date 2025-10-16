@@ -10,7 +10,7 @@ on:
     branches:
       - main
     tags:
-    - '[1-9]+.[0-9]+.[0-9]+*'
+      - "[1-9]+.[0-9]+.[0-9]+*"
 
 jobs:
   publish-dry-run:
@@ -19,56 +19,59 @@ jobs:
     timeout-minutes: 10
     if: github.ref_type == 'branch' && github.event_name == 'pull_request' && !github.event.pull_request.merged
     steps:
-      - name: Checks-out repository
+      - name: 📚 Checks-out repository
         uses: actions/checkout@v5.0.0
 
-      - name: Setup Dart
+      - name: 🎯 Setup Dart
         uses: dart-lang/setup-dart@v1.6.0
 
-      - name: Install Dependencies
+      - name: 📦 Install Dependencies
         run: dart pub get --no-example
 
-      - name: Publish - dry run
+      - name: 📝 Publish - dry run
         run: dart pub publish --dry-run
 
   check-version:
     name: 💡 Check version
     runs-on: ubuntu-latest
     if: github.ref_type == 'tag'
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
-      - name: Checks-out repository
+      - name: 📚 Git checkout
         uses: actions/checkout@v5.0.0
 
-      - name: Get tag
-        id: get_tag
+      - name: 1️⃣ Set version tag
         run: echo TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
 
-      - name: Read pubspec.yaml version
-        uses: KJ002/read-yaml@1.6
-        id: pubspec
-        with:
-          file: "pubspec.yaml"
-          key-path: '["version"]'
-
-      - name: Show detected tag and version
+      - name: 2️⃣ Get version from pubspec.yaml
         run: |
-          echo "Tag from github ref.: ${{ env.TAG }}!"
-          echo "Version from pubspec: ${{ steps.pubspec.outputs.data }}!"
+          PUBSPEC_VERSION=$(sed -n '1 s/version: *//p' pubspec.yaml)
+          echo "PUBSPEC=${PUBSPEC_VERSION}" >> $GITHUB_ENV
 
-      - name: Delete tag if version is not same as tag
+      - name: 3️⃣ Get version from CHANGELOG.md
+        run: |
+          CHANGELOG_VERSION=$(sed -n '1 s/^## *//p' CHANGELOG.md)
+          echo "CHANGELOG=${CHANGELOG_VERSION}" >> $GITHUB_ENV
+
+      - name: 🆚 Check if versions match
+        run: |
+          echo "Tag version: ${{ env.TAG }}"
+          echo "pubspec.yaml version: ${{ env.PUBSPEC }}"
+          echo "CHANGELOG.md version: ${{ env.CHANGELOG }}"
+
+      - name: ❌ Delete tag if version is not same as tag
         uses: dev-drprasad/delete-tag-and-release@v1.1
-        if: ${{ steps.pubspec.outputs.data != env.TAG }}
+        if: ${{ env.PUBSPEC != env.CHANGELOG || env.PUBSPEC != env.TAG || env.CHANGELOG != env.TAG }}
         with:
           tag_name: ${{ env.TAG }}
           delete_release: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Cancel workflow if tag is not same as version
+      - name: 🚫 Cancel workflow if tag is not the same as version
         uses: andymckay/cancel-action@0.5
-        if: ${{ steps.pubspec.outputs.data != env.TAG }}
+        if: ${{ env.PUBSPEC != env.CHANGELOG || env.PUBSPEC != env.TAG || env.CHANGELOG != env.TAG }}
 
-      - name: Sleep for 10 seconds
+      - name: 💤 Sleep for 10 seconds
         run: sleep 10s
         shell: bash
 
@@ -78,4 +81,4 @@ jobs:
     permissions:
       id-token: write
     if: ${{ github.repository_owner == 'tsinis' && github.actor == 'tsinis' }}
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@main
