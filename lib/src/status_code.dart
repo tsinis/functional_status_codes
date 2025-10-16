@@ -6,6 +6,25 @@
 /// Dart `extension type` for easier handling of known unofficial, all IANA
 /// registered and custom HTTP status codes.
 extension type const StatusCode._(int _code) implements int {
+  /// Creates a custom HTTP status code that is not part of the unofficial or
+  ///  standard IANA registered codes.
+  ///
+  /// This constructor allows you to define custom status codes for specialized
+  /// use cases, such as internal APIs or vendor-specific implementations. The
+  /// custom code must not conflict with any existing standard status codes and
+  /// must be within a valid range (greater than `103` and less than `599`).
+  ///
+  /// Example:
+  /// ```dart
+  /// // Create a custom status code for internal API rate limiting.
+  /// const customRateLimit = StatusCode.custom(456);
+  /// print(customRateLimit); // Output: `456`
+  /// print(customRateLimit.isCustom); // Output: `true`
+  /// print(customRateLimit.reason); // Output: Custom status code: `456`
+  /// ```
+  ///
+  /// Throws an [AssertionError] if the provided code matches any standard
+  /// status code or is outside the valid range.
   const StatusCode.custom(int code)
     : assert(code != continueHttp100, '$_assert$code'),
       assert(code != switchingProtocolsHttp101, '$_assert$code'),
@@ -748,6 +767,26 @@ extension type const StatusCode._(int _code) implements int {
     return maybeCode == null ? null : maybeFromCode(num.tryParse(maybeCode));
   }
 
+  /// A complete list of all standard HTTP status codes defined in this package.
+  ///
+  /// This includes both official IANA registered codes and commonly used
+  /// unofficial codes. The list contains 95 status codes covering informational
+  /// (`1xx`), success (`2xx`), redirection (`3xx`), client error (`4xx`),
+  /// and server error (`5xx`) categories.
+  ///
+  /// Use this list when you need to iterate over all known status codes or
+  /// check if a code is recognized by the package.
+  ///
+  /// Example:
+  /// ```dart
+  /// print('Total status codes: ${StatusCode.values.length}');
+  /// for (final code in StatusCode.values) {
+  ///   print('${code}: ${code.reason}');
+  /// }
+  /// ```
+  ///
+  /// See also:
+  /// - [officialCodes], which contains only IANA registered codes.
   static const values = <StatusCode>[
     continueHttp100,
     switchingProtocolsHttp101,
@@ -844,6 +883,27 @@ extension type const StatusCode._(int _code) implements int {
     networkConnectTimeoutErrorHttp599,
   ];
 
+  /// A list of official IANA registered HTTP status codes.
+  ///
+  /// This list contains only status codes that are officially registered with
+  /// the Internet Assigned Numbers Authority (IANA) and documented in RFCs. It
+  /// excludes unofficial codes used by specific vendors or frameworks (like
+  /// nginx, Cloudflare, AWS, or Laravel).
+  ///
+  /// Use this list when you need to distinguish between standard and
+  /// vendor-specific status codes, or when implementing strict HTTP compliance.
+  ///
+  /// Example:
+  /// ```dart
+  /// final code = StatusCode.okHttp200;
+  /// if (StatusCode.officialCodes.contains(code)) {
+  ///   print('This is an official IANA registered code');
+  /// }
+  /// print('Official codes count: ${StatusCode.officialCodes.length}');
+  /// ```
+  ///
+  /// See also:
+  /// - [values], which includes both official and unofficial codes.
   static const officialCodes = <StatusCode>[
     networkConnectTimeoutErrorHttp599,
     siteIsFrozenHttp530,
@@ -921,6 +981,25 @@ extension type const StatusCode._(int _code) implements int {
     continueHttp100,
   ];
 
+  /// A map of status codes to their corresponding human-readable reason phrases
+  ///
+  /// Each status code is mapped to its standard reason phrase as defined by
+  /// IANA or commonly used by the vendor/framework that introduced it. These
+  /// phrases provide a brief description of what the status code represents.
+  ///
+  /// The reason phrases follow HTTP specification conventions, such as:
+  /// - "OK" for 200
+  /// - "Not Found" for 404
+  /// - "Internal Server Error" for 500
+  ///
+  /// Example:
+  /// ```dart
+  /// final reason = StatusCode.reasons[StatusCode.okHttp200];
+  /// print(reason); // Output: OK
+  ///
+  /// // Access via extension property
+  /// print(StatusCode.notFoundHttp404.reason); // Output: Not Found
+  /// ```
   static const reasons = <StatusCode, String>{
     continueHttp100: 'Continue',
     switchingProtocolsHttp101: 'Switching Protocols',

@@ -7,6 +7,15 @@ import 'status_code.dart';
 
 /// Functional style extensions on [StatusCode].
 extension StatusCodeExtension on StatusCode {
+  /// Returns a concise string representation of this status code, including its
+  /// value, reason phrase, and official status.
+  ///
+  /// This method is intended as a replacement for [toString] in type extensions
+  /// which cannot override [toString]. Example output: `StatusCode(200, reason:
+  /// "OK", isOfficial: true)`.
+  String toStringShallow() =>
+      'StatusCode($this, reason: "$reason", isOfficial: $isOfficial)';
+
   /// Returns `true` if this status code is not part of the official
   /// [StatusCode.values] list.
   ///
@@ -33,15 +42,6 @@ extension StatusCodeExtension on StatusCode {
 
   /// Status code corresponding Reason Phrase.
   String get reason => StatusCode.reasons[this] ?? 'Custom status code: $this';
-
-  /// Returns a concise string representation of this status code, including its
-  /// value, reason phrase, and official status.
-  ///
-  /// This method is intended as a replacement for [toString] in type extensions
-  /// which cannot override [toString]. Example output: `StatusCode(200, reason:
-  /// "OK", isOfficial: true)`.
-  String toStringShallow() =>
-      'StatusCode($this, reason: "$reason", isOfficial: $isOfficial)';
 
   /// Specifies whether the HTTP status code is an official IANA registered
   /// code.
