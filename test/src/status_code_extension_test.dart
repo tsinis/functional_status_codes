@@ -31,7 +31,7 @@ void main() => group('StatusCodeExtension', () {
         expect(result, contains('StatusCode'));
         expect(result, contains('reason:'));
         expect(result, contains('isOfficial:'));
-        expect(result, contains(result));
+        expect(result, contains(statusCode.toString()));
       });
     }
 
