@@ -7,17 +7,19 @@ import 'package:test/test.dart';
 import '../lib/main.dart' as example;
 
 void main() {
-  group('simple example', () {
+  const simple = 'simple';
+
+  group('$simple example', () {
     test(
       'with no status code in args',
-      () async => expect(await example.main(['simple']), isNull),
+      () async => expect(await example.main(const [simple]), isNull),
     );
 
     test(
       'with a status code in args',
       () async => expect(
-        await example.main(['simple', StatusCode.values.first.toString()]),
-        StatusCode.values.first.code,
+        await example.main([simple, StatusCode.values.first.toString()]),
+        StatusCode.values.first,
       ),
     );
   });
@@ -25,35 +27,56 @@ void main() {
   group('http example', () {
     test(
       'with real client',
-      () async => expect(await example.main([]), isNotNull),
+      () async => expect(await example.main(), isNotNull),
     );
 
     group('with mocked client', () {
+      const empty = '';
+
       test('registered 300 status code', () async {
-        final client = MockClient((_) async => Response('', 300));
-        expect(await example.main([], client), 300);
+        final client = MockClient(
+          (_) async => Response(empty, StatusCode.multipleChoicesHttp300),
+        );
+        expect(
+          await example.main(const [], client),
+          StatusCode.multipleChoicesHttp300,
+        );
       });
 
       test('status code outside 100-599 range', () async {
-        final client = MockClient((_) async => Response('', 600));
-        expect(await example.main([], client), isNull);
+        final client = MockClient(
+          (_) async =>
+              Response(empty, StatusCode.networkConnectTimeoutErrorHttp599 + 1),
+        );
+        expect(await example.main(const [], client), isNull);
       });
 
       group('on success status codes:', () {
         test('registered 200 status code', () async {
-          final client =
-              MockClient((_) async => Response('{"totalItems": 0}', 200));
-          expect(await example.main([], client), isZero);
+          final client = MockClient(
+            (_) async => Response('{"totalItems": 0}', StatusCode.okHttp200),
+          );
+          expect(await example.main(const [], client), isZero);
         });
 
         test('registered 201 status code', () async {
-          final client = MockClient((_) async => Response('', 201));
-          expect(await example.main([], client), 201);
+          final client = MockClient(
+            (_) async => Response(empty, StatusCode.createdHttp201),
+          );
+          expect(
+            await example.main(const [], client),
+            StatusCode.createdHttp201,
+          );
         });
 
         test('non-registered 299 status code', () async {
-          final client = MockClient((_) async => Response('', 299));
-          expect(await example.main([], client), 299);
+          final client = MockClient(
+            (_) async => Response(empty, StatusCode.multipleChoicesHttp300 - 1),
+          );
+          expect(
+            await example.main(const [], client),
+            StatusCode.multipleChoicesHttp300 - 1,
+          );
         });
       });
     });
