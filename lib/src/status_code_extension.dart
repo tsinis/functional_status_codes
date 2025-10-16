@@ -7,11 +7,19 @@ import 'status_code.dart';
 
 /// Functional style extensions on [StatusCode].
 extension StatusCodeExtension on StatusCode {
+  /// Returns `true` if this status code is not part of the official
+  /// [StatusCode.values] list.
+  ///
+  /// This is useful for detecting custom or non-standard status codes that are
+  /// not registered by IANA, provided via the [StatusCode.custom] constructor.
   bool get isCustom => !StatusCode.values.contains(this);
 
-  String toStringShallow() => // TODO! Doc. breaking toString > toStringShallow.
-      'StatusCode($this, reason: "$reason", isOfficial: $isOfficial)';
-
+  /// Returns the shallow string representation of this status code, similar to
+  /// the enum `name` property.
+  ///
+  /// Deprecated: [StatusCode] is no longer an enum, so this property mimics the
+  /// old enum `name` behavior. Prefer using [toString] or [toStringShallow]
+  /// directly.
   @Deprecated('Use toString() or toStringShallow() instead')
   String get name => toStringShallow();
 
@@ -25,6 +33,15 @@ extension StatusCodeExtension on StatusCode {
 
   /// Status code corresponding Reason Phrase.
   String get reason => StatusCode.reasons[this] ?? 'Custom status code: $this';
+
+  /// Returns a concise string representation of this status code, including its
+  /// value, reason phrase, and official status.
+  ///
+  /// This method is intended as a replacement for [toString] in type extensions
+  /// which cannot override [toString]. Example output: `StatusCode(200, reason:
+  /// "OK", isOfficial: true)`.
+  String toStringShallow() =>
+      'StatusCode($this, reason: "$reason", isOfficial: $isOfficial)';
 
   /// Specifies whether the HTTP status code is an official IANA registered
   /// code.
