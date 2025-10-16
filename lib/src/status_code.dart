@@ -1,273 +1,378 @@
-// Copyright (c) 2024, Roman Cinis. All rights reserved. Use of this source code
+// Copyright (c) 2025, Roman Cinis. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: format-comment, because of trailing dot at the end of URLs.
 
-part 'status_code.g.dart';
+/// Dart `extension type` for easier handling of known unofficial, all IANA
+/// registered and custom HTTP status codes.
+extension type const StatusCode._(int _code) implements int {
+  const StatusCode.custom(int code)
+    : assert(code != continueHttp100, '$_assert$code'),
+      assert(code != switchingProtocolsHttp101, '$_assert$code'),
+      assert(code != processingHttp102, '$_assert$code'),
+      assert(code != earlyHintsHttp103, '$_assert$code'),
+      assert(code != okHttp200, '$_assert$code'),
+      assert(code != createdHttp201, '$_assert$code'),
+      assert(code != acceptedHttp202, '$_assert$code'),
+      assert(code != nonAuthoritativeInformationHttp203, '$_assert$code'),
+      assert(code != noContentHttp204, '$_assert$code'),
+      assert(code != resetContentHttp205, '$_assert$code'),
+      assert(code != partialContentHttp206, '$_assert$code'),
+      assert(code != multiStatusHttp207, '$_assert$code'),
+      assert(code != alreadyReportedHttp208, '$_assert$code'),
+      assert(code != imUsedHttp226, '$_assert$code'),
+      assert(code != multipleChoicesHttp300, '$_assert$code'),
+      assert(code != movedPermanentlyHttp301, '$_assert$code'),
+      assert(code != foundHttp302, '$_assert$code'),
+      assert(code != seeOtherHttp303, '$_assert$code'),
+      assert(code != notModifiedHttp304, '$_assert$code'),
+      assert(code != useProxyHttp305, '$_assert$code'),
+      assert(code != temporaryRedirectHttp307, '$_assert$code'),
+      assert(code != permanentRedirectHttp308, '$_assert$code'),
+      assert(code != badRequestHttp400, '$_assert$code'),
+      assert(code != unauthorizedHttp401, '$_assert$code'),
+      assert(code != paymentRequiredHttp402, '$_assert$code'),
+      assert(code != forbiddenHttp403, '$_assert$code'),
+      assert(code != notFoundHttp404, '$_assert$code'),
+      assert(code != methodNotAllowedHttp405, '$_assert$code'),
+      assert(code != notAcceptableHttp406, '$_assert$code'),
+      assert(code != proxyAuthenticationRequiredHttp407, '$_assert$code'),
+      assert(code != requestTimeoutHttp408, '$_assert$code'),
+      assert(code != conflictHttp409, '$_assert$code'),
+      assert(code != goneHttp410, '$_assert$code'),
+      assert(code != lengthRequiredHttp411, '$_assert$code'),
+      assert(code != preconditionFailedHttp412, '$_assert$code'),
+      assert(code != payloadTooLargeHttp413, '$_assert$code'),
+      assert(code != uriTooLongHttp414, '$_assert$code'),
+      assert(code != unsupportedMediaTypeHttp415, '$_assert$code'),
+      assert(code != rangeNotSatisfiableHttp416, '$_assert$code'),
+      assert(code != expectationFailedHttp417, '$_assert$code'),
+      assert(code != imATeapotHttp418, '$_assert$code'),
+      assert(code != misdirectedRequestHttp421, '$_assert$code'),
+      assert(code != unprocessableEntityHttp422, '$_assert$code'),
+      assert(code != lockedHttp423, '$_assert$code'),
+      assert(code != failedDependencyHttp424, '$_assert$code'),
+      assert(code != tooEarlyHttp425, '$_assert$code'),
+      assert(code != upgradeRequiredHttp426, '$_assert$code'),
+      assert(code != preconditionRequiredHttp428, '$_assert$code'),
+      assert(code != tooManyRequestsHttp429, '$_assert$code'),
+      assert(code != requestHeaderFieldsTooLargeHttp431, '$_assert$code'),
+      assert(code != iisLoginTimeoutHttp440, '$_assert$code'),
+      assert(code != nginxNoResponseHttp444, '$_assert$code'),
+      assert(code != iisRetryWithHttp449, '$_assert$code'),
+      assert(code != blockedByWindowsParentalControlsHttp450, '$_assert$code'),
+      assert(code != unavailableForLegalReasonsHttp451, '$_assert$code'),
+      assert(code != nginxSSLCertificateErrorHttp495, '$_assert$code'),
+      assert(code != nginxSSLCertificateRequiredHttp496, '$_assert$code'),
+      assert(code != nginxHTTPToHTTPSHttp497, '$_assert$code'),
+      assert(code != tokenExpiredHttp498, '$_assert$code'),
+      assert(code != nginxClientClosedRequestHttp499, '$_assert$code'),
+      assert(code != internalServerErrorHttp500, '$_assert$code'),
+      assert(code != notImplementedHttp501, '$_assert$code'),
+      assert(code != badGatewayHttp502, '$_assert$code'),
+      assert(code != serviceUnavailableHttp503, '$_assert$code'),
+      assert(code != gatewayTimeoutHttp504, '$_assert$code'),
+      assert(code != httpVersionNotSupportedHttp505, '$_assert$code'),
+      assert(code != variantAlsoNegotiatesHttp506, '$_assert$code'),
+      assert(code != insufficientStorageHttp507, '$_assert$code'),
+      assert(code != loopDetectedHttp508, '$_assert$code'),
+      assert(code != bandwidthLimitExceededHttp509, '$_assert$code'),
+      assert(code != otExtendedHttp510, '$_assert$code'),
+      assert(code != networkAuthenticationRequiredHttp511, '$_assert$code'),
+      assert(code != siteIsFrozenHttp530, '$_assert$code'),
+      assert(code != thisIsFineHttp218, '$_assert$code'),
+      assert(code != pageExpiredHttp419, '$_assert$code'),
+      assert(code != enhanceYourCalmHttp420, '$_assert$code'),
+      assert(code != requestHeaderFieldsTooLargeHttp430, '$_assert$code'),
+      assert(code != siteIsOverloadedHttp529, '$_assert$code'),
+      assert(code != networkReadTimeoutErrorHttp598, '$_assert$code'),
+      assert(code != requestHeaderTooLargeHttp494, '$_assert$code'),
+      assert(code != webServerReturnedUnknownErrorHttp520, '$_assert$code'),
+      assert(code != webServerIsDownHttp521, '$_assert$code'),
+      assert(code != connectionTimedOutHttp522, '$_assert$code'),
+      assert(code != originIsUnreachableHttp523, '$_assert$code'),
+      assert(code != timeoutOccurredHttp524, '$_assert$code'),
+      assert(code != sslHandshakeFailedHttp525, '$_assert$code'),
+      assert(code != invalidSSLCertificateHttp526, '$_assert$code'),
+      assert(code != railgunErrorHttp527, '$_assert$code'),
+      assert(code != clientClosedConnectionHttp460, '$_assert$code'),
+      assert(code != tooManyIpAddressesHttp463, '$_assert$code'),
+      assert(code != incompatibleProtocolVersionsHttp464, '$_assert$code'),
+      assert(code != unauthorizedHttp561, '$_assert$code'),
+      assert(code != networkConnectTimeoutErrorHttp599, '$_assert$code'),
+      assert(
+        code > StatusCode.earlyHintsHttp103,
+        'Custom status code must be greater than $earlyHintsHttp103',
+      ),
+      assert(
+        code < StatusCode.networkConnectTimeoutErrorHttp599,
+        '''Custom status code must be less than $networkConnectTimeoutErrorHttp599''',
+      ),
+      _code = code;
 
-/// Dart `enum` for easier handling of all IANA registered HTTP Status codes.
-enum StatusCode {
+  static const _assert = 'Custom status code cannot reuse code: ';
+
   // --- Informational 1xx. ---
 
   /// Continue: 100
   ///
   /// Reference: [RFC7231, Section 6.2.1](http://www.iana.org/go/rfc7231#section-6.2.1)
-  continueHttp100(100, 'Continue'),
+  static const continueHttp100 = StatusCode._(100);
 
   /// Switching Protocols: 101
   ///
   /// Reference: [RFC7231, Section 6.2.2](http://www.iana.org/go/rfc7231#section-6.2.2)
-  switchingProtocolsHttp101(101, 'Switching Protocols'),
+  static const switchingProtocolsHttp101 = StatusCode._(101);
 
   /// Processing: 102
   ///
   /// Reference: [RFC2518](http://www.iana.org/go/rfc2518)
-  processingHttp102(102, 'Processing'),
+  static const processingHttp102 = StatusCode._(102);
 
   /// Early Hints: 103
   ///
   /// Reference: [RFC8297](http://www.iana.org/go/rfc8297)
-  earlyHintsHttp103(103, 'Early Hints'),
+  static const earlyHintsHttp103 = StatusCode._(103);
 
   // --- Success 2xx ---
 
   /// OK: 200
   ///
   /// Reference: [RFC7231, Section 6.3.1](http://www.iana.org/go/rfc7231#section-6.3.1)
-  okHttp200(200, 'OK'),
+  static const okHttp200 = StatusCode._(200);
 
   /// Created: 201
   ///
   /// Reference: [RFC7231, Section 6.3.2](http://www.iana.org/go/rfc7231#section-6.3.2)
-  createdHttp201(201, 'Created'),
+  static const createdHttp201 = StatusCode._(201);
 
   /// Accepted: 202
   ///
   /// Reference: [RFC7231, Section 6.3.3](http://www.iana.org/go/rfc7231#section-6.3.3)
-  acceptedHttp202(202, 'Accepted'),
+  static const acceptedHttp202 = StatusCode._(202);
 
   /// Non-Authoritative Information: 203
   ///
   /// Reference: [RFC7231, Section 6.3.4](http://www.iana.org/go/rfc7231#section-6.3.4)
-  nonAuthoritativeInformationHttp203(203, 'Non-Authoritative Information'),
+  static const nonAuthoritativeInformationHttp203 = StatusCode._(203);
 
   /// No Content: 204
   ///
   /// Reference: [RFC7231, Section 6.3.5](http://www.iana.org/go/rfc7231#section-6.3.5)
-  noContentHttp204(204, 'No Content'),
+  static const noContentHttp204 = StatusCode._(204);
 
   /// Reset Content: 205
   ///
   /// Reference: [RFC7231, Section 6.3.6](http://www.iana.org/go/rfc7231#section-6.3.6)
-  resetContentHttp205(205, 'Reset Content'),
+  static const resetContentHttp205 = StatusCode._(205);
 
   /// Partial Content: 206
   ///
   /// Reference: [RFC7233, Section 4.1](http://www.iana.org/go/rfc7233#section-4.1)
-  partialContentHttp206(206, 'Partial Content'),
+  static const partialContentHttp206 = StatusCode._(206);
 
   /// Multi-Status: 207
   ///
   /// Reference: [RFC4918](http://www.iana.org/go/rfc4918)
-  multiStatusHttp207(207, 'Multi-Status'),
+  static const multiStatusHttp207 = StatusCode._(207);
 
   /// Already Reported: 208
   ///
   /// Reference: [RFC5842](http://www.iana.org/go/rfc5842)
-  alreadyReportedHttp208(208, 'Already Reported'),
+  static const alreadyReportedHttp208 = StatusCode._(208);
 
   /// IM Used: 226
   ///
   /// Reference: [RFC3229](http://www.iana.org/go/rfc3229)
-  imUsedHttp226(226, 'IM Used'),
+  static const imUsedHttp226 = StatusCode._(226);
 
   // --- Redirection 3xx. ---
 
   /// Multiple Choices: 300
   ///
   /// Reference: [RFC7231, Section 6.4.1](http://www.iana.org/go/rfc7231#section-6.4.1)
-  multipleChoicesHttp300(300, 'Multiple Choices'),
+  static const multipleChoicesHttp300 = StatusCode._(300);
 
   /// Moved Permanently: 301
   ///
   /// Reference: [RFC7231, Section 6.4.2](http://www.iana.org/go/rfc7231#section-6.4.2)
-  movedPermanentlyHttp301(301, 'Moved Permanently'),
+  static const movedPermanentlyHttp301 = StatusCode._(301);
 
   /// Found: 302
   ///
   /// Reference: [RFC7231, Section 6.4.3](http://www.iana.org/go/rfc7231#section-6.4.3)
-  foundHttp302(302, 'Found'),
+  static const foundHttp302 = StatusCode._(302);
 
   /// See Other: 303
   ///
   /// Reference: [RFC7231, Section 6.4.4](http://www.iana.org/go/rfc7231#section-6.4.4)
-  seeOtherHttp303(303, 'See Other'),
+  static const seeOtherHttp303 = StatusCode._(303);
 
   /// Not Modified: 304
   ///
   /// Reference: [RFC7232, Section 4.1](http://www.iana.org/go/rfc7232#section-4.1)
-  notModifiedHttp304(304, 'Not Modified'),
+  static const notModifiedHttp304 = StatusCode._(304);
 
   /// Use Proxy: 305
   ///
   /// Reference: [RFC7231, Section 6.4.5](http://www.iana.org/go/rfc7231#section-6.4.5)
-  useProxyHttp305(305, 'Use Proxy'),
+  static const useProxyHttp305 = StatusCode._(305);
 
   /// Temporary Redirect: 307
   ///
   /// Reference: [RFC7231, Section 6.4.7](http://www.iana.org/go/rfc7231#section-6.4.7)
-  temporaryRedirectHttp307(307, 'Temporary Redirect'),
+  static const temporaryRedirectHttp307 = StatusCode._(307);
 
   /// Permanent Redirect: 308
   ///
   /// Reference: [RFC7538](http://www.iana.org/go/rfc7538)
-  permanentRedirectHttp308(308, 'Permanent Redirect'),
+  static const permanentRedirectHttp308 = StatusCode._(308);
 
   // --- Client side errors 4xx. ---
 
   /// Bad Request: 400
   ///
   /// Reference: [RFC7231, Section 6.5.1](http://www.iana.org/go/rfc7231#section-6.5.1)
-  badRequestHttp400(400, 'Bad Request'),
+  static const badRequestHttp400 = StatusCode._(400);
 
   /// Unauthorized: 401
   ///
   /// Reference: [RFC7235, Section 3.1](http://www.iana.org/go/rfc7235#section-3.1)
-  unauthorizedHttp401(401, 'Unauthorized'),
+  static const unauthorizedHttp401 = StatusCode._(401);
 
   /// Payment Required: 402
   ///
   /// Reference: [RFC7231, Section 6.5.2](http://www.iana.org/go/rfc7231#section-6.5.2)
-  paymentRequiredHttp402(402, 'Payment Required'),
+  static const paymentRequiredHttp402 = StatusCode._(402);
 
   /// Forbidden: 403
   ///
   /// Reference: [RFC7231, Section 6.5.3](http://www.iana.org/go/rfc7231#section-6.5.3)
-  forbiddenHttp403(403, 'Forbidden'),
+  static const forbiddenHttp403 = StatusCode._(403);
 
   /// Not Found: 404
   ///
   /// Reference: [RFC7231, Section 6.5.4](http://www.iana.org/go/rfc7231#section-6.5.4)
-  notFoundHttp404(404, 'Not Found'),
+  static const notFoundHttp404 = StatusCode._(404);
 
   /// Method Not Allowed: 405
   ///
   /// Reference: [RFC7231, Section 6.5.5](http://www.iana.org/go/rfc7231#section-6.5.5)
-  methodNotAllowedHttp405(405, 'Method Not Allowed'),
+  static const methodNotAllowedHttp405 = StatusCode._(405);
 
   /// Not Acceptable: 406
   ///
   /// Reference: [RFC7231, Section 6.5.6](http://www.iana.org/go/rfc7231#section-6.5.6)
-  notAcceptableHttp406(406, 'Not Acceptable'),
+  static const notAcceptableHttp406 = StatusCode._(406);
 
   /// Proxy Authentication Required: 407
   ///
   /// Reference: [RFC7235, Section 3.2](http://www.iana.org/go/rfc7235#section-3.2)
-  proxyAuthenticationRequiredHttp407(407, 'Proxy Authentication Required'),
+  static const proxyAuthenticationRequiredHttp407 = StatusCode._(407);
 
   /// Request Timeout: 408
   ///
   /// Reference: [RFC7231, Section 6.5.7](http://www.iana.org/go/rfc7231#section-6.5.7)
-  requestTimeoutHttp408(408, 'Request Timeout'),
+  static const requestTimeoutHttp408 = StatusCode._(408);
 
   /// Conflict: 409
   ///
   /// Reference: [RFC7231, Section 6.5.8](http://www.iana.org/go/rfc7231#section-6.5.8)
-  conflictHttp409(409, 'Conflict'),
+  static const conflictHttp409 = StatusCode._(409);
 
   /// Gone: 410
   ///
   /// Reference: [RFC7231, Section 6.5.9](http://www.iana.org/go/rfc7231#section-6.5.9)
-  goneHttp410(410, 'Gone'),
+  static const goneHttp410 = StatusCode._(410);
 
   /// Length Required: 411
   ///
   /// Reference: [RFC7231, Section 6.5.10](http://www.iana.org/go/rfc7231#section-6.5.10)
-  lengthRequiredHttp411(411, 'Length Required'),
+  static const lengthRequiredHttp411 = StatusCode._(411);
 
   /// Precondition Failed: 412
   ///
   /// Reference: [RFC7232, Section 4.2](http://www.iana.org/go/rfc7232#section-4.2)
   /// Reference: [RFC8144, Section 3.2](http://www.iana.org/go/rfc8144#section-3.2)
-  preconditionFailedHttp412(412, 'Precondition Failed'),
+  static const preconditionFailedHttp412 = StatusCode._(412);
 
   /// Payload Too Large: 413
   ///
   /// Reference: [RFC7231, Section 6.5.11](http://www.iana.org/go/rfc7231#section-6.5.11)
-  payloadTooLargeHttp413(413, 'Payload Too Large'),
+  static const payloadTooLargeHttp413 = StatusCode._(413);
 
   /// URI Too Long: 414
   ///
   /// Reference: [RFC7231, Section 6.5.12](http://www.iana.org/go/rfc7231#section-6.5.12)
-  uriTooLongHttp414(414, 'URI Too Long'),
+  static const uriTooLongHttp414 = StatusCode._(414);
 
   /// Unsupported Media Type: 415
   ///
   /// Reference: [RFC7231, Section 6.5.13](http://www.iana.org/go/rfc7231#section-6.5.13)
   /// Reference: [RFC7694, Section 3](http://www.iana.org/go/rfc7694#section-3)
-  unsupportedMediaTypeHttp415(415, 'Unsupported Media Type'),
+  static const unsupportedMediaTypeHttp415 = StatusCode._(415);
 
   /// Range Not Satisfiable: 416
   ///
   /// Reference: [RFC7233, Section 4.4](http://www.iana.org/go/rfc7233#section-4.4)
-  rangeNotSatisfiableHttp416(416, 'Range Not Satisfiable'),
+  static const rangeNotSatisfiableHttp416 = StatusCode._(416);
 
   /// Expectation Failed: 417
   ///
   /// Reference: [RFC7231, Section 6.5.14](http://www.iana.org/go/rfc7231#section-6.5.14)
-  expectationFailedHttp417(417, 'Expectation Failed'),
+  static const expectationFailedHttp417 = StatusCode._(417);
 
   /// I'm A Teapot: 418
   ///
   /// Returned by tea pots requested to brew coffee
   ///
   /// Reference: [RFC 2324](http://www.iana.org/go/rfc2324)
-  imATeapotHttp418(418, "I'm A Teapot"),
+  static const imATeapotHttp418 = StatusCode._(418);
 
   /// Misdirected Request: 421
   ///
   /// Reference: [RFC7540, Section 9.1.2](http://www.iana.org/go/rfc7540#section-9.1.2)
-  misdirectedRequestHttp421(421, 'Misdirected Request'),
+  static const misdirectedRequestHttp421 = StatusCode._(421);
 
   /// Unprocessable Entity: 422
   ///
   /// Reference: [RFC4918](http://www.iana.org/go/rfc4918)
-  unprocessableEntityHttp422(422, 'Unprocessable Entity'),
+  static const unprocessableEntityHttp422 = StatusCode._(422);
 
   /// Locked: 423
   ///
   /// Reference: [RFC4918](http://www.iana.org/go/rfc4918)
-  lockedHttp423(423, 'Locked'),
+  static const lockedHttp423 = StatusCode._(423);
 
   /// Failed Dependency: 424
   ///
   /// Reference: [RFC4918](http://www.iana.org/go/rfc4918)
-  failedDependencyHttp424(424, 'Failed Dependency'),
+  static const failedDependencyHttp424 = StatusCode._(424);
 
   /// Too Early: 425
   ///
   /// Reference: [RFC8470](http://www.iana.org/go/rfc8470)
-  tooEarlyHttp425(425, 'Too Early'),
+  static const tooEarlyHttp425 = StatusCode._(425);
 
   /// Upgrade Required: 426
   ///
   /// Reference: [RFC7231, Section 6.5.15](http://www.iana.org/go/rfc7231#section-6.5.15)
-  upgradeRequiredHttp426(426, 'Upgrade Required'),
+  static const upgradeRequiredHttp426 = StatusCode._(426);
 
   /// Precondition Required: 428
   ///
   /// Reference: [RFC6585](http://www.iana.org/go/rfc6585)
-  preconditionRequiredHttp428(428, 'Precondition Required'),
+  static const preconditionRequiredHttp428 = StatusCode._(428);
 
   /// Too Many Requests: 429
   ///
   /// Reference: [RFC6585](http://www.iana.org/go/rfc6585)
-  tooManyRequestsHttp429(429, 'Too Many Requests'),
+  static const tooManyRequestsHttp429 = StatusCode._(429);
 
   /// Request Header Fields Too Large: 431
   ///
   /// Reference: [RFC6585](http://www.iana.org/go/rfc6585)
-  requestHeaderFieldsTooLargeHttp431(431, 'Request Header Fields Too Large'),
+  static const requestHeaderFieldsTooLargeHttp431 = StatusCode._(431);
 
   /// IIS Login Timeout: 440
   ///
@@ -276,7 +381,7 @@ enum StatusCode {
   /// **Category**: Internet Information Services
   ///
   /// Reference: [Error message when you try to log on to Exchange 2007 by using Outlook Web Access: "440 Login Timeout"](https://learn.microsoft.com/en-us/previous-versions/troubleshoot/dynamics/crm/incoming-status-failure-the-remote-server-returned-an-error-440-login-timeout)
-  iisLoginTimeoutHttp440(440, 'IIS Login Timeout'),
+  static const iisLoginTimeoutHttp440 = StatusCode._(440);
 
   /// nginx No Response: 444
   ///
@@ -284,7 +389,7 @@ enum StatusCode {
   /// client and closed the connection.
   ///
   /// **Category**: nginx
-  nginxNoResponseHttp444(444, 'No Response'),
+  static const nginxNoResponseHttp444 = StatusCode._(444);
 
   /// IIS Retry With: 449
   ///
@@ -294,21 +399,18 @@ enum StatusCode {
   /// **Category**: Internet Information Services
   ///
   /// Reference: [2.2.6 449 Retry With Status Code](https://msdn.microsoft.com/en-us/library/dd891478.aspx)
-  iisRetryWithHttp449(449, 'IIS Retry With'),
+  static const iisRetryWithHttp449 = StatusCode._(449);
 
   /// Blocked by Windows Parental Controls: 450
   ///
   /// A Microsoft extension. This error is given when Windows Parental
   /// Controls are turned on and are blocking access to the given webpage.
-  blockedByWindowsParentalControlsHttp450(
-    450,
-    'Blocked by Windows Parental Controls',
-  ),
+  static const blockedByWindowsParentalControlsHttp450 = StatusCode._(450);
 
   /// Unavailable For Legal Reasons: 451
   ///
   /// Reference: [RFC7725](http://www.iana.org/go/rfc7725)
-  unavailableForLegalReasonsHttp451(451, 'Unavailable For Legal Reasons'),
+  static const unavailableForLegalReasonsHttp451 = StatusCode._(451);
 
   /// nginx SSL Certificate Error: 495
   ///
@@ -316,7 +418,7 @@ enum StatusCode {
   /// has provided an invalid client certificate.
   ///
   /// **Category**: nginx
-  nginxSSLCertificateErrorHttp495(495, 'SSL Certificate Error'),
+  static const nginxSSLCertificateErrorHttp495 = StatusCode._(495);
 
   /// nginx SSL Certificate Required: 496
   ///
@@ -324,7 +426,7 @@ enum StatusCode {
   /// certificate is required but not provided.
   ///
   /// **Category**: nginx
-  nginxSSLCertificateRequiredHttp496(496, 'SSL Certificate Required'),
+  static const nginxSSLCertificateRequiredHttp496 = StatusCode._(496);
 
   /// nginx HTTP To HTTPS: 497
   ///
@@ -332,14 +434,14 @@ enum StatusCode {
   /// has made a HTTP request to a port listening for HTTPS requests.
   ///
   /// **Category**: nginx
-  nginxHTTPToHTTPSHttp497(497, 'HTTP To HTTPS'),
+  static const nginxHTTPToHTTPSHttp497 = StatusCode._(497);
 
   /// Token Expired: 498
   ///
   /// Returned by [ArcGIS for Server](https://en.wikipedia.org/wiki/ArcGIS_Server). A code of 498 indicates an expired or otherwise invalid token.
   ///
   /// Reference: [Using token-based authentication](https://doc.arcgis.com/en/survey123/desktop/create-surveys/troubleshootcreatesurveys.htm)
-  tokenExpiredHttp498(498, 'Token Expired'),
+  static const tokenExpiredHttp498 = StatusCode._(498);
 
   /// nginx Client Closed Request: 499
   ///
@@ -347,54 +449,54 @@ enum StatusCode {
   /// could send a response.
   ///
   /// **Category**: nginx
-  nginxClientClosedRequestHttp499(499, 'Client Closed Request'),
+  static const nginxClientClosedRequestHttp499 = StatusCode._(499);
 
   // --- Server side errors 5xx. ---
 
   /// Internal Server Error: 500
   ///
   /// Reference: [RFC7231, Section 6.6.1](http://www.iana.org/go/rfc7231#section-6.6.1)
-  internalServerErrorHttp500(500, 'Internal Server Error'),
+  static const internalServerErrorHttp500 = StatusCode._(500);
 
   /// Not Implemented: 501
   ///
   /// Reference: [RFC7231, Section 6.6.2](http://www.iana.org/go/rfc7231#section-6.6.2)
-  notImplementedHttp501(501, 'Not Implemented'),
+  static const notImplementedHttp501 = StatusCode._(501);
 
   /// Bad Gateway: 502
   ///
   /// Reference: [RFC7231, Section 6.6.3](http://www.iana.org/go/rfc7231#section-6.6.3)
-  badGatewayHttp502(502, 'Bad Gateway'),
+  static const badGatewayHttp502 = StatusCode._(502);
 
   /// Service Unavailable: 503
   ///
   /// Reference: [RFC7231, Section 6.6.4](http://www.iana.org/go/rfc7231#section-6.6.4)
-  serviceUnavailableHttp503(503, 'Service Unavailable'),
+  static const serviceUnavailableHttp503 = StatusCode._(503);
 
   /// Gateway Timeout: 504
   ///
   /// Reference: [RFC7231, Section 6.6.5](http://www.iana.org/go/rfc7231#section-6.6.5)
-  gatewayTimeoutHttp504(504, 'Gateway Timeout'),
+  static const gatewayTimeoutHttp504 = StatusCode._(504);
 
   /// HTTP Version Not Supported: 505
   ///
   /// Reference: [RFC7231, Section 6.6.6](http://www.iana.org/go/rfc7231#section-6.6.6)
-  httpVersionNotSupportedHttp505(505, 'HTTP Version Not Supported'),
+  static const httpVersionNotSupportedHttp505 = StatusCode._(505);
 
   /// Variant Also Negotiates: 506
   ///
   /// Reference: [RFC2295](http://www.iana.org/go/rfc2295)
-  variantAlsoNegotiatesHttp506(506, 'Variant Also Negotiates'),
+  static const variantAlsoNegotiatesHttp506 = StatusCode._(506);
 
   /// Insufficient Storage: 507
   ///
   /// Reference: [RFC4918](http://www.iana.org/go/rfc4918)
-  insufficientStorageHttp507(507, 'Insufficient Storage'),
+  static const insufficientStorageHttp507 = StatusCode._(507);
 
   /// Loop Detected: 508
   ///
   /// Reference: [RFC5842](http://www.iana.org/go/rfc5842)
-  loopDetectedHttp508(508, 'Loop Detected'),
+  static const loopDetectedHttp508 = StatusCode._(508);
 
   /// Bandwidth Limit Exceeded: 509
   ///
@@ -403,23 +505,23 @@ enum StatusCode {
   /// to limit the bandwidth of customers.
   ///
   /// Reference: <https://documentation.cpanel.net/display/CKB/HTTP+Error+Codes+and+Quick+Fixes#HTTPErrorCodesandQuickFixes-509BandwidthLimitExceeded>
-  bandwidthLimitExceededHttp509(509, 'Bandwidth Limit Exceeded'),
+  static const bandwidthLimitExceededHttp509 = StatusCode._(509);
 
   /// Not Extended: 510
   ///
   /// Reference: [RFC2774](http://www.iana.org/go/rfc2774)
-  otExtendedHttp510(510, 'Not Extended'),
+  static const otExtendedHttp510 = StatusCode._(510);
 
   /// Network Authentication Required: 511
   ///
   /// Reference: [RFC6585](http://www.iana.org/go/rfc6585)
-  networkAuthenticationRequiredHttp511(511, 'Network Authentication Required'),
+  static const networkAuthenticationRequiredHttp511 = StatusCode._(511);
 
   /// Site is frozen: 530
   ///
   /// Used by the [Pantheon](https://en.wikipedia.org/wiki/Pantheon_(software))
   /// web platform to indicate a site that has been frozen due to inactivity.
-  siteIsFrozenHttp530(530, 'Site is frozen'),
+  static const siteIsFrozenHttp530 = StatusCode._(530);
 
   // --- Unofficial HTTP status codes ---
   // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes
@@ -430,20 +532,12 @@ enum StatusCode {
   /// of message bodies through the server when the ProxyErrorOverride setting
   /// is enabled. It is displayed in this situation instead of a 4xx or 5xx
   /// error message.
-  thisIsFineHttp218(
-    218,
-    'This is fine (Apache HTTP Server)',
-    isOfficial: false,
-  ),
+  static const thisIsFineHttp218 = StatusCode._(218);
 
   /// Unofficial status code. Page Expired (Laravel Framework): 419
   ///
   /// Used by the Laravel Framework when a CSRF Token is missing or expired.
-  pageExpiredHttp419(
-    419,
-    'Page Expired (Laravel Framework)',
-    isOfficial: false,
-  ),
+  static const pageExpiredHttp419 = StatusCode._(419);
 
   /// Unofficial status code. Enhance Your Calm (Twitter): 420
   /// Deprecated: Method Failure (Spring Framework): 420
@@ -456,124 +550,96 @@ enum StatusCode {
   ///
   /// Also a deprecated response status code used by the Spring Framework when
   /// a method has failed.
-  enhanceYourCalmHttp420(420, 'Enhance Your Calm (Twitter)', isOfficial: false),
+  static const enhanceYourCalmHttp420 = StatusCode._(420);
 
   /// Unofficial status code. Request Header Fields Too Large (Shopify): 430
   ///
   /// Used by Shopify, instead of the 429 Too Many Requests response code, when
   /// too many URLs are requested within a certain time frame.
-  requestHeaderFieldsTooLargeHttp430(
-    430,
-    'Request Header Fields Too Large (Shopify)',
-    isOfficial: false,
-  ),
+  static const requestHeaderFieldsTooLargeHttp430 = StatusCode._(430);
 
   /// Unofficial status code. Site is overloaded: 529
   ///
   /// Used by Qualys in the SSLLabs server testing API to signal that the site
   /// can't process the request.
-  siteIsOverloadedHttp529(529, 'Site is overloaded', isOfficial: false),
+  static const siteIsOverloadedHttp529 = StatusCode._(529);
 
   /// Unofficial status code. Network Connect Timeout Error: 598
   ///
   /// Used by some HTTP proxies to signal a network read timeout behind the
   /// proxy to a client in front of the proxy.
-  networkReadTimeoutErrorHttp598(
-    598,
-    'Network read timeout error (Informal convention)',
-    isOfficial: false,
-  ),
+  static const networkReadTimeoutErrorHttp598 = StatusCode._(598);
 
   /// Unofficial status code. Request Header Too Large: 494
   ///
   /// The client sent too large of a request or too long of a header line.
-  requestHeaderTooLargeHttp494(
-    494,
-    'Request Header Too Large',
-    isOfficial: false,
-  ),
+  static const requestHeaderTooLargeHttp494 = StatusCode._(494);
 
   /// Unofficial status code. Web Server Returned an Unknown Error: 520
   ///
   /// The origin server returned an empty, unknown, or unexpected response to
   /// Cloudflare.
-  webServerReturnedUnknownErrorHttp520(
-    520,
-    'Web Server Returned an Unknown Error',
-    isOfficial: false,
-  ),
+  static const webServerReturnedUnknownErrorHttp520 = StatusCode._(520);
 
   /// Unofficial status code. Web Server Is Down: 521
   ///
   /// The origin server refused connections from Cloudflare. Security solutions
   /// at the origin may be blocking legitimate connections from certain
   /// Cloudflare IP addresses.
-  webServerIsDownHttp521(521, 'Web Server Is Down', isOfficial: false),
+  static const webServerIsDownHttp521 = StatusCode._(521);
 
   /// Unofficial status code. Connection Timed Out: 522
   ///
   /// Cloudflare timed out contacting the origin server.
-  connectionTimedOutHttp522(522, 'Connection Timed Out', isOfficial: false),
+  static const connectionTimedOutHttp522 = StatusCode._(522);
 
   /// Unofficial status code. Origin Is Unreachable: 523
   ///
   /// Cloudflare could not reach the origin server; for example, if the DNS
   /// records for the origin server are incorrect or missing.
-  originIsUnreachableHttp523(523, 'Origin Is Unreachable', isOfficial: false),
+  static const originIsUnreachableHttp523 = StatusCode._(523);
 
   /// Unofficial status code. A Timeout Occurred: 524
   ///
   /// Cloudflare was able to complete a TCP connection to the origin server, but
   /// did not receive a timely HTTP response.
-  timeoutOccurredHttp524(524, 'A Timeout Occurred', isOfficial: false),
+  static const timeoutOccurredHttp524 = StatusCode._(524);
 
   /// Unofficial status code. SSL Handshake Failed: 525
   ///
   /// Cloudflare could not negotiate a SSL/TLS handshake with the origin server.
-  sslHandshakeFailedHttp525(525, 'SSL Handshake Failed', isOfficial: false),
+  static const sslHandshakeFailedHttp525 = StatusCode._(525);
 
   /// Unofficial status code. Invalid SSL Certificate: 526
   ///
   /// Cloudflare could not validate the SSL certificate on the origin web
   /// server.
-  invalidSSLCertificateHttp526(
-    526,
-    'Invalid SSL Certificate',
-    isOfficial: false,
-  ),
+  static const invalidSSLCertificateHttp526 = StatusCode._(526);
 
   /// Unofficial status code. Railgun Error: 527
   ///
   /// Error 527 indicates an interrupted connection between Cloudflare and the
   /// origin server's Railgun server.
-  railgunErrorHttp527(527, 'Railgun Error', isOfficial: false),
+  static const railgunErrorHttp527 = StatusCode._(527);
 
   /// Unofficial status code. Client Closed Connection: 460
   ///
   /// The client closed the connection with the load balancer before the idle
   /// timeout period elapsed. Typically occurs when the client timeout is sooner
   /// than the Elastic Load Balancer's timeout.
-  clientClosedConnectionHttp460(
-    460,
-    'Client Closed Connection',
-    isOfficial: false,
-  ),
+  static const clientClosedConnectionHttp460 = StatusCode._(460);
 
   /// Unofficial status code. Too Many IP Addresses: 463
   ///
   /// The load balancer received an X-Forwarded-For request header with more
   /// than 30 IP addresses.
-  tooManyIpAddressesHttp463(463, 'Too Many IP Addresses', isOfficial: false),
+  static const tooManyIpAddressesHttp463 = StatusCode._(463);
 
   /// Unofficial status code. Incompatible Protocol Versions: 464
   ///
   /// There are incompatible protocol versions between the client and the origin
   /// server.
-  incompatibleProtocolVersionsHttp464(
-    464,
-    'Incompatible Protocol Versions',
-    isOfficial: false,
-  ),
+  static const incompatibleProtocolVersionsHttp464 = StatusCode._(464);
 
   /// Unofficial status code. Unauthorized: 561
   ///
@@ -584,36 +650,14 @@ enum StatusCode {
   ///
   /// Used by AWS Elastic Load Balancing when authentication has failed or
   /// credentials are missing.
-  unauthorizedHttp561(
-    561,
-    'Unauthorized (AWS Elastic Load Balancing)',
-    isOfficial: false,
-  ),
+  static const unauthorizedHttp561 = StatusCode._(561);
 
   /// Official status code. Network Connect Timeout Error: 599
   ///
   /// This status code is not specified in any RFCs, but is used by some HTTP
   /// proxies to signal a network connect timeout behind the proxy to a client
   /// in front of the proxy.
-  networkConnectTimeoutErrorHttp599(599, 'Network Connect Timeout Error');
-
-  /// Dart `enum` for easier handling of all IANA registered HTTP Status codes.
-  const StatusCode(this.code, this.reason, {this.isOfficial = true});
-
-  /// The IANA registered HTTP Status code.
-  final int code;
-
-  /// Status code corresponding Reason Phrase.
-  final String reason;
-
-  /// Specifies whether the HTTP status code is an official IANA registered
-  /// code.
-  ///
-  /// By default, a status code is considered official if it is registered with
-  /// the IANA. However, in some cases, custom or unofficial status codes may be
-  /// used. This boolean indicates whether the status code is an official IANA
-  /// code or not.
-  final bool isOfficial;
+  static const networkConnectTimeoutErrorHttp599 = StatusCode._(599);
 
   /// A regular expression pattern that matches three consecutive digits.
   ///
@@ -648,7 +692,7 @@ enum StatusCode {
   /// any sequence of exactly three digits.
   ///
   /// Example usage:
-  /// ```
+  /// ```dart
   /// // Assuming `inputString` contains an HTTP status code.
   /// String? statusCode = regExp.firstMatch(inputString)?.group(0);
   /// // `statusCode` will contain the first sequence of three digits found in `inputString`.
@@ -664,11 +708,7 @@ enum StatusCode {
   /// - [StatusCode], which contains standard HTTP status codes.
   static RegExp get regExp => RegExp(pattern, caseSensitive: false);
 
-  @override
-  String toString() =>
-      'StatusCode($code, reason: "$reason", isOfficial: $isOfficial)';
-
-  /// Returns the [StatusCode] enum value for the given status code, if it
+  /// Returns the [StatusCode] type value for the given status code, if it
   /// exists. Otherwise, returns `null`.
   ///
   /// Example:
@@ -680,26 +720,26 @@ enum StatusCode {
   /// print(status); // Output: null
   /// ```
   static StatusCode? maybeFromCode(num? statusCode) {
-    if (statusCode != null) {
-      final intStatusCode = statusCode.toInt();
-      for (final status in values) {
-        if (status.code == intStatusCode) return status;
-      }
+    if (statusCode == null) return null;
+
+    final intStatusCode = statusCode.toInt();
+    for (final status in values) {
+      if (status == intStatusCode) return StatusCode._(status);
     }
 
     return null;
   }
 
-  /// Tries to parse the given `String?` and return the corresponding
-  /// [StatusCode] enum value, if it exists. Otherwise, returns `null`.
+  /// Tries to parse the given [String?] and return the corresponding
+  /// [StatusCode] type value, if it exists. Otherwise, returns `null`.
   ///
   /// Example:
   ///
   /// ```dart
   /// var status = StatusCode.tryParse("HTTP/1.1 200 OK");
-  /// print(status); // Output: StatusCode(200, reason: "OK")
+  /// print(status); // Output: `200`
   /// status = StatusCode.tryParse("HTTP/1.1 OK");
-  /// print(status); // Output: null
+  /// print(status); // Output: `null`
   /// ```
   static StatusCode? tryParse(Object? statusCode) {
     if (statusCode == null) return null;
@@ -707,4 +747,277 @@ enum StatusCode {
 
     return maybeCode == null ? null : maybeFromCode(num.tryParse(maybeCode));
   }
+
+  static const values = <StatusCode>[
+    continueHttp100,
+    switchingProtocolsHttp101,
+    processingHttp102,
+    earlyHintsHttp103,
+    okHttp200,
+    createdHttp201,
+    acceptedHttp202,
+    nonAuthoritativeInformationHttp203,
+    noContentHttp204,
+    resetContentHttp205,
+    partialContentHttp206,
+    multiStatusHttp207,
+    alreadyReportedHttp208,
+    imUsedHttp226,
+    multipleChoicesHttp300,
+    movedPermanentlyHttp301,
+    foundHttp302,
+    seeOtherHttp303,
+    notModifiedHttp304,
+    useProxyHttp305,
+    temporaryRedirectHttp307,
+    permanentRedirectHttp308,
+    badRequestHttp400,
+    unauthorizedHttp401,
+    paymentRequiredHttp402,
+    forbiddenHttp403,
+    notFoundHttp404,
+    methodNotAllowedHttp405,
+    notAcceptableHttp406,
+    proxyAuthenticationRequiredHttp407,
+    requestTimeoutHttp408,
+    conflictHttp409,
+    goneHttp410,
+    lengthRequiredHttp411,
+    preconditionFailedHttp412,
+    payloadTooLargeHttp413,
+    uriTooLongHttp414,
+    unsupportedMediaTypeHttp415,
+    rangeNotSatisfiableHttp416,
+    expectationFailedHttp417,
+    imATeapotHttp418,
+    misdirectedRequestHttp421,
+    unprocessableEntityHttp422,
+    lockedHttp423,
+    failedDependencyHttp424,
+    tooEarlyHttp425,
+    upgradeRequiredHttp426,
+    preconditionRequiredHttp428,
+    tooManyRequestsHttp429,
+    requestHeaderFieldsTooLargeHttp431,
+    iisLoginTimeoutHttp440,
+    nginxNoResponseHttp444,
+    iisRetryWithHttp449,
+    blockedByWindowsParentalControlsHttp450,
+    unavailableForLegalReasonsHttp451,
+    nginxSSLCertificateErrorHttp495,
+    nginxSSLCertificateRequiredHttp496,
+    nginxHTTPToHTTPSHttp497,
+    tokenExpiredHttp498,
+    nginxClientClosedRequestHttp499,
+    internalServerErrorHttp500,
+    notImplementedHttp501,
+    badGatewayHttp502,
+    serviceUnavailableHttp503,
+    gatewayTimeoutHttp504,
+    httpVersionNotSupportedHttp505,
+    variantAlsoNegotiatesHttp506,
+    insufficientStorageHttp507,
+    loopDetectedHttp508,
+    bandwidthLimitExceededHttp509,
+    otExtendedHttp510,
+    networkAuthenticationRequiredHttp511,
+    siteIsFrozenHttp530,
+    thisIsFineHttp218,
+    pageExpiredHttp419,
+    enhanceYourCalmHttp420,
+    requestHeaderFieldsTooLargeHttp430,
+    siteIsOverloadedHttp529,
+    networkReadTimeoutErrorHttp598,
+    requestHeaderTooLargeHttp494,
+    webServerReturnedUnknownErrorHttp520,
+    webServerIsDownHttp521,
+    connectionTimedOutHttp522,
+    originIsUnreachableHttp523,
+    timeoutOccurredHttp524,
+    sslHandshakeFailedHttp525,
+    invalidSSLCertificateHttp526,
+    railgunErrorHttp527,
+    clientClosedConnectionHttp460,
+    tooManyIpAddressesHttp463,
+    incompatibleProtocolVersionsHttp464,
+    unauthorizedHttp561,
+    networkConnectTimeoutErrorHttp599,
+  ];
+
+  static const officialCodes = <StatusCode>[
+    networkConnectTimeoutErrorHttp599,
+    siteIsFrozenHttp530,
+    networkAuthenticationRequiredHttp511,
+    otExtendedHttp510,
+    bandwidthLimitExceededHttp509,
+    loopDetectedHttp508,
+    insufficientStorageHttp507,
+    variantAlsoNegotiatesHttp506,
+    httpVersionNotSupportedHttp505,
+    gatewayTimeoutHttp504,
+    serviceUnavailableHttp503,
+    badGatewayHttp502,
+    notImplementedHttp501,
+    internalServerErrorHttp500,
+    nginxClientClosedRequestHttp499,
+    tokenExpiredHttp498,
+    nginxHTTPToHTTPSHttp497,
+    nginxSSLCertificateRequiredHttp496,
+    nginxSSLCertificateErrorHttp495,
+    unavailableForLegalReasonsHttp451,
+    blockedByWindowsParentalControlsHttp450,
+    iisRetryWithHttp449,
+    nginxNoResponseHttp444,
+    iisLoginTimeoutHttp440,
+    requestHeaderFieldsTooLargeHttp431,
+    tooManyRequestsHttp429,
+    preconditionRequiredHttp428,
+    upgradeRequiredHttp426,
+    tooEarlyHttp425,
+    failedDependencyHttp424,
+    lockedHttp423,
+    unprocessableEntityHttp422,
+    misdirectedRequestHttp421,
+    imATeapotHttp418,
+    expectationFailedHttp417,
+    rangeNotSatisfiableHttp416,
+    unsupportedMediaTypeHttp415,
+    uriTooLongHttp414,
+    payloadTooLargeHttp413,
+    preconditionFailedHttp412,
+    lengthRequiredHttp411,
+    goneHttp410,
+    conflictHttp409,
+    requestTimeoutHttp408,
+    proxyAuthenticationRequiredHttp407,
+    notAcceptableHttp406,
+    methodNotAllowedHttp405,
+    notFoundHttp404,
+    forbiddenHttp403,
+    paymentRequiredHttp402,
+    unauthorizedHttp401,
+    badRequestHttp400,
+    permanentRedirectHttp308,
+    temporaryRedirectHttp307,
+    useProxyHttp305,
+    notModifiedHttp304,
+    seeOtherHttp303,
+    foundHttp302,
+    movedPermanentlyHttp301,
+    multipleChoicesHttp300,
+    imUsedHttp226,
+    alreadyReportedHttp208,
+    multiStatusHttp207,
+    partialContentHttp206,
+    resetContentHttp205,
+    noContentHttp204,
+    nonAuthoritativeInformationHttp203,
+    acceptedHttp202,
+    createdHttp201,
+    okHttp200,
+    earlyHintsHttp103,
+    processingHttp102,
+    switchingProtocolsHttp101,
+    continueHttp100,
+  ];
+
+  static const reasons = <StatusCode, String>{
+    continueHttp100: 'Continue',
+    switchingProtocolsHttp101: 'Switching Protocols',
+    processingHttp102: 'Processing',
+    earlyHintsHttp103: 'Early Hints',
+    okHttp200: 'OK',
+    createdHttp201: 'Created',
+    acceptedHttp202: 'Accepted',
+    nonAuthoritativeInformationHttp203: 'Non-Authoritative Information',
+    noContentHttp204: 'No Content',
+    resetContentHttp205: 'Reset Content',
+    partialContentHttp206: 'Partial Content',
+    multiStatusHttp207: 'Multi-Status',
+    alreadyReportedHttp208: 'Already Reported',
+    imUsedHttp226: 'IM Used',
+    multipleChoicesHttp300: 'Multiple Choices',
+    movedPermanentlyHttp301: 'Moved Permanently',
+    foundHttp302: 'Found',
+    seeOtherHttp303: 'See Other',
+    notModifiedHttp304: 'Not Modified',
+    useProxyHttp305: 'Use Proxy',
+    temporaryRedirectHttp307: 'Temporary Redirect',
+    permanentRedirectHttp308: 'Permanent Redirect',
+    badRequestHttp400: 'Bad Request',
+    unauthorizedHttp401: 'Unauthorized',
+    paymentRequiredHttp402: 'Payment Required',
+    forbiddenHttp403: 'Forbidden',
+    notFoundHttp404: 'Not Found',
+    methodNotAllowedHttp405: 'Method Not Allowed',
+    notAcceptableHttp406: 'Not Acceptable',
+    proxyAuthenticationRequiredHttp407: 'Proxy Authentication Required',
+    requestTimeoutHttp408: 'Request Timeout',
+    conflictHttp409: 'Conflict',
+    goneHttp410: 'Gone',
+    lengthRequiredHttp411: 'Length Required',
+    preconditionFailedHttp412: 'Precondition Failed',
+    payloadTooLargeHttp413: 'Payload Too Large',
+    uriTooLongHttp414: 'URI Too Long',
+    unsupportedMediaTypeHttp415: 'Unsupported Media Type',
+    rangeNotSatisfiableHttp416: 'Range Not Satisfiable',
+    expectationFailedHttp417: 'Expectation Failed',
+    imATeapotHttp418: "I'm A Teapot",
+    misdirectedRequestHttp421: 'Misdirected Request',
+    unprocessableEntityHttp422: 'Unprocessable Entity',
+    lockedHttp423: 'Locked',
+    failedDependencyHttp424: 'Failed Dependency',
+    tooEarlyHttp425: 'Too Early',
+    upgradeRequiredHttp426: 'Upgrade Required',
+    preconditionRequiredHttp428: 'Precondition Required',
+    tooManyRequestsHttp429: 'Too Many Requests',
+    requestHeaderFieldsTooLargeHttp431: 'Request Header Fields Too Large',
+    iisLoginTimeoutHttp440: 'IIS Login Timeout',
+    nginxNoResponseHttp444: 'No Response',
+    iisRetryWithHttp449: 'IIS Retry With',
+    blockedByWindowsParentalControlsHttp450:
+        'Blocked by Windows Parental Controls',
+    unavailableForLegalReasonsHttp451: 'Unavailable For Legal Reasons',
+    nginxSSLCertificateErrorHttp495: 'SSL Certificate Error',
+    nginxSSLCertificateRequiredHttp496: 'SSL Certificate Required',
+    nginxHTTPToHTTPSHttp497: 'HTTP To HTTPS',
+    tokenExpiredHttp498: 'Token Expired',
+    nginxClientClosedRequestHttp499: 'Client Closed Request',
+    internalServerErrorHttp500: 'Internal Server Error',
+    notImplementedHttp501: 'Not Implemented',
+    badGatewayHttp502: 'Bad Gateway',
+    serviceUnavailableHttp503: 'Service Unavailable',
+    gatewayTimeoutHttp504: 'Gateway Timeout',
+    httpVersionNotSupportedHttp505: 'HTTP Version Not Supported',
+    variantAlsoNegotiatesHttp506: 'Variant Also Negotiates',
+    insufficientStorageHttp507: 'Insufficient Storage',
+    loopDetectedHttp508: 'Loop Detected',
+    bandwidthLimitExceededHttp509: 'Bandwidth Limit Exceeded',
+    otExtendedHttp510: 'Not Extended',
+    networkAuthenticationRequiredHttp511: 'Network Authentication Required',
+    siteIsFrozenHttp530: 'Site is frozen',
+    thisIsFineHttp218: 'This is fine (Apache HTTP Server)',
+    pageExpiredHttp419: 'Page Expired (Laravel Framework)',
+    enhanceYourCalmHttp420: 'Enhance Your Calm (Twitter)',
+    requestHeaderFieldsTooLargeHttp430:
+        'Request Header Fields Too Large (Shopify)',
+    siteIsOverloadedHttp529: 'Site is overloaded',
+    networkReadTimeoutErrorHttp598:
+        'Network read timeout error (Informal convention)',
+    requestHeaderTooLargeHttp494: 'Request Header Too Large',
+    webServerReturnedUnknownErrorHttp520:
+        'Web Server Returned an Unknown Error',
+    webServerIsDownHttp521: 'Web Server Is Down',
+    connectionTimedOutHttp522: 'Connection Timed Out',
+    originIsUnreachableHttp523: 'Origin Is Unreachable',
+    timeoutOccurredHttp524: 'A Timeout Occurred',
+    sslHandshakeFailedHttp525: 'SSL Handshake Failed',
+    invalidSSLCertificateHttp526: 'Invalid SSL Certificate',
+    railgunErrorHttp527: 'Railgun Error',
+    clientClosedConnectionHttp460: 'Client Closed Connection',
+    tooManyIpAddressesHttp463: 'Too Many IP Addresses',
+    incompatibleProtocolVersionsHttp464: 'Incompatible Protocol Versions',
+    unauthorizedHttp561: 'Unauthorized (AWS Elastic Load Balancing)',
+    networkConnectTimeoutErrorHttp599: 'Network Connect Timeout Error',
+  };
 }
