@@ -20,7 +20,7 @@ extension StatusCodeExtension on StatusCode {
   /// [StatusCode.values] list.
   ///
   /// This is useful for detecting custom or non-standard status codes that are
-  /// not registered by IANA, provided via the [StatusCode.custom] constructor.
+  /// not registered by IANA, provided via the [StatusCode].custom constructor.
   bool get isCustom => !StatusCode.values.contains(this);
 
   /// Returns the shallow string representation of this status code, similar to
