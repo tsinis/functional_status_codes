@@ -1,6 +1,6 @@
 version: 3.0.0
 name: functional_status_codes
-description: This package offers a functional approach to handling HTTP status codes.
+description: Zero-cost HTTP status codes as int extension type with num? functional helpers
 maintainer: Roman Cinis
 repository: https://github.com/tsinis/functional_status_codes
 issue_tracker: https://github.com/tsinis/functional_status_codes/issues
