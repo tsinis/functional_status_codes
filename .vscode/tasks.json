@@ -1,0 +1,124 @@
+{
+  "version": "2.0.0",
+  "options": { "cwd": "${fileWorkspaceFolder}" },
+  "presentation": { "showReuseMessage": false },
+  "tasks": [
+    {
+      "type": "dart",
+      "command": "dart",
+      "args": ["pub", "get", "--no-example"],
+      "label": "Dart Pub Get"
+    },
+    {
+      "type": "dart",
+      "command": "dart",
+      "args": ["analyze", "."],
+      "label": "Dart Analyze"
+    },
+    {
+      "type": "dart",
+      "command": "dart",
+      "args": ["format", "."],
+      "label": "Dart Format",
+      "presentation": {
+        "reveal": "never",
+        "revealProblems": "onProblem",
+        "close": true
+      }
+    },
+    {
+      "type": "dart",
+      "command": "dart",
+      "args": ["pub", "publish", "--dry-run"],
+      "label": "Dart Publish Dry Run",
+      "presentation": { "revealProblems": "onProblem" }
+    },
+    {
+      "type": "shell",
+      "command": "PANA=$(dart run pana . --no-warning); PANA_SCORE=$(echo $PANA | sed -n \"s/.*Points: \\([0-9]*\\)\\/\\([0-9]*\\)./\\1\\/\\2/p\"); echo \"score: $PANA_SCORE\"; IFS='/' read -ra SCORE_ARR <<< \"$PANA_SCORE\"; SCORE=${SCORE_ARR[0]}; if (( SCORE < 160 )); then echo \"Minimum score of 160 was not met! Got $SCORE.\"; exit 1; fi",
+      "label": "PANA Score Check"
+    },
+    {
+      "type": "dart",
+      "command": "dart",
+      "args": ["test", "--fail-fast", "--coverage=coverage"],
+      "label": "Dart Test"
+    },
+    {
+      "type": "shell",
+      "command": "dcm analyze .",
+      "label": "Dart Code Metrics Analyze"
+    },
+    {
+      "type": "shell",
+      "command": "dcm check-unused-files .",
+      "label": "Dart Code Metrics Unused Files"
+    },
+    {
+      "type": "shell",
+      "command": "dcm check-unused-code test",
+      "label": "Dart Code Metrics Unused Code"
+    },
+    {
+      "type": "dart",
+      "command": "dart",
+      "args": [
+        "run",
+        "coverage:format_coverage",
+        "--check-ignore",
+        "-l",
+        "-i",
+        "coverage",
+        "-o",
+        "coverage/lcov.info",
+        "--report-on=lib"
+      ],
+      "label": "Format Dart Coverage"
+    },
+    {
+      "type": "shell",
+      "command": "genhtml coverage/lcov.info -o coverage/ --dark-mode --ignore-errors range",
+      "label": "Generate Coverage"
+    },
+    {
+      "type": "shell",
+      "osx": { "command": "open coverage/index.html" },
+      "linux": { "command": "xdg-open coverage/index.html" },
+      "label": "Open Coverage Report",
+      "presentation": { "close": true }
+    },
+    {
+      "type": "shell",
+      "label": "Update Dart Coverage",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Dart Test", "Format Dart Coverage", "Generate Coverage"],
+      "presentation": { "revealProblems": "onProblem", "close": true }
+    },
+    {
+      "type": "shell",
+      "label": "Show Dart Coverage",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Update Dart Coverage", "Open Coverage Report"]
+    },
+    {
+      "type": "shell",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Dart Pub Get",
+        "Dart Test",
+        "Dart Format",
+        "Dart Analyze",
+        "Dart Code Metrics Analyze",
+        "Dart Code Metrics Unused Code",
+        "Dart Code Metrics Unused Files"
+      ],
+      "label": "Dart Pub Get, Test, Format, Analyze, DCM"
+    },
+    {
+      "type": "shell",
+      "command": "cwebp -q 90 doc/example.png -o doc/example.webp",
+      "label": "Convert Example PNG to WEBP",
+      "presentation": { "revealProblems": "onProblem", "close": true }
+    }
+  ]
+}

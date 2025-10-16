@@ -3,14 +3,14 @@ description: A simple one and modified http package example with use of function
 publish_to: none
 
 environment:
-  sdk: ^2.17.0
+  sdk: ^3.9.0
 
 dependencies:
   functional_status_codes:
     path: ../
-  http: any # From Google
+  http: any # From Google.
 
 dev_dependencies:
-  dart_code_metrics: any # Flutter Favorite
-  lints: any # From Google
-  test: any # From Google
+  dart_code_metrics_presets: ^2.26.1 # DCM.
+  lints: ^6.0.0 # From Google.
+  test: ^1.26.3 # From Google.

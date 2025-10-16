@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checks-out repository
+      - name: 📚 Git checkout
         uses: actions/checkout@v5.0.0
         with:
           fetch-depth: 0
 
-      - name: Mirroring Repository
+      - name: 🪞 Mirroring repository
         uses: fscarmen/repository-mirroring-action@v1.0.0
         with:
           target_repo_url: git@gitlab.com:tsinis/functional_status_codes.git

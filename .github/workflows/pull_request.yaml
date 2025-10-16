@@ -2,41 +2,46 @@ name: pull_requests
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
+  contents: read
   pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   branch-name:
-    name: 🔀 Check branch name
+    name: 🔀 Check Branch Name
     runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
-      - name: Assert Branch Naming Convention
-        uses: deepakputhraya/action-branch-name@master
+      - name: 🔀 Assert Branch Naming Convention
+        uses: lekterable/branchlint-action@2.1.0
         with:
-          allowed_prefixes: "feature,feat,test,tests,fix,bug,chore,dependabot,deps,ci,build,docs,doc,style,refactor"
-          ignore: main,release
-          min_length: 5
+          errorMessage: 'Branch name should only contain latin characters, numbers and those symbols: ".", "/", "-", "_" and must start with: `feature/`, `feat/`, `test/`, `tests/`, `fix/`, `bug/`, `chore/`, `deps/`, `ci/`, `build/`, `docs/`, `doc/`, `style/` or `refactor/`.'
+          allowed: /(feature|feat|test|tests|fix|bug|chore|dependabot|deps|ci|build|docs|doc|style|refactor)\/([a-zA-Z0-9_.\/-]*)/
 
   assign:
-    name: ✍🏻 Assign PR Author and Reviewer
+    name: ✍🏻 Auto-assign PR
     runs-on: ubuntu-latest
     timeout-minutes: 4
+    if: github.actor != 'dependabot[bot]'
     steps:
-      - name: Add Reviewer and Author Assign
-        uses: kentaro-m/auto-assign-action@v2.0.0
-        with:
-          configuration-path: '.github/workflows/actions_settings/auto-assign.yaml'
+      - name: ✍🏻 Add Reviewer and Author Assign
+        uses: devmyong/auto-assign@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
 
   pr-title:
-    name: 📰 Check PR Title
+    name: 📰 Lint PR Title
     runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
-      - name: Lint Pull Request Title
+      - name: 📰 Lint Pull Request Title
         uses: amannn/action-semantic-pull-request@v6.1.1
         with:
           requireScope: false
@@ -44,12 +49,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   auto-approve:
-    name: 🎟️ Approve Dependabot and repository owner
+    name: 🎟️ Auto-approve PR
     runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
-      - name: Approve Dependabot and owner
-        uses: hmarr/auto-approve-action@v4
+      - name: 🎟️ Approve Dependabot and owner
+        uses: hmarr/auto-approve-action@v4.0.0
         if: github.actor == 'dependabot[bot]' || github.actor == 'tsinis'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -60,9 +65,9 @@ jobs:
     needs: branch-name
     timeout-minutes: 4
     steps:
-      - name: Detect and add label(s)
+      - name: 🏷️ Detect and add label(s)
         uses: TimonVS/pr-labeler-action@v5.0.0
         with:
-          configuration-path: .github/workflows/actions_settings/pr-labeler.yaml
+          configuration-path: .github/workflows/config/pr-labels.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

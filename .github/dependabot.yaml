@@ -6,8 +6,25 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "tsinis"
+      day: "sunday"
+      time: "09:00"
+      timezone: "Europe/Vienna"
     commit-message:
       prefix: "chore"
       include: "scope"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pub"
+    versioning-strategy: increase
+    directory: "/example"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "09:00"
+      timezone: "Europe/Vienna"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"

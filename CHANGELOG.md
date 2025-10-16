@@ -1,3 +1,142 @@
+## 3.0.0
+
+Third anniversary - third version :tada:
+
+**BREAKING CHANGES**: `StatusCode` has been converted from an `enum` to an `extension type`, providing better performance and new capabilities while maintaining most of the existing API.
+
+### Breaking Changes
+
+1. **`name` property behavior changed**: Previously returned the enum name (e.g., `"okHttp200"`), now returns the same output as the previous `toString()` method for backward compatibility.
+
+2. **`toString()` behavior changed**: Now returns just the integer value (e.g., `"200"`), as `StatusCode` is now a lightweight wrapper around `int`. Use `toStringShallow()` if you need the previous detailed format.
+
+3. **`index` property deprecated**: No longer applicable since `StatusCode` is not an enum. The property still works but is deprecated.
+
+4. **`code` property deprecated**: Since `StatusCode` now implements `int` directly, you can use the status code value directly without calling `.code`.
+
+### Migration Guide
+
+#### Using `name` property
+
+Before (v2.x):
+
+```dart
+print(StatusCode.okHttp200.name); // Output: "okHttp200"
+```
+
+After (v3.x):
+
+```dart
+// If you need the enum-like name, use toStringShallow() instead:
+print(StatusCode.okHttp200.toStringShallow());
+// Output: "StatusCode(200, reason: "OK", isOfficial: true)"
+
+// Or if you just need the numeric value:
+print(StatusCode.okHttp200); // Output: "200"
+```
+
+#### Using `toString()` method
+
+Before (v2.x):
+
+```dart
+print(StatusCode.okHttp200.toString());
+// Output: "StatusCode(200, reason: "OK", isOfficial: true)"
+```
+
+After (v3.x):
+
+```dart
+print(StatusCode.okHttp200.toString()); // Output: "200"
+
+// Use toStringShallow() for the detailed format:
+print(StatusCode.okHttp200.toStringShallow());
+// Output: "StatusCode(200, reason: "OK", isOfficial: true)"
+```
+
+#### Using `code` property
+
+Before (v2.x):
+
+```dart
+final code = StatusCode.okHttp200.code; // Returns: 200
+if (response.statusCode == StatusCode.notFoundHttp404.code) { ... }
+```
+
+After (v3.x):
+
+```dart
+// StatusCode now implements int directly, so just use it as an int:
+final code = StatusCode.okHttp200; // IS 200
+if (response.statusCode == StatusCode.notFoundHttp404) { ... }
+
+// The .code property still works but is deprecated
+```
+
+#### Using as default parameter values
+
+Before (v2.x - NOT POSSIBLE):
+
+```dart
+// This was NOT possible with enum:
+class ApiClient {
+  final int defaultTimeout;
+  final int successCode;
+
+  // ERROR: Can't use enum value as compile-time constant
+  const ApiClient({this.defaultTimeout = 30, this.successCode = StatusCode.okHttp200.code});
+}
+```
+
+After (v3.x - NOW POSSIBLE):
+
+```dart
+// Now possible with extension type:
+class ApiClient {
+  final int defaultTimeout;
+  final int successCode;
+
+  // Works! StatusCode can be used as compile-time constant
+  const ApiClient({
+    this.defaultTimeout = 30,
+    this.successCode = StatusCode.okHttp200, // Direct use as int!
+  });
+}
+```
+
+### New Features
+
+- **Custom status codes**: You can now create custom status codes that for example weren't registered by IANA:
+
+  ```dart
+  const customCode = StatusCode.custom(456);
+  print(customCode); // Output: 456
+  print(customCode.isCustom); // Output: true
+  ```
+
+- **Compile-time constants**: `StatusCode` values can now be used as compile-time constants in default parameter values, const constructors, and annotations.
+
+- **Direct integer operations**: Since `StatusCode` implements `int`, you can use it directly in numeric operations and comparisons without calling `.code`:
+
+  ```dart
+  final status = StatusCode.okHttp200;
+  if (status >= 200 && status < 300) { ... }
+  final newCode = status + 1; // Works!
+  ```
+
+- **Zero runtime overhead**: Extension types have no runtime cost compared to using raw integers.
+
+### Benefits
+
+- **Performance**: Zero-cost abstraction - no boxing/unboxing overhead.
+- **Flexibility**: Create custom status codes for internal APIs.
+- **Convenience**: Use directly as integers in const contexts.
+- **Compatibility**: Most existing code continues to work with deprecation warnings guiding migration.
+
+### Notes
+
+Most code will continue to work without changes. Deprecated properties include guidance messages to help with migration. The functional methods (`map`, `maybeMap`, `when`, `maybeWhen`, etc.) and `num?` extensions work exactly as before.
+
 ## 2.3.0
 
 NEW FEATURE: Added two new methods `isStatusCodeWithinRange` method to `num?` type, allowing for easy checking if a number falls within a specified range and `isStatusWithinRange` method, similar to the `isStatusCodeWithinRange` but leveraging the `StatusCode` enum to define range.
