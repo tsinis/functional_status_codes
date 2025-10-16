@@ -78,8 +78,7 @@
     {
       "type": "shell",
       "command": "genhtml coverage/lcov.info -o coverage/ --dark-mode --ignore-errors range",
-      "label": "Generate Coverage",
-      "presentation": { "close": true }
+      "label": "Generate Coverage"
     },
     {
       "type": "shell",
