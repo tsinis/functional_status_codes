@@ -546,4 +546,63 @@ extension NumStatusCodeExtension<T extends num> on T? {
 
     return orElse(registeredStatusCode, thisValue);
   }
+
+  /// Maps the status code to a result using optional handler functions that
+  /// receive the registered [StatusCode] (or `null` if unregistered). Returns
+  /// the result of [orElse] if no matching handler is provided, or `null` if
+  /// [orElse] is also not provided.
+  ///
+  /// All handlers are optional. Each handler receives the [StatusCode] value
+  /// for that category (or `null` for unregistered codes). This is similar to
+  /// [maybeMapToRegisteredStatusCode] but with a simpler fallback that doesn't
+  /// pass the original numeric value.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// final statusCode = 200;
+  /// final result = statusCode.mapToRegisteredStatusCodeOrNull(
+  ///   isSuccess: (code) => 'Success: $code',
+  ///   orElse: (code) => 'Other: $code',
+  /// );
+  /// print(result); // 'Success: 200'
+  ///
+  /// final unknownCode = 600;
+  /// final result2 = unknownCode.mapToRegisteredStatusCodeOrNull(
+  ///   isSuccess: (code) => 'Success',
+  /// );
+  /// print(result2); // null
+  ///
+  /// final unregisteredCode = 299;
+  /// final result3 = unregisteredCode.mapToRegisteredStatusCodeOrNull(
+  ///   isSuccess: (code) => 'Registered: $code',
+  ///   orElse: (code) => 'Unregistered, code is: $code',
+  /// );
+  /// print(result3); // 'Unregistered, code is: null'
+  /// ```
+  R? mapToRegisteredStatusCodeOrNull<R>({
+    R Function(StatusCode? informationalStatusCode)? isInformational,
+    R Function(StatusCode? successStatusCode)? isSuccess,
+    R Function(StatusCode? redirectionStatusCode)? isRedirection,
+    R Function(StatusCode? clientErrorStatusCode)? isClientError,
+    R Function(StatusCode? serverErrorStatusCode)? isServerError,
+    R Function(StatusCode? statusCode)? orElse,
+  }) {
+    final registeredStatusCode = toRegisteredStatusCode();
+    if (registeredStatusCode == null) return orElse?.call(null);
+
+    if (this.isInformational && isInformational != null) {
+      return isInformational(registeredStatusCode);
+    } else if (this.isSuccess && isSuccess != null) {
+      return isSuccess(registeredStatusCode);
+    } else if (this.isRedirection && isRedirection != null) {
+      return isRedirection(registeredStatusCode);
+    } else if (this.isClientError && isClientError != null) {
+      return isClientError(registeredStatusCode);
+    } else if (this.isServerError && isServerError != null) {
+      return isServerError(registeredStatusCode);
+    }
+
+    return orElse?.call(registeredStatusCode);
+  }
 }
