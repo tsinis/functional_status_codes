@@ -54,10 +54,10 @@ void main() => group('StatusCodeExtension', () {
       () => expect(StatusCode.okHttp200.code, equals(200)),
     );
 
-    test('name returns toStringShallow', () {
-      const code = StatusCode.okHttp200;
-      expect(code.name, equals(code.toStringShallow()));
-    });
+    test(
+      'name returns toStringShallow',
+      () => expect(StatusCode.okHttp200.name, 'okHttp200'),
+    );
   });
 
   group('Boolean getters for specific status codes', () {
@@ -422,12 +422,19 @@ void main() => group('StatusCodeExtension', () {
   });
 
   group('maybeMap method', () {
-    test('orElse', () {
+    test('orElse with custom status code', () {
       final result = custom.maybeMap(
         okHttp200: (_) => true,
         orElse: () => false,
       );
       expect(result, isFalse);
+    });
+
+    test('orElse with non-custom status codes', () {
+      for (final code in StatusCode.values) {
+        final result = code.maybeMap(orElse: () => false);
+        expect(result, isFalse);
+      }
     });
 
     test('calls correct callback for each status code', () {
@@ -641,12 +648,19 @@ void main() => group('StatusCodeExtension', () {
   });
 
   group('maybeWhen method', () {
-    test('orElse', () {
+    test('orElse with custom status code', () {
       final result = custom.maybeWhen(
         okHttp200: () => true,
         orElse: () => false,
       );
       expect(result, isFalse);
+    });
+
+    test('orElse with non-custom status codes', () {
+      for (final code in StatusCode.values) {
+        final result = code.maybeWhen(orElse: () => false);
+        expect(result, isFalse);
+      }
     });
 
     test('calls correct callback for each status code', () {
@@ -755,12 +769,19 @@ void main() => group('StatusCodeExtension', () {
   });
 
   group('whenOrNull method', () {
-    test('orElse', () {
+    test('orElse with custom status code', () {
       final result = custom.whenOrNull(
         okHttp200: () => true,
         orElse: () => false,
       );
       expect(result, isFalse);
+    });
+
+    test('orElse with non-custom status codes', () {
+      for (final code in StatusCode.values) {
+        final result = code.whenOrNull(orElse: () => false);
+        expect(result, isFalse);
+      }
     });
 
     test('calls correct callback for each status code', () {
