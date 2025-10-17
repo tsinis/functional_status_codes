@@ -2,15 +2,17 @@
 
 Third anniversary - third version :tada:
 
+NEW FEATURE: New `mapToRegisteredStatusCodeOrNull` method added!
+
 **BREAKING CHANGES**: `StatusCode` has been converted from an `enum` to an `extension type`, providing better performance and new capabilities while maintaining most of the existing API.
 
 ### Breaking Changes
 
-1. **`name` property behavior changed**: Previously returned the enum name (e.g., `"okHttp200"`), now returns the same output as the previous `toString()` method for backward compatibility.
+1. **`toString()` behavior changed**: Now returns just the integer value (e.g., `"200"`), as `StatusCode` is now a lightweight wrapper around `int`. Use `toStringShallow()` if you need the previous detailed format.
 
-2. **`toString()` behavior changed**: Now returns just the integer value (e.g., `"200"`), as `StatusCode` is now a lightweight wrapper around `int`. Use `toStringShallow()` if you need the previous detailed format.
+2. **`index` property deprecated**: No longer applicable since `StatusCode` is not an enum. The property still works but is deprecated.
 
-3. **`index` property deprecated**: No longer applicable since `StatusCode` is not an enum. The property still works but is deprecated.
+3. **`name` property deprecated**: No longer applicable since `StatusCode` is not an enum. The property still works but is deprecated.
 
 4. **`code` property deprecated**: Since `StatusCode` now implements `int` directly, you can use the status code value directly without calling `.code`.
 
@@ -27,11 +29,9 @@ print(StatusCode.okHttp200.name); // Output: "okHttp200"
 After (v3.x):
 
 ```dart
-// If you need the enum-like name, use toStringShallow() instead:
-print(StatusCode.okHttp200.toStringShallow());
-// Output: "StatusCode(200, reason: "OK", isOfficial: true)"
-
-// Or if you just need the numeric value:
+print(StatusCode.okHttp200.name); // Output: "okHttp200"
+print(StatusCode.custom(456).name); // Output: "customStatusCode456"
+// If you just need the numeric value:
 print(StatusCode.okHttp200); // Output: "200"
 ```
 

@@ -4,6 +4,7 @@ import 'package:functional_status_codes/src/num_status_code_extension.dart';
 import 'package:functional_status_codes/src/status_code.dart';
 import 'package:test/test.dart';
 
+// ignore: avoid-high-cyclomatic-complexity, it's a test.
 void main() => group('NumStatusCodeExtension', () {
   const basicCodes = {
     StatusCode.continueHttp100,
@@ -642,5 +643,129 @@ void main() => group('NumStatusCodeExtension', () {
         expect(result, isA<StatusCode>());
       });
     }
+  });
+
+  group('mapToRegisteredStatusCodeOrNull', () {
+    const fallback = StatusCode.custom(289);
+    StatusCode? mapToRegisteredCodeOrNull(num? numb) =>
+        numb.mapToRegisteredStatusCodeOrNull(
+          isInformational: (value) => value ?? fallback,
+          isSuccess: (value) => value ?? fallback,
+          isRedirection: (value) => value ?? fallback,
+          isClientError: (value) => value ?? fallback,
+          isServerError: (value) => value ?? fallback,
+        );
+
+    test(
+      'common test for no matching handler',
+      () => expect(
+        200.mapToRegisteredStatusCodeOrNull(
+          isInformational: (_) => 100,
+          orElse: (_) => 999,
+        ),
+        999,
+      ),
+    );
+
+    test(
+      'common test for out of range',
+      () => expect(
+        1.mapToRegisteredStatusCodeOrNull(
+          orElse: (_) => const StatusCode.custom(290),
+          isInformational: (_) => const StatusCode.custom(144),
+        ),
+        const StatusCode.custom(290),
+      ),
+    );
+
+    test(
+      'common test for orElse and value',
+      () => expect(
+        200.mapToRegisteredStatusCodeOrNull(isSuccess: (code) => code),
+        StatusCode.okHttp200,
+      ),
+    );
+
+    test(
+      'common test for orElse and isInformational',
+      () => expect(
+        100.mapToRegisteredStatusCodeOrNull(isInformational: (code) => code),
+        StatusCode.continueHttp100,
+      ),
+    );
+
+    test(
+      'should return null when no handlers provided',
+      () => expect(200.mapToRegisteredStatusCodeOrNull<int>(), isNull),
+    );
+
+    for (final number in globalWrongCases) {
+      test(
+        'should return orElse value for $number',
+        () => expect(mapToRegisteredCodeOrNull(number), isNull),
+      );
+    }
+
+    test(
+      'should return proper value for $testValue status code',
+      () => expect(
+        testValue.mapToRegisteredStatusCodeOrNull(
+          isInformational: (value) => value,
+          orElse: (value) => value,
+        ),
+        basicCodes.first,
+      ),
+    );
+
+    test('should return registered StatusCode for double value', () {
+      final doubleCode = testValue.toDouble();
+      final result = mapToRegisteredCodeOrNull(doubleCode);
+      expect(result, basicCodes.first);
+      expect(result, isA<StatusCode>());
+    });
+
+    for (final status in basicCodes) {
+      test('should return $status for registered status code', () {
+        final result = mapToRegisteredCodeOrNull(status);
+        expect(result, status);
+        expect(result, isA<StatusCode>());
+      });
+    }
+
+    test('should handle unregistered code with orElse', () {
+      final result = 290.mapToRegisteredStatusCodeOrNull(
+        isSuccess: (code) => code,
+        orElse: (code) => const StatusCode.custom(290),
+      );
+      expect(result, const StatusCode.custom(290));
+    });
+
+    test('should pass null to orElse for unregistered code', () {
+      StatusCode? receivedCode;
+      final result = 144.mapToRegisteredStatusCodeOrNull(
+        // ignore: prefer-extracting-function-callbacks, just a test.
+        orElse: (code) {
+          receivedCode = code;
+
+          return const StatusCode.custom(144);
+        },
+      );
+      expect(receivedCode, isNull);
+      expect(result, const StatusCode.custom(144));
+    });
+
+    test('should pass registered code to handler', () {
+      StatusCode? receivedCode;
+      final result = StatusCode.okHttp200.mapToRegisteredStatusCodeOrNull(
+        // ignore: prefer-extracting-function-callbacks, just a test.
+        isSuccess: (code) {
+          receivedCode = code;
+
+          return code;
+        },
+      );
+      expect(receivedCode, StatusCode.okHttp200);
+      expect(result, StatusCode.okHttp200);
+    });
   });
 });

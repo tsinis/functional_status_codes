@@ -30,7 +30,7 @@ extension StatusCodeExtension on StatusCode {
   /// old enum `name` behavior. Prefer using [toString] or [toStringShallow]
   /// directly.
   @Deprecated('Use toString() or toStringShallow() instead')
-  String get name => toStringShallow();
+  String get name => _names[this] ?? 'customStatusCode$this';
 
   /// The IANA registered HTTP Status code.
   @Deprecated('StatusCode is no longer an enum, so `index` is not applicable.')
@@ -800,166 +800,275 @@ extension StatusCodeExtension on StatusCode {
     incompatibleProtocolVersionsHttp464,
     R Function(StatusCode unauthorizedHttp561)? unauthorizedHttp561,
   }) => switch (this) {
-    StatusCode.continueHttp100 => continueHttp100?.call(this) ?? orElse(),
+    StatusCode.continueHttp100 =>
+      continueHttp100 == null ? orElse() : continueHttp100(this),
     StatusCode.switchingProtocolsHttp101 =>
-      switchingProtocolsHttp101?.call(this) ?? orElse(),
-    StatusCode.processingHttp102 => processingHttp102?.call(this) ?? orElse(),
-    StatusCode.earlyHintsHttp103 => earlyHintsHttp103?.call(this) ?? orElse(),
-    StatusCode.okHttp200 => okHttp200?.call(this) ?? orElse(),
-    StatusCode.createdHttp201 => createdHttp201?.call(this) ?? orElse(),
-    StatusCode.acceptedHttp202 => acceptedHttp202?.call(this) ?? orElse(),
+      switchingProtocolsHttp101 == null
+          ? orElse()
+          : switchingProtocolsHttp101(this),
+    StatusCode.processingHttp102 =>
+      processingHttp102 == null ? orElse() : processingHttp102(this),
+    StatusCode.earlyHintsHttp103 =>
+      earlyHintsHttp103 == null ? orElse() : earlyHintsHttp103(this),
+    StatusCode.okHttp200 => okHttp200 == null ? orElse() : okHttp200(this),
+    StatusCode.createdHttp201 =>
+      createdHttp201 == null ? orElse() : createdHttp201(this),
+    StatusCode.acceptedHttp202 =>
+      acceptedHttp202 == null ? orElse() : acceptedHttp202(this),
     StatusCode.nonAuthoritativeInformationHttp203 =>
-      nonAuthoritativeInformationHttp203?.call(this) ?? orElse(),
-    StatusCode.noContentHttp204 => noContentHttp204?.call(this) ?? orElse(),
+      nonAuthoritativeInformationHttp203 == null
+          ? orElse()
+          : nonAuthoritativeInformationHttp203(this),
+    StatusCode.noContentHttp204 =>
+      noContentHttp204 == null ? orElse() : noContentHttp204(this),
     StatusCode.resetContentHttp205 =>
-      resetContentHttp205?.call(this) ?? orElse(),
+      resetContentHttp205 == null ? orElse() : resetContentHttp205(this),
     StatusCode.partialContentHttp206 =>
-      partialContentHttp206?.call(this) ?? orElse(),
-    StatusCode.multiStatusHttp207 => multiStatusHttp207?.call(this) ?? orElse(),
+      partialContentHttp206 == null ? orElse() : partialContentHttp206(this),
+    StatusCode.multiStatusHttp207 =>
+      multiStatusHttp207 == null ? orElse() : multiStatusHttp207(this),
     StatusCode.alreadyReportedHttp208 =>
-      alreadyReportedHttp208?.call(this) ?? orElse(),
-    StatusCode.imUsedHttp226 => imUsedHttp226?.call(this) ?? orElse(),
+      alreadyReportedHttp208 == null ? orElse() : alreadyReportedHttp208(this),
+    StatusCode.imUsedHttp226 =>
+      imUsedHttp226 == null ? orElse() : imUsedHttp226(this),
     StatusCode.multipleChoicesHttp300 =>
-      multipleChoicesHttp300?.call(this) ?? orElse(),
+      multipleChoicesHttp300 == null ? orElse() : multipleChoicesHttp300(this),
     StatusCode.movedPermanentlyHttp301 =>
-      movedPermanentlyHttp301?.call(this) ?? orElse(),
-    StatusCode.foundHttp302 => foundHttp302?.call(this) ?? orElse(),
-    StatusCode.seeOtherHttp303 => seeOtherHttp303?.call(this) ?? orElse(),
-    StatusCode.notModifiedHttp304 => notModifiedHttp304?.call(this) ?? orElse(),
-    StatusCode.useProxyHttp305 => useProxyHttp305?.call(this) ?? orElse(),
+      movedPermanentlyHttp301 == null
+          ? orElse()
+          : movedPermanentlyHttp301(this),
+    StatusCode.foundHttp302 =>
+      foundHttp302 == null ? orElse() : foundHttp302(this),
+    StatusCode.seeOtherHttp303 =>
+      seeOtherHttp303 == null ? orElse() : seeOtherHttp303(this),
+    StatusCode.notModifiedHttp304 =>
+      notModifiedHttp304 == null ? orElse() : notModifiedHttp304(this),
+    StatusCode.useProxyHttp305 =>
+      useProxyHttp305 == null ? orElse() : useProxyHttp305(this),
     StatusCode.temporaryRedirectHttp307 =>
-      temporaryRedirectHttp307?.call(this) ?? orElse(),
+      temporaryRedirectHttp307 == null
+          ? orElse()
+          : temporaryRedirectHttp307(this),
     StatusCode.permanentRedirectHttp308 =>
-      permanentRedirectHttp308?.call(this) ?? orElse(),
-    StatusCode.badRequestHttp400 => badRequestHttp400?.call(this) ?? orElse(),
+      permanentRedirectHttp308 == null
+          ? orElse()
+          : permanentRedirectHttp308(this),
+    StatusCode.badRequestHttp400 =>
+      badRequestHttp400 == null ? orElse() : badRequestHttp400(this),
     StatusCode.unauthorizedHttp401 =>
-      unauthorizedHttp401?.call(this) ?? orElse(),
+      unauthorizedHttp401 == null ? orElse() : unauthorizedHttp401(this),
     StatusCode.paymentRequiredHttp402 =>
-      paymentRequiredHttp402?.call(this) ?? orElse(),
-    StatusCode.forbiddenHttp403 => forbiddenHttp403?.call(this) ?? orElse(),
-    StatusCode.notFoundHttp404 => notFoundHttp404?.call(this) ?? orElse(),
+      paymentRequiredHttp402 == null ? orElse() : paymentRequiredHttp402(this),
+    StatusCode.forbiddenHttp403 =>
+      forbiddenHttp403 == null ? orElse() : forbiddenHttp403(this),
+    StatusCode.notFoundHttp404 =>
+      notFoundHttp404 == null ? orElse() : notFoundHttp404(this),
     StatusCode.methodNotAllowedHttp405 =>
-      methodNotAllowedHttp405?.call(this) ?? orElse(),
+      methodNotAllowedHttp405 == null
+          ? orElse()
+          : methodNotAllowedHttp405(this),
     StatusCode.notAcceptableHttp406 =>
-      notAcceptableHttp406?.call(this) ?? orElse(),
+      notAcceptableHttp406 == null ? orElse() : notAcceptableHttp406(this),
     StatusCode.proxyAuthenticationRequiredHttp407 =>
-      proxyAuthenticationRequiredHttp407?.call(this) ?? orElse(),
+      proxyAuthenticationRequiredHttp407 == null
+          ? orElse()
+          : proxyAuthenticationRequiredHttp407(this),
     StatusCode.requestTimeoutHttp408 =>
-      requestTimeoutHttp408?.call(this) ?? orElse(),
-    StatusCode.conflictHttp409 => conflictHttp409?.call(this) ?? orElse(),
-    StatusCode.goneHttp410 => goneHttp410?.call(this) ?? orElse(),
+      requestTimeoutHttp408 == null ? orElse() : requestTimeoutHttp408(this),
+    StatusCode.conflictHttp409 =>
+      conflictHttp409 == null ? orElse() : conflictHttp409(this),
+    StatusCode.goneHttp410 =>
+      goneHttp410 == null ? orElse() : goneHttp410(this),
     StatusCode.lengthRequiredHttp411 =>
-      lengthRequiredHttp411?.call(this) ?? orElse(),
+      lengthRequiredHttp411 == null ? orElse() : lengthRequiredHttp411(this),
     StatusCode.preconditionFailedHttp412 =>
-      preconditionFailedHttp412?.call(this) ?? orElse(),
+      preconditionFailedHttp412 == null
+          ? orElse()
+          : preconditionFailedHttp412(this),
     StatusCode.payloadTooLargeHttp413 =>
-      payloadTooLargeHttp413?.call(this) ?? orElse(),
-    StatusCode.uriTooLongHttp414 => uriTooLongHttp414?.call(this) ?? orElse(),
+      payloadTooLargeHttp413 == null ? orElse() : payloadTooLargeHttp413(this),
+    StatusCode.uriTooLongHttp414 =>
+      uriTooLongHttp414 == null ? orElse() : uriTooLongHttp414(this),
     StatusCode.unsupportedMediaTypeHttp415 =>
-      unsupportedMediaTypeHttp415?.call(this) ?? orElse(),
+      unsupportedMediaTypeHttp415 == null
+          ? orElse()
+          : unsupportedMediaTypeHttp415(this),
     StatusCode.rangeNotSatisfiableHttp416 =>
-      rangeNotSatisfiableHttp416?.call(this) ?? orElse(),
+      rangeNotSatisfiableHttp416 == null
+          ? orElse()
+          : rangeNotSatisfiableHttp416(this),
     StatusCode.expectationFailedHttp417 =>
-      expectationFailedHttp417?.call(this) ?? orElse(),
-    StatusCode.imATeapotHttp418 => imATeapotHttp418?.call(this) ?? orElse(),
+      expectationFailedHttp417 == null
+          ? orElse()
+          : expectationFailedHttp417(this),
+    StatusCode.imATeapotHttp418 =>
+      imATeapotHttp418 == null ? orElse() : imATeapotHttp418(this),
     StatusCode.misdirectedRequestHttp421 =>
-      misdirectedRequestHttp421?.call(this) ?? orElse(),
+      misdirectedRequestHttp421 == null
+          ? orElse()
+          : misdirectedRequestHttp421(this),
     StatusCode.unprocessableEntityHttp422 =>
-      unprocessableEntityHttp422?.call(this) ?? orElse(),
-    StatusCode.lockedHttp423 => lockedHttp423?.call(this) ?? orElse(),
+      unprocessableEntityHttp422 == null
+          ? orElse()
+          : unprocessableEntityHttp422(this),
+    StatusCode.lockedHttp423 =>
+      lockedHttp423 == null ? orElse() : lockedHttp423(this),
     StatusCode.failedDependencyHttp424 =>
-      failedDependencyHttp424?.call(this) ?? orElse(),
-    StatusCode.tooEarlyHttp425 => tooEarlyHttp425?.call(this) ?? orElse(),
+      failedDependencyHttp424 == null
+          ? orElse()
+          : failedDependencyHttp424(this),
+    StatusCode.tooEarlyHttp425 =>
+      tooEarlyHttp425 == null ? orElse() : tooEarlyHttp425(this),
     StatusCode.upgradeRequiredHttp426 =>
-      upgradeRequiredHttp426?.call(this) ?? orElse(),
+      upgradeRequiredHttp426 == null ? orElse() : upgradeRequiredHttp426(this),
     StatusCode.preconditionRequiredHttp428 =>
-      preconditionRequiredHttp428?.call(this) ?? orElse(),
+      preconditionRequiredHttp428 == null
+          ? orElse()
+          : preconditionRequiredHttp428(this),
     StatusCode.tooManyRequestsHttp429 =>
-      tooManyRequestsHttp429?.call(this) ?? orElse(),
+      tooManyRequestsHttp429 == null ? orElse() : tooManyRequestsHttp429(this),
     StatusCode.requestHeaderFieldsTooLargeHttp431 =>
-      requestHeaderFieldsTooLargeHttp431?.call(this) ?? orElse(),
+      requestHeaderFieldsTooLargeHttp431 == null
+          ? orElse()
+          : requestHeaderFieldsTooLargeHttp431(this),
     StatusCode.iisLoginTimeoutHttp440 =>
-      iisLoginTimeoutHttp440?.call(this) ?? orElse(),
+      iisLoginTimeoutHttp440 == null ? orElse() : iisLoginTimeoutHttp440(this),
     StatusCode.nginxNoResponseHttp444 =>
-      nginxNoResponseHttp444?.call(this) ?? orElse(),
+      nginxNoResponseHttp444 == null ? orElse() : nginxNoResponseHttp444(this),
     StatusCode.iisRetryWithHttp449 =>
-      iisRetryWithHttp449?.call(this) ?? orElse(),
+      iisRetryWithHttp449 == null ? orElse() : iisRetryWithHttp449(this),
     StatusCode.blockedByWindowsParentalControlsHttp450 =>
-      blockedByWindowsParentalControlsHttp450?.call(this) ?? orElse(),
+      blockedByWindowsParentalControlsHttp450 == null
+          ? orElse()
+          : blockedByWindowsParentalControlsHttp450(this),
     StatusCode.unavailableForLegalReasonsHttp451 =>
-      unavailableForLegalReasonsHttp451?.call(this) ?? orElse(),
+      unavailableForLegalReasonsHttp451 == null
+          ? orElse()
+          : unavailableForLegalReasonsHttp451(this),
     StatusCode.nginxSSLCertificateErrorHttp495 =>
-      nginxSSLCertificateErrorHttp495?.call(this) ?? orElse(),
+      nginxSSLCertificateErrorHttp495 == null
+          ? orElse()
+          : nginxSSLCertificateErrorHttp495(this),
     StatusCode.nginxSSLCertificateRequiredHttp496 =>
-      nginxSSLCertificateRequiredHttp496?.call(this) ?? orElse(),
+      nginxSSLCertificateRequiredHttp496 == null
+          ? orElse()
+          : nginxSSLCertificateRequiredHttp496(this),
     StatusCode.nginxHTTPToHTTPSHttp497 =>
-      nginxHTTPToHTTPSHttp497?.call(this) ?? orElse(),
+      nginxHTTPToHTTPSHttp497 == null
+          ? orElse()
+          : nginxHTTPToHTTPSHttp497(this),
     StatusCode.tokenExpiredHttp498 =>
-      tokenExpiredHttp498?.call(this) ?? orElse(),
+      tokenExpiredHttp498 == null ? orElse() : tokenExpiredHttp498(this),
     StatusCode.nginxClientClosedRequestHttp499 =>
-      nginxClientClosedRequestHttp499?.call(this) ?? orElse(),
+      nginxClientClosedRequestHttp499 == null
+          ? orElse()
+          : nginxClientClosedRequestHttp499(this),
     StatusCode.internalServerErrorHttp500 =>
-      internalServerErrorHttp500?.call(this) ?? orElse(),
+      internalServerErrorHttp500 == null
+          ? orElse()
+          : internalServerErrorHttp500(this),
     StatusCode.notImplementedHttp501 =>
-      notImplementedHttp501?.call(this) ?? orElse(),
-    StatusCode.badGatewayHttp502 => badGatewayHttp502?.call(this) ?? orElse(),
+      notImplementedHttp501 == null ? orElse() : notImplementedHttp501(this),
+    StatusCode.badGatewayHttp502 =>
+      badGatewayHttp502 == null ? orElse() : badGatewayHttp502(this),
     StatusCode.serviceUnavailableHttp503 =>
-      serviceUnavailableHttp503?.call(this) ?? orElse(),
+      serviceUnavailableHttp503 == null
+          ? orElse()
+          : serviceUnavailableHttp503(this),
     StatusCode.gatewayTimeoutHttp504 =>
-      gatewayTimeoutHttp504?.call(this) ?? orElse(),
+      gatewayTimeoutHttp504 == null ? orElse() : gatewayTimeoutHttp504(this),
     StatusCode.httpVersionNotSupportedHttp505 =>
-      httpVersionNotSupportedHttp505?.call(this) ?? orElse(),
+      httpVersionNotSupportedHttp505 == null
+          ? orElse()
+          : httpVersionNotSupportedHttp505(this),
     StatusCode.variantAlsoNegotiatesHttp506 =>
-      variantAlsoNegotiatesHttp506?.call(this) ?? orElse(),
+      variantAlsoNegotiatesHttp506 == null
+          ? orElse()
+          : variantAlsoNegotiatesHttp506(this),
     StatusCode.insufficientStorageHttp507 =>
-      insufficientStorageHttp507?.call(this) ?? orElse(),
+      insufficientStorageHttp507 == null
+          ? orElse()
+          : insufficientStorageHttp507(this),
     StatusCode.loopDetectedHttp508 =>
-      loopDetectedHttp508?.call(this) ?? orElse(),
+      loopDetectedHttp508 == null ? orElse() : loopDetectedHttp508(this),
     StatusCode.bandwidthLimitExceededHttp509 =>
-      bandwidthLimitExceededHttp509?.call(this) ?? orElse(),
-    StatusCode.otExtendedHttp510 => otExtendedHttp510?.call(this) ?? orElse(),
+      bandwidthLimitExceededHttp509 == null
+          ? orElse()
+          : bandwidthLimitExceededHttp509(this),
+    StatusCode.otExtendedHttp510 =>
+      otExtendedHttp510 == null ? orElse() : otExtendedHttp510(this),
     StatusCode.networkAuthenticationRequiredHttp511 =>
-      networkAuthenticationRequiredHttp511?.call(this) ?? orElse(),
+      networkAuthenticationRequiredHttp511 == null
+          ? orElse()
+          : networkAuthenticationRequiredHttp511(this),
     StatusCode.siteIsFrozenHttp530 =>
-      siteIsFrozenHttp530?.call(this) ?? orElse(),
-    StatusCode.networkConnectTimeoutErrorHttp599 =>
-      networkConnectTimeoutErrorHttp599?.call(this) ?? orElse(),
-    StatusCode.thisIsFineHttp218 => thisIsFineHttp218?.call(this) ?? orElse(),
-    StatusCode.pageExpiredHttp419 => pageExpiredHttp419?.call(this) ?? orElse(),
+      siteIsFrozenHttp530 == null ? orElse() : siteIsFrozenHttp530(this),
+    StatusCode.thisIsFineHttp218 =>
+      thisIsFineHttp218 == null ? orElse() : thisIsFineHttp218(this),
+    StatusCode.pageExpiredHttp419 =>
+      pageExpiredHttp419 == null ? orElse() : pageExpiredHttp419(this),
     StatusCode.enhanceYourCalmHttp420 =>
-      enhanceYourCalmHttp420?.call(this) ?? orElse(),
+      enhanceYourCalmHttp420 == null ? orElse() : enhanceYourCalmHttp420(this),
     StatusCode.requestHeaderFieldsTooLargeHttp430 =>
-      requestHeaderFieldsTooLargeHttp430?.call(this) ?? orElse(),
+      requestHeaderFieldsTooLargeHttp430 == null
+          ? orElse()
+          : requestHeaderFieldsTooLargeHttp430(this),
     StatusCode.siteIsOverloadedHttp529 =>
-      siteIsOverloadedHttp529?.call(this) ?? orElse(),
+      siteIsOverloadedHttp529 == null
+          ? orElse()
+          : siteIsOverloadedHttp529(this),
     StatusCode.networkReadTimeoutErrorHttp598 =>
-      networkReadTimeoutErrorHttp598?.call(this) ?? orElse(),
+      networkReadTimeoutErrorHttp598 == null
+          ? orElse()
+          : networkReadTimeoutErrorHttp598(this),
     StatusCode.requestHeaderTooLargeHttp494 =>
-      requestHeaderTooLargeHttp494?.call(this) ?? orElse(),
+      requestHeaderTooLargeHttp494 == null
+          ? orElse()
+          : requestHeaderTooLargeHttp494(this),
     StatusCode.webServerReturnedUnknownErrorHttp520 =>
-      webServerReturnedUnknownErrorHttp520?.call(this) ?? orElse(),
+      webServerReturnedUnknownErrorHttp520 == null
+          ? orElse()
+          : webServerReturnedUnknownErrorHttp520(this),
     StatusCode.webServerIsDownHttp521 =>
-      webServerIsDownHttp521?.call(this) ?? orElse(),
+      webServerIsDownHttp521 == null ? orElse() : webServerIsDownHttp521(this),
     StatusCode.connectionTimedOutHttp522 =>
-      connectionTimedOutHttp522?.call(this) ?? orElse(),
+      connectionTimedOutHttp522 == null
+          ? orElse()
+          : connectionTimedOutHttp522(this),
     StatusCode.originIsUnreachableHttp523 =>
-      originIsUnreachableHttp523?.call(this) ?? orElse(),
+      originIsUnreachableHttp523 == null
+          ? orElse()
+          : originIsUnreachableHttp523(this),
     StatusCode.timeoutOccurredHttp524 =>
-      timeoutOccurredHttp524?.call(this) ?? orElse(),
+      timeoutOccurredHttp524 == null ? orElse() : timeoutOccurredHttp524(this),
     StatusCode.sslHandshakeFailedHttp525 =>
-      sslHandshakeFailedHttp525?.call(this) ?? orElse(),
+      sslHandshakeFailedHttp525 == null
+          ? orElse()
+          : sslHandshakeFailedHttp525(this),
     StatusCode.invalidSSLCertificateHttp526 =>
-      invalidSSLCertificateHttp526?.call(this) ?? orElse(),
+      invalidSSLCertificateHttp526 == null
+          ? orElse()
+          : invalidSSLCertificateHttp526(this),
     StatusCode.railgunErrorHttp527 =>
-      railgunErrorHttp527?.call(this) ?? orElse(),
+      railgunErrorHttp527 == null ? orElse() : railgunErrorHttp527(this),
     StatusCode.clientClosedConnectionHttp460 =>
-      clientClosedConnectionHttp460?.call(this) ?? orElse(),
+      clientClosedConnectionHttp460 == null
+          ? orElse()
+          : clientClosedConnectionHttp460(this),
     StatusCode.tooManyIpAddressesHttp463 =>
-      tooManyIpAddressesHttp463?.call(this) ?? orElse(),
+      tooManyIpAddressesHttp463 == null
+          ? orElse()
+          : tooManyIpAddressesHttp463(this),
     StatusCode.incompatibleProtocolVersionsHttp464 =>
-      incompatibleProtocolVersionsHttp464?.call(this) ?? orElse(),
+      incompatibleProtocolVersionsHttp464 == null
+          ? orElse()
+          : incompatibleProtocolVersionsHttp464(this),
     StatusCode.unauthorizedHttp561 =>
-      unauthorizedHttp561?.call(this) ?? orElse(),
+      unauthorizedHttp561 == null ? orElse() : unauthorizedHttp561(this),
+    StatusCode.networkConnectTimeoutErrorHttp599 =>
+      networkConnectTimeoutErrorHttp599 == null
+          ? orElse()
+          : networkConnectTimeoutErrorHttp599(this),
     _ => orElse(),
   };
 
@@ -1074,157 +1183,257 @@ extension StatusCodeExtension on StatusCode {
     R Function()? incompatibleProtocolVersionsHttp464,
     R Function()? unauthorizedHttp561,
   }) => switch (this) {
-    StatusCode.continueHttp100 => continueHttp100?.call() ?? orElse(),
+    StatusCode.continueHttp100 =>
+      continueHttp100 == null ? orElse() : continueHttp100(),
     StatusCode.switchingProtocolsHttp101 =>
-      switchingProtocolsHttp101?.call() ?? orElse(),
-    StatusCode.processingHttp102 => processingHttp102?.call() ?? orElse(),
-    StatusCode.earlyHintsHttp103 => earlyHintsHttp103?.call() ?? orElse(),
-    StatusCode.okHttp200 => okHttp200?.call() ?? orElse(),
-    StatusCode.createdHttp201 => createdHttp201?.call() ?? orElse(),
-    StatusCode.acceptedHttp202 => acceptedHttp202?.call() ?? orElse(),
+      switchingProtocolsHttp101 == null
+          ? orElse()
+          : switchingProtocolsHttp101(),
+    StatusCode.processingHttp102 =>
+      processingHttp102 == null ? orElse() : processingHttp102(),
+    StatusCode.earlyHintsHttp103 =>
+      earlyHintsHttp103 == null ? orElse() : earlyHintsHttp103(),
+    StatusCode.okHttp200 => okHttp200 == null ? orElse() : okHttp200(),
+    StatusCode.createdHttp201 =>
+      createdHttp201 == null ? orElse() : createdHttp201(),
+    StatusCode.acceptedHttp202 =>
+      acceptedHttp202 == null ? orElse() : acceptedHttp202(),
     StatusCode.nonAuthoritativeInformationHttp203 =>
-      nonAuthoritativeInformationHttp203?.call() ?? orElse(),
-    StatusCode.noContentHttp204 => noContentHttp204?.call() ?? orElse(),
-    StatusCode.resetContentHttp205 => resetContentHttp205?.call() ?? orElse(),
+      nonAuthoritativeInformationHttp203 == null
+          ? orElse()
+          : nonAuthoritativeInformationHttp203(),
+    StatusCode.noContentHttp204 =>
+      noContentHttp204 == null ? orElse() : noContentHttp204(),
+    StatusCode.resetContentHttp205 =>
+      resetContentHttp205 == null ? orElse() : resetContentHttp205(),
     StatusCode.partialContentHttp206 =>
-      partialContentHttp206?.call() ?? orElse(),
-    StatusCode.multiStatusHttp207 => multiStatusHttp207?.call() ?? orElse(),
+      partialContentHttp206 == null ? orElse() : partialContentHttp206(),
+    StatusCode.multiStatusHttp207 =>
+      multiStatusHttp207 == null ? orElse() : multiStatusHttp207(),
     StatusCode.alreadyReportedHttp208 =>
-      alreadyReportedHttp208?.call() ?? orElse(),
-    StatusCode.imUsedHttp226 => imUsedHttp226?.call() ?? orElse(),
+      alreadyReportedHttp208 == null ? orElse() : alreadyReportedHttp208(),
+    StatusCode.imUsedHttp226 =>
+      imUsedHttp226 == null ? orElse() : imUsedHttp226(),
     StatusCode.multipleChoicesHttp300 =>
-      multipleChoicesHttp300?.call() ?? orElse(),
+      multipleChoicesHttp300 == null ? orElse() : multipleChoicesHttp300(),
     StatusCode.movedPermanentlyHttp301 =>
-      movedPermanentlyHttp301?.call() ?? orElse(),
-    StatusCode.foundHttp302 => foundHttp302?.call() ?? orElse(),
-    StatusCode.seeOtherHttp303 => seeOtherHttp303?.call() ?? orElse(),
-    StatusCode.notModifiedHttp304 => notModifiedHttp304?.call() ?? orElse(),
-    StatusCode.useProxyHttp305 => useProxyHttp305?.call() ?? orElse(),
+      movedPermanentlyHttp301 == null ? orElse() : movedPermanentlyHttp301(),
+    StatusCode.foundHttp302 => foundHttp302 == null ? orElse() : foundHttp302(),
+    StatusCode.seeOtherHttp303 =>
+      seeOtherHttp303 == null ? orElse() : seeOtherHttp303(),
+    StatusCode.notModifiedHttp304 =>
+      notModifiedHttp304 == null ? orElse() : notModifiedHttp304(),
+    StatusCode.useProxyHttp305 =>
+      useProxyHttp305 == null ? orElse() : useProxyHttp305(),
     StatusCode.temporaryRedirectHttp307 =>
-      temporaryRedirectHttp307?.call() ?? orElse(),
+      temporaryRedirectHttp307 == null ? orElse() : temporaryRedirectHttp307(),
     StatusCode.permanentRedirectHttp308 =>
-      permanentRedirectHttp308?.call() ?? orElse(),
-    StatusCode.badRequestHttp400 => badRequestHttp400?.call() ?? orElse(),
-    StatusCode.unauthorizedHttp401 => unauthorizedHttp401?.call() ?? orElse(),
+      permanentRedirectHttp308 == null ? orElse() : permanentRedirectHttp308(),
+    StatusCode.badRequestHttp400 =>
+      badRequestHttp400 == null ? orElse() : badRequestHttp400(),
+    StatusCode.unauthorizedHttp401 =>
+      unauthorizedHttp401 == null ? orElse() : unauthorizedHttp401(),
     StatusCode.paymentRequiredHttp402 =>
-      paymentRequiredHttp402?.call() ?? orElse(),
-    StatusCode.forbiddenHttp403 => forbiddenHttp403?.call() ?? orElse(),
-    StatusCode.notFoundHttp404 => notFoundHttp404?.call() ?? orElse(),
+      paymentRequiredHttp402 == null ? orElse() : paymentRequiredHttp402(),
+    StatusCode.forbiddenHttp403 =>
+      forbiddenHttp403 == null ? orElse() : forbiddenHttp403(),
+    StatusCode.notFoundHttp404 =>
+      notFoundHttp404 == null ? orElse() : notFoundHttp404(),
     StatusCode.methodNotAllowedHttp405 =>
-      methodNotAllowedHttp405?.call() ?? orElse(),
-    StatusCode.notAcceptableHttp406 => notAcceptableHttp406?.call() ?? orElse(),
+      methodNotAllowedHttp405 == null ? orElse() : methodNotAllowedHttp405(),
+    StatusCode.notAcceptableHttp406 =>
+      notAcceptableHttp406 == null ? orElse() : notAcceptableHttp406(),
     StatusCode.proxyAuthenticationRequiredHttp407 =>
-      proxyAuthenticationRequiredHttp407?.call() ?? orElse(),
+      proxyAuthenticationRequiredHttp407 == null
+          ? orElse()
+          : proxyAuthenticationRequiredHttp407(),
     StatusCode.requestTimeoutHttp408 =>
-      requestTimeoutHttp408?.call() ?? orElse(),
-    StatusCode.conflictHttp409 => conflictHttp409?.call() ?? orElse(),
-    StatusCode.goneHttp410 => goneHttp410?.call() ?? orElse(),
+      requestTimeoutHttp408 == null ? orElse() : requestTimeoutHttp408(),
+    StatusCode.conflictHttp409 =>
+      conflictHttp409 == null ? orElse() : conflictHttp409(),
+    StatusCode.goneHttp410 => goneHttp410 == null ? orElse() : goneHttp410(),
     StatusCode.lengthRequiredHttp411 =>
-      lengthRequiredHttp411?.call() ?? orElse(),
+      lengthRequiredHttp411 == null ? orElse() : lengthRequiredHttp411(),
     StatusCode.preconditionFailedHttp412 =>
-      preconditionFailedHttp412?.call() ?? orElse(),
+      preconditionFailedHttp412 == null
+          ? orElse()
+          : preconditionFailedHttp412(),
     StatusCode.payloadTooLargeHttp413 =>
-      payloadTooLargeHttp413?.call() ?? orElse(),
-    StatusCode.uriTooLongHttp414 => uriTooLongHttp414?.call() ?? orElse(),
+      payloadTooLargeHttp413 == null ? orElse() : payloadTooLargeHttp413(),
+    StatusCode.uriTooLongHttp414 =>
+      uriTooLongHttp414 == null ? orElse() : uriTooLongHttp414(),
     StatusCode.unsupportedMediaTypeHttp415 =>
-      unsupportedMediaTypeHttp415?.call() ?? orElse(),
+      unsupportedMediaTypeHttp415 == null
+          ? orElse()
+          : unsupportedMediaTypeHttp415(),
     StatusCode.rangeNotSatisfiableHttp416 =>
-      rangeNotSatisfiableHttp416?.call() ?? orElse(),
+      rangeNotSatisfiableHttp416 == null
+          ? orElse()
+          : rangeNotSatisfiableHttp416(),
     StatusCode.expectationFailedHttp417 =>
-      expectationFailedHttp417?.call() ?? orElse(),
-    StatusCode.imATeapotHttp418 => imATeapotHttp418?.call() ?? orElse(),
+      expectationFailedHttp417 == null ? orElse() : expectationFailedHttp417(),
+    StatusCode.imATeapotHttp418 =>
+      imATeapotHttp418 == null ? orElse() : imATeapotHttp418(),
     StatusCode.misdirectedRequestHttp421 =>
-      misdirectedRequestHttp421?.call() ?? orElse(),
+      misdirectedRequestHttp421 == null
+          ? orElse()
+          : misdirectedRequestHttp421(),
     StatusCode.unprocessableEntityHttp422 =>
-      unprocessableEntityHttp422?.call() ?? orElse(),
-    StatusCode.lockedHttp423 => lockedHttp423?.call() ?? orElse(),
+      unprocessableEntityHttp422 == null
+          ? orElse()
+          : unprocessableEntityHttp422(),
+    StatusCode.lockedHttp423 =>
+      lockedHttp423 == null ? orElse() : lockedHttp423(),
     StatusCode.failedDependencyHttp424 =>
-      failedDependencyHttp424?.call() ?? orElse(),
-    StatusCode.tooEarlyHttp425 => tooEarlyHttp425?.call() ?? orElse(),
+      failedDependencyHttp424 == null ? orElse() : failedDependencyHttp424(),
+    StatusCode.tooEarlyHttp425 =>
+      tooEarlyHttp425 == null ? orElse() : tooEarlyHttp425(),
     StatusCode.upgradeRequiredHttp426 =>
-      upgradeRequiredHttp426?.call() ?? orElse(),
+      upgradeRequiredHttp426 == null ? orElse() : upgradeRequiredHttp426(),
     StatusCode.preconditionRequiredHttp428 =>
-      preconditionRequiredHttp428?.call() ?? orElse(),
+      preconditionRequiredHttp428 == null
+          ? orElse()
+          : preconditionRequiredHttp428(),
     StatusCode.tooManyRequestsHttp429 =>
-      tooManyRequestsHttp429?.call() ?? orElse(),
+      tooManyRequestsHttp429 == null ? orElse() : tooManyRequestsHttp429(),
     StatusCode.requestHeaderFieldsTooLargeHttp431 =>
-      requestHeaderFieldsTooLargeHttp431?.call() ?? orElse(),
+      requestHeaderFieldsTooLargeHttp431 == null
+          ? orElse()
+          : requestHeaderFieldsTooLargeHttp431(),
     StatusCode.iisLoginTimeoutHttp440 =>
-      iisLoginTimeoutHttp440?.call() ?? orElse(),
+      iisLoginTimeoutHttp440 == null ? orElse() : iisLoginTimeoutHttp440(),
     StatusCode.nginxNoResponseHttp444 =>
-      nginxNoResponseHttp444?.call() ?? orElse(),
-    StatusCode.iisRetryWithHttp449 => iisRetryWithHttp449?.call() ?? orElse(),
+      nginxNoResponseHttp444 == null ? orElse() : nginxNoResponseHttp444(),
+    StatusCode.iisRetryWithHttp449 =>
+      iisRetryWithHttp449 == null ? orElse() : iisRetryWithHttp449(),
     StatusCode.blockedByWindowsParentalControlsHttp450 =>
-      blockedByWindowsParentalControlsHttp450?.call() ?? orElse(),
+      blockedByWindowsParentalControlsHttp450 == null
+          ? orElse()
+          : blockedByWindowsParentalControlsHttp450(),
     StatusCode.unavailableForLegalReasonsHttp451 =>
-      unavailableForLegalReasonsHttp451?.call() ?? orElse(),
+      unavailableForLegalReasonsHttp451 == null
+          ? orElse()
+          : unavailableForLegalReasonsHttp451(),
     StatusCode.nginxSSLCertificateErrorHttp495 =>
-      nginxSSLCertificateErrorHttp495?.call() ?? orElse(),
+      nginxSSLCertificateErrorHttp495 == null
+          ? orElse()
+          : nginxSSLCertificateErrorHttp495(),
     StatusCode.nginxSSLCertificateRequiredHttp496 =>
-      nginxSSLCertificateRequiredHttp496?.call() ?? orElse(),
+      nginxSSLCertificateRequiredHttp496 == null
+          ? orElse()
+          : nginxSSLCertificateRequiredHttp496(),
     StatusCode.nginxHTTPToHTTPSHttp497 =>
-      nginxHTTPToHTTPSHttp497?.call() ?? orElse(),
-    StatusCode.tokenExpiredHttp498 => tokenExpiredHttp498?.call() ?? orElse(),
+      nginxHTTPToHTTPSHttp497 == null ? orElse() : nginxHTTPToHTTPSHttp497(),
+    StatusCode.tokenExpiredHttp498 =>
+      tokenExpiredHttp498 == null ? orElse() : tokenExpiredHttp498(),
     StatusCode.nginxClientClosedRequestHttp499 =>
-      nginxClientClosedRequestHttp499?.call() ?? orElse(),
+      nginxClientClosedRequestHttp499 == null
+          ? orElse()
+          : nginxClientClosedRequestHttp499(),
     StatusCode.internalServerErrorHttp500 =>
-      internalServerErrorHttp500?.call() ?? orElse(),
+      internalServerErrorHttp500 == null
+          ? orElse()
+          : internalServerErrorHttp500(),
     StatusCode.notImplementedHttp501 =>
-      notImplementedHttp501?.call() ?? orElse(),
-    StatusCode.badGatewayHttp502 => badGatewayHttp502?.call() ?? orElse(),
+      notImplementedHttp501 == null ? orElse() : notImplementedHttp501(),
+    StatusCode.badGatewayHttp502 =>
+      badGatewayHttp502 == null ? orElse() : badGatewayHttp502(),
     StatusCode.serviceUnavailableHttp503 =>
-      serviceUnavailableHttp503?.call() ?? orElse(),
+      serviceUnavailableHttp503 == null
+          ? orElse()
+          : serviceUnavailableHttp503(),
     StatusCode.gatewayTimeoutHttp504 =>
-      gatewayTimeoutHttp504?.call() ?? orElse(),
+      gatewayTimeoutHttp504 == null ? orElse() : gatewayTimeoutHttp504(),
     StatusCode.httpVersionNotSupportedHttp505 =>
-      httpVersionNotSupportedHttp505?.call() ?? orElse(),
+      httpVersionNotSupportedHttp505 == null
+          ? orElse()
+          : httpVersionNotSupportedHttp505(),
     StatusCode.variantAlsoNegotiatesHttp506 =>
-      variantAlsoNegotiatesHttp506?.call() ?? orElse(),
+      variantAlsoNegotiatesHttp506 == null
+          ? orElse()
+          : variantAlsoNegotiatesHttp506(),
     StatusCode.insufficientStorageHttp507 =>
-      insufficientStorageHttp507?.call() ?? orElse(),
-    StatusCode.loopDetectedHttp508 => loopDetectedHttp508?.call() ?? orElse(),
+      insufficientStorageHttp507 == null
+          ? orElse()
+          : insufficientStorageHttp507(),
+    StatusCode.loopDetectedHttp508 =>
+      loopDetectedHttp508 == null ? orElse() : loopDetectedHttp508(),
     StatusCode.bandwidthLimitExceededHttp509 =>
-      bandwidthLimitExceededHttp509?.call() ?? orElse(),
-    StatusCode.otExtendedHttp510 => otExtendedHttp510?.call() ?? orElse(),
+      bandwidthLimitExceededHttp509 == null
+          ? orElse()
+          : bandwidthLimitExceededHttp509(),
+    StatusCode.otExtendedHttp510 =>
+      otExtendedHttp510 == null ? orElse() : otExtendedHttp510(),
     StatusCode.networkAuthenticationRequiredHttp511 =>
-      networkAuthenticationRequiredHttp511?.call() ?? orElse(),
-    StatusCode.siteIsFrozenHttp530 => siteIsFrozenHttp530?.call() ?? orElse(),
-    StatusCode.networkConnectTimeoutErrorHttp599 =>
-      networkConnectTimeoutErrorHttp599?.call() ?? orElse(),
-    StatusCode.thisIsFineHttp218 => thisIsFineHttp218?.call() ?? orElse(),
-    StatusCode.pageExpiredHttp419 => pageExpiredHttp419?.call() ?? orElse(),
+      networkAuthenticationRequiredHttp511 == null
+          ? orElse()
+          : networkAuthenticationRequiredHttp511(),
+    StatusCode.siteIsFrozenHttp530 =>
+      siteIsFrozenHttp530 == null ? orElse() : siteIsFrozenHttp530(),
+    StatusCode.thisIsFineHttp218 =>
+      thisIsFineHttp218 == null ? orElse() : thisIsFineHttp218(),
+    StatusCode.pageExpiredHttp419 =>
+      pageExpiredHttp419 == null ? orElse() : pageExpiredHttp419(),
     StatusCode.enhanceYourCalmHttp420 =>
-      enhanceYourCalmHttp420?.call() ?? orElse(),
+      enhanceYourCalmHttp420 == null ? orElse() : enhanceYourCalmHttp420(),
     StatusCode.requestHeaderFieldsTooLargeHttp430 =>
-      requestHeaderFieldsTooLargeHttp430?.call() ?? orElse(),
+      requestHeaderFieldsTooLargeHttp430 == null
+          ? orElse()
+          : requestHeaderFieldsTooLargeHttp430(),
     StatusCode.siteIsOverloadedHttp529 =>
-      siteIsOverloadedHttp529?.call() ?? orElse(),
+      siteIsOverloadedHttp529 == null ? orElse() : siteIsOverloadedHttp529(),
     StatusCode.networkReadTimeoutErrorHttp598 =>
-      networkReadTimeoutErrorHttp598?.call() ?? orElse(),
+      networkReadTimeoutErrorHttp598 == null
+          ? orElse()
+          : networkReadTimeoutErrorHttp598(),
     StatusCode.requestHeaderTooLargeHttp494 =>
-      requestHeaderTooLargeHttp494?.call() ?? orElse(),
+      requestHeaderTooLargeHttp494 == null
+          ? orElse()
+          : requestHeaderTooLargeHttp494(),
     StatusCode.webServerReturnedUnknownErrorHttp520 =>
-      webServerReturnedUnknownErrorHttp520?.call() ?? orElse(),
+      webServerReturnedUnknownErrorHttp520 == null
+          ? orElse()
+          : webServerReturnedUnknownErrorHttp520(),
     StatusCode.webServerIsDownHttp521 =>
-      webServerIsDownHttp521?.call() ?? orElse(),
+      webServerIsDownHttp521 == null ? orElse() : webServerIsDownHttp521(),
     StatusCode.connectionTimedOutHttp522 =>
-      connectionTimedOutHttp522?.call() ?? orElse(),
+      connectionTimedOutHttp522 == null
+          ? orElse()
+          : connectionTimedOutHttp522(),
     StatusCode.originIsUnreachableHttp523 =>
-      originIsUnreachableHttp523?.call() ?? orElse(),
+      originIsUnreachableHttp523 == null
+          ? orElse()
+          : originIsUnreachableHttp523(),
     StatusCode.timeoutOccurredHttp524 =>
-      timeoutOccurredHttp524?.call() ?? orElse(),
+      timeoutOccurredHttp524 == null ? orElse() : timeoutOccurredHttp524(),
     StatusCode.sslHandshakeFailedHttp525 =>
-      sslHandshakeFailedHttp525?.call() ?? orElse(),
+      sslHandshakeFailedHttp525 == null
+          ? orElse()
+          : sslHandshakeFailedHttp525(),
     StatusCode.invalidSSLCertificateHttp526 =>
-      invalidSSLCertificateHttp526?.call() ?? orElse(),
-    StatusCode.railgunErrorHttp527 => railgunErrorHttp527?.call() ?? orElse(),
+      invalidSSLCertificateHttp526 == null
+          ? orElse()
+          : invalidSSLCertificateHttp526(),
+    StatusCode.railgunErrorHttp527 =>
+      railgunErrorHttp527 == null ? orElse() : railgunErrorHttp527(),
     StatusCode.clientClosedConnectionHttp460 =>
-      clientClosedConnectionHttp460?.call() ?? orElse(),
+      clientClosedConnectionHttp460 == null
+          ? orElse()
+          : clientClosedConnectionHttp460(),
     StatusCode.tooManyIpAddressesHttp463 =>
-      tooManyIpAddressesHttp463?.call() ?? orElse(),
+      tooManyIpAddressesHttp463 == null
+          ? orElse()
+          : tooManyIpAddressesHttp463(),
     StatusCode.incompatibleProtocolVersionsHttp464 =>
-      incompatibleProtocolVersionsHttp464?.call() ?? orElse(),
-    StatusCode.unauthorizedHttp561 => unauthorizedHttp561?.call() ?? orElse(),
+      incompatibleProtocolVersionsHttp464 == null
+          ? orElse()
+          : incompatibleProtocolVersionsHttp464(),
+    StatusCode.unauthorizedHttp561 =>
+      unauthorizedHttp561 == null ? orElse() : unauthorizedHttp561(),
+    StatusCode.networkConnectTimeoutErrorHttp599 =>
+      networkConnectTimeoutErrorHttp599 == null
+          ? orElse()
+          : networkConnectTimeoutErrorHttp599(),
     _ => orElse(),
   };
 
@@ -1565,169 +1774,297 @@ extension StatusCodeExtension on StatusCode {
     R Function()? unauthorizedHttp561,
     R Function()? orElse,
   }) => switch (this) {
-    StatusCode.continueHttp100 => continueHttp100?.call() ?? orElse?.call(),
+    StatusCode.continueHttp100 =>
+      continueHttp100 == null ? orElse?.call() : continueHttp100(),
     StatusCode.switchingProtocolsHttp101 =>
-      switchingProtocolsHttp101?.call() ?? orElse?.call(),
-    StatusCode.processingHttp102 => processingHttp102?.call() ?? orElse?.call(),
-    StatusCode.earlyHintsHttp103 => earlyHintsHttp103?.call() ?? orElse?.call(),
-    StatusCode.okHttp200 => okHttp200?.call() ?? orElse?.call(),
-    StatusCode.createdHttp201 => createdHttp201?.call() ?? orElse?.call(),
-    StatusCode.acceptedHttp202 => acceptedHttp202?.call() ?? orElse?.call(),
+      switchingProtocolsHttp101 == null
+          ? orElse?.call()
+          : switchingProtocolsHttp101(),
+    StatusCode.processingHttp102 =>
+      processingHttp102 == null ? orElse?.call() : processingHttp102(),
+    StatusCode.earlyHintsHttp103 =>
+      earlyHintsHttp103 == null ? orElse?.call() : earlyHintsHttp103(),
+    StatusCode.okHttp200 => okHttp200 == null ? orElse?.call() : okHttp200(),
+    StatusCode.createdHttp201 =>
+      createdHttp201 == null ? orElse?.call() : createdHttp201(),
+    StatusCode.acceptedHttp202 =>
+      acceptedHttp202 == null ? orElse?.call() : acceptedHttp202(),
     StatusCode.nonAuthoritativeInformationHttp203 =>
-      nonAuthoritativeInformationHttp203?.call() ?? orElse?.call(),
-    StatusCode.noContentHttp204 => noContentHttp204?.call() ?? orElse?.call(),
+      nonAuthoritativeInformationHttp203 == null
+          ? orElse?.call()
+          : nonAuthoritativeInformationHttp203(),
+    StatusCode.noContentHttp204 =>
+      noContentHttp204 == null ? orElse?.call() : noContentHttp204(),
     StatusCode.resetContentHttp205 =>
-      resetContentHttp205?.call() ?? orElse?.call(),
+      resetContentHttp205 == null ? orElse?.call() : resetContentHttp205(),
     StatusCode.partialContentHttp206 =>
-      partialContentHttp206?.call() ?? orElse?.call(),
+      partialContentHttp206 == null ? orElse?.call() : partialContentHttp206(),
     StatusCode.multiStatusHttp207 =>
-      multiStatusHttp207?.call() ?? orElse?.call(),
+      multiStatusHttp207 == null ? orElse?.call() : multiStatusHttp207(),
     StatusCode.alreadyReportedHttp208 =>
-      alreadyReportedHttp208?.call() ?? orElse?.call(),
-    StatusCode.imUsedHttp226 => imUsedHttp226?.call() ?? orElse?.call(),
+      alreadyReportedHttp208 == null
+          ? orElse?.call()
+          : alreadyReportedHttp208(),
+    StatusCode.imUsedHttp226 =>
+      imUsedHttp226 == null ? orElse?.call() : imUsedHttp226(),
     StatusCode.multipleChoicesHttp300 =>
-      multipleChoicesHttp300?.call() ?? orElse?.call(),
+      multipleChoicesHttp300 == null
+          ? orElse?.call()
+          : multipleChoicesHttp300(),
     StatusCode.movedPermanentlyHttp301 =>
-      movedPermanentlyHttp301?.call() ?? orElse?.call(),
-    StatusCode.foundHttp302 => foundHttp302?.call() ?? orElse?.call(),
-    StatusCode.seeOtherHttp303 => seeOtherHttp303?.call() ?? orElse?.call(),
+      movedPermanentlyHttp301 == null
+          ? orElse?.call()
+          : movedPermanentlyHttp301(),
+    StatusCode.foundHttp302 =>
+      foundHttp302 == null ? orElse?.call() : foundHttp302(),
+    StatusCode.seeOtherHttp303 =>
+      seeOtherHttp303 == null ? orElse?.call() : seeOtherHttp303(),
     StatusCode.notModifiedHttp304 =>
-      notModifiedHttp304?.call() ?? orElse?.call(),
-    StatusCode.useProxyHttp305 => useProxyHttp305?.call() ?? orElse?.call(),
+      notModifiedHttp304 == null ? orElse?.call() : notModifiedHttp304(),
+    StatusCode.useProxyHttp305 =>
+      useProxyHttp305 == null ? orElse?.call() : useProxyHttp305(),
     StatusCode.temporaryRedirectHttp307 =>
-      temporaryRedirectHttp307?.call() ?? orElse?.call(),
+      temporaryRedirectHttp307 == null
+          ? orElse?.call()
+          : temporaryRedirectHttp307(),
     StatusCode.permanentRedirectHttp308 =>
-      permanentRedirectHttp308?.call() ?? orElse?.call(),
-    StatusCode.badRequestHttp400 => badRequestHttp400?.call() ?? orElse?.call(),
+      permanentRedirectHttp308 == null
+          ? orElse?.call()
+          : permanentRedirectHttp308(),
+    StatusCode.badRequestHttp400 =>
+      badRequestHttp400 == null ? orElse?.call() : badRequestHttp400(),
     StatusCode.unauthorizedHttp401 =>
-      unauthorizedHttp401?.call() ?? orElse?.call(),
+      unauthorizedHttp401 == null ? orElse?.call() : unauthorizedHttp401(),
     StatusCode.paymentRequiredHttp402 =>
-      paymentRequiredHttp402?.call() ?? orElse?.call(),
-    StatusCode.forbiddenHttp403 => forbiddenHttp403?.call() ?? orElse?.call(),
-    StatusCode.notFoundHttp404 => notFoundHttp404?.call() ?? orElse?.call(),
+      paymentRequiredHttp402 == null
+          ? orElse?.call()
+          : paymentRequiredHttp402(),
+    StatusCode.forbiddenHttp403 =>
+      forbiddenHttp403 == null ? orElse?.call() : forbiddenHttp403(),
+    StatusCode.notFoundHttp404 =>
+      notFoundHttp404 == null ? orElse?.call() : notFoundHttp404(),
     StatusCode.methodNotAllowedHttp405 =>
-      methodNotAllowedHttp405?.call() ?? orElse?.call(),
+      methodNotAllowedHttp405 == null
+          ? orElse?.call()
+          : methodNotAllowedHttp405(),
     StatusCode.notAcceptableHttp406 =>
-      notAcceptableHttp406?.call() ?? orElse?.call(),
+      notAcceptableHttp406 == null ? orElse?.call() : notAcceptableHttp406(),
     StatusCode.proxyAuthenticationRequiredHttp407 =>
-      proxyAuthenticationRequiredHttp407?.call() ?? orElse?.call(),
+      proxyAuthenticationRequiredHttp407 == null
+          ? orElse?.call()
+          : proxyAuthenticationRequiredHttp407(),
     StatusCode.requestTimeoutHttp408 =>
-      requestTimeoutHttp408?.call() ?? orElse?.call(),
-    StatusCode.conflictHttp409 => conflictHttp409?.call() ?? orElse?.call(),
-    StatusCode.goneHttp410 => goneHttp410?.call() ?? orElse?.call(),
+      requestTimeoutHttp408 == null ? orElse?.call() : requestTimeoutHttp408(),
+    StatusCode.conflictHttp409 =>
+      conflictHttp409 == null ? orElse?.call() : conflictHttp409(),
+    StatusCode.goneHttp410 =>
+      goneHttp410 == null ? orElse?.call() : goneHttp410(),
     StatusCode.lengthRequiredHttp411 =>
-      lengthRequiredHttp411?.call() ?? orElse?.call(),
+      lengthRequiredHttp411 == null ? orElse?.call() : lengthRequiredHttp411(),
     StatusCode.preconditionFailedHttp412 =>
-      preconditionFailedHttp412?.call() ?? orElse?.call(),
+      preconditionFailedHttp412 == null
+          ? orElse?.call()
+          : preconditionFailedHttp412(),
     StatusCode.payloadTooLargeHttp413 =>
-      payloadTooLargeHttp413?.call() ?? orElse?.call(),
-    StatusCode.uriTooLongHttp414 => uriTooLongHttp414?.call() ?? orElse?.call(),
+      payloadTooLargeHttp413 == null
+          ? orElse?.call()
+          : payloadTooLargeHttp413(),
+    StatusCode.uriTooLongHttp414 =>
+      uriTooLongHttp414 == null ? orElse?.call() : uriTooLongHttp414(),
     StatusCode.unsupportedMediaTypeHttp415 =>
-      unsupportedMediaTypeHttp415?.call() ?? orElse?.call(),
+      unsupportedMediaTypeHttp415 == null
+          ? orElse?.call()
+          : unsupportedMediaTypeHttp415(),
     StatusCode.rangeNotSatisfiableHttp416 =>
-      rangeNotSatisfiableHttp416?.call() ?? orElse?.call(),
+      rangeNotSatisfiableHttp416 == null
+          ? orElse?.call()
+          : rangeNotSatisfiableHttp416(),
     StatusCode.expectationFailedHttp417 =>
-      expectationFailedHttp417?.call() ?? orElse?.call(),
-    StatusCode.imATeapotHttp418 => imATeapotHttp418?.call() ?? orElse?.call(),
+      expectationFailedHttp417 == null
+          ? orElse?.call()
+          : expectationFailedHttp417(),
+    StatusCode.imATeapotHttp418 =>
+      imATeapotHttp418 == null ? orElse?.call() : imATeapotHttp418(),
     StatusCode.misdirectedRequestHttp421 =>
-      misdirectedRequestHttp421?.call() ?? orElse?.call(),
+      misdirectedRequestHttp421 == null
+          ? orElse?.call()
+          : misdirectedRequestHttp421(),
     StatusCode.unprocessableEntityHttp422 =>
-      unprocessableEntityHttp422?.call() ?? orElse?.call(),
-    StatusCode.lockedHttp423 => lockedHttp423?.call() ?? orElse?.call(),
+      unprocessableEntityHttp422 == null
+          ? orElse?.call()
+          : unprocessableEntityHttp422(),
+    StatusCode.lockedHttp423 =>
+      lockedHttp423 == null ? orElse?.call() : lockedHttp423(),
     StatusCode.failedDependencyHttp424 =>
-      failedDependencyHttp424?.call() ?? orElse?.call(),
-    StatusCode.tooEarlyHttp425 => tooEarlyHttp425?.call() ?? orElse?.call(),
+      failedDependencyHttp424 == null
+          ? orElse?.call()
+          : failedDependencyHttp424(),
+    StatusCode.tooEarlyHttp425 =>
+      tooEarlyHttp425 == null ? orElse?.call() : tooEarlyHttp425(),
     StatusCode.upgradeRequiredHttp426 =>
-      upgradeRequiredHttp426?.call() ?? orElse?.call(),
+      upgradeRequiredHttp426 == null
+          ? orElse?.call()
+          : upgradeRequiredHttp426(),
     StatusCode.preconditionRequiredHttp428 =>
-      preconditionRequiredHttp428?.call() ?? orElse?.call(),
+      preconditionRequiredHttp428 == null
+          ? orElse?.call()
+          : preconditionRequiredHttp428(),
     StatusCode.tooManyRequestsHttp429 =>
-      tooManyRequestsHttp429?.call() ?? orElse?.call(),
+      tooManyRequestsHttp429 == null
+          ? orElse?.call()
+          : tooManyRequestsHttp429(),
     StatusCode.requestHeaderFieldsTooLargeHttp431 =>
-      requestHeaderFieldsTooLargeHttp431?.call() ?? orElse?.call(),
+      requestHeaderFieldsTooLargeHttp431 == null
+          ? orElse?.call()
+          : requestHeaderFieldsTooLargeHttp431(),
     StatusCode.iisLoginTimeoutHttp440 =>
-      iisLoginTimeoutHttp440?.call() ?? orElse?.call(),
+      iisLoginTimeoutHttp440 == null
+          ? orElse?.call()
+          : iisLoginTimeoutHttp440(),
     StatusCode.nginxNoResponseHttp444 =>
-      nginxNoResponseHttp444?.call() ?? orElse?.call(),
+      nginxNoResponseHttp444 == null
+          ? orElse?.call()
+          : nginxNoResponseHttp444(),
     StatusCode.iisRetryWithHttp449 =>
-      iisRetryWithHttp449?.call() ?? orElse?.call(),
+      iisRetryWithHttp449 == null ? orElse?.call() : iisRetryWithHttp449(),
     StatusCode.blockedByWindowsParentalControlsHttp450 =>
-      blockedByWindowsParentalControlsHttp450?.call() ?? orElse?.call(),
+      blockedByWindowsParentalControlsHttp450 == null
+          ? orElse?.call()
+          : blockedByWindowsParentalControlsHttp450(),
     StatusCode.unavailableForLegalReasonsHttp451 =>
-      unavailableForLegalReasonsHttp451?.call() ?? orElse?.call(),
+      unavailableForLegalReasonsHttp451 == null
+          ? orElse?.call()
+          : unavailableForLegalReasonsHttp451(),
     StatusCode.nginxSSLCertificateErrorHttp495 =>
-      nginxSSLCertificateErrorHttp495?.call() ?? orElse?.call(),
+      nginxSSLCertificateErrorHttp495 == null
+          ? orElse?.call()
+          : nginxSSLCertificateErrorHttp495(),
     StatusCode.nginxSSLCertificateRequiredHttp496 =>
-      nginxSSLCertificateRequiredHttp496?.call() ?? orElse?.call(),
+      nginxSSLCertificateRequiredHttp496 == null
+          ? orElse?.call()
+          : nginxSSLCertificateRequiredHttp496(),
     StatusCode.nginxHTTPToHTTPSHttp497 =>
-      nginxHTTPToHTTPSHttp497?.call() ?? orElse?.call(),
+      nginxHTTPToHTTPSHttp497 == null
+          ? orElse?.call()
+          : nginxHTTPToHTTPSHttp497(),
     StatusCode.tokenExpiredHttp498 =>
-      tokenExpiredHttp498?.call() ?? orElse?.call(),
+      tokenExpiredHttp498 == null ? orElse?.call() : tokenExpiredHttp498(),
     StatusCode.nginxClientClosedRequestHttp499 =>
-      nginxClientClosedRequestHttp499?.call() ?? orElse?.call(),
+      nginxClientClosedRequestHttp499 == null
+          ? orElse?.call()
+          : nginxClientClosedRequestHttp499(),
     StatusCode.internalServerErrorHttp500 =>
-      internalServerErrorHttp500?.call() ?? orElse?.call(),
+      internalServerErrorHttp500 == null
+          ? orElse?.call()
+          : internalServerErrorHttp500(),
     StatusCode.notImplementedHttp501 =>
-      notImplementedHttp501?.call() ?? orElse?.call(),
-    StatusCode.badGatewayHttp502 => badGatewayHttp502?.call() ?? orElse?.call(),
+      notImplementedHttp501 == null ? orElse?.call() : notImplementedHttp501(),
+    StatusCode.badGatewayHttp502 =>
+      badGatewayHttp502 == null ? orElse?.call() : badGatewayHttp502(),
     StatusCode.serviceUnavailableHttp503 =>
-      serviceUnavailableHttp503?.call() ?? orElse?.call(),
+      serviceUnavailableHttp503 == null
+          ? orElse?.call()
+          : serviceUnavailableHttp503(),
     StatusCode.gatewayTimeoutHttp504 =>
-      gatewayTimeoutHttp504?.call() ?? orElse?.call(),
+      gatewayTimeoutHttp504 == null ? orElse?.call() : gatewayTimeoutHttp504(),
     StatusCode.httpVersionNotSupportedHttp505 =>
-      httpVersionNotSupportedHttp505?.call() ?? orElse?.call(),
+      httpVersionNotSupportedHttp505 == null
+          ? orElse?.call()
+          : httpVersionNotSupportedHttp505(),
     StatusCode.variantAlsoNegotiatesHttp506 =>
-      variantAlsoNegotiatesHttp506?.call() ?? orElse?.call(),
+      variantAlsoNegotiatesHttp506 == null
+          ? orElse?.call()
+          : variantAlsoNegotiatesHttp506(),
     StatusCode.insufficientStorageHttp507 =>
-      insufficientStorageHttp507?.call() ?? orElse?.call(),
+      insufficientStorageHttp507 == null
+          ? orElse?.call()
+          : insufficientStorageHttp507(),
     StatusCode.loopDetectedHttp508 =>
-      loopDetectedHttp508?.call() ?? orElse?.call(),
+      loopDetectedHttp508 == null ? orElse?.call() : loopDetectedHttp508(),
     StatusCode.bandwidthLimitExceededHttp509 =>
-      bandwidthLimitExceededHttp509?.call() ?? orElse?.call(),
-    StatusCode.otExtendedHttp510 => otExtendedHttp510?.call() ?? orElse?.call(),
+      bandwidthLimitExceededHttp509 == null
+          ? orElse?.call()
+          : bandwidthLimitExceededHttp509(),
+    StatusCode.otExtendedHttp510 =>
+      otExtendedHttp510 == null ? orElse?.call() : otExtendedHttp510(),
     StatusCode.networkAuthenticationRequiredHttp511 =>
-      networkAuthenticationRequiredHttp511?.call() ?? orElse?.call(),
+      networkAuthenticationRequiredHttp511 == null
+          ? orElse?.call()
+          : networkAuthenticationRequiredHttp511(),
     StatusCode.siteIsFrozenHttp530 =>
-      siteIsFrozenHttp530?.call() ?? orElse?.call(),
-    StatusCode.networkConnectTimeoutErrorHttp599 =>
-      networkConnectTimeoutErrorHttp599?.call() ?? orElse?.call(),
-    StatusCode.thisIsFineHttp218 => thisIsFineHttp218?.call() ?? orElse?.call(),
+      siteIsFrozenHttp530 == null ? orElse?.call() : siteIsFrozenHttp530(),
+    StatusCode.thisIsFineHttp218 =>
+      thisIsFineHttp218 == null ? orElse?.call() : thisIsFineHttp218(),
     StatusCode.pageExpiredHttp419 =>
-      pageExpiredHttp419?.call() ?? orElse?.call(),
+      pageExpiredHttp419 == null ? orElse?.call() : pageExpiredHttp419(),
     StatusCode.enhanceYourCalmHttp420 =>
-      enhanceYourCalmHttp420?.call() ?? orElse?.call(),
+      enhanceYourCalmHttp420 == null
+          ? orElse?.call()
+          : enhanceYourCalmHttp420(),
     StatusCode.requestHeaderFieldsTooLargeHttp430 =>
-      requestHeaderFieldsTooLargeHttp430?.call() ?? orElse?.call(),
+      requestHeaderFieldsTooLargeHttp430 == null
+          ? orElse?.call()
+          : requestHeaderFieldsTooLargeHttp430(),
     StatusCode.siteIsOverloadedHttp529 =>
-      siteIsOverloadedHttp529?.call() ?? orElse?.call(),
+      siteIsOverloadedHttp529 == null
+          ? orElse?.call()
+          : siteIsOverloadedHttp529(),
     StatusCode.networkReadTimeoutErrorHttp598 =>
-      networkReadTimeoutErrorHttp598?.call() ?? orElse?.call(),
+      networkReadTimeoutErrorHttp598 == null
+          ? orElse?.call()
+          : networkReadTimeoutErrorHttp598(),
     StatusCode.requestHeaderTooLargeHttp494 =>
-      requestHeaderTooLargeHttp494?.call() ?? orElse?.call(),
+      requestHeaderTooLargeHttp494 == null
+          ? orElse?.call()
+          : requestHeaderTooLargeHttp494(),
     StatusCode.webServerReturnedUnknownErrorHttp520 =>
-      webServerReturnedUnknownErrorHttp520?.call() ?? orElse?.call(),
+      webServerReturnedUnknownErrorHttp520 == null
+          ? orElse?.call()
+          : webServerReturnedUnknownErrorHttp520(),
     StatusCode.webServerIsDownHttp521 =>
-      webServerIsDownHttp521?.call() ?? orElse?.call(),
+      webServerIsDownHttp521 == null
+          ? orElse?.call()
+          : webServerIsDownHttp521(),
     StatusCode.connectionTimedOutHttp522 =>
-      connectionTimedOutHttp522?.call() ?? orElse?.call(),
+      connectionTimedOutHttp522 == null
+          ? orElse?.call()
+          : connectionTimedOutHttp522(),
     StatusCode.originIsUnreachableHttp523 =>
-      originIsUnreachableHttp523?.call() ?? orElse?.call(),
+      originIsUnreachableHttp523 == null
+          ? orElse?.call()
+          : originIsUnreachableHttp523(),
     StatusCode.timeoutOccurredHttp524 =>
-      timeoutOccurredHttp524?.call() ?? orElse?.call(),
+      timeoutOccurredHttp524 == null
+          ? orElse?.call()
+          : timeoutOccurredHttp524(),
     StatusCode.sslHandshakeFailedHttp525 =>
-      sslHandshakeFailedHttp525?.call() ?? orElse?.call(),
+      sslHandshakeFailedHttp525 == null
+          ? orElse?.call()
+          : sslHandshakeFailedHttp525(),
     StatusCode.invalidSSLCertificateHttp526 =>
-      invalidSSLCertificateHttp526?.call() ?? orElse?.call(),
+      invalidSSLCertificateHttp526 == null
+          ? orElse?.call()
+          : invalidSSLCertificateHttp526(),
     StatusCode.railgunErrorHttp527 =>
-      railgunErrorHttp527?.call() ?? orElse?.call(),
+      railgunErrorHttp527 == null ? orElse?.call() : railgunErrorHttp527(),
     StatusCode.clientClosedConnectionHttp460 =>
-      clientClosedConnectionHttp460?.call() ?? orElse?.call(),
+      clientClosedConnectionHttp460 == null
+          ? orElse?.call()
+          : clientClosedConnectionHttp460(),
     StatusCode.tooManyIpAddressesHttp463 =>
-      tooManyIpAddressesHttp463?.call() ?? orElse?.call(),
+      tooManyIpAddressesHttp463 == null
+          ? orElse?.call()
+          : tooManyIpAddressesHttp463(),
     StatusCode.incompatibleProtocolVersionsHttp464 =>
-      incompatibleProtocolVersionsHttp464?.call() ?? orElse?.call(),
+      incompatibleProtocolVersionsHttp464 == null
+          ? orElse?.call()
+          : incompatibleProtocolVersionsHttp464(),
     StatusCode.unauthorizedHttp561 =>
-      unauthorizedHttp561?.call() ?? orElse?.call(),
+      unauthorizedHttp561 == null ? orElse?.call() : unauthorizedHttp561(),
+    StatusCode.networkConnectTimeoutErrorHttp599 =>
+      networkConnectTimeoutErrorHttp599 == null
+          ? orElse?.call()
+          : networkConnectTimeoutErrorHttp599(),
     _ => orElse?.call(),
   };
 
@@ -2166,5 +2503,114 @@ extension StatusCodeExtension on StatusCode {
       incompatibleProtocolVersionsHttp464,
     StatusCode.unauthorizedHttp561 => unauthorizedHttp561,
     _ => null,
+  };
+
+  static const _names = <StatusCode, String>{
+    StatusCode.continueHttp100: 'continueHttp100',
+    StatusCode.switchingProtocolsHttp101: 'switchingProtocolsHttp101',
+    StatusCode.processingHttp102: 'processingHttp102',
+    StatusCode.earlyHintsHttp103: 'earlyHintsHttp103',
+    StatusCode.okHttp200: 'okHttp200',
+    StatusCode.createdHttp201: 'createdHttp201',
+    StatusCode.acceptedHttp202: 'acceptedHttp202',
+    StatusCode.nonAuthoritativeInformationHttp203:
+        'nonAuthoritativeInformationHttp203',
+    StatusCode.noContentHttp204: 'noContentHttp204',
+    StatusCode.resetContentHttp205: 'resetContentHttp205',
+    StatusCode.partialContentHttp206: 'partialContentHttp206',
+    StatusCode.multiStatusHttp207: 'multiStatusHttp207',
+    StatusCode.alreadyReportedHttp208: 'alreadyReportedHttp208',
+    StatusCode.imUsedHttp226: 'imUsedHttp226',
+    StatusCode.multipleChoicesHttp300: 'multipleChoicesHttp300',
+    StatusCode.movedPermanentlyHttp301: 'movedPermanentlyHttp301',
+    StatusCode.foundHttp302: 'foundHttp302',
+    StatusCode.seeOtherHttp303: 'seeOtherHttp303',
+    StatusCode.notModifiedHttp304: 'notModifiedHttp304',
+    StatusCode.useProxyHttp305: 'useProxyHttp305',
+    StatusCode.temporaryRedirectHttp307: 'temporaryRedirectHttp307',
+    StatusCode.permanentRedirectHttp308: 'permanentRedirectHttp308',
+    StatusCode.badRequestHttp400: 'badRequestHttp400',
+    StatusCode.unauthorizedHttp401: 'unauthorizedHttp401',
+    StatusCode.paymentRequiredHttp402: 'paymentRequiredHttp402',
+    StatusCode.forbiddenHttp403: 'forbiddenHttp403',
+    StatusCode.notFoundHttp404: 'notFoundHttp404',
+    StatusCode.methodNotAllowedHttp405: 'methodNotAllowedHttp405',
+    StatusCode.notAcceptableHttp406: 'notAcceptableHttp406',
+    StatusCode.proxyAuthenticationRequiredHttp407:
+        'proxyAuthenticationRequiredHttp407',
+    StatusCode.requestTimeoutHttp408: 'requestTimeoutHttp408',
+    StatusCode.conflictHttp409: 'conflictHttp409',
+    StatusCode.goneHttp410: 'goneHttp410',
+    StatusCode.lengthRequiredHttp411: 'lengthRequiredHttp411',
+    StatusCode.preconditionFailedHttp412: 'preconditionFailedHttp412',
+    StatusCode.payloadTooLargeHttp413: 'payloadTooLargeHttp413',
+    StatusCode.uriTooLongHttp414: 'uriTooLongHttp414',
+    StatusCode.unsupportedMediaTypeHttp415: 'unsupportedMediaTypeHttp415',
+    StatusCode.rangeNotSatisfiableHttp416: 'rangeNotSatisfiableHttp416',
+    StatusCode.expectationFailedHttp417: 'expectationFailedHttp417',
+    StatusCode.imATeapotHttp418: 'imATeapotHttp418',
+    StatusCode.misdirectedRequestHttp421: 'misdirectedRequestHttp421',
+    StatusCode.unprocessableEntityHttp422: 'unprocessableEntityHttp422',
+    StatusCode.lockedHttp423: 'lockedHttp423',
+    StatusCode.failedDependencyHttp424: 'failedDependencyHttp424',
+    StatusCode.tooEarlyHttp425: 'tooEarlyHttp425',
+    StatusCode.upgradeRequiredHttp426: 'upgradeRequiredHttp426',
+    StatusCode.preconditionRequiredHttp428: 'preconditionRequiredHttp428',
+    StatusCode.tooManyRequestsHttp429: 'tooManyRequestsHttp429',
+    StatusCode.requestHeaderFieldsTooLargeHttp431:
+        'requestHeaderFieldsTooLargeHttp431',
+    StatusCode.iisLoginTimeoutHttp440: 'iisLoginTimeoutHttp440',
+    StatusCode.nginxNoResponseHttp444: 'nginxNoResponseHttp444',
+    StatusCode.iisRetryWithHttp449: 'iisRetryWithHttp449',
+    StatusCode.blockedByWindowsParentalControlsHttp450:
+        'blockedByWindowsParentalControlsHttp450',
+    StatusCode.unavailableForLegalReasonsHttp451:
+        'unavailableForLegalReasonsHttp451',
+    StatusCode.nginxSSLCertificateErrorHttp495:
+        'nginxSSLCertificateErrorHttp495',
+    StatusCode.nginxSSLCertificateRequiredHttp496:
+        'nginxSSLCertificateRequiredHttp496',
+    StatusCode.nginxHTTPToHTTPSHttp497: 'nginxHTTPToHTTPSHttp497',
+    StatusCode.tokenExpiredHttp498: 'tokenExpiredHttp498',
+    StatusCode.nginxClientClosedRequestHttp499:
+        'nginxClientClosedRequestHttp499',
+    StatusCode.internalServerErrorHttp500: 'internalServerErrorHttp500',
+    StatusCode.notImplementedHttp501: 'notImplementedHttp501',
+    StatusCode.badGatewayHttp502: 'badGatewayHttp502',
+    StatusCode.serviceUnavailableHttp503: 'serviceUnavailableHttp503',
+    StatusCode.gatewayTimeoutHttp504: 'gatewayTimeoutHttp504',
+    StatusCode.httpVersionNotSupportedHttp505: 'httpVersionNotSupportedHttp505',
+    StatusCode.variantAlsoNegotiatesHttp506: 'variantAlsoNegotiatesHttp506',
+    StatusCode.insufficientStorageHttp507: 'insufficientStorageHttp507',
+    StatusCode.loopDetectedHttp508: 'loopDetectedHttp508',
+    StatusCode.bandwidthLimitExceededHttp509: 'bandwidthLimitExceededHttp509',
+    StatusCode.otExtendedHttp510: 'otExtendedHttp510',
+    StatusCode.networkAuthenticationRequiredHttp511:
+        'networkAuthenticationRequiredHttp511',
+    StatusCode.siteIsFrozenHttp530: 'siteIsFrozenHttp530',
+    StatusCode.thisIsFineHttp218: 'thisIsFineHttp218',
+    StatusCode.pageExpiredHttp419: 'pageExpiredHttp419',
+    StatusCode.enhanceYourCalmHttp420: 'enhanceYourCalmHttp420',
+    StatusCode.requestHeaderFieldsTooLargeHttp430:
+        'requestHeaderFieldsTooLargeHttp430',
+    StatusCode.siteIsOverloadedHttp529: 'siteIsOverloadedHttp529',
+    StatusCode.networkReadTimeoutErrorHttp598: 'networkReadTimeoutErrorHttp598',
+    StatusCode.requestHeaderTooLargeHttp494: 'requestHeaderTooLargeHttp494',
+    StatusCode.webServerReturnedUnknownErrorHttp520:
+        'webServerReturnedUnknownErrorHttp520',
+    StatusCode.webServerIsDownHttp521: 'webServerIsDownHttp521',
+    StatusCode.connectionTimedOutHttp522: 'connectionTimedOutHttp522',
+    StatusCode.originIsUnreachableHttp523: 'originIsUnreachableHttp523',
+    StatusCode.timeoutOccurredHttp524: 'timeoutOccurredHttp524',
+    StatusCode.sslHandshakeFailedHttp525: 'sslHandshakeFailedHttp525',
+    StatusCode.invalidSSLCertificateHttp526: 'invalidSSLCertificateHttp526',
+    StatusCode.railgunErrorHttp527: 'railgunErrorHttp527',
+    StatusCode.clientClosedConnectionHttp460: 'clientClosedConnectionHttp460',
+    StatusCode.tooManyIpAddressesHttp463: 'tooManyIpAddressesHttp463',
+    StatusCode.incompatibleProtocolVersionsHttp464:
+        'incompatibleProtocolVersionsHttp464',
+    StatusCode.unauthorizedHttp561: 'unauthorizedHttp561',
+    StatusCode.networkConnectTimeoutErrorHttp599:
+        'networkConnectTimeoutErrorHttp599',
   };
 }
