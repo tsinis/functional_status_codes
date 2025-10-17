@@ -3,9 +3,9 @@
 [![Dart Code Metrics](https://img.shields.io/badge/passing-dcm?style=flat&logo=dart&logoColor=lightskyblue&label=dcm&color=dark-green)](https://dcm.dev)
 [![CodeFactor](https://www.codefactor.io/repository/github/tsinis/functional_status_codes/badge)](https://www.codefactor.io/repository/github/tsinis/functional_status_codes)
 [![Pub points](https://img.shields.io/pub/points/functional_status_codes)](https://pub.dev/packages/functional_status_codes/score)
-![Created](https://img.shields.io/github/created-at/tsinis/functional_status_codes)
+[![Created](https://img.shields.io/github/created-at/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes/commit/23d35c4fc890d01b8dc93409738e4fc61712e94f)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-![Size](https://img.shields.io/github/languages/code-size/tsinis/functional_status_codes)
+[![Size](https://img.shields.io/github/languages/code-size/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes#why-should-i-use-this-package)
 [![Pub package](https://img.shields.io/pub/v/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes)
 
 ## Table of Contents
@@ -115,7 +115,7 @@ The use of `StatusCode` extension type and boolean getters (`isInformational`, `
 
 12. **Comprehensive documentation**: This package provides full documentation for public member, usually with examples, ensuring clarity and ease of use.
 
-13. **Lightweight**: This package keeps **under 100 KB**, ensuring it fits within the pub cache limit. This leads to quick, low-bandwidth downloads and faster caching, minimizing resource impact.
+13. **Lightweight**: This package keeps **under 135 KB**, ensuring it fits within the pub cache limit. This leads to quick, low-bandwidth downloads and faster caching, minimizing resource impact.
 
 14. **Mirrored Repository**: The GitHub repository, including all package tags, is mirrored on [GitLab](https://gitlab.com/tsinis/functional_status_codes/), providing an alternative access point should GitHub become unavailable.
 
