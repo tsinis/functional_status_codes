@@ -96,7 +96,7 @@ extension type const StatusCode._(int _code) implements int {
       assert(code != insufficientStorageHttp507, '$_assert$code'),
       assert(code != loopDetectedHttp508, '$_assert$code'),
       assert(code != bandwidthLimitExceededHttp509, '$_assert$code'),
-      assert(code != otExtendedHttp510, '$_assert$code'),
+      assert(code != notExtendedHttp510, '$_assert$code'),
       assert(code != networkAuthenticationRequiredHttp511, '$_assert$code'),
       assert(code != siteIsFrozenHttp530, '$_assert$code'),
       assert(code != thisIsFineHttp218, '$_assert$code'),
@@ -529,7 +529,14 @@ extension type const StatusCode._(int _code) implements int {
   /// Not Extended: 510
   ///
   /// Reference: [RFC2774](http://www.iana.org/go/rfc2774)
-  static const otExtendedHttp510 = StatusCode._(510);
+  static const notExtendedHttp510 = StatusCode._(510);
+
+  /// Not Extended: 510
+  ///
+  /// Reference: [RFC2774](http://www.iana.org/go/rfc2774)
+  @Deprecated('Use notExtendedHttp510 instead.')
+  // ignore: avoid-explicit-type-declaration, not obvious in this case.
+  static const StatusCode otExtendedHttp510 = notExtendedHttp510;
 
   /// Network Authentication Required: 511
   ///
@@ -671,7 +678,7 @@ extension type const StatusCode._(int _code) implements int {
   /// credentials are missing.
   static const unauthorizedHttp561 = StatusCode._(561);
 
-  /// Official status code. Network Connect Timeout Error: 599
+  /// Unofficial status code. Network Connect Timeout Error: 599
   ///
   /// This status code is not specified in any RFCs, but is used by some HTTP
   /// proxies to signal a network connect timeout behind the proxy to a client
@@ -858,7 +865,7 @@ extension type const StatusCode._(int _code) implements int {
     insufficientStorageHttp507,
     loopDetectedHttp508,
     bandwidthLimitExceededHttp509,
-    otExtendedHttp510,
+    notExtendedHttp510,
     networkAuthenticationRequiredHttp511,
     siteIsFrozenHttp530,
     thisIsFineHttp218,
@@ -905,10 +912,10 @@ extension type const StatusCode._(int _code) implements int {
   /// See also:
   /// - [values], which includes both official and unofficial codes.
   static const officialCodes = <StatusCode>[
-    networkConnectTimeoutErrorHttp599,
+    // networkConnectTimeoutErrorHttp599, not official.
     siteIsFrozenHttp530,
     networkAuthenticationRequiredHttp511,
-    otExtendedHttp510,
+    notExtendedHttp510,
     bandwidthLimitExceededHttp509,
     loopDetectedHttp508,
     insufficientStorageHttp507,
@@ -1072,7 +1079,7 @@ extension type const StatusCode._(int _code) implements int {
     insufficientStorageHttp507: 'Insufficient Storage',
     loopDetectedHttp508: 'Loop Detected',
     bandwidthLimitExceededHttp509: 'Bandwidth Limit Exceeded',
-    otExtendedHttp510: 'Not Extended',
+    notExtendedHttp510: 'Not Extended',
     networkAuthenticationRequiredHttp511: 'Network Authentication Required',
     siteIsFrozenHttp530: 'Site is frozen',
     thisIsFineHttp218: 'This is fine (Apache HTTP Server)',
