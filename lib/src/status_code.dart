@@ -3,6 +3,8 @@
 
 // ignore_for_file: format-comment, because of trailing dot at the end of URLs.
 
+import 'dart:math' show Random;
+
 /// Dart `extension type` for easier handling of known unofficial, all IANA
 /// registered and custom HTTP status codes.
 extension type const StatusCode._(int _code) implements int {
@@ -1211,4 +1213,50 @@ extension type const StatusCode._(int _code) implements int {
     networkReadTimeoutErrorHttp598,
     networkConnectTimeoutErrorHttp599,
   };
+
+  /// Returns a random [StatusCode] from the provided [from] iterable.
+  ///
+  /// This method is useful for generating random status codes in tests, mocks,
+  /// or property-based testing scenarios. If no [from] are provided, it
+  /// selects from all available status codes in [StatusCode.values].
+  ///
+  /// This method uses [Random()] without a seed, so results are
+  /// non-deterministic. For deterministic testing, consider passing custom
+  /// [random] instance with a specific seed.
+  ///
+  /// The [from] iterable must contain at least one status code. If you need
+  /// to filter by category, you can pass specific subsets:
+  ///
+  /// Example:
+  /// ```dart
+  /// // Random from all status codes.
+  /// final randomCode = StatusCode.random();
+  ///
+  /// // Random from specific codes.
+  /// final errorCode = StatusCode.random(from: const [
+  ///   StatusCode.badRequestHttp400,
+  ///   StatusCode.unauthorizedHttp401,
+  ///   StatusCode.notFoundHttp404,
+  /// ]);
+  ///
+  /// // Random official code only.
+  /// final officialCode = StatusCode.random(from: StatusCode.officialCodes);
+  ///
+  /// // Random cacheable code.
+  /// final cacheableCode = StatusCode.random(from: StatusCode.cacheableCodes);
+  ///
+  /// // Random retryable code.
+  /// final retryableCode = StatusCode.random(from: StatusCode.retryableCodes);
+  /// ```
+  ///
+  /// Throws an [AssertionError] if [from] is empty (only in debug mode).
+  static StatusCode random({
+    Iterable<StatusCode> from = values,
+    Random? random,
+  }) {
+    assert(from.isNotEmpty, 'The provided `codes` iterable must not be empty');
+    final elementAt = (random ?? Random()).nextInt(from.length);
+
+    return List<StatusCode>.unmodifiable(from).elementAt(elementAt);
+  }
 }
