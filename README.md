@@ -19,9 +19,9 @@
 
 ### Introduction
 
-A comprehensive, pure Dart package for type-safe HTTP status code handling with functional programming support. Built using Dart 3.0's extension types for zero-cost abstraction over integers.
+A comprehensive, pure Dart package for type-safe HTTP status code handling with functional programming support. Built using Dart 3.3's extension types for zero-cost abstraction over integers.
 
-This package is actively maintained and leverages modern Dart 3+ features (extension types, introduced in Dart 3.0) unavailable in older status code packages.
+This package is actively maintained and leverages modern Dart 3+ features (extension types, introduced in Dart 3.3), which are unavailable in older status code packages.
 
 - **Performance**: Zero-cost abstraction with extension types - no boxing/unboxing overhead.
 - **Flexibility**: Create custom status codes for internal APIs.
@@ -37,7 +37,7 @@ This package is actively maintained and leverages modern Dart 3+ features (exten
 - **Functional API**: Methods like `when`, `map`, `maybeMap`, `maybeWhen`, etc., on both `num?` and `StatusCode`.
 - **Flexible parsing**: Parse from `String`, `Object?`, and `num` types.
 - **Range validation**: `isStatusCodeWithinRange` and `isStatusWithinRange`.
-- **Type safety**: Dart 3+ extension types provide compile-time safety without runtime cost.
+- **Type safety**: Dart 3.3+ extension types provide compile-time safety without runtime cost.
 
 ### Usage
 
@@ -162,5 +162,5 @@ import 'package:functional_status_codes/functional_status_codes.dart';
 
 For more information on using this package, check out the API documentation and example.
 
-If you like this package, please give it a star or like. For more information on using this package, check out the API documentation. **PRs or ideas are always welcome**.
+If you like this package, please give it a star or a like. For more information on using this package, check out the API documentation. **PRs or ideas are always welcome**.
 If you have any issues or suggestions for the package, please file them in the GitHub repository.
