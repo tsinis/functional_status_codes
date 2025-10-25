@@ -299,7 +299,11 @@ extension StatusCodeExtension on StatusCode {
       this == StatusCode.bandwidthLimitExceededHttp509;
 
   /// Determines whether this StatusCode corresponds to an HTTP 510 status.
-  bool get isOtExtendedHttp510 => this == StatusCode.otExtendedHttp510;
+  @Deprecated('Use isNotExtendedHttp510 instead.')
+  bool get isOtExtendedHttp510 => isNotExtendedHttp510;
+
+  /// Determines whether this StatusCode corresponds to an HTTP 510 status.
+  bool get isNotExtendedHttp510 => this == StatusCode.notExtendedHttp510;
 
   /// Determines whether this StatusCode corresponds to an HTTP 511 status.
   bool get isNetworkAuthenticationRequiredHttp511 =>
@@ -498,7 +502,7 @@ extension StatusCodeExtension on StatusCode {
     required R Function(StatusCode loopDetectedHttp508) loopDetectedHttp508,
     required R Function(StatusCode bandwidthLimitExceededHttp509)
     bandwidthLimitExceededHttp509,
-    required R Function(StatusCode otExtendedHttp510) otExtendedHttp510,
+    required R Function(StatusCode notExtendedHttp510) notExtendedHttp510,
     required R Function(StatusCode networkAuthenticationRequiredHttp511)
     networkAuthenticationRequiredHttp511,
     required R Function(StatusCode siteIsFrozenHttp530) siteIsFrozenHttp530,
@@ -624,7 +628,7 @@ extension StatusCodeExtension on StatusCode {
     StatusCode.bandwidthLimitExceededHttp509 => bandwidthLimitExceededHttp509(
       this,
     ),
-    StatusCode.otExtendedHttp510 => otExtendedHttp510(this),
+    StatusCode.notExtendedHttp510 => notExtendedHttp510(this),
     StatusCode.networkAuthenticationRequiredHttp511 =>
       networkAuthenticationRequiredHttp511(this),
     StatusCode.siteIsFrozenHttp530 => siteIsFrozenHttp530(this),
@@ -765,7 +769,7 @@ extension StatusCodeExtension on StatusCode {
     R Function(StatusCode loopDetectedHttp508)? loopDetectedHttp508,
     R Function(StatusCode bandwidthLimitExceededHttp509)?
     bandwidthLimitExceededHttp509,
-    R Function(StatusCode otExtendedHttp510)? otExtendedHttp510,
+    R Function(StatusCode notExtendedHttp510)? notExtendedHttp510,
     R Function(StatusCode networkAuthenticationRequiredHttp511)?
     networkAuthenticationRequiredHttp511,
     R Function(StatusCode siteIsFrozenHttp530)? siteIsFrozenHttp530,
@@ -995,8 +999,8 @@ extension StatusCodeExtension on StatusCode {
       bandwidthLimitExceededHttp509 == null
           ? orElse()
           : bandwidthLimitExceededHttp509(this),
-    StatusCode.otExtendedHttp510 =>
-      otExtendedHttp510 == null ? orElse() : otExtendedHttp510(this),
+    StatusCode.notExtendedHttp510 =>
+      notExtendedHttp510 == null ? orElse() : notExtendedHttp510(this),
     StatusCode.networkAuthenticationRequiredHttp511 =>
       networkAuthenticationRequiredHttp511 == null
           ? orElse()
@@ -1158,7 +1162,7 @@ extension StatusCodeExtension on StatusCode {
     R Function()? insufficientStorageHttp507,
     R Function()? loopDetectedHttp508,
     R Function()? bandwidthLimitExceededHttp509,
-    R Function()? otExtendedHttp510,
+    R Function()? notExtendedHttp510,
     R Function()? networkAuthenticationRequiredHttp511,
     R Function()? siteIsFrozenHttp530,
     R Function()? networkConnectTimeoutErrorHttp599,
@@ -1362,8 +1366,8 @@ extension StatusCodeExtension on StatusCode {
       bandwidthLimitExceededHttp509 == null
           ? orElse()
           : bandwidthLimitExceededHttp509(),
-    StatusCode.otExtendedHttp510 =>
-      otExtendedHttp510 == null ? orElse() : otExtendedHttp510(),
+    StatusCode.notExtendedHttp510 =>
+      notExtendedHttp510 == null ? orElse() : notExtendedHttp510(),
     StatusCode.networkAuthenticationRequiredHttp511 =>
       networkAuthenticationRequiredHttp511 == null
           ? orElse()
@@ -1527,7 +1531,7 @@ extension StatusCodeExtension on StatusCode {
     required R Function() insufficientStorageHttp507,
     required R Function() loopDetectedHttp508,
     required R Function() bandwidthLimitExceededHttp509,
-    required R Function() otExtendedHttp510,
+    required R Function() notExtendedHttp510,
     required R Function() networkAuthenticationRequiredHttp511,
     required R Function() siteIsFrozenHttp530,
     required R Function() networkConnectTimeoutErrorHttp599,
@@ -1631,7 +1635,7 @@ extension StatusCodeExtension on StatusCode {
     StatusCode.insufficientStorageHttp507 => insufficientStorageHttp507(),
     StatusCode.loopDetectedHttp508 => loopDetectedHttp508(),
     StatusCode.bandwidthLimitExceededHttp509 => bandwidthLimitExceededHttp509(),
-    StatusCode.otExtendedHttp510 => otExtendedHttp510(),
+    StatusCode.notExtendedHttp510 => notExtendedHttp510(),
     StatusCode.networkAuthenticationRequiredHttp511 =>
       networkAuthenticationRequiredHttp511(),
     StatusCode.siteIsFrozenHttp530 => siteIsFrozenHttp530(),
@@ -1748,7 +1752,7 @@ extension StatusCodeExtension on StatusCode {
     R Function()? insufficientStorageHttp507,
     R Function()? loopDetectedHttp508,
     R Function()? bandwidthLimitExceededHttp509,
-    R Function()? otExtendedHttp510,
+    R Function()? notExtendedHttp510,
     R Function()? networkAuthenticationRequiredHttp511,
     R Function()? siteIsFrozenHttp530,
     R Function()? networkConnectTimeoutErrorHttp599,
@@ -1985,8 +1989,8 @@ extension StatusCodeExtension on StatusCode {
       bandwidthLimitExceededHttp509 == null
           ? orElse?.call()
           : bandwidthLimitExceededHttp509(),
-    StatusCode.otExtendedHttp510 =>
-      otExtendedHttp510 == null ? orElse?.call() : otExtendedHttp510(),
+    StatusCode.notExtendedHttp510 =>
+      notExtendedHttp510 == null ? orElse?.call() : notExtendedHttp510(),
     StatusCode.networkAuthenticationRequiredHttp511 =>
       networkAuthenticationRequiredHttp511 == null
           ? orElse?.call()
@@ -2154,7 +2158,7 @@ extension StatusCodeExtension on StatusCode {
     required R insufficientStorageHttp507,
     required R loopDetectedHttp508,
     required R bandwidthLimitExceededHttp509,
-    required R otExtendedHttp510,
+    required R notExtendedHttp510,
     required R networkAuthenticationRequiredHttp511,
     required R siteIsFrozenHttp530,
     required R networkConnectTimeoutErrorHttp599,
@@ -2257,7 +2261,7 @@ extension StatusCodeExtension on StatusCode {
     StatusCode.insufficientStorageHttp507 => insufficientStorageHttp507,
     StatusCode.loopDetectedHttp508 => loopDetectedHttp508,
     StatusCode.bandwidthLimitExceededHttp509 => bandwidthLimitExceededHttp509,
-    StatusCode.otExtendedHttp510 => otExtendedHttp510,
+    StatusCode.notExtendedHttp510 => notExtendedHttp510,
     StatusCode.networkAuthenticationRequiredHttp511 =>
       networkAuthenticationRequiredHttp511,
     StatusCode.siteIsFrozenHttp530 => siteIsFrozenHttp530,
@@ -2371,7 +2375,7 @@ extension StatusCodeExtension on StatusCode {
     R? insufficientStorageHttp507,
     R? loopDetectedHttp508,
     R? bandwidthLimitExceededHttp509,
-    R? otExtendedHttp510,
+    R? notExtendedHttp510,
     R? networkAuthenticationRequiredHttp511,
     R? siteIsFrozenHttp530,
     R? networkConnectTimeoutErrorHttp599,
@@ -2474,7 +2478,7 @@ extension StatusCodeExtension on StatusCode {
     StatusCode.insufficientStorageHttp507 => insufficientStorageHttp507,
     StatusCode.loopDetectedHttp508 => loopDetectedHttp508,
     StatusCode.bandwidthLimitExceededHttp509 => bandwidthLimitExceededHttp509,
-    StatusCode.otExtendedHttp510 => otExtendedHttp510,
+    StatusCode.notExtendedHttp510 => notExtendedHttp510,
     StatusCode.networkAuthenticationRequiredHttp511 =>
       networkAuthenticationRequiredHttp511,
     StatusCode.siteIsFrozenHttp530 => siteIsFrozenHttp530,
@@ -2584,7 +2588,7 @@ extension StatusCodeExtension on StatusCode {
     StatusCode.insufficientStorageHttp507: 'insufficientStorageHttp507',
     StatusCode.loopDetectedHttp508: 'loopDetectedHttp508',
     StatusCode.bandwidthLimitExceededHttp509: 'bandwidthLimitExceededHttp509',
-    StatusCode.otExtendedHttp510: 'otExtendedHttp510',
+    StatusCode.notExtendedHttp510: 'notExtendedHttp510',
     StatusCode.networkAuthenticationRequiredHttp511:
         'networkAuthenticationRequiredHttp511',
     StatusCode.siteIsFrozenHttp530: 'siteIsFrozenHttp530',
