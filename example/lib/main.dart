@@ -28,6 +28,9 @@ Future<int?> _simple(List<String> args) async {
   print(16.isStatusCode); // Prints false.
   print(160.isStatusCode); // Prints true.
 
+  print(200.isCacheable); // Prints true (OK is cacheable per RFC 7231).
+  print(429.isRetryable); // Prints true (Too Many Requests is retryable).
+
   /// Range checks with [num?] based codes.
   print(140.isStatusCodeWithinRange(min: 101, max: 140)); // Prints true.
   print(
