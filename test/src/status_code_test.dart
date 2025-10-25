@@ -1,6 +1,7 @@
 // ignore_for_file: avoid-misused-test-matchers
 import 'dart:math';
 
+import 'package:functional_status_codes/src/num_status_code_extension.dart';
 import 'package:functional_status_codes/src/status_code.dart';
 import 'package:functional_status_codes/src/status_code_extension.dart';
 import 'package:test/test.dart';
@@ -106,5 +107,84 @@ void main() => group('$StatusCode', () {
         () => expect(StatusCode.tryParse('${status.reason}: $status.'), status),
       );
     }
+  });
+
+  group('random', () {
+    test('returns a $StatusCode from default values', () {
+      final result = StatusCode.random();
+      expect(result, isA<StatusCode>());
+      expect(StatusCode.values, contains(result));
+    });
+
+    test('returns a $StatusCode from provided list', () {
+      const codes = [
+        StatusCode.okHttp200,
+        StatusCode.createdHttp201,
+        StatusCode.acceptedHttp202,
+      ];
+      final result = StatusCode.random(from: codes);
+      expect(result, isA<StatusCode>());
+      expect(codes, contains(result));
+    });
+
+    test('returns a $StatusCode from provided set', () {
+      const codes = {
+        StatusCode.badRequestHttp400,
+        StatusCode.unauthorizedHttp401,
+        StatusCode.forbiddenHttp403,
+      };
+      final result = StatusCode.random(from: codes);
+      expect(result, isA<StatusCode>());
+      expect(codes, contains(result));
+    });
+
+    test('works with single code', () {
+      const codes = [StatusCode.notFoundHttp404];
+      final result = StatusCode.random(from: codes);
+      expect(result, StatusCode.notFoundHttp404);
+    });
+
+    test('works with official codes only', () {
+      final result = StatusCode.random(from: StatusCode.officialCodes);
+      expect(result, isA<StatusCode>());
+      expect(StatusCode.officialCodes, contains(result));
+    });
+
+    test('works with cacheable codes', () {
+      final result = StatusCode.random(from: StatusCode.cacheableCodes);
+      expect(result, isA<StatusCode>());
+      expect(StatusCode.cacheableCodes, contains(result));
+    });
+
+    test('works with retryable codes', () {
+      final result = StatusCode.random(from: StatusCode.retryableCodes);
+      expect(result, isA<StatusCode>());
+      expect(StatusCode.retryableCodes, contains(result));
+    });
+
+    test('works with any iterable type', () {
+      final listResult = StatusCode.random(
+        from: const [StatusCode.okHttp200, StatusCode.createdHttp201],
+      );
+      expect(listResult.isSuccess, isTrue);
+
+      final setResult = StatusCode.random(
+        from: const {StatusCode.okHttp200, StatusCode.createdHttp201},
+      );
+      expect(setResult.isSuccess, isTrue);
+
+      final iterableResult = StatusCode.random(
+        from: StatusCode.values.where((code) => code.isOfficial).take(5),
+      );
+      expect(iterableResult.isOfficial, isTrue);
+    });
+
+    test('asserts on empty iterable in debug mode', () {
+      const emptyCodes = <StatusCode>[];
+      expect(
+        () => StatusCode.random(from: emptyCodes),
+        throwsA(isA<AssertionError>()),
+      );
+    });
   });
 });

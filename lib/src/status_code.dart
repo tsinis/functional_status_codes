@@ -3,6 +3,8 @@
 
 // ignore_for_file: format-comment, because of trailing dot at the end of URLs.
 
+import 'dart:math' show Random;
+
 /// Dart `extension type` for easier handling of known unofficial, all IANA
 /// registered and custom HTTP status codes.
 extension type const StatusCode._(int _code) implements int {
@@ -96,7 +98,7 @@ extension type const StatusCode._(int _code) implements int {
       assert(code != insufficientStorageHttp507, '$_assert$code'),
       assert(code != loopDetectedHttp508, '$_assert$code'),
       assert(code != bandwidthLimitExceededHttp509, '$_assert$code'),
-      assert(code != otExtendedHttp510, '$_assert$code'),
+      assert(code != notExtendedHttp510, '$_assert$code'),
       assert(code != networkAuthenticationRequiredHttp511, '$_assert$code'),
       assert(code != siteIsFrozenHttp530, '$_assert$code'),
       assert(code != thisIsFineHttp218, '$_assert$code'),
@@ -529,7 +531,14 @@ extension type const StatusCode._(int _code) implements int {
   /// Not Extended: 510
   ///
   /// Reference: [RFC2774](http://www.iana.org/go/rfc2774)
-  static const otExtendedHttp510 = StatusCode._(510);
+  static const notExtendedHttp510 = StatusCode._(510);
+
+  /// Not Extended: 510
+  ///
+  /// Reference: [RFC2774](http://www.iana.org/go/rfc2774)
+  @Deprecated('Use notExtendedHttp510 instead.')
+  // ignore: avoid-explicit-type-declaration, not obvious in this case.
+  static const StatusCode otExtendedHttp510 = notExtendedHttp510;
 
   /// Network Authentication Required: 511
   ///
@@ -671,7 +680,7 @@ extension type const StatusCode._(int _code) implements int {
   /// credentials are missing.
   static const unauthorizedHttp561 = StatusCode._(561);
 
-  /// Official status code. Network Connect Timeout Error: 599
+  /// Unofficial status code. Network Connect Timeout Error: 599
   ///
   /// This status code is not specified in any RFCs, but is used by some HTTP
   /// proxies to signal a network connect timeout behind the proxy to a client
@@ -788,99 +797,11 @@ extension type const StatusCode._(int _code) implements int {
   /// See also:
   /// - [officialCodes], which contains only IANA registered codes.
   static const values = <StatusCode>[
-    continueHttp100,
-    switchingProtocolsHttp101,
-    processingHttp102,
-    earlyHintsHttp103,
-    okHttp200,
-    createdHttp201,
-    acceptedHttp202,
-    nonAuthoritativeInformationHttp203,
-    noContentHttp204,
-    resetContentHttp205,
-    partialContentHttp206,
-    multiStatusHttp207,
-    alreadyReportedHttp208,
-    imUsedHttp226,
-    multipleChoicesHttp300,
-    movedPermanentlyHttp301,
-    foundHttp302,
-    seeOtherHttp303,
-    notModifiedHttp304,
-    useProxyHttp305,
-    temporaryRedirectHttp307,
-    permanentRedirectHttp308,
-    badRequestHttp400,
-    unauthorizedHttp401,
-    paymentRequiredHttp402,
-    forbiddenHttp403,
-    notFoundHttp404,
-    methodNotAllowedHttp405,
-    notAcceptableHttp406,
-    proxyAuthenticationRequiredHttp407,
-    requestTimeoutHttp408,
-    conflictHttp409,
-    goneHttp410,
-    lengthRequiredHttp411,
-    preconditionFailedHttp412,
-    payloadTooLargeHttp413,
-    uriTooLongHttp414,
-    unsupportedMediaTypeHttp415,
-    rangeNotSatisfiableHttp416,
-    expectationFailedHttp417,
-    imATeapotHttp418,
-    misdirectedRequestHttp421,
-    unprocessableEntityHttp422,
-    lockedHttp423,
-    failedDependencyHttp424,
-    tooEarlyHttp425,
-    upgradeRequiredHttp426,
-    preconditionRequiredHttp428,
-    tooManyRequestsHttp429,
-    requestHeaderFieldsTooLargeHttp431,
-    iisLoginTimeoutHttp440,
-    nginxNoResponseHttp444,
-    iisRetryWithHttp449,
-    blockedByWindowsParentalControlsHttp450,
-    unavailableForLegalReasonsHttp451,
-    nginxSSLCertificateErrorHttp495,
-    nginxSSLCertificateRequiredHttp496,
-    nginxHTTPToHTTPSHttp497,
-    tokenExpiredHttp498,
-    nginxClientClosedRequestHttp499,
-    internalServerErrorHttp500,
-    notImplementedHttp501,
-    badGatewayHttp502,
-    serviceUnavailableHttp503,
-    gatewayTimeoutHttp504,
-    httpVersionNotSupportedHttp505,
-    variantAlsoNegotiatesHttp506,
-    insufficientStorageHttp507,
-    loopDetectedHttp508,
-    bandwidthLimitExceededHttp509,
-    otExtendedHttp510,
-    networkAuthenticationRequiredHttp511,
-    siteIsFrozenHttp530,
-    thisIsFineHttp218,
-    pageExpiredHttp419,
-    enhanceYourCalmHttp420,
-    requestHeaderFieldsTooLargeHttp430,
-    siteIsOverloadedHttp529,
-    networkReadTimeoutErrorHttp598,
-    requestHeaderTooLargeHttp494,
-    webServerReturnedUnknownErrorHttp520,
-    webServerIsDownHttp521,
-    connectionTimedOutHttp522,
-    originIsUnreachableHttp523,
-    timeoutOccurredHttp524,
-    sslHandshakeFailedHttp525,
-    invalidSSLCertificateHttp526,
-    railgunErrorHttp527,
-    clientClosedConnectionHttp460,
-    tooManyIpAddressesHttp463,
-    incompatibleProtocolVersionsHttp464,
-    unauthorizedHttp561,
-    networkConnectTimeoutErrorHttp599,
+    ...informationalCodes,
+    ...successCodes,
+    ...redirectionCodes,
+    ...clientErrorCodes,
+    ...serverErrorCodes,
   ];
 
   /// A list of official IANA registered HTTP status codes.
@@ -905,10 +826,10 @@ extension type const StatusCode._(int _code) implements int {
   /// See also:
   /// - [values], which includes both official and unofficial codes.
   static const officialCodes = <StatusCode>[
-    networkConnectTimeoutErrorHttp599,
+    // networkConnectTimeoutErrorHttp599, not official.
     siteIsFrozenHttp530,
     networkAuthenticationRequiredHttp511,
-    otExtendedHttp510,
+    notExtendedHttp510,
     bandwidthLimitExceededHttp509,
     loopDetectedHttp508,
     insufficientStorageHttp507,
@@ -1072,7 +993,7 @@ extension type const StatusCode._(int _code) implements int {
     insufficientStorageHttp507: 'Insufficient Storage',
     loopDetectedHttp508: 'Loop Detected',
     bandwidthLimitExceededHttp509: 'Bandwidth Limit Exceeded',
-    otExtendedHttp510: 'Not Extended',
+    notExtendedHttp510: 'Not Extended',
     networkAuthenticationRequiredHttp511: 'Network Authentication Required',
     siteIsFrozenHttp530: 'Site is frozen',
     thisIsFineHttp218: 'This is fine (Apache HTTP Server)',
@@ -1099,4 +1020,243 @@ extension type const StatusCode._(int _code) implements int {
     unauthorizedHttp561: 'Unauthorized (AWS Elastic Load Balancing)',
     networkConnectTimeoutErrorHttp599: 'Network Connect Timeout Error',
   };
+
+  /// Pre-sorted set of registered informational status codes (1xx).
+  ///
+  /// Contains only officially registered status codes in the informational
+  /// range. Used internally for specific matching scenarios.
+  static const informationalCodes = <StatusCode>[
+    continueHttp100,
+    switchingProtocolsHttp101,
+    processingHttp102,
+    earlyHintsHttp103,
+  ];
+
+  /// Pre-sorted set of registered success status codes (2xx).
+  ///
+  /// Contains only officially registered status codes in the success range.
+  /// Used internally for specific matching scenarios.
+  static const successCodes = <StatusCode>[
+    okHttp200,
+    createdHttp201,
+    acceptedHttp202,
+    nonAuthoritativeInformationHttp203,
+    noContentHttp204,
+    resetContentHttp205,
+    partialContentHttp206,
+    multiStatusHttp207,
+    alreadyReportedHttp208,
+    thisIsFineHttp218,
+    imUsedHttp226,
+  ];
+
+  /// Pre-sorted set of registered redirection status codes (3xx).
+  ///
+  /// Contains only officially registered status codes in the redirection
+  /// range. Used internally for specific matching scenarios.
+  static const redirectionCodes = <StatusCode>[
+    multipleChoicesHttp300,
+    movedPermanentlyHttp301,
+    foundHttp302,
+    seeOtherHttp303,
+    notModifiedHttp304,
+    useProxyHttp305,
+    temporaryRedirectHttp307,
+    permanentRedirectHttp308,
+  ];
+
+  /// Pre-sorted set of registered client error status codes (4xx).
+  ///
+  /// Contains only officially registered status codes in the client error
+  /// range. Used internally for specific matching scenarios.
+  static const clientErrorCodes = <StatusCode>[
+    badRequestHttp400,
+    unauthorizedHttp401,
+    paymentRequiredHttp402,
+    forbiddenHttp403,
+    notFoundHttp404,
+    methodNotAllowedHttp405,
+    notAcceptableHttp406,
+    proxyAuthenticationRequiredHttp407,
+    requestTimeoutHttp408,
+    conflictHttp409,
+    goneHttp410,
+    lengthRequiredHttp411,
+    preconditionFailedHttp412,
+    payloadTooLargeHttp413,
+    uriTooLongHttp414,
+    unsupportedMediaTypeHttp415,
+    rangeNotSatisfiableHttp416,
+    expectationFailedHttp417,
+    imATeapotHttp418,
+    pageExpiredHttp419,
+    enhanceYourCalmHttp420,
+    misdirectedRequestHttp421,
+    unprocessableEntityHttp422,
+    lockedHttp423,
+    failedDependencyHttp424,
+    tooEarlyHttp425,
+    upgradeRequiredHttp426,
+    preconditionRequiredHttp428,
+    tooManyRequestsHttp429,
+    requestHeaderFieldsTooLargeHttp430,
+    requestHeaderFieldsTooLargeHttp431,
+    iisLoginTimeoutHttp440,
+    nginxNoResponseHttp444,
+    iisRetryWithHttp449,
+    blockedByWindowsParentalControlsHttp450,
+    unavailableForLegalReasonsHttp451,
+    clientClosedConnectionHttp460,
+    tooManyIpAddressesHttp463,
+    incompatibleProtocolVersionsHttp464,
+    requestHeaderTooLargeHttp494,
+    nginxSSLCertificateErrorHttp495,
+    nginxSSLCertificateRequiredHttp496,
+    nginxHTTPToHTTPSHttp497,
+    tokenExpiredHttp498,
+    nginxClientClosedRequestHttp499,
+  ];
+
+  /// Pre-sorted set of registered server error status codes (5xx).
+  ///
+  /// Contains only officially registered status codes in the server error
+  /// range. Used internally for specific matching scenarios.
+  static const serverErrorCodes = <StatusCode>[
+    internalServerErrorHttp500,
+    notImplementedHttp501,
+    badGatewayHttp502,
+    serviceUnavailableHttp503,
+    gatewayTimeoutHttp504,
+    httpVersionNotSupportedHttp505,
+    variantAlsoNegotiatesHttp506,
+    insufficientStorageHttp507,
+    loopDetectedHttp508,
+    bandwidthLimitExceededHttp509,
+    notExtendedHttp510,
+    networkAuthenticationRequiredHttp511,
+    webServerReturnedUnknownErrorHttp520,
+    webServerIsDownHttp521,
+    connectionTimedOutHttp522,
+    originIsUnreachableHttp523,
+    timeoutOccurredHttp524,
+    sslHandshakeFailedHttp525,
+    invalidSSLCertificateHttp526,
+    railgunErrorHttp527,
+    siteIsOverloadedHttp529,
+    siteIsFrozenHttp530,
+    unauthorizedHttp561,
+    networkReadTimeoutErrorHttp598,
+    networkConnectTimeoutErrorHttp599,
+  ];
+
+  /// [List] of status codes that are cacheable by default according to RFC 7231
+  ///
+  /// These status codes can be stored by caches and reused for subsequent
+  /// requests without explicit freshness information, unless otherwise
+  /// indicated by cache-control headers.
+  ///
+  /// Includes:
+  /// - 200 (OK)
+  /// - 203 (Non-Authoritative Information)
+  /// - 204 (No Content)
+  /// - 206 (Partial Content)
+  /// - 300 (Multiple Choices)
+  /// - 301 (Moved Permanently)
+  /// - 404 (Not Found)
+  /// - 405 (Method Not Allowed)
+  /// - 410 (Gone)
+  /// - 414 (URI Too Long)
+  /// - 501 (Not Implemented)
+  ///
+  /// Reference: https://www.rfc-editor.org/rfc/rfc7231#section-6.1.
+  static const cacheableCodes = <StatusCode>[
+    okHttp200,
+    nonAuthoritativeInformationHttp203,
+    noContentHttp204,
+    partialContentHttp206,
+    multipleChoicesHttp300,
+    movedPermanentlyHttp301,
+    notFoundHttp404,
+    methodNotAllowedHttp405,
+    goneHttp410,
+    uriTooLongHttp414,
+    notImplementedHttp501,
+  ];
+
+  /// [List] of status codes that typically indicate transient errors.
+  ///
+  /// These status codes often represent temporary conditions that may succeed
+  /// if the request is retried, such as timeouts, rate limiting, or temporary
+  /// server unavailability. Retry logic should implement exponential backoff
+  /// and respect Retry-After headers when present.
+  ///
+  /// Includes:
+  /// - 408 (Request Timeout)
+  /// - 425 (Too Early)
+  /// - 429 (Too Many Requests)
+  /// - 500 (Internal Server Error)
+  /// - 502 (Bad Gateway)
+  /// - 503 (Service Unavailable)
+  /// - 504 (Gateway Timeout)
+  /// - 511 (Network Authentication Required)
+  /// - 598 (Network Read Timeout Error)
+  /// - 599 (Network Connect Timeout Error).
+  static const retryableCodes = <StatusCode>[
+    requestTimeoutHttp408,
+    tooEarlyHttp425,
+    tooManyRequestsHttp429,
+    internalServerErrorHttp500,
+    badGatewayHttp502,
+    serviceUnavailableHttp503,
+    gatewayTimeoutHttp504,
+    networkAuthenticationRequiredHttp511,
+    networkReadTimeoutErrorHttp598,
+    networkConnectTimeoutErrorHttp599,
+  ];
+
+  /// Returns a random [StatusCode] from the provided [from] iterable.
+  ///
+  /// This method is useful for generating random status codes in tests, mocks,
+  /// or property-based testing scenarios. If no [from] are provided, it
+  /// selects from all available status codes in [StatusCode.values].
+  ///
+  /// This method uses [Random()] without a seed, so results are
+  /// non-deterministic. For deterministic testing, consider passing custom
+  /// [random] instance with a specific seed.
+  ///
+  /// The [from] iterable must contain at least one status code. If you need
+  /// to filter by category, you can pass specific subsets:
+  ///
+  /// Example:
+  /// ```dart
+  /// // Random from all status codes.
+  /// final randomCode = StatusCode.random();
+  ///
+  /// // Random from specific codes.
+  /// final errorCode = StatusCode.random(from: const [
+  ///   StatusCode.badRequestHttp400,
+  ///   StatusCode.unauthorizedHttp401,
+  ///   StatusCode.notFoundHttp404,
+  /// ]);
+  ///
+  /// // Random official code only.
+  /// final officialCode = StatusCode.random(from: StatusCode.officialCodes);
+  ///
+  /// // Random cacheable code.
+  /// final cacheableCode = StatusCode.random(from: StatusCode.cacheableCodes);
+  ///
+  /// // Random retryable code.
+  /// final retryableCode = StatusCode.random(from: StatusCode.retryableCodes);
+  /// ```
+  ///
+  /// Throws an [AssertionError] if [from] is empty (only in debug mode).
+  static StatusCode random({
+    Iterable<StatusCode> from = values,
+    Random? random,
+  }) {
+    assert(from.isNotEmpty, 'The provided `from` iterable must not be empty');
+    final elementAt = (random ?? Random()).nextInt(from.length);
+
+    return List<StatusCode>.unmodifiable(from).elementAt(elementAt);
+  }
 }

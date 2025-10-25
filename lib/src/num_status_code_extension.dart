@@ -79,6 +79,75 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// ```
   bool get isStatusCode => isStatusWithinRange();
 
+  /// Returns `true` if the status code is cacheable by default according to
+  /// RFC 7231.
+  ///
+  /// Responses with these status codes can be stored by caches and reused for
+  /// subsequent requests without requiring explicit freshness information,
+  /// unless cache-control headers indicate otherwise.
+  ///
+  /// Cacheable status codes include: 200, 203, 204, 206, 300, 301, 404, 405,
+  /// 410, 414, and 501.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(200.isCacheable); // true
+  /// print(404.isCacheable); // true
+  /// print(201.isCacheable); // false
+  /// print(500.isCacheable); // false
+  /// ```
+  ///
+  /// Reference: https://www.rfc-editor.org/rfc/rfc7231#section-6.1
+  bool get isCacheable => isOneOf(StatusCode.cacheableCodes);
+
+  /// Returns `true` if the status code typically indicates a transient error
+  /// that may succeed if retried.
+  ///
+  /// These status codes represent temporary conditions such as timeouts, rate
+  /// limiting, or server unavailability. When implementing retry logic,
+  /// consider using exponential backoff and respect Retry-After headers if
+  /// present.
+  ///
+  /// Retryable status codes include: 408, 425, 429, 500, 502, 503, 504, 511,
+  /// 598, and 599.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(503.isRetryable); // true
+  /// print(429.isRetryable); // true
+  /// print(404.isRetryable); // false
+  /// print(200.isRetryable); // false
+  /// ```
+  ///
+  /// See also:
+  /// - [isCacheable], which identifies cacheable responses.
+  bool get isRetryable => isOneOf(StatusCode.retryableCodes);
+
+  /// Checks if the numeric value matches any of the provided [StatusCode]
+  /// values.
+  ///
+  /// This method converts the numeric value to an integer and checks if it
+  /// exists in the provided iterable of [StatusCode] values. Returns `false` if
+  /// the numeric value is `null` or if the iterable is empty.
+  ///
+  /// The comparison is performed using the integer representation of both the
+  /// numeric value and the [StatusCode] values for efficient lookup.
+  ///
+  /// Example:
+  /// ```dart
+  /// const codes = [StatusCode.okHttp200, StatusCode.createdHttp201];
+  /// print(200.isOneOf(codes)); // true
+  /// print(404.isOneOf(codes)); // false
+  /// print(null.isOneOf(codes)); // false
+  ///
+  /// // Works with any Iterable<StatusCode>.
+  /// const errors = {StatusCode.badRequestHttp400, StatusCode.notFoundHttp404};
+  /// print(404.isOneOf(errors)); // true
+  /// ```
+  bool isOneOf(Iterable<StatusCode> codes) => codes.contains(_maybeThisInt);
+
   /// Returns `true` if the value is within the range of informational HTTP
   /// status codes (100-199), `false` otherwise.
   ///

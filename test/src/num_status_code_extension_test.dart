@@ -768,4 +768,206 @@ void main() => group('NumStatusCodeExtension', () {
       expect(result, StatusCode.okHttp200);
     });
   });
+
+  group('isOneOf', () {
+    const successCodes = [
+      StatusCode.okHttp200,
+      StatusCode.createdHttp201,
+      StatusCode.acceptedHttp202,
+    ];
+
+    const errorCodes = [
+      StatusCode.badRequestHttp400,
+      StatusCode.unauthorizedHttp401,
+      StatusCode.notFoundHttp404,
+      StatusCode.internalServerErrorHttp500,
+    ];
+
+    test('should return true when value matches one of the status codes', () {
+      expect(200.isOneOf(successCodes), isTrue);
+      expect(201.isOneOf(successCodes), isTrue);
+      expect(202.isOneOf(successCodes), isTrue);
+      expect(404.isOneOf(errorCodes), isTrue);
+      expect(500.isOneOf(errorCodes), isTrue);
+    });
+
+    test('should return false when value does not match any status codes', () {
+      expect(300.isOneOf(successCodes), isFalse);
+      expect(404.isOneOf(successCodes), isFalse);
+      expect(200.isOneOf(errorCodes), isFalse);
+      expect(600.isOneOf(errorCodes), isFalse);
+    });
+
+    test('should return false for null values', () {
+      // ignore: avoid-explicit-type-declaration, it's a test.
+      const num? nullValue = null;
+      expect(nullValue.isOneOf(successCodes), isFalse);
+      expect(nullValue.isOneOf(errorCodes), isFalse);
+    });
+
+    test('should return false for empty iterable', () {
+      const emptyCodes = <StatusCode>[];
+      expect(200.isOneOf(emptyCodes), isFalse);
+      expect(404.isOneOf(emptyCodes), isFalse);
+      expect(null.isOneOf(emptyCodes), isFalse);
+    });
+
+    test('should work with $Set<$StatusCode>', () {
+      final codeSet = {StatusCode.okHttp200, StatusCode.notFoundHttp404};
+      expect(200.isOneOf(codeSet), isTrue);
+      expect(404.isOneOf(codeSet), isTrue);
+      expect(500.isOneOf(codeSet), isFalse);
+    });
+
+    test('should work with single status code in iterable', () {
+      const singleCode = [StatusCode.okHttp200];
+      expect(200.isOneOf(singleCode), isTrue);
+      expect(201.isOneOf(singleCode), isFalse);
+    });
+
+    test('should work with all basic codes', () {
+      expect(100.isOneOf(basicCodes), isTrue);
+      expect(200.isOneOf(basicCodes), isTrue);
+      expect(300.isOneOf(basicCodes), isTrue);
+      expect(400.isOneOf(basicCodes), isTrue);
+      expect(500.isOneOf(basicCodes), isTrue);
+    });
+
+    test('should work with wrong cases', () {
+      for (final number in globalWrongCases) {
+        expect(number.isOneOf(successCodes), isFalse);
+        expect(number.isOneOf(errorCodes), isFalse);
+      }
+    });
+
+    test('should handle large iterable efficiently', () {
+      const custom = StatusCode.custom(105);
+      expect(200.isOneOf([custom]), isFalse);
+      expect(105.isOneOf([custom]), isTrue);
+    });
+  });
+
+  group('isCacheable', () {
+    const cacheableCodes = {
+      StatusCode.okHttp200,
+      StatusCode.nonAuthoritativeInformationHttp203,
+      StatusCode.noContentHttp204,
+      StatusCode.partialContentHttp206,
+      StatusCode.multipleChoicesHttp300,
+      StatusCode.movedPermanentlyHttp301,
+      StatusCode.notFoundHttp404,
+      StatusCode.methodNotAllowedHttp405,
+      StatusCode.goneHttp410,
+      StatusCode.uriTooLongHttp414,
+      StatusCode.notImplementedHttp501,
+    };
+
+    test('should return true for cacheable status codes', () {
+      for (final code in cacheableCodes) {
+        expect(code.isCacheable, isTrue, reason: '$code should be cacheable');
+      }
+    });
+
+    test('should return true for double cacheable status codes', () {
+      expect(200.0.isCacheable, isTrue);
+      expect(404.0.isCacheable, isTrue);
+      expect(301.0.isCacheable, isTrue);
+    });
+
+    test('should return false for non-cacheable status codes', () {
+      const nonCacheables = {
+        StatusCode.createdHttp201,
+        StatusCode.acceptedHttp202,
+        StatusCode.badRequestHttp400,
+        StatusCode.unauthorizedHttp401,
+        StatusCode.forbiddenHttp403,
+        StatusCode.internalServerErrorHttp500,
+        StatusCode.badGatewayHttp502,
+        StatusCode.serviceUnavailableHttp503,
+      };
+
+      for (final code in nonCacheables) {
+        expect(
+          code.isCacheable,
+          isFalse,
+          reason: '$code should not be cacheable',
+        );
+      }
+    });
+
+    test('should return false for null and invalid values', () {
+      for (final number in globalWrongCases) {
+        expect(number.isCacheable, isFalse);
+      }
+    });
+
+    test('should return false for unregistered codes in cacheable range', () {
+      expect(299.isCacheable, isFalse);
+      expect(399.isCacheable, isFalse);
+    });
+  });
+
+  group('isRetryable', () {
+    const retryableCodes = {
+      StatusCode.requestTimeoutHttp408,
+      StatusCode.tooEarlyHttp425,
+      StatusCode.tooManyRequestsHttp429,
+      StatusCode.internalServerErrorHttp500,
+      StatusCode.badGatewayHttp502,
+      StatusCode.serviceUnavailableHttp503,
+      StatusCode.gatewayTimeoutHttp504,
+      StatusCode.networkAuthenticationRequiredHttp511,
+      StatusCode.networkReadTimeoutErrorHttp598,
+      StatusCode.networkConnectTimeoutErrorHttp599,
+    };
+
+    test('should return true for retryable status codes', () {
+      for (final code in retryableCodes) {
+        expect(code.isRetryable, isTrue, reason: '$code should be retryable');
+      }
+    });
+
+    test('should return true for double retryable status codes', () {
+      expect(503.0.isRetryable, isTrue);
+      expect(429.0.isRetryable, isTrue);
+      expect(504.0.isRetryable, isTrue);
+    });
+
+    test('should return false for non-retryable status codes', () {
+      const nonRetryables = {
+        StatusCode.okHttp200,
+        StatusCode.createdHttp201,
+        StatusCode.noContentHttp204,
+        StatusCode.badRequestHttp400,
+        StatusCode.unauthorizedHttp401,
+        StatusCode.forbiddenHttp403,
+        StatusCode.notFoundHttp404,
+        StatusCode.methodNotAllowedHttp405,
+        StatusCode.conflictHttp409,
+        StatusCode.goneHttp410,
+        StatusCode.notImplementedHttp501,
+        StatusCode.httpVersionNotSupportedHttp505,
+      };
+
+      for (final code in nonRetryables) {
+        expect(
+          code.isRetryable,
+          isFalse,
+          reason: '$code should not be retryable',
+        );
+      }
+    });
+
+    test('should return false for null and invalid values', () {
+      for (final number in globalWrongCases) {
+        expect(number.isRetryable, isFalse);
+      }
+    });
+
+    test('should return false for unregistered codes in retryable range', () {
+      expect(499.isRetryable, isFalse);
+      expect(505.isRetryable, isFalse);
+      expect(520.isRetryable, isFalse);
+    });
+  });
 });

@@ -13,6 +13,7 @@ BBD
 BITCODE
 BYZ
 Buildables
+cacheables
 CEB
 CFLAGS
 CHANGELOG
@@ -266,6 +267,8 @@ regexps
 registar
 resizable
 responsponds
+retryable
+retryables
 rfc
 rtl
 sconsign
