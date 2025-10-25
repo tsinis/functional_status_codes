@@ -103,6 +103,13 @@ Works with any HTTP client library (`http`, `dio`, etc.):
   );
 ```
 
+> [!TIP]
+> Also supports Dart 3.10 dot-shorthands:
+
+```dart
+print(200.isOneOf(const [.okHttp200, .custom(222)])); // true
+```
+
 ### FAQ
 
 #### Why should I use this package?
