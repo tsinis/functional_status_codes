@@ -875,7 +875,7 @@ void main() => group('NumStatusCodeExtension', () {
     });
 
     test('should return false for non-cacheable status codes', () {
-      const nonCacheableCodes = {
+      const nonCacheables = {
         StatusCode.createdHttp201,
         StatusCode.acceptedHttp202,
         StatusCode.badRequestHttp400,
@@ -886,7 +886,7 @@ void main() => group('NumStatusCodeExtension', () {
         StatusCode.serviceUnavailableHttp503,
       };
 
-      for (final code in nonCacheableCodes) {
+      for (final code in nonCacheables) {
         expect(
           code.isCacheable,
           isFalse,
@@ -934,7 +934,7 @@ void main() => group('NumStatusCodeExtension', () {
     });
 
     test('should return false for non-retryable status codes', () {
-      const nonRetryableCodes = {
+      const nonRetryables = {
         StatusCode.okHttp200,
         StatusCode.createdHttp201,
         StatusCode.noContentHttp204,
@@ -949,7 +949,7 @@ void main() => group('NumStatusCodeExtension', () {
         StatusCode.httpVersionNotSupportedHttp505,
       };
 
-      for (final code in nonRetryableCodes) {
+      for (final code in nonRetryables) {
         expect(
           code.isRetryable,
           isFalse,
