@@ -13,6 +13,7 @@ BBD
 BITCODE
 BYZ
 Buildables
+cacheables
 CEB
 CFLAGS
 CHANGELOG

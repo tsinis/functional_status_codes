@@ -1254,7 +1254,7 @@ extension type const StatusCode._(int _code) implements int {
     Iterable<StatusCode> from = values,
     Random? random,
   }) {
-    assert(from.isNotEmpty, 'The provided `codes` iterable must not be empty');
+    assert(from.isNotEmpty, 'The provided `from` iterable must not be empty');
     final elementAt = (random ?? Random()).nextInt(from.length);
 
     return List<StatusCode>.unmodifiable(from).elementAt(elementAt);
