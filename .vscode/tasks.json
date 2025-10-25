@@ -41,7 +41,7 @@
     {
       "type": "dart",
       "command": "dart",
-      "args": ["test", "--fail-fast", "--coverage=coverage"],
+      "args": ["test", "--fail-fast", "--timeout=1us", "--coverage=coverage"],
       "label": "Dart Test"
     },
     {

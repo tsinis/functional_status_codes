@@ -38,7 +38,7 @@ jobs:
 
       - name: 🧪 Run Tests
         run: |
-          dart test --coverage=coverage
+          dart test --timeout=1ms --fail-fast --coverage=coverage
           dart run coverage:format_coverage -l -i coverage -o coverage/lcov.info --report-on=lib
 
       - name: 📊 Check Code Coverage
