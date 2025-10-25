@@ -19,24 +19,29 @@
 
 ### Introduction
 
-This pure Dart, fully tested and dependency-free package provides functionality for working with HTTP status codes in a type-safe and functional programming style.
+A comprehensive, pure Dart package for type-safe HTTP status code handling with functional programming support. Built using Dart 3.0's extension types for zero-cost abstraction over integers.
 
-Built on Dart's modern **extension type** feature, `StatusCode` offers a zero-cost abstraction over integers with compile-time safety. Create custom status codes, use them as const values in constructors, and enjoy full IDE autocomplete—all without runtime overhead. Combined with functional methods (`when`, `map`, `maybeWhen`) on `num?` types, you get:
+This package is actively maintained and leverages modern Dart 3+ features (extension types, introduced in Dart 3.0) unavailable in older status code packages.
 
-- **Performance**: Zero-cost abstraction - no boxing/unboxing overhead.
+- **Performance**: Zero-cost abstraction with extension types - no boxing/unboxing overhead.
 - **Flexibility**: Create custom status codes for internal APIs.
 - **Convenience**: Use directly as integers in const contexts.
-- **Compatibility**: Seamless integration with any HTTP client library.
+- **Compatibility**: Works with any HTTP client library (`http`, `dio`, etc.).
 
 ### Features
 
-- Extends `num?` types (so `int` included too) with helper functional methods (`when`, `map`, `maybeWhen`, etc.) and boolean getters for handling HTTP status codes.
-- Provides `StatusCode` extension type (on `int`) for easy handling of all [IANA registered HTTP status codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xml) and some common [unofficial status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes) (also in functional style (`when`, `map`, `maybeWhen`, etc.)).
-- Provides methods for parsing HTTP status codes from `String`, `Object?` and `num` types, and much more.
+- **Comprehensive coverage**: All [IANA registered HTTP status codes](https://www.iana.org/assignments/http-status-codes/http-status-codes.xml), common [unofficial status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#Unofficial_codes), and custom status code support.
+- **Semantic helpers**: `isCacheable` (RFC 7231), `isRetryable` (transient errors), and standard category checks (`isSuccess`, `isClientError`, etc.).
+- **Pre-sorted collections**: Static lists for all categories with O(1) set lookups: `informationalCodes`, `successCodes`, `cacheableCodes`, `retryableCodes`.
+- **Random generation**: `StatusCode.random()` for testing and mocking scenarios.
+- **Functional API**: Methods like `when`, `map`, `maybeMap`, `maybeWhen`, etc., on both `num?` and `StatusCode`.
+- **Flexible parsing**: Parse from `String`, `Object?`, and `num` types.
+- **Range validation**: `isStatusCodeWithinRange` and `isStatusWithinRange`.
+- **Type safety**: Dart 3+ extension types provide compile-time safety without runtime cost.
 
 ### Usage
 
-Use your favorite HTTP client libraries such as `http` or `dio` and take advantage of this package's functional API to easily handle HTTP status codes in your Dart project.
+Works with any HTTP client library (`http`, `dio`, etc.):
 
 ```dart
 /// Checks if status code is >=200 & <=299.
@@ -61,6 +66,19 @@ Use your favorite HTTP client libraries such as `http` or `dio` and take advanta
       max: StatusCode.earlyHintsHttp103,
     ),
   ); // Prints false.
+
+  /// Smart semantic helpers (unique to this package).
+  print(200.isCacheable); // Prints true (RFC 7231 compliant).
+  print(429.isRetryable); // Prints true (rate limit).
+
+  /// Random status code generation (unique feature).
+  final randomCode = StatusCode.random(); // Any status code.
+  final randomError = StatusCode.random(from: StatusCode.clientErrorCodes);
+  print('Random error: $randomError'); // e.g., 404, 400, 403...
+
+  /// Pre-sorted category collections for efficient operations.
+  print(StatusCode.successCodes); // [200, 201, 202, 203, 204, 205, 206, ...]
+  print(StatusCode.cacheableCodes); // {200, 203, 204, 206, 300, 301, ...}
 
   /// Also with functional style methods like:
   /// - `mapStatusCode`, `maybeMapStatusCode`, `mapToRegisteredStatusCode`,
@@ -105,19 +123,23 @@ The use of `StatusCode` extension type and boolean getters (`isInformational`, `
 
 7. **Discoverability**: Autocomplete features in IDEs work better with extension types and class methods, making it easier for developers to discover and use the functionality provided by the library without having to remember specific numeric codes.
 
-8. **No 3rd-party dependencies**: This package has no third-party dependencies, ensuring that you won't have any issues or conflicts with other dependencies (no even `meta` here, because of that).
+8. **Modern Dart 3+ Architecture**: Built with Dart 3.3+ extension types, providing zero-cost abstraction unavailable in older Dart 2.x-based packages. This architecture offers compile-time type safety without runtime overhead.
 
-9. **High code coverage**: The code in this package has almost 100% code coverage, with more than 1000 tests, providing confidence in its reliability and stability.
+9. **Extended Feature Set**: Includes capabilities not commonly found in HTTP status code libraries: RFC 7231-compliant cacheability checks, transient error detection for retry logic, random status code generation for testing, pre-sorted category collections, and full functional programming support.
 
-10. **Industry adopted**: This package is actively used (since 2022) in production by numerous European companies, ensuring its efficacy and robustness in real-world scenarios.
+10. **No 3rd-party dependencies**: This package has no third-party dependencies, ensuring that you won't have any issues or conflicts with other dependencies (no even `meta` here, because of that).
 
-11. **BSD-3-Clause License**: This package and sources are released under the BSD-3-Clause license, a permissive license that is also used by the Flutter SDK. It allows users to use, modify, and distribute the code with minimal restrictions.
+11. **High code coverage**: The code in this package has almost 100% code coverage, with more than 1000 tests, providing confidence in its reliability and stability.
 
-12. **Comprehensive documentation**: This package provides full documentation for public member, usually with examples, ensuring clarity and ease of use.
+12. **Industry adopted**: This package is actively used (since 2022) in production by numerous European companies, ensuring its efficacy and robustness in real-world scenarios.
 
-13. **Lightweight**: This package keeps **under 135 KB**, ensuring it fits within the pub cache limit. This leads to quick, low-bandwidth downloads and faster caching, minimizing resource impact.
+13. **BSD-3-Clause License**: This package and sources are released under the BSD-3-Clause license, a permissive license that is also used by the Dart and Flutter SDKs. It allows users to use, modify, and distribute the code with minimal restrictions.
 
-14. **Mirrored Repository**: The GitHub repository, including all package tags, is mirrored on [GitLab](https://gitlab.com/tsinis/functional_status_codes/), providing an alternative access point should GitHub become unavailable.
+14. **Comprehensive documentation**: This package provides full documentation for public member, usually with examples, ensuring clarity and ease of use.
+
+15. **Lightweight**: This package keeps **under 300 KB**, ensuring it fits within the pub cache limit. This leads to quick, low-bandwidth downloads and faster caching, minimizing resource impact.
+
+16. **Mirrored Repository**: The GitHub repository, including all package tags, is mirrored on [GitLab](https://gitlab.com/tsinis/functional_status_codes/), providing an alternative access point should GitHub become unavailable.
 
 By using these features of the `functional_status_codes` package, you promote a more robust, readable, and maintainable approach to HTTP status code handling in your Dart projects.
 

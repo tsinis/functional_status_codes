@@ -1,3 +1,71 @@
+## 3.1.0
+
+This release adds several new features for better HTTP status code handling, including cacheable/retryable checks, pre-sorted category collections, and a random status code generator. Also includes important bug fixes.
+
+### New Features
+
+- **`isCacheable` getter**: Identifies HTTP status codes that are cacheable according to RFC 7231. Includes 11 status codes: 200, 203, 204, 206, 300, 301, 404, 405, 410, 414, and 501.
+
+  ```dart
+  print(200.isCacheable); // true
+  print(404.isCacheable); // true
+  print(201.isCacheable); // false
+  ```
+
+- **`isRetryable` getter**: Identifies HTTP status codes that indicate transient errors suitable for retry logic. Includes 10 status codes: 408, 425, 429, 500, 502, 503, 504, 511, 598, and 599.
+
+  ```dart
+  print(503.isRetryable); // true
+  print(429.isRetryable); // true
+  print(404.isRetryable); // false
+  ```
+
+- **Pre-sorted category collections**: Added pre-sorted static lists for better performance when checking status code categories:
+  - `StatusCode.informationalCodes` - All 1xx status codes
+  - `StatusCode.successCodes` - All 2xx status codes
+  - `StatusCode.redirectionCodes` - All 3xx status codes
+  - `StatusCode.clientErrorCodes` - All 4xx status codes
+  - `StatusCode.serverErrorCodes` - All 5xx status codes
+  - `StatusCode.cacheableCodes` - Cacheable status codes
+  - `StatusCode.retryableCodes` - Retryable status codes
+
+- **`StatusCode.random()` static method**: Generate random status codes from a collection. Useful for testing, mocking, and demonstrations.
+
+  ```dart
+  // Random from all status codes.
+  final anyCode = StatusCode.random();
+
+  // Random from specific collection.
+  final errorCode = StatusCode.random(from: StatusCode.clientErrorCodes);
+  final cacheableCode = StatusCode.random(from: StatusCode.cacheableCodes);
+
+  // Random from custom list.
+  final successOrRedirect = StatusCode.random(from: [
+    StatusCode.okHttp200,
+    StatusCode.movedPermanentlyHttp301,
+  ]);
+  ```
+
+### Fixes
+
+- **`otExtendedHttp510` renamed to `notExtendedHttp510`**: Fixed typo in the status code name. The old name is now deprecated with a helpful migration message.
+
+  ```dart
+  // Before:
+  const code = StatusCode.otExtendedHttp510;
+
+  // After:
+  const code = StatusCode.notExtendedHttp510;
+  ```
+
+- Fixed typo: `otExtendedHttp510` → `notExtendedHttp510` (HTTP 510)
+- Fixed incorrect documentation: `networkConnectTimeoutErrorHttp599` is now correctly marked as **unofficial** (was incorrectly marked as official)
+- Removed `networkConnectTimeoutErrorHttp599` from `StatusCode.officialCodes` list.
+
+### Deprecations
+
+- `StatusCode.otExtendedHttp510` - Use `StatusCode.notExtendedHttp510` instead.
+
 ## 3.0.0
 
 Third anniversary - third version :tada:
@@ -102,7 +170,7 @@ class ApiClient {
 }
 ```
 
-### New Features
+#### New Features
 
 - New `mapToRegisteredStatusCodeOrNull` method added!
 
@@ -126,14 +194,14 @@ class ApiClient {
 
 - **Zero runtime overhead**: Extension types have no runtime cost compared to using raw integers.
 
-### Benefits
+#### Benefits
 
 - **Performance**: Zero-cost abstraction - no boxing/unboxing overhead.
 - **Flexibility**: Create custom status codes for internal APIs.
 - **Convenience**: Use directly as integers in const contexts.
 - **Compatibility**: Most existing code continues to work with deprecation warnings guiding migration.
 
-### Notes
+#### Notes
 
 Most code will continue to work without changes. Deprecated properties include guidance messages to help with migration. The functional methods (`map`, `maybeMap`, `when`, `maybeWhen`, etc.) and `num?` extensions work exactly as before.
 

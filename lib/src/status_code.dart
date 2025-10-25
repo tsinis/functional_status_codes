@@ -1149,7 +1149,7 @@ extension type const StatusCode._(int _code) implements int {
     networkConnectTimeoutErrorHttp599,
   ];
 
-  /// Set of status codes that are cacheable by default according to RFC 7231.
+  /// [List] of status codes that are cacheable by default according to RFC 7231
   ///
   /// These status codes can be stored by caches and reused for subsequent
   /// requests without explicit freshness information, unless otherwise
@@ -1169,7 +1169,7 @@ extension type const StatusCode._(int _code) implements int {
   /// - 501 (Not Implemented)
   ///
   /// Reference: https://www.rfc-editor.org/rfc/rfc7231#section-6.1.
-  static const cacheableCodes = <StatusCode>{
+  static const cacheableCodes = <StatusCode>[
     okHttp200,
     nonAuthoritativeInformationHttp203,
     noContentHttp204,
@@ -1181,9 +1181,9 @@ extension type const StatusCode._(int _code) implements int {
     goneHttp410,
     uriTooLongHttp414,
     notImplementedHttp501,
-  };
+  ];
 
-  /// Set of status codes that typically indicate transient errors.
+  /// [List] of status codes that typically indicate transient errors.
   ///
   /// These status codes often represent temporary conditions that may succeed
   /// if the request is retried, such as timeouts, rate limiting, or temporary
@@ -1201,7 +1201,7 @@ extension type const StatusCode._(int _code) implements int {
   /// - 511 (Network Authentication Required)
   /// - 598 (Network Read Timeout Error)
   /// - 599 (Network Connect Timeout Error).
-  static const retryableCodes = <StatusCode>{
+  static const retryableCodes = <StatusCode>[
     requestTimeoutHttp408,
     tooEarlyHttp425,
     tooManyRequestsHttp429,
@@ -1212,7 +1212,7 @@ extension type const StatusCode._(int _code) implements int {
     networkAuthenticationRequiredHttp511,
     networkReadTimeoutErrorHttp598,
     networkConnectTimeoutErrorHttp599,
-  };
+  ];
 
   /// Returns a random [StatusCode] from the provided [from] iterable.
   ///
