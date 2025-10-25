@@ -2,8 +2,6 @@
 
 Third anniversary - third version :tada:
 
-NEW FEATURE: New `mapToRegisteredStatusCodeOrNull` method added!
-
 **BREAKING CHANGES**: `StatusCode` has been converted from an `enum` to an `extension type`, providing better performance and new capabilities while maintaining most of the existing API.
 
 ### Breaking Changes
@@ -105,6 +103,8 @@ class ApiClient {
 ```
 
 ### New Features
+
+- New `mapToRegisteredStatusCodeOrNull` method added!
 
 - **Custom status codes**: You can now create custom status codes that for example weren't registered by IANA:
 

@@ -1,4 +1,4 @@
-version: 3.0.0
+version: 3.1.0
 name: functional_status_codes
 description: Zero-cost HTTP status codes as int extension type with num? functional helpers
 maintainer: Roman Cinis
@@ -18,7 +18,7 @@ dev_dependencies:
   coverage: ^1.15.0 # From Google.
   dart_code_metrics_presets: ^2.26.1 # DCM.
   lints: ^6.0.0 # From Google.
-  pana: ^0.22.24 # From Google.
+  pana: ^0.23.0 # From Google.
   test: ^1.26.3 # From Google.
 
 screenshots:
