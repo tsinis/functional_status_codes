@@ -266,6 +266,8 @@ regexps
 registar
 resizable
 responsponds
+retryable
+retryables
 rfc
 rtl
 sconsign
