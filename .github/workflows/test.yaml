@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: 📚 Checks-out repository
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: 🎯 Setup Dart
         uses: dart-lang/setup-dart@v1.7.1
