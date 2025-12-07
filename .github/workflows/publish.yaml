@@ -20,7 +20,7 @@ jobs:
     if: github.ref_type == 'branch' && github.event_name == 'pull_request' && !github.event.pull_request.merged
     steps:
       - name: 📚 Checks-out repository
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: 🎯 Setup Dart
         uses: dart-lang/setup-dart@v1.7.1
@@ -38,7 +38,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: 📚 Git checkout
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@v6.0.1
 
       - name: 1️⃣ Set version tag
         run: echo TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
