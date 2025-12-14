@@ -47,7 +47,7 @@ jobs:
           min_coverage: 99
 
       - name: 💯 Upload Code Coverage
-        uses: codecov/codecov-action@v5.5.1
+        uses: codecov/codecov-action@v5.5.2
         with:
           files: ./coverage/lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
