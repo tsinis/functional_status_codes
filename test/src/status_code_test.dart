@@ -1,4 +1,4 @@
-// ignore_for_file: avoid-misused-test-matchers
+// ignore_for_file: avoid-misused-test-matchers, avoid-long-functions
 import 'dart:math';
 
 import 'package:functional_status_codes/src/num_status_code_extension.dart';

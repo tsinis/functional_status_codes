@@ -1,4 +1,4 @@
-// Copyright (c) 2025, Roman Cinis. All rights reserved. Use of this source code
+// Copyright (c) 2026, Roman Cinis. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: format-comment, because of trailing dot at the end of URLs.
@@ -1257,6 +1257,7 @@ extension type const StatusCode._(int _code) implements int {
     assert(from.isNotEmpty, 'The provided `from` iterable must not be empty');
     final elementAt = (random ?? Random()).nextInt(from.length);
 
+    // ignore: avoid-unsafe-collection-methods, length is guaranteed to be > 0.
     return List<StatusCode>.unmodifiable(from).elementAt(elementAt);
   }
 }

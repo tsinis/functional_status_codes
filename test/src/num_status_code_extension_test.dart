@@ -1,4 +1,6 @@
+// ignore_for_file: avoid-unsafe-collection-methods, avoid-long-functions,
 // ignore_for_file: avoid-local-functions, avoid-misused-test-matchers
+// ignore_for_file:  avoid-nullable-interpolation, no-equal-arguments
 
 import 'package:functional_status_codes/src/num_status_code_extension.dart';
 import 'package:functional_status_codes/src/status_code.dart';
@@ -287,12 +289,12 @@ void main() => group('NumStatusCodeExtension', () {
 
   group('maybeMapStatusCode', () {
     num maybeMapCode(num? number) => number.maybeMapStatusCode(
+      orElse: (_) => elseValue,
       isInformational: (value) => value,
       isSuccess: (value) => value,
       isRedirection: (value) => value,
       isClientError: (value) => value,
       isServerError: (value) => value,
-      orElse: (_) => elseValue,
     );
 
     for (final number in globalWrongCases) {
@@ -306,8 +308,8 @@ void main() => group('NumStatusCodeExtension', () {
       'should return proper value for $testValue status code',
       () => expect(
         testValue.maybeMapStatusCode(
-          isStatusCode: (value) => value,
           orElse: (value) => value,
+          isStatusCode: (value) => value,
         ),
         testValue,
       ),
@@ -334,12 +336,12 @@ void main() => group('NumStatusCodeExtension', () {
 
   group('maybeWhenStatusCode', () {
     int maybeWhenCode(num? number) => number.maybeWhenStatusCode(
+      orElse: () => elseValue,
       isInformational: () => StatusCode.continueHttp100,
       isSuccess: () => StatusCode.okHttp200,
       isRedirection: () => StatusCode.multipleChoicesHttp300,
       isClientError: () => StatusCode.badRequestHttp400,
       isServerError: () => StatusCode.internalServerErrorHttp500,
-      orElse: () => elseValue,
     );
 
     for (final number in globalWrongCases) {
@@ -360,8 +362,8 @@ void main() => group('NumStatusCodeExtension', () {
       'should return proper value for $testValue status code',
       () => expect(
         testValue.maybeWhenStatusCode(
-          isStatusCode: () => testValue,
           orElse: () => null,
+          isStatusCode: () => testValue,
         ),
         testValue,
       ),
@@ -486,6 +488,7 @@ void main() => group('NumStatusCodeExtension', () {
     test(
       'should return proper value for $testValue status code',
       () => expect(
+        // ignore: avoid-passing-self-as-argument, it's just a test.
         testValue.whenConstStatusCodeOrNull(isStatusCode: testValue),
         testValue,
       ),
@@ -559,12 +562,12 @@ void main() => group('NumStatusCodeExtension', () {
   group('maybeMapToRegisteredStatusCode', () {
     StatusCode? maybeMapToRegisteredCode(num? numb) =>
         numb.maybeMapToRegisteredStatusCode(
+          orElse: (value, _) => value,
           isInformational: (value) => value,
           isSuccess: (value) => value,
           isRedirection: (value) => value,
           isClientError: (value) => value,
           isServerError: (value) => value,
-          orElse: (value, _) => value,
         );
 
     test(
@@ -619,8 +622,8 @@ void main() => group('NumStatusCodeExtension', () {
       'should return proper value for $testValue status code',
       () => expect(
         testValue.maybeMapToRegisteredStatusCode(
-          isStatusCode: (value) => value,
           orElse: (value, _) => value,
+          isStatusCode: (value) => value,
         ),
         basicCodes.first,
       ),
@@ -671,8 +674,8 @@ void main() => group('NumStatusCodeExtension', () {
       'common test for out of range',
       () => expect(
         1.mapToRegisteredStatusCodeOrNull(
-          orElse: (_) => const StatusCode.custom(290),
           isInformational: (_) => const StatusCode.custom(144),
+          orElse: (_) => const StatusCode.custom(290),
         ),
         const StatusCode.custom(290),
       ),

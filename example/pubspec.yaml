@@ -8,7 +8,7 @@ environment:
 dependencies:
   functional_status_codes:
     path: ../
-  http: any # From Google.
+  http: any # ignore: avoid-any-version, it's exampe app.
 
 dev_dependencies:
   dart_code_metrics_presets: ^2.26.1 # DCM.

@@ -1,4 +1,5 @@
-// ignore_for_file: deprecated_member_use_from_same_package, it's TODO!
+// ignore_for_file: deprecated_member_use_from_same_package,avoid-long-functions
+// ignore_for_file: no-empty-string, no-equal-arguments
 
 import 'package:functional_status_codes/src/status_code.dart';
 import 'package:functional_status_codes/src/status_code_extension.dart';
