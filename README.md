@@ -7,6 +7,7 @@
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Size](https://img.shields.io/github/languages/code-size/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes#why-should-i-use-this-package)
 [![Pub package](https://img.shields.io/pub/v/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes?ref=badge_shield)
 
 ## Table of Contents
 
@@ -171,3 +172,7 @@ For more information on using this package, check out the API documentation and 
 
 If you like this package, please give it a star or a like. For more information on using this package, check out the API documentation. **PRs or ideas are always welcome**.
 If you have any issues or suggestions for the package, please file them in the GitHub repository.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes?ref=badge_large)
