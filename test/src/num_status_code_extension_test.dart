@@ -973,4 +973,121 @@ void main() => group('NumStatusCodeExtension', () {
       expect(520.isRetryable, isFalse);
     });
   });
+
+  group('isStatusCodeWithinRange with inverted min/max', () {
+    test('should return false when min > max', () {
+      expect(200.isStatusCodeWithinRange(min: 400, max: 100), isFalse);
+      expect(300.isStatusCodeWithinRange(min: 500, max: 200), isFalse);
+    });
+
+    test('should return true when min equals max and value matches', () {
+      expect(200.isStatusCodeWithinRange(min: 200, max: 200), isTrue);
+    });
+
+    test('should return false when min equals max and value differs', () {
+      expect(201.isStatusCodeWithinRange(min: 200, max: 200), isFalse);
+    });
+  });
+
+  group('float handling', () {
+    test('double with .0 fraction behaves like int', () {
+      expect(200.0.isStatusCode, isTrue);
+      expect(200.0.isSuccess, isTrue);
+      expect(200.0.toRegisteredStatusCode(), StatusCode.okHttp200);
+    });
+
+    test('double with fractional part truncates to int', () {
+      // 200.5 truncates to 200 via toInt().
+      expect(200.5.isStatusCode, isTrue);
+      expect(200.5.isSuccess, isTrue);
+      expect(200.9.isStatusCode, isTrue);
+    });
+
+    test('double outside valid range', () {
+      expect(99.9.isStatusCode, isFalse);
+      expect(600.0.isStatusCode, isFalse);
+    });
+
+    test('null num is not a status code', () {
+      // ignore: avoid-explicit-type-declaration, it's a test.
+      const num? nullNum = null;
+      expect(nullNum.isStatusCode, isFalse);
+      expect(nullNum.isSuccess, isFalse);
+      expect(nullNum.isInformational, isFalse);
+      expect(nullNum.toRegisteredStatusCode(), isNull);
+    });
+  });
+
+  group('isStatusCode callback masking in maybeMapStatusCode', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.maybeMapStatusCode(
+        orElse: (_) => 'orElse',
+        isStatusCode: (_) => 'isStatusCode',
+        isSuccess: (_) => 'isSuccess',
+      );
+      expect(
+        result,
+        'isStatusCode',
+        reason: 'isStatusCode is checked first, so isSuccess is unreachable',
+      );
+    });
+
+    test('category callback fires when isStatusCode is not provided', () {
+      final result = 200.maybeMapStatusCode(
+        orElse: (_) => 'orElse',
+        isSuccess: (_) => 'isSuccess',
+      );
+      expect(result, 'isSuccess');
+    });
+  });
+
+  group('isStatusCode callback masking in maybeWhenStatusCode', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.maybeWhenStatusCode(
+        orElse: () => 'orElse',
+        isStatusCode: () => 'isStatusCode',
+        isSuccess: () => 'isSuccess',
+      );
+      expect(result, 'isStatusCode');
+    });
+
+    test('category callback fires when isStatusCode is not provided', () {
+      final result = 200.maybeWhenStatusCode(
+        orElse: () => 'orElse',
+        isSuccess: () => 'isSuccess',
+      );
+      expect(result, 'isSuccess');
+    });
+  });
+
+  group('isStatusCode callback masking in whenStatusCodeOrNull', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.whenStatusCodeOrNull(
+        isStatusCode: () => 'isStatusCode',
+        isSuccess: () => 'isSuccess',
+      );
+      expect(result, 'isStatusCode');
+    });
+  });
+
+  group('isStatusCode masking in whenConstStatusCodeOrNull', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.whenConstStatusCodeOrNull(
+        isStatusCode: 'isStatusCode',
+        isSuccess: 'isSuccess',
+      );
+      expect(result, 'isStatusCode');
+    });
+  });
+
+  group('isStatusCode masking in maybeMapToRegisteredStatusCode', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.maybeMapToRegisteredStatusCode(
+        orElse: (_, _) => 'orElse',
+        isStatusCode: (_) => 'isStatusCode',
+        isSuccess: (_) => 'isSuccess',
+      );
+      expect(result, 'isStatusCode');
+    });
+  });
 });

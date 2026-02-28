@@ -16,11 +16,10 @@ screenshots:
     path: doc/comparison.webp
 
 environment:
-  sdk: ^3.11.0
+  sdk: ^3.10.0
 
 dev_dependencies:
   coverage: ^1.15.0 # From Google.
   dart_code_metrics_presets: ^2.29.0 # DCM.
   lints: ^6.1.0 # From Google.
-  pana: ^0.23.9 # From Google.
-  test: ^1.29.0 # From Google.
+  test: ^1.30.0 # From Google.

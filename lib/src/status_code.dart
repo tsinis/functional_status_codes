@@ -669,15 +669,11 @@ extension type const StatusCode._(int _code) implements int {
   /// server.
   static const incompatibleProtocolVersionsHttp464 = StatusCode._(464);
 
-  /// Unofficial status code. Unauthorized: 561
+  /// Unofficial status code. Unauthorized (AWS Elastic Load Balancing): 561
   ///
   /// An error around authentication returned by a server registered with a load
-  /// balancer. You configured a listener rule to
-
-  /// Unauthorized (AWS Elastic Load Balancing): 561
-  ///
-  /// Used by AWS Elastic Load Balancing when authentication has failed or
-  /// credentials are missing.
+  /// balancer. You configured a listener rule to authenticate users, but the
+  /// authentication has failed or credentials are missing.
   static const unauthorizedHttp561 = StatusCode._(561);
 
   /// Unofficial status code. Network Connect Timeout Error: 599

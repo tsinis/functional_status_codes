@@ -187,4 +187,82 @@ void main() => group('$StatusCode', () {
       );
     });
   });
+
+  group('tryParse edge cases', () {
+    test(
+      'should parse code from string with leading/trailing whitespace',
+      () => expect(StatusCode.tryParse('  200  '), StatusCode.okHttp200),
+    );
+
+    test(
+      'should parse code from negative number string containing valid digits',
+      () => expect(StatusCode.tryParse('-200'), StatusCode.okHttp200),
+    );
+
+    test(
+      'should return first match from multi-code string',
+      () => expect(StatusCode.tryParse('200 404'), StatusCode.okHttp200),
+    );
+
+    test(
+      'should return null for two-digit number string',
+      () => expect(StatusCode.tryParse('99'), isNull),
+    );
+
+    test(
+      'should return null for string with no digits',
+      () => expect(StatusCode.tryParse('abc'), isNull),
+    );
+
+    test(
+      'should extract first three-digit match from longer number',
+      // '12003' matches '120' first — not a registered code.
+      () => expect(StatusCode.tryParse('12003'), isNull),
+    );
+
+    test(
+      'should return null for empty string',
+      // ignore: no-empty-string, it's an edge case we want to test.
+      () => expect(StatusCode.tryParse(''), isNull),
+    );
+
+    test(
+      'should return null for "000"',
+      () => expect(StatusCode.tryParse('000'), isNull),
+    );
+  });
+
+  group('custom constructor edge cases', () {
+    test('valid custom code in gap between standard codes', () {
+      const custom = StatusCode.custom(109);
+      expect(custom, equals(109));
+    });
+
+    test('valid custom code at upper boundary area', () {
+      const custom = StatusCode.custom(597);
+      expect(custom, equals(597));
+    });
+
+    test('asserts for code equal to lowest bound 103', () {
+      expect(
+        () => StatusCode.custom(StatusCode.earlyHintsHttp103),
+        throwsA(isA<AssertionError>()),
+      );
+    });
+
+    test('asserts for code equal to upper bound 599', () {
+      expect(
+        () => StatusCode.custom(StatusCode.networkConnectTimeoutErrorHttp599),
+        throwsA(isA<AssertionError>()),
+      );
+    });
+
+    test('asserts for code less than lower bound', () {
+      expect(() => StatusCode.custom(50), throwsA(isA<AssertionError>()));
+    });
+
+    test('asserts for code greater than upper bound', () {
+      expect(() => StatusCode.custom(600), throwsA(isA<AssertionError>()));
+    });
+  });
 });

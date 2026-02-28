@@ -1099,4 +1099,38 @@ void main() => group('StatusCodeExtension', () {
       }
     });
   });
+
+  group('Custom status codes with map/maybeMap', () {
+    test('maybeMap returns orElse for custom status code', () {
+      final result = custom.maybeMap(orElse: () => 'orElse');
+      expect(result, 'orElse');
+    });
+
+    test('maybeWhen returns orElse for custom status code', () {
+      final result = custom.maybeWhen(orElse: () => 'orElse');
+      expect(result, 'orElse');
+    });
+
+    test('whenOrNull returns null for custom status code', () {
+      final result = custom.whenOrNull<String>(okHttp200: () => 'ok');
+      expect(result, isNull);
+    });
+
+    test('whenConstOrNull returns null for custom status code', () {
+      final result = custom.whenConstOrNull<String>(okHttp200: 'ok');
+      expect(result, isNull);
+    });
+
+    test('custom code has isCustom true', () {
+      expect(custom.isCustom, isTrue);
+    });
+
+    test('custom code has correct reason', () {
+      expect(custom.reason, contains('Custom status code'));
+    });
+
+    test('custom code name fallback', () {
+      expect(custom.name, contains('customStatusCode'));
+    });
+  });
 });
