@@ -8,6 +8,7 @@
 [![Size](https://img.shields.io/github/languages/code-size/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes#why-should-i-use-this-package)
 [![Pub package](https://img.shields.io/pub/v/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes?ref=badge_shield)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes?ref=badge_shield&issueType=security)
 
 ## Table of Contents
 
