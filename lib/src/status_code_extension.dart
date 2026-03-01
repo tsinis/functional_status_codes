@@ -1,7 +1,8 @@
-// Copyright (c) 2025, Roman Cinis. All rights reserved. Use of this source code
+// Copyright (c) 2026, Roman Cinis. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: avoid-long-parameter-list, avoid-high-cyclomatic-complexity
+// ignore_for_file: prefer-typedefs-for-callbacks
 
 import 'status_code.dart';
 

@@ -170,7 +170,7 @@ class ApiClient {
 }
 ```
 
-#### New Features
+#### New Capabilities in v3.0.0
 
 - New `mapToRegisteredStatusCodeOrNull` method added!
 

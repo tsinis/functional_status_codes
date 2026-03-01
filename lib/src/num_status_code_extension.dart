@@ -1,6 +1,7 @@
-// Copyright (c) 2025, Roman Cinis. All rights reserved. Use of this source code
+// Copyright (c) 2026, Roman Cinis. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: prefer-typedefs-for-callbacks, avoid-long-parameter-list
 // ignore_for_file: avoid-shadowing, avoid-if-with-many-branches
 
 import 'status_code.dart';
@@ -9,6 +10,7 @@ import 'status_code.dart';
 /// with HTTP status codes.
 extension NumStatusCodeExtension<T extends num> on T? {
   static const _outSideOfRangeMessage =
+      // ignore: avoid-adjacent-strings, it's not being used on one line strings.
       'Value is outside of '
       '''${StatusCode.continueHttp100}-${StatusCode.networkConnectTimeoutErrorHttp599}'''
       ' range';
