@@ -44,51 +44,52 @@ dart_code_metrics:
   metrics-exclude:
     - test/**
     - example/**
-  rules:
+  pubspec-rules:
     # Disabled:
-    - arguments-ordering: false # This will be a breaking change.
-    - avoid-adjacent-strings: false # It's not being used on one line strings.
-    - avoid-collection-mutating-methods: false # Mostly false positives.
-    - avoid-constant-conditions: false # A lot of false positives (e.g. outside of tests).
-    - avoid-continue: false # Just a matter of style.
-    - avoid-default-tostring: false # Doesn't make sense here.
-    - avoid-deprecated-usage: false # Using default deprecated_member_use_from_same_package.
-    - avoid-duplicate-collection-elements: false # They are being used on purpose.
-    - avoid-ignoring-return-values: false # Mostly, collection methods are ignored.
-    - avoid-inferrable-type-arguments: false # Against prefer-explicit-type-arguments.
-    - avoid-long-files: false # A lot of data and collections.
-    - avoid-nullable-interpolation: false # Doesn't work for toString() methods.
-    - avoid-unnecessary-nullable-fields: false # Fields could be nullable + has default values.
-    - avoid-unsafe-collection-methods: false # They are being used on purpose.
-    - enum-constants-ordering: false # This might be a breaking change.
-    - match-getter-setter-field-names: false # Most of those are just aliases.
-    - max-imports: false # Sadly not very suitable for the packages.
-    - no-empty-string: false # This will be a breaking change.
-    - no-equal-arguments: false # Not our use-case here.
-    - no-magic-number: false # Packages contain a lot of numbers.
-    - no-magic-string: false # Packages contain a lot of strings.
-    - parameters-ordering: false # This will be a breaking change.
-    - prefer-test-structure: false # Matter of style.
-    - prefer-boolean-prefixes: false # This will be a breaking change.
-    - prefer-correct-throws: false # No DCM annotations or Meta in Dart packages.
-    - prefer-explicit-parameter-names: false # This will be dev. defined.
-    - prefer-prefixed-global-constants: false # This will be a breaking change.
-    - prefer-test-matchers: false # Matter of style + introduces coupling in tests.
+    - add-resolution-workspace: false # This is not a workspace package.
+    - prefer-correct-package-name: false # Different naming conventions for Dart and Flutter packages.
+    - prefer-pinned-version-syntax: false # Conflicts with prefer-caret-version-syntax.
+    - prefer-publish-to-none: false # Those are not published packages.
+    - prefer-caret-version-syntax: false # Conflicts with avoid-any-version.
+
     # Enabled:
-    - avoid-high-cyclomatic-complexity:
-        threshold: 40
-    - avoid-long-functions:
-        exclude:
-          - "**/**_test.dart"
+    - avoid-any-version: true
+    - avoid-dependency-overrides: true
+    - dependencies-ordering: true
+    - newline-before-pubspec-entry: true
+    - prefer-correct-screenshots: true
+    - prefer-semver-version: true
+    - pubspec-ordering:
+        order:
+          - version
+          - name
+          - description
+          - publish_to
+          - maintainer
+          - repository
+          - issue_tracker
+          - homepage
+          - funding
+          - resolution
+          - topics
+          - screenshots
+          - environment
+          - dependencies
+          - dependency_overrides
+          - dev_dependencies
+    - prefer-commenting-pubspec-ignores: true
+    - prefer-correct-topics: true
+
+  rules:
+    # With configs:
     - prefer-named-parameters:
-        max-number: 3
+        max-number: 2
     - avoid-nested-conditional-expressions:
         acceptable-level: 2
     - prefer-correct-identifier-length:
         # i for index, x/y for math operations, sb for StringBuffer, io for IO,
-        # bc for BuildContext, a and b are convenient for sorting, e for the element,
-        # k for key, v for value.
-        exceptions: ["a", "b", "e", "i", "k", "v", "x", "y", "io", "bc", "sb"]
+        #  a and b are convenient for sorting, e for the element, k for key, v for value.
+        exceptions: ["a", "b", "e", "i", "k", "v", "x", "y", "io", "sb"]
     - avoid-long-parameter-list:
         ignore-optional: true
     - prefer-typedefs-for-callbacks:
@@ -96,12 +97,6 @@ dart_code_metrics:
         ignore-parameters: true
         ignore-type-arguments: false
         ignore-return-types: false
-    - avoid-passing-self-as-argument:
-        exclude:
-          - test/**
-    - avoid-top-level-members-in-tests:
-        exclude:
-          - lib/**
     - missing-test-assertion:
         include-assertions:
           - verify
@@ -109,8 +104,6 @@ dart_code_metrics:
     - avoid-passing-async-when-sync-expected:
         exclude:
           - test/**
-    - avoid-returning-widgets:
-        allow-nullable: true
     - avoid-redundant-async:
         exclude:
           - test/**
@@ -127,13 +120,32 @@ dart_code_metrics:
           - ^coverage.*
     - prefer-class-destructuring:
         min-occurrences: 4
-    - prefer-single-declaration-per-file:
-        exclude:
-          - "**/test/**"
+
+    # Disabled:
+    # Shorthands:
+    - prefer-returning-shorthands: false
+    - prefer-shorthands-with-constructors: false
+    - prefer-shorthands-with-enums: false
+    - prefer-shorthands-with-static-fields: false
+    # Other disabled:
+    - arguments-ordering: false # This will be a breaking change.
+    - avoid-continue: false # Just a matter of style.
+    - avoid-deprecated-usage: false # Using default deprecated_member_use_from_same_package.
+    - avoid-inferrable-type-arguments: false # Against prefer-explicit-type-arguments.
+    - avoid-long-files: false # A lot of data and collections.
+    - no-magic-number: false # Packages contain a lot of numbers.
+    - no-magic-string: false # Packages contain a lot of strings.
+    - parameters-ordering: false # This will be a breaking change.
+    - prefer-test-structure: false # Matter of style.
+    - prefer-boolean-prefixes: false # This will be a breaking change.
+    - prefer-correct-throws: false # No DCM annotations or Meta in Dart packages.
+    - prefer-test-matchers: false # Matter of style + introduces coupling in tests.
 
     # Enabled:
     - avoid-accessing-collections-by-constant-index: true
     - avoid-accessing-other-classes-private-members: true
+    - avoid-adjacent-strings: true
+    - avoid-always-null-parameters: true
     - avoid-assigning-to-static-field: true
     - avoid-assignments-as-conditions: true
     - avoid-async-call-in-sync-function: true
@@ -147,16 +159,21 @@ dart_code_metrics:
     - avoid-collapsible-if: true
     - avoid-collection-equality-checks: true
     - avoid-collection-methods-with-unrelated-types: true
+    - avoid-collection-mutating-methods: true
     - avoid-commented-out-code: true
     - avoid-complex-arithmetic-expressions: true
+    - avoid-complex-conditions: true
     - avoid-complex-loop-conditions: true
     - avoid-conditions-with-boolean-literals: true
     - avoid-constant-assert-conditions: true
+    - avoid-constant-conditions: true
     - avoid-constant-switches: true
     - avoid-contradictory-expressions: true
     - avoid-declaring-call-method: true
+    - avoid-default-tostring: true
     - avoid-double-slash-imports: true
     - avoid-duplicate-cascades: true
+    - avoid-duplicate-collection-elements: true
     - avoid-duplicate-constant-values: true
     - avoid-duplicate-exports: true
     - avoid-duplicate-initializers: true
@@ -180,8 +197,11 @@ dart_code_metrics:
     - avoid-future-tostring: true
     - avoid-generics-shadowing: true
     - avoid-global-state: true
+    - avoid-high-cyclomatic-complexity: true
     - avoid-identical-exception-handling-blocks: true
     - avoid-if-with-many-branches: true
+    - avoid-ignoring-return-values: true
+    - avoid-immediately-invoked-functions: true
     - avoid-implicitly-nullable-extension-types: true
     - avoid-importing-entrypoint-exports: true
     - avoid-incomplete-copy-with: true
@@ -191,6 +211,7 @@ dart_code_metrics:
     - avoid-keywords-in-wildcard-pattern: true
     - avoid-late-final-reassignment: true
     - avoid-local-functions: true
+    - avoid-long-functions: true
     - avoid-long-records: true
     - avoid-map-keys-contains: true
     - avoid-missed-calls: true
@@ -209,6 +230,7 @@ dart_code_metrics:
     - avoid-nested-extension-types: true
     - avoid-nested-futures: true
     - avoid-nested-records: true
+    - avoid-nested-shorthands: true
     - avoid-nested-streams-and-futures: true
     - avoid-nested-switch-expressions: true
     - avoid-nested-switches: true
@@ -219,11 +241,13 @@ dart_code_metrics:
     - avoid-non-final-exception-class-fields: true
     - avoid-non-null-assertion: true
     - avoid-not-encodable-in-to-json: true
+    - avoid-nullable-interpolation: true
     - avoid-nullable-parameters-with-default-values: true
     - avoid-nullable-tostring: true
     - avoid-one-field-records: true
     - avoid-only-rethrow: true
     - avoid-passing-default-values: true
+    - avoid-passing-self-as-argument: true
     - avoid-positional-record-field-access: true
     - avoid-recursive-calls: true
     - avoid-recursive-tostring: true
@@ -244,10 +268,13 @@ dart_code_metrics:
     - avoid-slow-collection-methods: true
     - avoid-stream-tostring: true
     - avoid-substring: true
+    - avoid-suspicious-global-reference: true
     - avoid-suspicious-super-overrides: true
     - avoid-throw-in-catch-block: true
     - avoid-throw-objects-without-tostring: true
+    - avoid-top-level-members-in-tests: true
     - avoid-type-casts: true
+    - avoid-unassigned-fields: true
     - avoid-unassigned-late-fields: true
     - avoid-unassigned-stream-subscriptions: true
     - avoid-uncaught-future-errors: true
@@ -255,6 +282,7 @@ dart_code_metrics:
     - avoid-unknown-pragma: true
     - avoid-unnecessary-block: true
     - avoid-unnecessary-call: true
+    - avoid-unnecessary-collections: true
     - avoid-unnecessary-compare-to: true
     - avoid-unnecessary-conditionals: true
     - avoid-unnecessary-constructor: true
@@ -272,6 +300,7 @@ dart_code_metrics:
     - avoid-unnecessary-local-variable: true
     - avoid-unnecessary-negations: true
     - avoid-unnecessary-null-aware-elements: true
+    - avoid-unnecessary-nullable-fields: true
     - avoid-unnecessary-nullable-parameters: true
     - avoid-unnecessary-nullable-return-type: true
     - avoid-unnecessary-overrides: true
@@ -286,6 +315,7 @@ dart_code_metrics:
     - avoid-unrelated-type-assertions: true
     - avoid-unrelated-type-casts: true
     - avoid-unremovable-callbacks-in-listeners: true
+    - avoid-unsafe-collection-methods: true
     - avoid-unsafe-reduce: true
     - avoid-unused-after-null-check: true
     - avoid-unused-assignment: true
@@ -299,21 +329,27 @@ dart_code_metrics:
     - binary-expression-operand-order: true
     - dispose-class-fields: true
     - double-literal-format: true
+    - enum-constants-ordering: true
     - function-always-returns-null: true
     - function-always-returns-same-value: true
     - handle-throwing-invocations: true
     - map-keys-ordering: true
     - match-base-class-default-value: true
+    - match-getter-setter-field-names: true
     - match-lib-folder-structure: true
     - match-positional-field-names-on-assignment: true
+    - max-imports: true
     - move-records-to-typedefs: true
     - move-variable-closer-to-its-usage: true
     - move-variable-outside-iteration: true
     - newline-before-case: true
+    - newline-before-constructor: true
     - newline-before-method: true
     - newline-before-return: true
     - no-boolean-literal-compare: true
     - no-empty-block: true
+    - no-empty-string: true
+    - no-equal-arguments: true
     - no-equal-conditions: true
     - no-equal-nested-conditions: true
     - no-equal-switch-case: true
@@ -321,6 +357,7 @@ dart_code_metrics:
     - no-equal-then-else: true
     - no-object-declaration: true
     - pass-correct-accepted-type: true
+    - pass-optional-argument: true
     - pattern-fields-ordering: true
     - prefer-abstract-final-static-class: true
     - prefer-add-all: true
@@ -352,6 +389,7 @@ dart_code_metrics:
     - prefer-enums-by-name: true
     - prefer-expect-later: true
     - prefer-explicit-function-type: true
+    - prefer-explicit-parameter-names: true
     - prefer-explicit-type-arguments: true
     - prefer-extracting-function-callbacks: true
     - prefer-first: true
@@ -367,6 +405,7 @@ dart_code_metrics:
     - prefer-null-aware-spread: true
     - prefer-overriding-parent-equality: true
     - prefer-parentheses-with-if-null: true
+    - prefer-prefixed-global-constants: true
     - prefer-private-extension-type-field: true
     - prefer-public-exception-classes: true
     - prefer-pushing-conditional-expressions: true
@@ -376,6 +415,7 @@ dart_code_metrics:
     - prefer-returning-conditional-expressions: true
     - prefer-simpler-boolean-expressions: true
     - prefer-simpler-patterns-null-check: true
+    - prefer-single-declaration-per-file: true
     - prefer-specific-cases-first: true
     - prefer-specifying-future-value-type: true
     - prefer-static-method: true
@@ -405,7 +445,6 @@ linter:
     omit_local_variable_types: false # Conflicts with: prefer-type-over-var
     omit_obvious_local_variable_types: false # Conflicts with: omit_local_variable_types and prefer-type-over-var.
     omit_obvious_property_types: false # Conflicts with: type_annotate_public_apis.
-    prefer_final_parameters: false # Conflicts with: avoid_final_parameters.
     prefer_double_quotes: false # Conflicts with: prefer_single_quotes.
     specify_nonobvious_local_variable_types: false # Conflicts with: avoid-explicit-type-declaration.
     unnecessary_final: false # Conflicts with: prefer_final_locals.
@@ -414,7 +453,6 @@ linter:
     # Enabled:
     always_declare_return_types: true
     always_put_required_named_parameters_first: true
-    always_require_non_null_named_parameters: true
     annotate_overrides: true
     annotate_redeclares: true
     avoid_annotating_with_dynamic: true
@@ -433,7 +471,6 @@ linter:
     avoid_init_to_null: true
     avoid_js_rounded_ints: true
     avoid_multiple_declarations_per_line: true
-    avoid_null_checks_in_equality_operators: true
     avoid_positional_boolean_parameters: true
     avoid_print: true
     avoid_private_typedef_functions: true
@@ -441,8 +478,6 @@ linter:
     avoid_relative_lib_imports: true
     avoid_renaming_method_parameters: true
     avoid_return_types_on_setters: true
-    avoid_returning_null: true
-    avoid_returning_null_for_future: true
     avoid_returning_null_for_void: true
     avoid_returning_this: true
     avoid_setters_without_getters: true
@@ -479,7 +514,6 @@ linter:
     empty_catches: true
     empty_constructor_bodies: true
     empty_statements: true
-    enable_null_safety: true
     eol_at_end_of_file: true
     exhaustive_cases: true
     file_names: true
@@ -516,7 +550,6 @@ linter:
     one_member_abstracts: true
     only_throw_errors: true
     overridden_fields: true
-    package_api_docs: true
     package_names: true
     package_prefixed_library_names: true
     parameter_assignments: true
@@ -531,13 +564,12 @@ linter:
     prefer_const_literals_to_create_immutables: true
     prefer_constructors_over_static_methods: true
     prefer_contains: true
-    prefer_single_quotes: true
-    prefer_equal_for_default_values: true
     prefer_expression_function_bodies: true
     prefer_final_fields: true
     prefer_final_in_for_each: true
     prefer_final_locals: true
     prefer_for_elements_to_map_fromIterable: true
+    prefer_single_quotes: true
     prefer_foreach: true
     prefer_function_declarations_over_variables: true
     prefer_generic_function_type_aliases: true
@@ -561,8 +593,10 @@ linter:
     provide_deprecation_message: true
     public_member_api_docs: true
     recursive_getters: true
+    remove_deprecations_in_breaking_versions: true
     require_trailing_commas: true
     secure_pubspec_urls: true
+    simplify_variable_pattern: true
     slash_for_doc_comments: true
     sort_constructors_first: true
     sort_pub_dependencies: true
@@ -607,11 +641,9 @@ linter:
     unnecessary_underscores: true
     unreachable_from_main: true
     unrelated_type_equality_checks: true
-    unsafe_html: true
     unsafe_variance: true
     use_enums: true
     use_function_type_syntax_for_parameters: true
-    use_if_null_to_convert_nulls_to_bools: true
     use_is_even_rather_than_modulo: true
     use_late_for_private_fields_and_variables: true
     use_named_constants: true

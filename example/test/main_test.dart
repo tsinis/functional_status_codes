@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-unsafe-collection-methods
+
 import 'package:functional_status_codes/functional_status_codes.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
@@ -6,6 +8,7 @@ import 'package:test/test.dart';
 // ignore: avoid_relative_lib_imports, to separate packages.
 import '../lib/main.dart' as example;
 
+// ignore: avoid-long-functions, just an example.
 void main() {
   const simple = 'simple';
 
@@ -24,6 +27,7 @@ void main() {
     );
   });
 
+  // ignore: avoid-long-functions, just an example.
   group('http example', () {
     test(
       'with real client',
