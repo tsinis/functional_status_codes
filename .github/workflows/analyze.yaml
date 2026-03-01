@@ -45,12 +45,13 @@ jobs:
         run: dart pub upgrade
 
       - name: 🕵️ Analyze code
-        uses: ValentinVignal/action-dart-analyze@v1.1
+        uses: ValentinVignal/action-dart-analyze@v2.1
         if: ${{ github.event_name == 'pull_request' }}
         with:
-          fail-on: "format"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fail-on: "note"
+          fail-on-format: true
           format: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🏜️ Publish - dry run
         if: ${{ github.event_name == 'pull_request' }}
@@ -60,8 +61,5 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           sudo apt-get install webp
-          PANA=$(dart run pana . --no-warning)
-          PANA_SCORE=$(echo $PANA | sed -n "s/.*Points: \([0-9]*\)\/\([0-9]*\)./\1\/\2/p")
-          echo "score: $PANA_SCORE"
-          IFS='/' read -ra SCORE_ARR <<< "$PANA_SCORE"; SCORE=${SCORE_ARR[0]}
-          if (( SCORE < 160 )); then echo "Minimum score of 160 was not met! Got $SCORE."; exit 1; fi
+          dart pub global activate pana
+          dart pub global run pana . --no-warning --exit-code-threshold 0

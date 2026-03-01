@@ -1,4 +1,6 @@
+// ignore_for_file: avoid-unsafe-collection-methods, avoid-long-functions,
 // ignore_for_file: avoid-local-functions, avoid-misused-test-matchers
+// ignore_for_file:  avoid-nullable-interpolation, no-equal-arguments
 
 import 'package:functional_status_codes/src/num_status_code_extension.dart';
 import 'package:functional_status_codes/src/status_code.dart';
@@ -287,12 +289,12 @@ void main() => group('NumStatusCodeExtension', () {
 
   group('maybeMapStatusCode', () {
     num maybeMapCode(num? number) => number.maybeMapStatusCode(
+      orElse: (_) => elseValue,
       isInformational: (value) => value,
       isSuccess: (value) => value,
       isRedirection: (value) => value,
       isClientError: (value) => value,
       isServerError: (value) => value,
-      orElse: (_) => elseValue,
     );
 
     for (final number in globalWrongCases) {
@@ -306,8 +308,8 @@ void main() => group('NumStatusCodeExtension', () {
       'should return proper value for $testValue status code',
       () => expect(
         testValue.maybeMapStatusCode(
-          isStatusCode: (value) => value,
           orElse: (value) => value,
+          isStatusCode: (value) => value,
         ),
         testValue,
       ),
@@ -334,12 +336,12 @@ void main() => group('NumStatusCodeExtension', () {
 
   group('maybeWhenStatusCode', () {
     int maybeWhenCode(num? number) => number.maybeWhenStatusCode(
+      orElse: () => elseValue,
       isInformational: () => StatusCode.continueHttp100,
       isSuccess: () => StatusCode.okHttp200,
       isRedirection: () => StatusCode.multipleChoicesHttp300,
       isClientError: () => StatusCode.badRequestHttp400,
       isServerError: () => StatusCode.internalServerErrorHttp500,
-      orElse: () => elseValue,
     );
 
     for (final number in globalWrongCases) {
@@ -360,8 +362,8 @@ void main() => group('NumStatusCodeExtension', () {
       'should return proper value for $testValue status code',
       () => expect(
         testValue.maybeWhenStatusCode(
-          isStatusCode: () => testValue,
           orElse: () => null,
+          isStatusCode: () => testValue,
         ),
         testValue,
       ),
@@ -486,6 +488,7 @@ void main() => group('NumStatusCodeExtension', () {
     test(
       'should return proper value for $testValue status code',
       () => expect(
+        // ignore: avoid-passing-self-as-argument, it's just a test.
         testValue.whenConstStatusCodeOrNull(isStatusCode: testValue),
         testValue,
       ),
@@ -559,12 +562,12 @@ void main() => group('NumStatusCodeExtension', () {
   group('maybeMapToRegisteredStatusCode', () {
     StatusCode? maybeMapToRegisteredCode(num? numb) =>
         numb.maybeMapToRegisteredStatusCode(
+          orElse: (value, _) => value,
           isInformational: (value) => value,
           isSuccess: (value) => value,
           isRedirection: (value) => value,
           isClientError: (value) => value,
           isServerError: (value) => value,
-          orElse: (value, _) => value,
         );
 
     test(
@@ -619,8 +622,8 @@ void main() => group('NumStatusCodeExtension', () {
       'should return proper value for $testValue status code',
       () => expect(
         testValue.maybeMapToRegisteredStatusCode(
-          isStatusCode: (value) => value,
           orElse: (value, _) => value,
+          isStatusCode: (value) => value,
         ),
         basicCodes.first,
       ),
@@ -671,8 +674,8 @@ void main() => group('NumStatusCodeExtension', () {
       'common test for out of range',
       () => expect(
         1.mapToRegisteredStatusCodeOrNull(
-          orElse: (_) => const StatusCode.custom(290),
           isInformational: (_) => const StatusCode.custom(144),
+          orElse: (_) => const StatusCode.custom(290),
         ),
         const StatusCode.custom(290),
       ),
@@ -968,6 +971,123 @@ void main() => group('NumStatusCodeExtension', () {
       expect(499.isRetryable, isFalse);
       expect(505.isRetryable, isFalse);
       expect(520.isRetryable, isFalse);
+    });
+  });
+
+  group('isStatusCodeWithinRange with inverted min/max', () {
+    test('should return false when min > max', () {
+      expect(200.isStatusCodeWithinRange(min: 400, max: 100), isFalse);
+      expect(300.isStatusCodeWithinRange(min: 500, max: 200), isFalse);
+    });
+
+    test('should return true when min equals max and value matches', () {
+      expect(200.isStatusCodeWithinRange(min: 200, max: 200), isTrue);
+    });
+
+    test('should return false when min equals max and value differs', () {
+      expect(201.isStatusCodeWithinRange(min: 200, max: 200), isFalse);
+    });
+  });
+
+  group('float handling', () {
+    test('double with .0 fraction behaves like int', () {
+      expect(200.0.isStatusCode, isTrue);
+      expect(200.0.isSuccess, isTrue);
+      expect(200.0.toRegisteredStatusCode(), StatusCode.okHttp200);
+    });
+
+    test('double with fractional part truncates to int', () {
+      // 200.5 truncates to 200 via toInt().
+      expect(200.5.isStatusCode, isTrue);
+      expect(200.5.isSuccess, isTrue);
+      expect(200.9.isStatusCode, isTrue);
+    });
+
+    test('double outside valid range', () {
+      expect(99.9.isStatusCode, isFalse);
+      expect(600.0.isStatusCode, isFalse);
+    });
+
+    test('null num is not a status code', () {
+      // ignore: avoid-explicit-type-declaration, it's a test.
+      const num? nullNum = null;
+      expect(nullNum.isStatusCode, isFalse);
+      expect(nullNum.isSuccess, isFalse);
+      expect(nullNum.isInformational, isFalse);
+      expect(nullNum.toRegisteredStatusCode(), isNull);
+    });
+  });
+
+  group('isStatusCode callback masking in maybeMapStatusCode', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.maybeMapStatusCode(
+        orElse: (_) => 'orElse',
+        isStatusCode: (_) => 'isStatusCode',
+        isSuccess: (_) => 'isSuccess',
+      );
+      expect(
+        result,
+        'isStatusCode',
+        reason: 'isStatusCode is checked first, so isSuccess is unreachable',
+      );
+    });
+
+    test('category callback fires when isStatusCode is not provided', () {
+      final result = 200.maybeMapStatusCode(
+        orElse: (_) => 'orElse',
+        isSuccess: (_) => 'isSuccess',
+      );
+      expect(result, 'isSuccess');
+    });
+  });
+
+  group('isStatusCode callback masking in maybeWhenStatusCode', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.maybeWhenStatusCode(
+        orElse: () => 'orElse',
+        isStatusCode: () => 'isStatusCode',
+        isSuccess: () => 'isSuccess',
+      );
+      expect(result, 'isStatusCode');
+    });
+
+    test('category callback fires when isStatusCode is not provided', () {
+      final result = 200.maybeWhenStatusCode(
+        orElse: () => 'orElse',
+        isSuccess: () => 'isSuccess',
+      );
+      expect(result, 'isSuccess');
+    });
+  });
+
+  group('isStatusCode callback masking in whenStatusCodeOrNull', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.whenStatusCodeOrNull(
+        isStatusCode: () => 'isStatusCode',
+        isSuccess: () => 'isSuccess',
+      );
+      expect(result, 'isStatusCode');
+    });
+  });
+
+  group('isStatusCode masking in whenConstStatusCodeOrNull', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.whenConstStatusCodeOrNull(
+        isStatusCode: 'isStatusCode',
+        isSuccess: 'isSuccess',
+      );
+      expect(result, 'isStatusCode');
+    });
+  });
+
+  group('isStatusCode masking in maybeMapToRegisteredStatusCode', () {
+    test('isStatusCode takes priority over category callbacks', () {
+      final result = 200.maybeMapToRegisteredStatusCode(
+        orElse: (_, _) => 'orElse',
+        isStatusCode: (_) => 'isStatusCode',
+        isSuccess: (_) => 'isSuccess',
+      );
+      expect(result, 'isStatusCode');
     });
   });
 });

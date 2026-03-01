@@ -1,5 +1,5 @@
-// ignore_for_file: avoid_print, avoid-unused-parameters, prefer-static-class,
-// ignore_for_file: prefer-extracting-function-callbacks
+// ignore_for_file: avoid-nullable-interpolation, avoid-unused-parameters
+// ignore_for_file: avoid_print, prefer-extracting-function-callbacks
 
 import 'dart:convert' as convert;
 
@@ -12,7 +12,7 @@ Future<int?> main([List<String> args = const [], http.Client? client]) =>
     : _realClient(args, client);
 
 /// Run with `dart run lib/main.dart --simple` command from the `example` folder.
-// ignore: avoid-unnecessary-futures, just an example.
+// ignore: avoid-unnecessary-futures, prefer-static-class, just an example.
 Future<int?> _simple(List<String> args) async {
   /// Checks if status code is >=200 & <=299.
   print(105.isSuccess); // Prints false.
@@ -66,6 +66,7 @@ Future<int?> _simple(List<String> args) async {
   return StatusCode.tryParse(args.join());
 }
 
+// ignore: prefer-static-class, just an example.
 Future<int?> _realClient(List<String> arguments, [http.Client? client]) async {
   /// This example uses the Google Books API to search for books about `http`:
   /// https://developers.google.com/books/docs/overview

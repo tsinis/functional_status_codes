@@ -1,4 +1,5 @@
-// ignore_for_file: deprecated_member_use_from_same_package, it's TODO!
+// ignore_for_file: deprecated_member_use_from_same_package,avoid-long-functions
+// ignore_for_file: no-empty-string, no-equal-arguments
 
 import 'package:functional_status_codes/src/status_code.dart';
 import 'package:functional_status_codes/src/status_code_extension.dart';
@@ -1096,6 +1097,40 @@ void main() => group('StatusCodeExtension', () {
         expect(result, isA<String>());
         expect(result, isNotEmpty);
       }
+    });
+  });
+
+  group('Custom status codes with map/maybeMap', () {
+    test('maybeMap returns orElse for custom status code', () {
+      final result = custom.maybeMap(orElse: () => 'orElse');
+      expect(result, 'orElse');
+    });
+
+    test('maybeWhen returns orElse for custom status code', () {
+      final result = custom.maybeWhen(orElse: () => 'orElse');
+      expect(result, 'orElse');
+    });
+
+    test('whenOrNull returns null for custom status code', () {
+      final result = custom.whenOrNull<String>(okHttp200: () => 'ok');
+      expect(result, isNull);
+    });
+
+    test('whenConstOrNull returns null for custom status code', () {
+      final result = custom.whenConstOrNull<String>(okHttp200: 'ok');
+      expect(result, isNull);
+    });
+
+    test('custom code has isCustom true', () {
+      expect(custom.isCustom, isTrue);
+    });
+
+    test('custom code has correct reason', () {
+      expect(custom.reason, contains('Custom status code'));
+    });
+
+    test('custom code name fallback', () {
+      expect(custom.name, contains('customStatusCode'));
     });
   });
 });

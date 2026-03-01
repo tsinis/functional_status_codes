@@ -1,4 +1,4 @@
-// Copyright (c) 2025, Roman Cinis. All rights reserved. Use of this source code
+// Copyright (c) 2026, Roman Cinis. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: format-comment, because of trailing dot at the end of URLs.
@@ -669,15 +669,11 @@ extension type const StatusCode._(int _code) implements int {
   /// server.
   static const incompatibleProtocolVersionsHttp464 = StatusCode._(464);
 
-  /// Unofficial status code. Unauthorized: 561
+  /// Unofficial status code. Unauthorized (AWS Elastic Load Balancing): 561
   ///
   /// An error around authentication returned by a server registered with a load
-  /// balancer. You configured a listener rule to
-
-  /// Unauthorized (AWS Elastic Load Balancing): 561
-  ///
-  /// Used by AWS Elastic Load Balancing when authentication has failed or
-  /// credentials are missing.
+  /// balancer. You configured a listener rule to authenticate users, but the
+  /// authentication has failed or credentials are missing.
   static const unauthorizedHttp561 = StatusCode._(561);
 
   /// Unofficial status code. Network Connect Timeout Error: 599
@@ -1257,6 +1253,7 @@ extension type const StatusCode._(int _code) implements int {
     assert(from.isNotEmpty, 'The provided `from` iterable must not be empty');
     final elementAt = (random ?? Random()).nextInt(from.length);
 
+    // ignore: avoid-unsafe-collection-methods, length is guaranteed to be > 0.
     return List<StatusCode>.unmodifiable(from).elementAt(elementAt);
   }
 }
