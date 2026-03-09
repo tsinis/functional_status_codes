@@ -683,27 +683,27 @@ extension type const StatusCode._(int _code) implements int {
   /// in front of the proxy.
   static const networkConnectTimeoutErrorHttp599 = StatusCode._(599);
 
-  /// A regular expression pattern that matches three consecutive digits.
+  /// A regular expression pattern that matches a valid HTTP status code range.
   ///
   /// This pattern is commonly used to identify HTTP status codes within a
   /// string. HTTP status codes are typically 3-digit integers ranging from 100
-  /// to 599. The pattern is defined by the regular expression `\d{3}`, where
-  /// `\d` stands for any digit, and `{3}` specifies exactly three occurrences
-  /// of the digit.
+  /// to 599. The pattern is defined by the regular expression `[1-5]\d{2}`,
+  /// which matches digits starting with 1–5 followed by exactly two more
+  /// digits, covering the full 100–599 range.
   ///
   /// Examples of matching strings:
   /// - '200' for OK
   /// - '404' for Not Found
   /// - '500' for Internal Server Error
   ///
-  /// Note that this pattern does not validate the range of the status code and
-  /// will match any three-digit number. Additional checks should be implemented
-  /// if validation of the status code's range is required.
+  /// Note that this pattern does not validate whether the matched code is a
+  /// registered status code. Additional checks should be implemented if exact
+  /// code validation is required (e.g. via [maybeFromCode]).
   ///
   /// See also:
   /// - [RegExp], the class used to work with regular expressions in Dart.
   /// - [StatusCode], which contains standard HTTP status codes.
-  static const pattern = r'\d{3}';
+  static const pattern = r'[1-5]\d{2}';
 
   /// A getter that returns a [RegExp] object configured with a pattern to match
   /// three consecutive digits, typically representing an HTTP status code.
@@ -775,7 +775,7 @@ extension type const StatusCode._(int _code) implements int {
   /// A complete list of all standard HTTP status codes defined in this package.
   ///
   /// This includes both official IANA registered codes and commonly used
-  /// unofficial codes. The list contains 95 status codes covering informational
+  /// unofficial codes. The list contains 93 status codes covering informational
   /// (`1xx`), success (`2xx`), redirection (`3xx`), client error (`4xx`),
   /// and server error (`5xx`) categories.
   ///
@@ -1254,6 +1254,6 @@ extension type const StatusCode._(int _code) implements int {
     final elementAt = (random ?? Random()).nextInt(from.length);
 
     // ignore: avoid-unsafe-collection-methods, length is guaranteed to be > 0.
-    return List<StatusCode>.unmodifiable(from).elementAt(elementAt);
+    return from.elementAt(elementAt);
   }
 }

@@ -1,3 +1,33 @@
+## 3.2.0
+
+### New Features
+
+- **`isError` getter**: Convenience check for any client or server error (4xx or 5xx). Equivalent to `isClientError || isServerError`.
+
+  ```dart
+  print(404.isError); // true
+  print(500.isError); // true
+  print(200.isError); // false
+  ```
+
+- **Packaged AI assets** (`extension/mcp/`): The package now ships MCP-compatible resources and prompts for AI coding agents, following the [Dart/Flutter packaged AI assets proposal](https://flutter.dev/go/packaged-ai-assets).
+Once the Dart MCP server implements the proposal, agents will automatically have access to:
+  - `@functional_status_codes/api_reference` — full API cheat-sheet
+  - `@functional_status_codes/patterns` — idiomatic usage patterns
+  - `/functional_status_codes/handle_response` — prompt to generate HTTP response handling code
+  - `/functional_status_codes/cache_strategy` — prompt to derive a caching strategy from a status code
+
+### Fixes
+
+- Fixed: `maybeMapStatusCode` now performs the `null` check before calling `toRegisteredStatusCode()`, which was previously invoked unnecessarily for `null` inputs.
+- Fixed: `StatusCode.random()` no longer wraps the source iterable in an intermediate `List.unmodifiable(...)` just to call `elementAt`. The allocation was unnecessary since `Iterable.elementAt` works directly.
+- Fixed: `StatusCode.pattern` (and `StatusCode.regExp`) now matches only the valid HTTP status code range (`[1-5]\d{2}`, i.e. 100–599) instead of any three-digit number (`\d{3}`). This avoids false matches on strings like `"timeout after 999ms"`. Note: `tryParse` behaviour is unchanged for all registered codes — only the raw pattern/regex changes.
+- Fixed: `values` doc comment count corrected from 95 to 93.
+
+### Documentation
+
+- `maybeMapStatusCode` and `maybeWhenStatusCode`: added explicit note that the `isStatusCode` handler takes priority over all category handlers (`isSuccess`, `isClientError`, etc.) when both are provided.
+
 ## 3.1.0
 
 This release adds several new features for better HTTP status code handling, including cacheable/retryable checks, pre-sorted category collections, and a random status code generator. Also includes important bug fixes.

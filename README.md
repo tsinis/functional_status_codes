@@ -173,7 +173,3 @@ For more information on using this package, check out the API documentation and 
 
 If you like this package, please give it a star or a like. For more information on using this package, check out the API documentation. **PRs or ideas are always welcome**.
 If you have any issues or suggestions for the package, please file them in the GitHub repository.
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ftsinis%2Ffunctional_status_codes?ref=badge_large)
