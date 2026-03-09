@@ -689,8 +689,9 @@ extension type const StatusCode._(int _code) implements int {
   /// string. HTTP status codes are typically 3-digit integers ranging from 100
   /// to 599. The pattern is defined by the regular expression
   /// `(?<!\d)[1-5]\d{2}(?!\d)`, which matches a digit 1–5 followed by exactly
-  /// two more digits and uses negative lookarounds to prevent matching
-  /// sub-sequences inside longer digit runs (e.g. `6100` will not yield `100`).
+  /// two more digits and uses negative look-ahead and look-behind assertions
+  /// to prevent matching sub-sequences inside longer digit runs
+  /// (e.g. `6100` will not yield `100`).
   ///
   /// Examples of matching strings:
   /// - '200' for OK
