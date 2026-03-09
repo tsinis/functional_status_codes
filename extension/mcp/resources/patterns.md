@@ -185,11 +185,8 @@ response.statusCode.maybeWhenStatusCode(
 import 'package:test/test.dart';
 import 'package:functional_status_codes/functional_status_codes.dart';
 
-test('handler returns null for any client error', () {
-  for (var i = 0; i < 50; i++) {
-    final code = StatusCode.random(from: StatusCode.clientErrorCodes);
-    expect(handleResponse(code, () => 'body'), isNull);
-  }
+test('handler returns null for 404 Not Found', () {
+  expect(handleResponse(StatusCode.notFoundHttp404, () => 'body'), isNull);
 });
 
 test('cache is written for any cacheable code', () async {
@@ -208,11 +205,11 @@ test('retry is attempted for retryable server errors', () {
   }
 });
 
-// Combine with custom codes for edge-case testing
-test('unknown code is handled gracefully', () {
-  final unknown = StatusCode.custom(999);
+// Custom codes in the 5xx range hit isServerError → null
+test('custom server error is handled gracefully', () {
+  final unknown = StatusCode.custom(555); // valid: not registered, within 103–598
   expect(unknown.isCustom, isTrue);
   expect(unknown.toRegisteredStatusCode(), isNull);
-  expect(handleResponse(unknown, () => 'body'), isNull);
+  expect(handleResponse(unknown, () => 'body'), isNull); // hits isServerError
 });
 ```

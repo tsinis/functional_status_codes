@@ -32,7 +32,7 @@ final code = StatusCode.maybeFromCode(response.statusCode); // StatusCode?
 
 ```dart
 StatusCode.values              // All 93 known codes (List<StatusCode>)
-StatusCode.officialCodes       // IANA-registered subset
+StatusCode.officialCodes       // IANA-registered + widely adopted unofficial codes
 StatusCode.informationalCodes  // 1xx
 StatusCode.successCodes        // 2xx
 StatusCode.redirectionCodes    // 3xx
