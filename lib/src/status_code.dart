@@ -687,9 +687,10 @@ extension type const StatusCode._(int _code) implements int {
   ///
   /// This pattern is commonly used to identify HTTP status codes within a
   /// string. HTTP status codes are typically 3-digit integers ranging from 100
-  /// to 599. The pattern is defined by the regular expression `[1-5]\d{2}`,
-  /// which matches digits starting with 1-5 followed by exactly two more
-  /// digits, covering the full 100-599 range.
+  /// to 599. The pattern is defined by the regular expression
+  /// `(?<!\d)[1-5]\d{2}(?!\d)`, which matches a digit 1–5 followed by exactly
+  /// two more digits and uses negative lookarounds to prevent matching
+  /// sub-sequences inside longer digit runs (e.g. `6100` will not yield `100`).
   ///
   /// Examples of matching strings:
   /// - '200' for OK
@@ -703,18 +704,18 @@ extension type const StatusCode._(int _code) implements int {
   /// See also:
   /// - [RegExp], the class used to work with regular expressions in Dart.
   /// - [StatusCode], which contains standard HTTP status codes.
-  static const pattern = r'[1-5]\d{2}';
+  static const pattern = r'(?<!\d)[1-5]\d{2}(?!\d)';
 
   /// A getter that returns a [RegExp] object configured with [pattern] to match
-  /// HTTP status codes in the range 100–599.
+  /// HTTP status codes in the range 100-599.
   ///
   /// The matching is unanchored, meaning that this regular expression can find
   /// matches anywhere in the input string. This allows for the extraction of
   /// status codes from within larger bodies of text.
   ///
-  /// The [pattern] is defined by the regular expression `[1-5]\d{2}`, which
-  /// matches a digit 1–5 followed by exactly two more digits, covering the
-  /// full valid HTTP status code range (100–599).
+  /// The [pattern] uses negative lookarounds (`(?<!\d)` / `(?!\d)`) to ensure
+  /// that a three-digit sequence is not part of a longer number, covering the
+  /// full valid HTTP status code range (100-599) without false positives.
   ///
   /// Example usage:
   /// ```dart
@@ -1251,10 +1252,11 @@ extension type const StatusCode._(int _code) implements int {
     Iterable<StatusCode> from = values,
     Random? random,
   }) {
-    assert(from.isNotEmpty, 'The provided `from` iterable must not be empty');
-    final elementAt = (random ?? Random()).nextInt(from.length);
+    final list = from is List<StatusCode> ? from : from.toList();
+    assert(list.isNotEmpty, 'The provided `from` iterable must not be empty');
+    final elementAt = (random ?? Random()).nextInt(list.length);
 
     // ignore: avoid-unsafe-collection-methods, length is guaranteed to be > 0.
-    return from.elementAt(elementAt);
+    return list[elementAt];
   }
 }

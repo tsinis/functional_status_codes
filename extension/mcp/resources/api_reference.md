@@ -130,26 +130,29 @@ response.statusCode.maybeWhenStatusCode(
   isSuccess: () => true,
 )
 
-// Const-value variant (no closures — direct values)
+// Const-value variant — all 5 categories required, no orElse, asserts in-range
 response.statusCode.whenConstStatusCode(
   isInformational: 'info',
   isSuccess: 'ok',
   isRedirection: 'redirect',
   isClientError: 'client error',
   isServerError: 'server error',
-  orElse: 'unknown',
 )
 
-// Returns null instead of requiring orElse
+// Nullable variant — all params optional, orElse is also optional
 response.statusCode.whenConstStatusCodeOrNull(
   isSuccess: 'ok',
   isClientError: 'client error',
+  orElse: 'unknown',
 )
 
-// Convert then map in one step
+// Convert then map per category in one step
 response.statusCode.mapToRegisteredStatusCode(
-  mapper: (statusCode) => statusCode.reason,
-  orElse: (raw) => 'Unknown: $raw',
+  isInformational: (code) => code?.reason ?? 'info',
+  isSuccess: (code) => code?.reason ?? 'success',
+  isRedirection: (code) => code?.reason ?? 'redirect',
+  isClientError: (code) => code?.reason ?? 'client error',
+  isServerError: (code) => code?.reason ?? 'server error',
 )
 ```
 

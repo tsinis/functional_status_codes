@@ -83,10 +83,10 @@ final icon = statusCode.whenConstOrNull(
 );
 ```
 
-Category-level const mapping via `whenConstStatusCode`:
+Category-level const mapping via `whenConstStatusCodeOrNull`:
 
 ```dart
-final label = rawCode.whenConstStatusCode(
+final label = rawCode.whenConstStatusCodeOrNull(
   isInformational: 'informational',
   isSuccess: 'success',
   isRedirection: 'redirect',
@@ -188,15 +188,15 @@ import 'package:functional_status_codes/functional_status_codes.dart';
 test('handler returns null for any client error', () {
   for (var i = 0; i < 50; i++) {
     final code = StatusCode.random(from: StatusCode.clientErrorCodes);
-    expect(handleResponse(code), isNull);
+    expect(handleResponse(code, () => 'body'), isNull);
   }
 });
 
-test('cache is written for any cacheable code', () {
+test('cache is written for any cacheable code', () async {
   for (var i = 0; i < 20; i++) {
     final code = StatusCode.random(from: StatusCode.cacheableCodes);
     expect(code.isCacheable, isTrue);
-    fetchAndCache('key', () async => Response(statusCode: code));
+    await fetchAndCache('key', () async => Response(statusCode: code));
     expect(cache.has('key'), isTrue);
   }
 });
@@ -213,6 +213,6 @@ test('unknown code is handled gracefully', () {
   final unknown = StatusCode.custom(999);
   expect(unknown.isCustom, isTrue);
   expect(unknown.toRegisteredStatusCode(), isNull);
-  expect(handleResponse(unknown), isNull);
+  expect(handleResponse(unknown, () => 'body'), isNull);
 });
 ```

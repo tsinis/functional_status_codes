@@ -27,10 +27,10 @@ Follow these steps:
    - `501 Not Implemented` — long TTL, unlikely to change soon
    - `204`, `203`, `206`, `300`, `414` — short to moderate TTL depending on use case
 
-   Use `whenConstOrNull` to express this as a compile-time mapping:
+   Use `whenConstOrNull` to express this as a compile-time mapping (`whenConstOrNull` is on `StatusCode`, so convert from raw `int` first):
 
    ```dart
-   final ttl = statusCode.whenConstOrNull(
+   final ttl = rawStatusCode.toRegisteredStatusCode()?.whenConstOrNull(
      okHttp200: Duration(minutes: 5),
      noContentHttp204: Duration(minutes: 1),
      notFoundHttp404: Duration(minutes: 10),
@@ -47,5 +47,5 @@ Follow these steps:
 4. **Emit a complete, reusable function** that:
    - Checks `isStatusCode` before doing anything (guards against invalid codes)
    - Uses `isCacheable` to gate the write
-   - Uses `whenConstOrNull` or `whenConst` for TTL assignment (no runtime allocations)
+   - Uses `toRegisteredStatusCode()?.whenConstOrNull(...)` for TTL assignment — convert first since these methods are on `StatusCode`, not raw `int` (no runtime allocations)
    - Falls back gracefully for non-cacheable codes (log and skip, do not throw)

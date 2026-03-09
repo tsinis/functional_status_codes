@@ -37,7 +37,7 @@ Follow these steps:
 
 4. **Emit null-safe, idiomatic Dart**:
    - Prefer `?.` and `??` over null-checks
-   - Use `const` callbacks with `whenConstStatusCode` / `whenConstOrNull` when the return values are constants
+   - Use `whenConstStatusCode` / `whenConstOrNull` when the return values are constants — these accept **direct values**, not closures (e.g. `isSuccess: 'ok'`, never `isSuccess: () => 'ok'`); they must be called on a `StatusCode` value after `toRegisteredStatusCode()` conversion
    - Avoid `if (code >= 200 && code < 300)` — use `.isSuccess` / `.isError` / `.isCacheable` etc.
 
 5. **Handle the specific code** {{#status_code}}({{status_code}}){{/status_code}} with a dedicated branch inside `maybeMap` or `maybeWhen` on the `StatusCode`, using the constant name `<camelName>Http<NNN>`.
