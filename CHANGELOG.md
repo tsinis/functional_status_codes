@@ -21,7 +21,7 @@ Once the Dart MCP server implements the proposal, agents will automatically have
 
 - Fixed: `maybeMapStatusCode` now performs the `null` check before calling `toRegisteredStatusCode()`, which was previously invoked unnecessarily for `null` inputs.
 - Fixed: `StatusCode.random()` no longer wraps the source iterable in an intermediate `List.unmodifiable(...)` just to call `elementAt`. The allocation was unnecessary since `Iterable.elementAt` works directly.
-- Fixed: `StatusCode.pattern` (and `StatusCode.regExp`) now matches only the valid HTTP status code range (`[1-5]\d{2}`, i.e. 100–599) instead of any three-digit number (`\d{3}`). This avoids false matches on strings like `"timeout after 999ms"`. Note: `tryParse` behaviour is unchanged for all registered codes — only the raw pattern/regex changes.
+- Fixed: `StatusCode.pattern` (and `StatusCode.regExp`) now matches only the valid HTTP status code range (`[1-5]\d{2}`, i.e. 100-599) instead of any three-digit number (`\d{3}`). This avoids false matches on strings like `"timeout after 999ms"`. Note: `tryParse` behavior is unchanged for all registered codes — only the raw pattern/regex changes.
 - Fixed: `values` doc comment count corrected from 95 to 93.
 
 ### Documentation
