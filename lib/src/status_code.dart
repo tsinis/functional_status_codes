@@ -714,9 +714,10 @@ extension type const StatusCode._(int _code) implements int {
   /// matches anywhere in the input string. This allows for the extraction of
   /// status codes from within larger bodies of text.
   ///
-  /// The [pattern] uses negative lookarounds (`(?<!\d)` / `(?!\d)`) to ensure
-  /// that a three-digit sequence is not part of a longer number, covering the
-  /// full valid HTTP status code range (100-599) without false positives.
+  /// The [pattern] uses negative look-ahead (`(?!\d)`) and look-behind
+  /// (`(?<!\d)`) assertions to ensure that a three-digit sequence is not part
+  /// of a longer number, covering the full valid HTTP status code range
+  /// (100-599) without false positives.
   ///
   /// Example usage:
   /// ```dart
