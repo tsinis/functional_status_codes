@@ -688,8 +688,8 @@ extension type const StatusCode._(int _code) implements int {
   /// This pattern is commonly used to identify HTTP status codes within a
   /// string. HTTP status codes are typically 3-digit integers ranging from 100
   /// to 599. The pattern is defined by the regular expression `[1-5]\d{2}`,
-  /// which matches digits starting with 1–5 followed by exactly two more
-  /// digits, covering the full 100–599 range.
+  /// which matches digits starting with 1-5 followed by exactly two more
+  /// digits, covering the full 100-599 range.
   ///
   /// Examples of matching strings:
   /// - '200' for OK
@@ -705,27 +705,28 @@ extension type const StatusCode._(int _code) implements int {
   /// - [StatusCode], which contains standard HTTP status codes.
   static const pattern = r'[1-5]\d{2}';
 
-  /// A getter that returns a [RegExp] object configured with a pattern to match
-  /// three consecutive digits, typically representing an HTTP status code.
+  /// A getter that returns a [RegExp] object configured with [pattern] to match
+  /// HTTP status codes in the range 100–599.
   ///
   /// The matching is unanchored, meaning that this regular expression can find
   /// matches anywhere in the input string. This allows for the extraction of
   /// status codes from within larger bodies of text.
   ///
-  /// The [pattern] is defined by the regular expression `\d{3}`, which matches
-  /// any sequence of exactly three digits.
+  /// The [pattern] is defined by the regular expression `[1-5]\d{2}`, which
+  /// matches a digit 1–5 followed by exactly two more digits, covering the
+  /// full valid HTTP status code range (100–599).
   ///
   /// Example usage:
   /// ```dart
   /// // Assuming `inputString` contains an HTTP status code.
   /// String? statusCode = regExp.firstMatch(inputString)?.group(0);
-  /// // `statusCode` will contain the first sequence of three digits found in `inputString`.
+  /// // `statusCode` will contain the first 100–599 match found in `inputString`.
   /// ```
   ///
-  /// Note: While the regular expression matches any three-digit number, it does
-  /// not ascertain that the number is a valid HTTP status code. For such
-  /// validation, the matched number should be further checked against known
-  /// HTTP status code ranges via the tools that this package provides.
+  /// Note: The regular expression matches any number in the 100–599 range, but
+  /// does not verify that the number is a registered HTTP status code. For such
+  /// validation, the matched number should be further checked using
+  /// [maybeFromCode] or the `num` extension helpers this package provides.
   ///
   /// See also:
   /// - [pattern], the raw regular expression string this getter utilizes.

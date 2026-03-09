@@ -11,24 +11,21 @@ import 'package:functional_status_codes/functional_status_codes.dart';
 `StatusCode` is an **extension type** over `int` — zero-cost, no boxing at runtime.
 
 ```dart
-// implements int, so works anywhere an int is expected
-extension type const StatusCode(int _) implements int
+// Use predefined constants — naming: <camelName>Http<NNN>
+const ok = StatusCode.okHttp200;          // == 200
+const notFound = StatusCode.notFoundHttp404; // == 404
+const ise = StatusCode.internalServerErrorHttp500;
 
-// Custom code (for internal/non-standard use)
+// Custom code for non-standard/internal use
 const custom = StatusCode.custom(456);
 
-// Predefined constants — naming: <camelName>Http<NNN>
-StatusCode.okHttp200
-StatusCode.notFoundHttp404
-StatusCode.internalServerErrorHttp500
-StatusCode.unauthorizedHttp401
-StatusCode.createdHttp201
-StatusCode.noContentHttp204
-StatusCode.badRequestHttp400
-StatusCode.forbiddenHttp403
-StatusCode.tooManyRequestsHttp429
-StatusCode.serviceUnavailableHttp503
-// ...93 total, covering 1xx–5xx including common unofficial codes
+// Interchangeable with int — no casting needed
+void send(int code) {}
+send(StatusCode.okHttp200); // valid
+
+// Convert from int
+final code = StatusCode.maybeFromCode(response.statusCode); // StatusCode?
+// ...93 predefined codes covering 1xx-5xx including common unofficial codes
 ```
 
 ## Static Collections
@@ -48,12 +45,12 @@ StatusCode.retryableCodes      // Transient: 408,425,429,500,502,503,504,511,598
 ## Static Methods
 
 ```dart
-StatusCode.random()                              // random from all values
+StatusCode.random()                                  // random from all values
 StatusCode.random(from: StatusCode.serverErrorCodes) // random from subset
-StatusCode.tryParse('Response: 404 Not Found')   // → StatusCode? (first match)
-StatusCode.fromCode(200)                         // → StatusCode (throws if unknown)
-StatusCode.maybeFromCode(999)                    // → null (safe, no throw)
-StatusCode.maybeFromCode(null)                   // → null
+StatusCode.tryParse('Response: 404 Not Found')       // → StatusCode? (first match)
+StatusCode.maybeFromCode(200)                        // → StatusCode.okHttp200
+StatusCode.maybeFromCode(999)                        // → null (unregistered)
+StatusCode.maybeFromCode(null)                       // → null
 ```
 
 ## num? Extension — NumStatusCodeExtension

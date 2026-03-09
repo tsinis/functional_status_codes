@@ -289,7 +289,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// returns the result of calling [orElse].
   ///
   /// **Handler priority:** [isStatusCode] is checked first and matches any
-  /// valid HTTP status code (100–599). If provided alongside a category handler
+  /// valid HTTP status code (100-599). If provided alongside a category handler
   /// (e.g. [isSuccess]), [isStatusCode] will always fire instead. Only omit
   /// [isStatusCode] when you want category-specific matching.
   ///
@@ -341,7 +341,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// HTTP status code, returns the result of calling [orElse].
   ///
   /// **Handler priority:** [isStatusCode] is checked first and matches any
-  /// valid HTTP status code (100–599). If provided alongside a category handler
+  /// valid HTTP status code (100-599). If provided alongside a category handler
   /// (e.g. [isSuccess]), [isStatusCode] will always fire instead. Only omit
   /// [isStatusCode] when you want category-specific matching.
   ///

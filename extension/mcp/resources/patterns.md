@@ -8,7 +8,7 @@ Use `maybeWhenStatusCode` or `maybeMapStatusCode` directly on the raw `int` from
 import 'package:functional_status_codes/functional_status_codes.dart';
 
 // Works with package:http, Dio, dart:io, or any int status code
-Future<T?> handleResponse<T>(int statusCode, T Function() parseBody) {
+T? handleResponse<T>(int statusCode, T Function() parseBody) {
   return statusCode.maybeMapStatusCode(
     orElse: (code) {
       throw StateError('Unexpected status $code');
@@ -16,14 +16,14 @@ Future<T?> handleResponse<T>(int statusCode, T Function() parseBody) {
     isSuccess: (_) => parseBody(),
     isClientError: (code) {
       if (code == StatusCode.notFoundHttp404) return null;
-      throw HttpException('Client error: $code');
+      throw ArgumentError('Client error: $code');
     },
     isServerError: (_) => null, // caller can retry
   );
 }
 ```
 
-**Note:** If you provide `isStatusCode` alongside a category handler, `isStatusCode` always fires first for any valid code (100–599). Omit it when you want category-specific matching.
+**Note:** If you provide `isStatusCode` alongside a category handler, `isStatusCode` always fires first for any valid code (100-599). Omit it when you want category-specific matching.
 
 ---
 
