@@ -1,0 +1,35 @@
+resources:
+  - title: "API Reference"
+    description: "Concise cheat-sheet for all StatusCode constants, getters, methods,
+      and functional helpers. Include in agent context when working with HTTP status codes."
+    path: extension/mcp/resources/api_reference.md
+
+  - title: "Functional Patterns Guide"
+    description: "Idiomatic patterns for when/map/maybeWhen/const variants,
+      isCacheable, isRetryable, and real-world HTTP client integration."
+    path: extension/mcp/resources/patterns.md
+
+prompts:
+  - title: "Handle HTTP Response"
+    description: "Generate idiomatic functional_status_codes code to handle an HTTP
+      response. Provide http_client (http, dio, or native) and optionally status_code."
+    path: extension/mcp/prompts/handle_response.md
+    arguments:
+      - name: http_client
+        description: "HTTP client in use: 'http', 'dio', or 'native' (dart:io)"
+        required: false
+      - name: status_code
+        description: "Specific status code to handle (e.g. 404). Leave blank for general handling."
+        required: false
+
+  - title: "Cache Strategy"
+    description: "Derive a caching strategy for an HTTP response using isCacheable
+      and RFC 7231 semantics."
+    path: extension/mcp/prompts/cache_strategy.md
+    arguments:
+      - name: status_code
+        description: "HTTP status code to evaluate (e.g. 200)"
+        required: true
+      - name: cache_backend
+        description: "Cache storage backend being used, if any"
+        required: false
