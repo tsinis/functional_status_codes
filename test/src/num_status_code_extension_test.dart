@@ -231,6 +231,37 @@ void main() => group('NumStatusCodeExtension', () {
     }
   });
 
+  group('isError', () {
+    const combinedErrorsTrueCases = {
+      StatusCode.badRequestHttp400,
+      StatusCode.badRequestHttp400 + 1,
+      StatusCode.nginxClientClosedRequestHttp499,
+      StatusCode.internalServerErrorHttp500,
+      StatusCode.internalServerErrorHttp500 + 1,
+      StatusCode.networkConnectTimeoutErrorHttp599,
+    };
+
+    const isErrorFalseCases = {
+      StatusCode.okHttp200,
+      StatusCode.multipleChoicesHttp300,
+      StatusCode.networkConnectTimeoutErrorHttp599 + 1,
+    };
+
+    for (final number in [...globalWrongCases, ...isErrorFalseCases]) {
+      test(
+        'should return false for $number',
+        () => expect(number.isError, isFalse),
+      );
+    }
+
+    for (final number in combinedErrorsTrueCases) {
+      test(
+        'should return true for $number',
+        () => expect(number.isError, isTrue),
+      );
+    }
+  });
+
   group('toRegisteredStatusCode', () {
     for (final number in globalWrongCases) {
       test(

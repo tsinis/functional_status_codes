@@ -9,7 +9,7 @@ import 'status_code.dart';
 /// Extension on [num?] types to provide additional functionality when working
 /// with HTTP status codes.
 extension NumStatusCodeExtension<T extends num> on T? {
-  static const _outSideOfRangeMessage =
+  static const _outsideOfRangeMessage =
       // ignore: avoid-adjacent-strings, it's not being used on one line strings.
       'Value is outside of '
       '''${StatusCode.continueHttp100}-${StatusCode.networkConnectTimeoutErrorHttp599}'''
@@ -216,6 +216,18 @@ extension NumStatusCodeExtension<T extends num> on T? {
   bool get isServerError =>
       isStatusWithinRange(min: StatusCode.internalServerErrorHttp500);
 
+  /// Returns `true` if the value is within the range of client or server error
+  /// HTTP status codes (400-599), `false` otherwise.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// print(400.isError); // true
+  /// print(500.isError); // true
+  /// print(200.isError); // false
+  /// ```
+  bool get isError => isClientError || isServerError;
+
   /// Converts the [num?] value to a [StatusCode] if it exists within the range
   /// of valid HTTP status codes (100-599), or returns `null` if it is outside
   /// of that range or `null`.
@@ -260,7 +272,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   }) {
     assert(
       isStatusCode,
-      '$_outSideOfRangeMessage. Consider using maybeMapStatusCode() instead',
+      '$_outsideOfRangeMessage. Consider using maybeMapStatusCode() instead',
     );
     final thisValue = this;
     if (thisValue == null) throw FormatException('Null value provided!', this);
@@ -269,12 +281,17 @@ extension NumStatusCodeExtension<T extends num> on T? {
     if (thisValue.isRedirection) return isRedirection(thisValue);
     if (thisValue.isClientError) return isClientError(thisValue);
     if (thisValue.isServerError) return isServerError(thisValue);
-    throw FormatException(_outSideOfRangeMessage, thisValue);
+    throw FormatException(_outsideOfRangeMessage, thisValue);
   }
 
   /// If the [num?] value is a valid HTTP status code, maps it to a result using
   /// the provided functions. If the value is not a valid HTTP status code,
   /// returns the result of calling [orElse].
+  ///
+  /// **Handler priority:** [isStatusCode] is checked first and matches any
+  /// valid HTTP status code (100-599). If provided alongside a category handler
+  /// (e.g. [isSuccess]), [isStatusCode] will always fire instead. Only omit
+  /// [isStatusCode] when you want category-specific matching.
   ///
   /// Example:
   ///
@@ -322,6 +339,11 @@ extension NumStatusCodeExtension<T extends num> on T? {
   /// corresponding function for the category of it (informational, success,
   /// redirection, client error, or server error). If the value is not a valid
   /// HTTP status code, returns the result of calling [orElse].
+  ///
+  /// **Handler priority:** [isStatusCode] is checked first and matches any
+  /// valid HTTP status code (100-599). If provided alongside a category handler
+  /// (e.g. [isSuccess]), [isStatusCode] will always fire instead. Only omit
+  /// [isStatusCode] when you want category-specific matching.
   ///
   /// Example:
   ///
@@ -391,14 +413,14 @@ extension NumStatusCodeExtension<T extends num> on T? {
   }) {
     assert(
       isStatusCode,
-      '$_outSideOfRangeMessage. Consider using maybeWhenStatusCode() instead',
+      '$_outsideOfRangeMessage. Consider using maybeWhenStatusCode() instead',
     );
     if (this.isInformational) return isInformational();
     if (this.isSuccess) return isSuccess();
     if (this.isRedirection) return isRedirection();
     if (this.isClientError) return isClientError();
     if (this.isServerError) return isServerError();
-    throw FormatException(_outSideOfRangeMessage, this);
+    throw FormatException(_outsideOfRangeMessage, this);
   }
 
   /// Evaluates the provided functions based on the HTTP status code represented
@@ -471,14 +493,14 @@ extension NumStatusCodeExtension<T extends num> on T? {
   }) {
     assert(
       isStatusCode,
-      '''$_outSideOfRangeMessage. Consider using whenConstStatusCodeOrNull() instead''',
+      '''$_outsideOfRangeMessage. Consider using whenConstStatusCodeOrNull() instead''',
     );
     if (this.isInformational) return isInformational;
     if (this.isSuccess) return isSuccess;
     if (this.isRedirection) return isRedirection;
     if (this.isClientError) return isClientError;
     if (this.isServerError) return isServerError;
-    throw FormatException(_outSideOfRangeMessage, this);
+    throw FormatException(_outsideOfRangeMessage, this);
   }
 
   /// A [Map<num, Object?>] like equivalent of [whenStatusCodeOrNull] method.
@@ -552,7 +574,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
   }) {
     assert(
       isStatusCode,
-      '''$_outSideOfRangeMessage. Consider using maybeMapToRegisteredStatusCode() instead''',
+      '''$_outsideOfRangeMessage. Consider using maybeMapToRegisteredStatusCode() instead''',
     );
     final thisValue = this;
     if (thisValue == null) throw FormatException('Null value provided!', this);
@@ -564,7 +586,7 @@ extension NumStatusCodeExtension<T extends num> on T? {
     if (thisValue.isClientError) return isClientError(registeredStatusCode);
     if (thisValue.isServerError) return isServerError(registeredStatusCode);
 
-    throw FormatException(_outSideOfRangeMessage, thisValue);
+    throw FormatException(_outsideOfRangeMessage, thisValue);
   }
 
   /// If the [num?] value is a valid HTTP status code, maps it to a result using
@@ -598,8 +620,8 @@ extension NumStatusCodeExtension<T extends num> on T? {
     R Function(StatusCode? serverErrorStatusCode)? isServerError,
   }) {
     final thisValue = this;
+    if (thisValue == null) return orElse(null, thisValue);
     final registeredStatusCode = thisValue.toRegisteredStatusCode();
-    if (thisValue == null) return orElse(registeredStatusCode, thisValue);
 
     if (thisValue.isStatusCode && isStatusCode != null) {
       return isStatusCode(registeredStatusCode);

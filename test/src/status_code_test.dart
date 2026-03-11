@@ -215,8 +215,9 @@ void main() => group('$StatusCode', () {
     );
 
     test(
-      'should extract first three-digit match from longer number',
-      // '12003' matches '120' first — not a registered code.
+      'should return null for longer number with embedded valid range digits',
+      // '12003': lookahead/lookbehind prevents matching '120' (followed by digit)
+      // or '200' (preceded by digit) — no isolated [1-5]xx sequence found.
       () => expect(StatusCode.tryParse('12003'), isNull),
     );
 
@@ -229,6 +230,58 @@ void main() => group('$StatusCode', () {
     test(
       'should return null for "000"',
       () => expect(StatusCode.tryParse('000'), isNull),
+    );
+  });
+
+  group('pattern and regExp', () {
+    test(
+      'pattern matches the expected regex string',
+      () => expect(StatusCode.pattern, r'(?<!\d)[1-5]\d{2}(?!\d)'),
+    );
+
+    test(
+      'regExp is a RegExp built from pattern',
+      () => expect(StatusCode.regExp, isA<RegExp>()),
+    );
+
+    test(
+      'regExp matches a bare valid code',
+      () => expect(StatusCode.regExp.hasMatch('200'), isTrue),
+    );
+
+    test(
+      'regExp matches a code preceded by non-digit characters',
+      () => expect(StatusCode.regExp.hasMatch('status: 404.'), isTrue),
+    );
+
+    test(
+      'regExp matches a code followed by non-digit characters',
+      () => expect(StatusCode.regExp.hasMatch('200 OK'), isTrue),
+    );
+
+    test(
+      'regExp does not match a 6xx code',
+      () => expect(StatusCode.regExp.hasMatch('600'), isFalse),
+    );
+
+    test(
+      'regExp does not match a 9xx code',
+      () => expect(StatusCode.regExp.hasMatch('999'), isFalse),
+    );
+
+    test(
+      'regExp does not match a valid-range code embedded in a longer number',
+      () => expect(StatusCode.regExp.hasMatch('12003'), isFalse),
+    );
+
+    test(
+      'regExp does not match when code is preceded by a digit',
+      () => expect(StatusCode.regExp.hasMatch('1200'), isFalse),
+    );
+
+    test(
+      'regExp does not match when code is followed by a digit',
+      () => expect(StatusCode.regExp.hasMatch('2001'), isFalse),
     );
   });
 
