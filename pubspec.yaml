@@ -5,14 +5,14 @@ maintainer: Roman Cinis
 repository: https://github.com/tsinis/functional_status_codes
 issue_tracker: https://github.com/tsinis/functional_status_codes/issues
 topics:
- - http-status-code
- - status-codes
- - status-code
- - http
- - iana
+  - http-status-code
+  - status-codes
+  - status-code
+  - http
+  - iana
 
 screenshots:
-  - description: 'Good/Bad Comparison'
+  - description: "Good/Bad Comparison"
     path: doc/comparison.webp
 
 environment:
