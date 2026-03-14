@@ -124,6 +124,7 @@ void main() => group('$StatusCode', () {
       ];
       final result = StatusCode.random(from: codes);
       expect(result, isA<StatusCode>());
+      expect(result, isA<int>());
       expect(codes, contains(result));
     });
 
