@@ -27,6 +27,7 @@
 ### Documentation
 
 - `maybeMapStatusCode` and `maybeWhenStatusCode`: added explicit note that the `isStatusCode` handler takes priority over all category handlers (`isSuccess`, `isClientError`, etc.) when both are provided.
+- Added new quality-related badges to the `README.md`.
 
 ## 3.1.0
 

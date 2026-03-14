@@ -43,6 +43,7 @@ doc/api/
 *.ipr
 *.iws
 .idea/
+.vscode/
 
 # Visual Studio Code related
 .classpath

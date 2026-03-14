@@ -3,7 +3,7 @@ description: A simple one and modified http package example with use of function
 publish_to: none
 
 environment:
-  sdk: ^3.11.0
+  sdk: ^3.11.1
 
 dependencies:
   functional_status_codes:
