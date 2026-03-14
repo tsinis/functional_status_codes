@@ -4,6 +4,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/tsinis/functional_status_codes/badge)](https://www.codefactor.io/repository/github/tsinis/functional_status_codes)
 [![Pub points](https://img.shields.io/pub/points/functional_status_codes)](https://pub.dev/packages/functional_status_codes/score)
 [![Created](https://img.shields.io/github/created-at/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes/commit/23d35c4fc890d01b8dc93409738e4fc61712e94f)
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/tsinis/functional_status_codes?utm_source=oss&utm_medium=github&utm_campaign=tsinis%2Ffunctional_status_codes&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Size](https://img.shields.io/github/languages/code-size/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes#why-should-i-use-this-package)
 [![Pub package](https://img.shields.io/pub/v/functional_status_codes.svg)](https://pub.dev/packages/functional_status_codes)

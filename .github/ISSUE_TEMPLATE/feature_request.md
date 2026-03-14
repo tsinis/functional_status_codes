@@ -5,11 +5,11 @@ title: 'feat: '
 labels: feature
 ---
 
-#### Description
+## Description
 
 Clearly describe what you are looking to add. The more business/user context the better.
 
-#### Requirements
+### Requirements
 
 - [ ] Checklist of requirements to be fulfilled.
 

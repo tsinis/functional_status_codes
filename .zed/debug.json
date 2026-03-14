@@ -1,0 +1,17 @@
+[
+  {
+    "adapter": "Dart",
+    "label": "Run example (simple)",
+    "type": "dart",
+    "args": ["--simple"],
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/example/lib/main.dart"
+  },
+  {
+    "adapter": "Dart",
+    "label": "Run example (real client)",
+    "type": "dart",
+    "request": "launch",
+    "program": "$ZED_WORKTREE_ROOT/example/lib/main.dart"
+  }
+]
