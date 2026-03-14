@@ -11,7 +11,7 @@
   ```
 
 - **Packaged AI assets** (`extension/mcp/`): The package now ships MCP-compatible resources and prompts for AI coding agents, following the [Dart/Flutter packaged AI assets proposal](https://flutter.dev/go/packaged-ai-assets).
-Once the Dart MCP server implements the proposal, agents will automatically have access to:
+  Once the Dart MCP server implements the proposal, agents will automatically have access to:
   - `@functional_status_codes/api_reference` — full API cheat-sheet
   - `@functional_status_codes/patterns` — idiomatic usage patterns
   - `/functional_status_codes/handle_response` — prompt to generate HTTP response handling code
@@ -280,7 +280,6 @@ NEW FEATURE: added two new methods for a `Map` like equivalent of `when` and `wh
 Contains **breaking changes** in `maybeMapStatusCode` method on `num`. Please follow migration guide below.
 
 - refactor!: orElse parameter in maybeMapStatusCode now returns input value in order to handle this unregistered status code.
-
 - docs: updated documentation of breaking update.
 - docs: added topics to pubspec.yaml.
 - chore: updated SDK upper-bound to 4.0.0.

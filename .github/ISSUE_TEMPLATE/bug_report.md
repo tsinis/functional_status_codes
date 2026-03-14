@@ -5,11 +5,11 @@ title: 'fix: '
 labels: bug
 ---
 
-#### Description
+## Description
 
 A clear and concise description of what the bug is.
 
-#### Steps To Reproduce
+### Steps To Reproduce
 
 1. Go to '...'
 2. Add '....'

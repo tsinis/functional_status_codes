@@ -1,3 +1,5 @@
+# Cache Strategy
+
 Derive a caching strategy for HTTP status code **{{status_code}}** using the `functional_status_codes` package and RFC 7231 semantics.
 
 {{#cache_backend}}
