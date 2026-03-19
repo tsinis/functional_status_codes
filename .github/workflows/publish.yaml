@@ -34,6 +34,8 @@ jobs:
   check-version:
     name: 💡 Check version
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     if: github.ref_type == 'tag'
     timeout-minutes: 10
     steps:

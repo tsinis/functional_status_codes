@@ -20,6 +20,9 @@ on:
       - "pubspec.yaml"
       - ".github/workflows/test.yaml"
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: 🧪 Test
