@@ -734,7 +734,7 @@ extension type const StatusCode._(int _code) implements int {
   /// See also:
   /// - [pattern], the raw regular expression string this getter utilizes.
   /// - [StatusCode], which contains standard HTTP status codes.
-  static RegExp get regExp => RegExp(pattern, caseSensitive: false);
+  static RegExp get regExp => .new(pattern, caseSensitive: false);
 
   /// Returns the [StatusCode] type value for the given status code, if it
   /// exists. Otherwise, returns `null`.

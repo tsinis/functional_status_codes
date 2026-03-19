@@ -122,17 +122,12 @@ dart_code_metrics:
         min-occurrences: 4
 
     # Disabled:
-    # Shorthands:
-    - prefer-returning-shorthands: false
-    - prefer-shorthands-with-constructors: false
-    - prefer-shorthands-with-enums: false
-    - prefer-shorthands-with-static-fields: false
-    # Other disabled:
     - arguments-ordering: false # This will be a breaking change.
     - avoid-continue: false # Just a matter of style.
     - avoid-deprecated-usage: false # Using default deprecated_member_use_from_same_package.
     - avoid-inferrable-type-arguments: false # Against prefer-explicit-type-arguments.
     - avoid-long-files: false # A lot of data and collections.
+    - avoid-throw: false # Breaking change + we have maybe* methods.
     - no-magic-number: false # Packages contain a lot of numbers.
     - no-magic-string: false # Packages contain a lot of strings.
     - parameters-ordering: false # This will be a breaking change.
@@ -218,6 +213,7 @@ dart_code_metrics:
     - avoid-missing-completer-stack-trace: true
     - avoid-missing-enum-constant-in-map: true
     - avoid-missing-interpolation: true
+    - avoid-missing-test-files: true
     - avoid-misused-set-literals: true
     - avoid-misused-test-matchers: true
     - avoid-misused-wildcard-pattern: true
@@ -276,9 +272,11 @@ dart_code_metrics:
     - avoid-type-casts: true
     - avoid-unassigned-fields: true
     - avoid-unassigned-late-fields: true
+    - avoid-unassigned-local-variable: true
     - avoid-unassigned-stream-subscriptions: true
     - avoid-uncaught-future-errors: true
     - avoid-unconditional-break: true
+    - avoid-undisposed-instances: true
     - avoid-unknown-pragma: true
     - avoid-unnecessary-block: true
     - avoid-unnecessary-call: true
@@ -304,6 +302,7 @@ dart_code_metrics:
     - avoid-unnecessary-nullable-parameters: true
     - avoid-unnecessary-nullable-return-type: true
     - avoid-unnecessary-overrides: true
+    - avoid-unnecessary-parentheses: true
     - avoid-unnecessary-patterns: true
     - avoid-unnecessary-reassignment: true
     - avoid-unnecessary-return: true
@@ -401,6 +400,7 @@ dart_code_metrics:
     - prefer-match-file-name: true
     - prefer-moving-to-variable: true
     - prefer-named-boolean-parameters: true
+    - prefer-non-nulls: true
     - prefer-null-aware-elements: true
     - prefer-null-aware-spread: true
     - prefer-overriding-parent-equality: true
@@ -413,6 +413,10 @@ dart_code_metrics:
     - prefer-return-await: true
     - prefer-returning-condition: true
     - prefer-returning-conditional-expressions: true
+    - prefer-returning-shorthands: true
+    - prefer-shorthands-with-constructors: true
+    - prefer-shorthands-with-enums: true
+    - prefer-shorthands-with-static-fields: true
     - prefer-simpler-boolean-expressions: true
     - prefer-simpler-patterns-null-check: true
     - prefer-single-declaration-per-file: true

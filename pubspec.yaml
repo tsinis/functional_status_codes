@@ -20,6 +20,6 @@ environment:
 
 dev_dependencies:
   coverage: ^1.15.0 # From Google.
-  dart_code_metrics_presets: ^2.29.0 # DCM.
+  dart_code_metrics_presets: ^2.30.0 # DCM.
   lints: ^6.1.0 # From Google.
-  test: ^1.30.0 # From Google.
+  test: ^1.31.0 # From Google.

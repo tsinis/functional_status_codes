@@ -85,14 +85,13 @@ Future<int?> _realClient(List<String> arguments, [http.Client? client]) async {
 
   // If the status code is a success status code, check if it is a 201
   // (Created) or 200 (OK) code.
-  return response.statusCode.maybeWhenStatusCode(
-    isSuccess: () {
+  return response.statusCode.maybeMapStatusCode(
+    isSuccess: (successStatus) {
       // If the status code is success one, convert it to a registered
       // status code object.
-      final registeredCode = response.statusCode.toRegisteredStatusCode();
+      final registeredCode = successStatus.toRegisteredStatusCode();
 
-      // Use the [StatusCode] type to determine the specific status code
-      // type.
+      // Use the [StatusCode] type to determine the specific status code type.
       return registeredCode?.maybeMap(
             createdHttp201: (status) {
               print('Response has registered success status but not 200 code');
@@ -114,17 +113,24 @@ Future<int?> _realClient(List<String> arguments, [http.Client? client]) async {
               print('Response has success status but not 200 code');
 
               // Return the status code.
-              return response.statusCode;
+              return successStatus;
             },
           ) ??
           // If the status code is not a registered status code, return the
           // status code.
-          response.statusCode;
+          successStatus;
     },
-    orElse: () {
+    isClientError: (errorStatus) {
+      if (errorStatus.isOneOf(const [StatusCode.tooManyRequestsHttp429])) {
+        print('Response has too many requests status :(');
+      }
+
+      return errorStatus; // Return the status code.
+    },
+    orElse: (otherStatus) {
       // If the status code is not a success status code, print an error
       // message and return the status code.
-      print('Request failed with status: ${response.statusCode}!');
+      print('Request failed with status: $otherStatus!');
 
       return response.statusCode;
     },

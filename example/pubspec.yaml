@@ -3,7 +3,7 @@ description: A simple one and modified http package example with use of function
 publish_to: none
 
 environment:
-  sdk: ^3.11.1
+  sdk: ^3.11.3
 
 dependencies:
   functional_status_codes:
@@ -11,6 +11,6 @@ dependencies:
   http: any # ignore: avoid-any-version, it's exampe app.
 
 dev_dependencies:
-  dart_code_metrics_presets: ^2.29.0 # DCM.
+  dart_code_metrics_presets: ^2.30.0 # DCM.
   lints: ^6.1.0 # From Google.
-  test: ^1.30.0 # From Google.
+  test: ^1.31.0 # From Google.
