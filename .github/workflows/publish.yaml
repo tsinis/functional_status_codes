@@ -16,6 +16,8 @@ jobs:
   publish-dry-run:
     name: 📝 Publish dry run
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     timeout-minutes: 10
     if: github.ref_type == 'branch' && github.event_name == 'pull_request' && !github.event.pull_request.merged
     steps:
