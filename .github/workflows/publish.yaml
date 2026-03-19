@@ -12,9 +12,6 @@ on:
     tags:
       - "[1-9]+.[0-9]+.[0-9]+*"
 
-permissions:
-  contents: write
-
 jobs:
   publish-dry-run:
     name: 📝 Publish dry run
@@ -37,6 +34,8 @@ jobs:
   check-version:
     name: 💡 Check version
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     if: github.ref_type == 'tag'
     timeout-minutes: 10
     steps:

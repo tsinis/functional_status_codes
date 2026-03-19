@@ -132,7 +132,7 @@ Future<int?> _realClient(List<String> arguments, [http.Client? client]) async {
       // message and return the status code.
       print('Request failed with status: $otherStatus!');
 
-      return response.statusCode;
+      return otherStatus;
     },
   );
 }

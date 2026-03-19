@@ -4,6 +4,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/tsinis/functional_status_codes/badge)](https://www.codefactor.io/repository/github/tsinis/functional_status_codes)
 [![Pub points](https://img.shields.io/pub/points/functional_status_codes)](https://pub.dev/packages/functional_status_codes/score)
 [![Created](https://img.shields.io/github/created-at/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes/commit/23d35c4fc890d01b8dc93409738e4fc61712e94f)
+[![GitHub issues](https://img.shields.io/github/issues-raw/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes/issues?q=is%3Aissue+is%3Aopen)
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/tsinis/functional_status_codes?utm_source=oss&utm_medium=github&utm_campaign=tsinis%2Ffunctional_status_codes&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Size](https://img.shields.io/github/languages/code-size/tsinis/functional_status_codes)](https://github.com/tsinis/functional_status_codes#why-should-i-use-this-package)
@@ -139,9 +140,9 @@ The use of `StatusCode` extension type and boolean getters (`isInformational`, `
 
 10. **No 3rd-party dependencies**: This package has no third-party dependencies, ensuring that you won't have any issues or conflicts with other dependencies (no even `meta` here, because of that).
 
-11. **High code coverage**: The code in this package has almost 100% code coverage, with more than 1000 tests, providing confidence in its reliability and stability.
+11. **High code coverage**: The code in this package has almost 100% code coverage, with more than 1120 tests, providing confidence in its reliability and stability.
 
-12. **Industry adopted**: This package is actively used (since 2022) in production by numerous European companies, ensuring its efficacy and robustness in real-world scenarios.
+12. **Industry adopted**: This package is actively used (for years) in production by numerous European companies, ensuring its efficacy and robustness in real-world scenarios.
 
 13. **BSD-3-Clause License**: This package and sources are released under the BSD-3-Clause license, a permissive license that is also used by the Dart and Flutter SDKs. It allows users to use, modify, and distribute the code with minimal restrictions.
 
@@ -150,6 +151,8 @@ The use of `StatusCode` extension type and boolean getters (`isInformational`, `
 15. **Lightweight**: This package keeps **under 300 KB**, ensuring it fits within the pub cache limit. This leads to quick, low-bandwidth downloads and faster caching, minimizing resource impact.
 
 16. **Mirrored Repository**: The GitHub repository, including all package tags, is mirrored on [GitLab](https://gitlab.com/tsinis/functional_status_codes/), providing an alternative access point should GitHub become unavailable.
+
+17. **Verified publisher**: Published and maintained under an active, verified pub.dev publisher account since 2022.
 
 By using these features of the `functional_status_codes` package, you promote a more robust, readable, and maintainable approach to HTTP status code handling in your Dart projects.
 
