@@ -43,7 +43,7 @@ jobs:
           files: "**/*.{md,dart}"
 
       - name: 🎯 Setup Dart
-        uses: dart-lang/setup-dart@v1.7.1
+        uses: dart-lang/setup-dart@v1.7.2
 
       - name: 📦 Install dependencies
         run: dart pub upgrade
